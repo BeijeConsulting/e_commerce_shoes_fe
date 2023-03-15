@@ -40,6 +40,7 @@ By following these syntax rules, we can maintain a consistent codebase and make 
 - SASS: css pre-processor https://sass-lang.com/documentation/
 - I18N: translations management https://www.i18next.com/
 - Helmet: SEO management https://github.com/nfl/react-helmet
+- Prop-types: props type management https://www.npmjs.com/package/prop-types
 
 # Getting Started with Create React App
 
