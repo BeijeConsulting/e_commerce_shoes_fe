@@ -7,7 +7,7 @@ This document outlines the syntax rules for writing CSS and JavaScript code in t
 - Use BEM syntax.
 - Use kebab-case syntax for variable's names.
 - Use HEX color notation. e.g. background-color: #fff;. No `white` notation.
-- Put one space after the colon in property declarations, e.g. background-color: #ccc;.
+- Put one space after the colon in property declarations, e.g. background-color: #ccc;
 - Put each property declaration on a new line.
 - Use double quotes for attribute selectors, e.g. [data-attribute="value"].
 
