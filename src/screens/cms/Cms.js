@@ -12,7 +12,7 @@ function Cms() {
         description="Descrizione pagina principale"
         content="e-commerce"
       />
-      <div style={{ marginTop: "100px", marginLeft: "100px", width: "400px" }}>
+      {/* <div style={{ marginTop: "100px", marginLeft: "100px", width: "400px" }}>
         <LoginForm />
       </div>
       <InputTextField
@@ -22,7 +22,7 @@ function Cms() {
         inputPlaceholder="Password"
         labelStyle="default-label password-margin-top"
         inputStyle={`default-input`}
-      />
+      /> */}
     </div>
   );
 }
