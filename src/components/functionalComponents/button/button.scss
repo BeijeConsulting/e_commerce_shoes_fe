@@ -1,0 +1,34 @@
+@import "../../../style/common/variables.scss";
+
+.default-button {
+  outline: none;
+  border: none;
+
+  cursor: pointer;
+
+  color: #fff;
+  background-color: $orange;
+  border: 1px solid $orange;
+  padding: 1rem 4rem;
+  margin-top: 1.4rem;
+
+  font-size: $medium;
+  border-radius: 0.5rem;
+
+  transition: all 150ms ease-in;
+
+  @media screen and (max-width: 600px) {
+    padding: 1.2rem 3.6rem;
+    font-size: $x-small;
+  }
+
+  @media screen and (max-width: 360px) {
+    font-size: $x-small;
+    padding: 0.8rem 2.2rem;
+  }
+
+  &:hover {
+    background-color: #fff;
+    color: $orange;
+  }
+}

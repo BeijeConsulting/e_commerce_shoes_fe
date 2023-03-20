@@ -1,6 +1,7 @@
 import React from "react";
 import "./categoryCard.scss";
 import { useNavigate, Link } from "react-router-dom";
+import Button from "../../functionalComponents/button/Button";
 
 function CategoryCard(props) {
   const navigate = useNavigate();
@@ -20,12 +21,11 @@ function CategoryCard(props) {
             {props.tipology}{" "}
           </Link>
         </h3>
-        <button
-          className="category-card__content-wrapper__button"
-          onClick={goTo}
-        >
-          Scopri di più
-        </button>
+        <Button
+          buttonStyle={"default-button"}
+          handleClick={goTo}
+          label={"Scopri di più"}
+        />
       </div>
       <img
         className="category-card__image"
