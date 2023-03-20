@@ -1,0 +1,78 @@
+@import "../../../style/common/variables.scss";
+
+.category-card {
+  position: relative;
+
+  &__content-wrapper {
+    position: absolute;
+    bottom: 25%;
+    left: 10%;
+
+    &__header {
+      font-size: $xxx-large;
+      font-weight: 900;
+
+      @media screen and (max-width: 600px) {
+        font-size: $xx-large;
+      }
+
+      @media screen and (max-width: 360px) {
+        font-size: $x-large;
+      }
+
+      &__link {
+        &:link,
+        &:visited {
+          color: $white;
+          text-decoration: none;
+          transition: all 150ms ease-in;
+        }
+
+        &:hover,
+        &:active {
+          color: $orange;
+        }
+      }
+    }
+
+    &__button {
+      outline: none;
+      border: none;
+
+      cursor: pointer;
+
+      color: #fff;
+      background-color: $orange;
+      border: 1px solid $orange;
+      padding: 1rem 4rem;
+      margin-top: 1.4rem;
+
+      font-size: $medium;
+      border-radius: 0.5rem;
+
+      transition: all 150ms ease-in;
+
+      @media screen and (max-width: 600px) {
+        padding: 1.2rem 3.6rem;
+        font-size: $x-small;
+      }
+
+      @media screen and (max-width: 360px) {
+        font-size: $x-small;
+        padding: 0.8rem 2.2rem;
+      }
+
+      &:hover {
+        background-color: #fff;
+        color: $orange;
+      }
+    }
+  }
+
+  &__image {
+    width: 100%;
+    height: auto;
+
+    z-index: -1;
+  }
+}
