@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './header.scss';
 
 // MUI TextField
@@ -14,6 +15,8 @@ import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import ClearIcon from '@mui/icons-material/Clear';
 
 function Header() {
+    const navigate = useNavigate();
+
     const menu = [
         {
             top: {
@@ -81,6 +84,7 @@ function Header() {
     ]
 
     let menuInterval = null;
+    let inputInterval = null;
 
     const [state, setState] = useState(
         {
@@ -88,6 +92,7 @@ function Header() {
             right: 100,
             active: null,
             fullWidthInput: false,
+            width: 20,
         }
     )
 
@@ -107,6 +112,23 @@ function Header() {
 
         return () => clearInterval(menuInterval);
     }, [state.showMobileMenu, state.right])
+
+    useEffect(() => {
+        inputInterval = setInterval(() => {
+            let width = null;
+            if (state.width === 70) return;
+            if (state.width === 20 && !state.fullWidthInput) return;
+            width = state.width + 5;
+            setState(
+                {
+                    ...state,
+                    width: width,
+                }
+            )
+        }, 4)
+
+        return () => clearInterval(inputInterval);
+    }, [state.fullWidthInput, state.width])
 
     function setActive(key) {
         let menuIndex = state.active === null ? key : null;
@@ -135,9 +157,15 @@ function Header() {
         setState(
             {
                 ...state,
+                width: 20,
                 fullWidthInput: !state.fullWidthInput,
             }
         )
+    }
+
+    function goToHome(e) {
+        e.preventDefault();
+        navigate('/');
     }
 
     function goTo(path) {
@@ -157,7 +185,7 @@ function Header() {
                     </div>
                     {state.active === key && item.bottom &&
                         <ul>
-                            {item.bottom.map(mapSubMenu)}
+                            {item.bottom.map(mapMobileSubMenu)}
                         </ul>
                     }
                 </>
@@ -165,10 +193,27 @@ function Header() {
         </li>
     }
 
-    function mapSubMenu(item, key) {
+    function mapMobileSubMenu(item, key) {
         return <li key={`${key}-${Math.random()}`} className='mobile-menu__item'>
             <div>{item.anchor}</div>
             <ArrowForwardIosIcon />
+        </li>
+    }
+
+    function mapDesktopMenu(item, key) {
+        return <li key={`${key}-${Math.random()}`}>
+            <div>{item.top.anchor}</div>
+            <div className='main-header__menu__sub'>
+                {item.bottom && <ul>
+                    {item.bottom.map(mapDesktopSubMenu)}
+                </ul>}
+            </div>
+        </li>
+    }
+
+    function mapDesktopSubMenu(item, key) {
+        return <li key={`${key}-${Math.random()}`}>
+            <div>{item.anchor}</div>
         </li>
     }
 
@@ -179,26 +224,14 @@ function Header() {
                     <div className='main-header__top__left'>
                         {!state.showMobileMenu && <MenuIcon onClick={toggleMobileMenu} className='main-header__hamburger' fontSize={"large"} />}
                         {!!state.showMobileMenu && <ClearIcon onClick={toggleMobileMenu} className='main-header__hamburger' fontSize={"large"} />}
-                        <img className='main-header__logo' src={require('../../../assets/images/logo/logo-312.png')} alt='logo' />
+                        <a onClick={goToHome} href=''>
+                            <img className='main-header__logo' src={require('../../../assets/images/logo/logo-312.png')} alt='logo' />
+                        </a>
                     </div>
-                    <ul className={'main-header__menu'}>
-                        <li>
-                            <div>uomo</div>
-                            <div className='main-header__menu__sub'>
-                                <ul>
-                                    <li>sportive</li>
-                                    <li>eleganti</li>
-                                    <li>casual</li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li>donna</li>
-                        <li>unisex</li>
-                        <li>brand</li>
-                        <li>offerte</li>
-                        <li>nuovi arrivi</li>
+                    <ul className={`main-header__menu ${!!state.fullWidthInput ? 'd-none' : ''}`}>
+                        {menu.map(mapDesktopMenu)}
                     </ul>
-                    <div className='main-header__top__input' style={{ width: !!state.fullWidthInput ? '70rem' : '20rem' }}>
+                    <div className='main-header__top__input' style={{ width: `${state.width}rem` }}>
                         <TextField
                             onBlur={toggleInput}
                             onFocus={toggleInput}
@@ -233,9 +266,9 @@ function Header() {
                         <ul>
                             {menu.map(mapMobileMenu)}
                         </ul>
-                        <div className='mobile-menu__bottom'>
+                        <div className='main-header__mobile-menu__bottom'>
                             <button>ACCEDI</button>
-                            <p className='register-text'>Non hai un account? REGISTRATI QUI</p>
+                            <p className='main-header__mobile-menu__bottom__text'>Non hai un account? REGISTRATI QUI</p>
                         </div>
                     </div>
                 }
