@@ -49,8 +49,8 @@ function SliderHomepage() {
                     <div className='swiperSlide__info'>
                         <Link to={ "/" }>
                             <div className='swiperSlide__info--link'>
-                                <p>le migliori</p>
-                                <p>sneakers</p>
+                                <p>nuovi</p>
+                                <p>arrivi</p>
                             </div>
                         </Link>
                         <button
