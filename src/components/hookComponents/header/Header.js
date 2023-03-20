@@ -60,24 +60,10 @@ function Header() {
                 <div className='main-header__mobile-menu'>
                     <ul>
                         <li>
-                            <div>uomo</div>
-                            <ArrowForwardIosIcon />
-                        </li>
-                        <li>
-                            <div>donna</div>
-                            <ArrowForwardIosIcon />
-                        </li>
-                        <li>
-                            <div>unisex</div>
-                            <ArrowForwardIosIcon />
-                        </li>
-                        <li>
-                            <div>offerte</div>
-                            <ArrowForwardIosIcon />
-                        </li>
-                        <li>
-                            <div>nuovi arrivi</div>
-                            <ArrowForwardIosIcon />
+                            <div className='mobile-menu__item active'>
+                                <div>uomo</div>
+                                <ArrowForwardIosIcon />
+                            </div>
                         </li>
                     </ul>
                     <div className='mobile-menu__bottom'>

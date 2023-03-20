@@ -55,7 +55,7 @@
 
   .main-header__mobile-menu {
     height: 100%;
-    li {
+    .mobile-menu__item {
       @include flex(space-between, center);
       text-transform: uppercase;
       padding: 2rem 2rem 2rem 7rem;
