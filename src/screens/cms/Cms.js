@@ -2,6 +2,7 @@ import Seo from "../../components/functionalComponents/Seo";
 import "./cms.scss";
 import LoginForm from "../../components/hookComponents/categoryCard/loginForm/LoginForm";
 import InputTextField from "../../components/functionalComponents/inputTextField/InputTextField";
+import SignupForm from "../../components/hookComponents/signupForm/SignupForm";
 
 function Cms() {
   return (
@@ -23,6 +24,9 @@ function Cms() {
         labelStyle="default-label password-margin-top"
         inputStyle={`default-input`}
       /> */}
+      <div style={{ marginTop: "100px", marginLeft: "100px", width: "400px" }}>
+        <SignupForm />
+      </div>
     </div>
   );
 }
