@@ -17,11 +17,12 @@
 
         p {
             color: $white;
-            font-size: $x-large;
+            font-size: $xx-large;
             text-transform: uppercase;
             text-shadow: 0 0 12px rgba(0, 0, 0, .333);
             font-weight: 600;
             text-align: left;
+            line-height: 1.2;
         }
     }
 

@@ -1,11 +1,10 @@
 import Seo from "../../components/functionalComponents/Seo";
 import BoxImage from '../../components/hookComponents/boxImage/BoxImage';
 import ProductSlider from '../../components/hookComponents/productSlider/ProductSlider';
-
 import SliderHomepage from '../../components/hookComponents/sliderHomepage/SliderHomepage';
-
 import boxNuoviArrivi from "../../assets/images/box/boxNuoviArrivi.jpeg";
 import boxNuoviArriviLifeStyle from "../../assets/images/box/boxNuoviArriviLifestyle.jpeg";
+import PreFooter from '../../components/hookComponents/preFooter/PreFooter';
 
 
 import "./cms.scss";
@@ -34,6 +33,8 @@ function Cms() {
         </div>
 
       </div>
+
+      <PreFooter />
     </div>
   );
 }
