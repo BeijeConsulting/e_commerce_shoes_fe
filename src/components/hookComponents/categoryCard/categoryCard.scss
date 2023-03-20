@@ -1,0 +1,45 @@
+@import "../../../style/common/variables.scss";
+
+.category-card {
+  position: relative;
+
+  &__content-wrapper {
+    position: absolute;
+    bottom: 25%;
+    left: 10%;
+
+    &__header {
+      font-size: $xxx-large;
+      font-weight: 900;
+
+      @media screen and (max-width: 600px) {
+        font-size: $xx-large;
+      }
+
+      @media screen and (max-width: 360px) {
+        font-size: $x-large;
+      }
+
+      &__link {
+        &:link,
+        &:visited {
+          color: $white;
+          text-decoration: none;
+          transition: all 150ms ease-in;
+        }
+
+        &:hover,
+        &:active {
+          color: $orange;
+        }
+      }
+    }
+  }
+
+  &__image {
+    width: 100%;
+    height: auto;
+
+    z-index: -1;
+  }
+}
