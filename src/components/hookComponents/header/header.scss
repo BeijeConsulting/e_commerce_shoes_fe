@@ -2,7 +2,6 @@
 @import "../../../style/common/variables.scss";
 
 .main-header {
-  padding: 1rem 2rem;
   border-bottom: 0;
 
   .css-l4u8b9-MuiInputBase-root-MuiInput-root {
@@ -24,33 +23,55 @@
       }
     }
   }
-}
 
-.main-header__top {
-  @include flex(space-between, center);
-  margin: 1.5rem 0;
+  .main-header__top,
+  .main-header__bottom {
+    padding: 1rem 2rem;
+  }
 
-  .main-header__menu,
-  .main-header__top__input {
-    display: none;
+  .main-header__top {
+    @include flex(space-between, center);
+    margin-top: 1.5rem;
+
+    .main-header__menu,
+    .main-header__top__input {
+      display: none;
+    }
+  }
+
+  .main-header__top__left {
+    @include flex(space-between, center);
+  }
+
+  .main-header__hamburger {
+    margin-right: 1rem;
+  }
+
+  .main-header__logo {
+    height: 4rem;
+  }
+
+  // Mobile Menu
+
+  .main-header__mobile-menu {
+    height: 100%;
+    li {
+      @include flex(space-between, center);
+      text-transform: uppercase;
+      padding: 2rem 2rem 2rem 7rem;
+      font-weight: 400;
+      color: $grey-normal;
+      font-size: $small;
+      border-bottom: 1px solid #f3f3f3;
+    }
+
+    .mobile-menu__bottom {
+      background-color: #ebebeb;
+    }
   }
 }
 
-.main-header__bottom {
-  margin-top: 1.5rem;
-}
-
-.main-header__top__left {
-  @include flex(space-between, center);
-}
-
-.main-header__hamburger {
-  margin-right: 1rem;
-}
-
-.main-header__logo {
-  height: 4rem;
-}
+// Responsive
 
 @media (min-width: 1200px) {
   .main-header {

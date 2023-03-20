@@ -9,6 +9,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 function Header() {
     return (
@@ -58,13 +59,31 @@ function Header() {
                 </div>
                 <div className='main-header__mobile-menu'>
                     <ul>
-                        <li>uomo</li>
-                        <li>donna</li>
-                        <li>unisex</li>
-                        <li>brand</li>
-                        <li>offerte</li>
-                        <li>nuovi arrivi</li>
+                        <li>
+                            <div>uomo</div>
+                            <ArrowForwardIosIcon />
+                        </li>
+                        <li>
+                            <div>donna</div>
+                            <ArrowForwardIosIcon />
+                        </li>
+                        <li>
+                            <div>unisex</div>
+                            <ArrowForwardIosIcon />
+                        </li>
+                        <li>
+                            <div>offerte</div>
+                            <ArrowForwardIosIcon />
+                        </li>
+                        <li>
+                            <div>nuovi arrivi</div>
+                            <ArrowForwardIosIcon />
+                        </li>
                     </ul>
+                    <div className='mobile-menu__bottom'>
+                        <button>ACCEDI</button>
+                        <p>Non hai un account? REGISTRATI QUI</p>
+                    </div>
                 </div>
             </nav>
         </header>
