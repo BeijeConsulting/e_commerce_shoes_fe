@@ -1,0 +1,91 @@
+@import "../../../style/common/mixin.scss";
+@import "../../../style/common/variables.scss";
+
+.main-header {
+  padding: 1rem 2rem;
+  border-bottom: 0;
+
+  .css-l4u8b9-MuiInputBase-root-MuiInput-root {
+    border-bottom: 1px solid $black;
+
+    &::before {
+      border-bottom: none;
+    }
+
+    &::after {
+      border-bottom: none;
+    }
+
+    &:hover {
+      &:not(.Mui-disabled, .Mui-error) {
+        &::before {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+}
+
+.main-header__top {
+  @include flex(space-between, center);
+  margin: 1.5rem 0;
+
+  .main-header__menu,
+  .main-header__top__input {
+    display: none;
+  }
+}
+
+.main-header__bottom {
+  margin-top: 1.5rem;
+}
+
+.main-header__top__left {
+  @include flex(space-between, center);
+}
+
+.main-header__hamburger {
+  margin-right: 1rem;
+}
+
+.main-header__logo {
+  height: 4rem;
+}
+
+@media (min-width: 1200px) {
+  .main-header {
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .main-header__hamburger,
+  .main-header__bottom {
+    display: none !important;
+  }
+
+  .main-header__top {
+    @include flex(space-between, center);
+
+    .main-header__menu {
+      @include flex(space-around, center);
+      width: 100%;
+
+      li {
+        margin-right: 1rem;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: $grey-normal;
+        font-size: $small;
+
+        &:last-of-type {
+          margin-right: 0;
+        }
+      }
+    }
+
+    .main-header__top__input {
+      display: block;
+      width: 20rem;
+      margin: 0 6rem 0 4rem;
+    }
+  }
+}
