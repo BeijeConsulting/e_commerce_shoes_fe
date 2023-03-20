@@ -5,7 +5,7 @@ import Cms from "../screens/cms/Cms";
 function Routing() {
     return (
         <Routes>
-            <Route path="/" element={<Cms />} />
+            <Route path="/" element={ <Cms /> } />
         </Routes>
     )
 }
