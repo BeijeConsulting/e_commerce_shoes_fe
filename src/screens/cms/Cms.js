@@ -1,7 +1,5 @@
 import Seo from "../../components/functionalComponents/Seo";
 import "./cms.scss";
-import CategoryCard from "../../components/hookComponents/categoryCard/CategoryCard";
-import image from "../../assets/imgs/manTipology.jpeg";
 
 function Cms() {
   return (
@@ -11,12 +9,6 @@ function Cms() {
         title="Pagina principale"
         description="Descrizione pagina principale"
         content="e-commerce"
-      />
-      <CategoryCard
-        image={image}
-        imageAlt="man"
-        tipology="Uomo"
-        goTo={"/man"}
       />
     </div>
   );
