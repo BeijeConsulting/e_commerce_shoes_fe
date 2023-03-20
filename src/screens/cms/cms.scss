@@ -1,1 +1,11 @@
 // @import "../../style/common/mixin.scss";
+
+
+.container__boxSlider {}
+
+@media screen and (min-width:900px) {
+    .container__boxSlider {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

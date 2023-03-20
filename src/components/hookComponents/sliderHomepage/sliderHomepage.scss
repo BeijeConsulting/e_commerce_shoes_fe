@@ -46,7 +46,7 @@
 
 /* target the active bullet */
 span.swiper-pagination-bullet.swiper-pagination-bullet-active {
-    background-color: #fff;
+    // background-color: #fff;
     opacity: 1;
     width: 10px;
     height: 10px;
@@ -58,14 +58,13 @@ span.swiper-pagination-bullet.swiper-pagination-bullet {
     height: 10px;
 }
 
-.swiper-button-next,
-.swiper-button-prev {
-    //  background-color: #fff;
-    color: #fff !important;
-    border-radius: 50%;
-    padding: 1.5rem;
-    opacity: 0.9;
-}
+// .swiper-button-next,
+// .swiper-button-prev {
+//     color: #fff !important;
+//     border-radius: 50%;
+//     padding: 1.5rem;
+//     opacity: 0.9;
+// }
 
 
 // MEDIA QUERIES

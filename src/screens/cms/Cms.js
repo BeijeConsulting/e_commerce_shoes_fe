@@ -1,6 +1,8 @@
 import Seo from "../../components/functionalComponents/Seo";
+import BoxImage from '../../components/hookComponents/boxImage/BoxImage';
+import ProductSlider from '../../components/hookComponents/productSlider/ProductSlider';
 
-import SliderHomepage from '../../components/functionalComponents/sliderHomepage/SliderHomepage';
+import SliderHomepage from '../../components/hookComponents/sliderHomepage/SliderHomepage';
 
 import "./cms.scss";
 
@@ -17,6 +19,12 @@ function Cms() {
 
       <div>
         <SliderHomepage />
+
+        <div className='container__boxSlider'>
+          <BoxImage />
+          <ProductSlider />
+        </div>
+
       </div>
     </div>
   );
