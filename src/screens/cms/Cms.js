@@ -13,7 +13,6 @@ function Cms() {
         content="e-commerce"
       />
       <CategoryCard
-        cssStyle={"default-button"}
         image={image}
         imageAlt="man"
         tipology="Uomo"
