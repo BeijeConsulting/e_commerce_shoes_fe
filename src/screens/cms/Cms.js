@@ -4,6 +4,10 @@ import ProductSlider from '../../components/hookComponents/productSlider/Product
 
 import SliderHomepage from '../../components/hookComponents/sliderHomepage/SliderHomepage';
 
+import boxNuoviArrivi from "../../assets/images/box/boxNuoviArrivi.jpeg";
+import boxNuoviArriviLifeStyle from "../../assets/images/box/boxNuoviArriviLifestyle.jpeg";
+
+
 import "./cms.scss";
 
 function Cms() {
@@ -21,8 +25,12 @@ function Cms() {
         <SliderHomepage />
 
         <div className='container__boxSlider'>
-          <BoxImage />
+          <BoxImage image={ boxNuoviArrivi } />
           <ProductSlider />
+        </div>
+        <div className='container__boxSlider'>
+          <ProductSlider />
+          <BoxImage image={ boxNuoviArriviLifeStyle } />
         </div>
 
       </div>

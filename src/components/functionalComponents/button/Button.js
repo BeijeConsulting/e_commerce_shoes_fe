@@ -8,8 +8,9 @@ function Button(props) {
   }
 
   return (
-    <button onClick={handleClick} className={props.buttonStyle}>
-      {props.label}
+    <button onClick={ handleClick }
+      className={ props.buttonStyle }>
+      { props.label }
     </button>
   );
 }
