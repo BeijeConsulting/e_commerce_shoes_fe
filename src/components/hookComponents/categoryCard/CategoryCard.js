@@ -22,7 +22,7 @@ function CategoryCard(props) {
           </Link>
         </h3>
         <Button
-          buttonStyle={"default-button"}
+          buttonStyle={"default-button margin-top"}
           handleClick={goTo}
           label={"Scopri di più"}
         />

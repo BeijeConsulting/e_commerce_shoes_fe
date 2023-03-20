@@ -4,6 +4,8 @@ import "./button.scss";
 function Button(props) {
   console.log(props.buttonStyle);
   function handleClick(e) {
+    if (!props.handleClick) return;
+
     props.handleClick(e);
   }
 
