@@ -18,6 +18,8 @@ import "swiper/css/effect-fade";
 import { Autoplay, Navigation, Pagination } from 'swiper';
 import { Link } from 'react-router-dom';
 
+// Sostituire il button con il Button Component
+
 function SliderHomepage() {
     return (
         <div>
