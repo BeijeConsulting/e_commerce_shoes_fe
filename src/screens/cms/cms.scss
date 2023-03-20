@@ -5,7 +5,17 @@
 
 @media screen and (min-width:900px) {
     .container__boxSlider {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        border: 5px solid red;
+        // display: grid;
+        // grid-template-columns: repeat(2, 1fr);
+        display: flex;
+        width: 100%;
+        margin: auto;
+
+        h2 {
+            text-align: center;
+        }
     }
+
+
 }
