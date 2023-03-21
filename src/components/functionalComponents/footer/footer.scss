@@ -60,8 +60,8 @@
     padding: 0 10rem;
     nav {
       margin: 0 auto;
-      width: 90%;
-      max-width: 80rem;
+      width: 95%;
+      max-width: 120rem;
       @include flex(space-between, stretch);
       .footer__top__list {
         width: auto;
