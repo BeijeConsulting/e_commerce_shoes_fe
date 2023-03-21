@@ -63,7 +63,6 @@ function SignupForm() {
 
   return (
     <form className="login-form" onSubmit={handleSubmit(onSubmit, onError)}>
-      "
       <div className="login-form__input-container">
         <InputTextField
           inputName="firstName"
@@ -84,7 +83,7 @@ function SignupForm() {
           inputPlaceholder="Cognome"
           register={register}
           isRequired={true}
-          labelStyle="default-label margin-top"
+          labelStyle="default-label margin-top-extra"
           inputStyle={`default-input margin-top-small ${
             state.invalidLastName ? "default-input--error" : ""
           }`}
@@ -97,7 +96,7 @@ function SignupForm() {
           register={register}
           regexValidation={emailReg}
           isRequired={true}
-          labelStyle="default-label margin-top"
+          labelStyle="default-label margin-top-extra"
           inputStyle={`default-input margin-top-small ${
             state.invalidEmail ? "default-input--error" : ""
           }`}
@@ -115,7 +114,7 @@ function SignupForm() {
           register={register}
           regexValidation={passwordReg}
           isRequired={true}
-          labelStyle="default-label margin-top"
+          labelStyle="default-label margin-top-extra"
           inputStyle={`default-input  ${
             state.invalidPassword ? "default-input--error" : ""
           }`}
@@ -141,7 +140,7 @@ function SignupForm() {
           inputPlaceholder="Data di nascita"
           register={register}
           isRequired={true}
-          labelStyle="default-label margin-top"
+          labelStyle="default-label margin-top-extra"
           inputStyle={`default-input margin-top-small ${
             state.invalidAge ? "default-input--error" : ""
           }`}
@@ -156,7 +155,7 @@ function SignupForm() {
         <InputCheckbox
           inputId={"acceptTerms"}
           label={"Accetta i termini"}
-          inputClasses={"margin-top"}
+          inputClasses={"margin-top-extra"}
           isRequired={true}
         />
       </div>

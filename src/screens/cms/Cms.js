@@ -14,7 +14,6 @@ import InputTextField from "../../components/functionalComponents/inputTextField
 
 import SignupForm from "../../components/hookComponents/signupForm/SignupForm";
 import InputPasswordField from "../../components/hookComponents/inputPasswordField/InputPasswordField";
-
 import HeaderSingleProduct from "../../components/hookComponents/headerSingleProduct/HeaderSingleProduct";
 
 function Cms() {

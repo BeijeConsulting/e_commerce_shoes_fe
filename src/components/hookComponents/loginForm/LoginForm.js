@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./loginForm.scss";
 import { useForm } from "react-hook-form";
-import Button from "../../../functionalComponents/button/Button";
-import InputTextField from "../../../functionalComponents/inputTextField/InputTextField";
-import InputPasswordField from "../../inputPasswordField/InputPasswordField";
+import Button from "../../functionalComponents/button/Button";
+import InputTextField from "../../functionalComponents/inputTextField/InputTextField";
+import InputPasswordField from "../inputPasswordField/InputPasswordField";
 
 function LoginForm() {
   const [state, setState] = useState({
@@ -39,7 +39,6 @@ function LoginForm() {
 
   return (
     <form className="login-form" onSubmit={handleSubmit(onSubmit, onError)}>
-      "
       <div className="login-form__input-container">
         <InputTextField
           inputName="email"
@@ -49,8 +48,8 @@ function LoginForm() {
           register={register}
           regexValidation={emailReg}
           isRequired={true}
-          labelStyle="default-label"
-          inputStyle={`default-input ${
+          labelStyle="default-label  "
+          inputStyle={`default-input margin-top-small ${
             state.invalidEmail ? "default-input--error" : ""
           }`}
         />
@@ -63,7 +62,7 @@ function LoginForm() {
           register={register}
           regexValidation={passwordReg}
           isRequired={true}
-          labelStyle="default-label password-margin-top"
+          labelStyle="default-label password-margin-top margin-top-extra"
           inputStyle={`default-input ${
             state.invalidPassword ? "default-input--error" : ""
           }`}
