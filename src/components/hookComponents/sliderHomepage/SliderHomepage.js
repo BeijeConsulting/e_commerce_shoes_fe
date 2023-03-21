@@ -20,16 +20,15 @@ import { Link } from 'react-router-dom';
 
 // Sostituire il button con il Button Component
 
-function SliderHomepage() {
+function SliderHomepage(props) {
+
+
     return (
         <div>
             <Swiper
-                pagination={ true }
-                navigation={ true }
-                autoplay={ {
-                    delay: 2500,
-                    disableOnInteraction: false,
-                } }
+                pagination={ props.pagination }
+                navigation={ props.navigation }
+                autoplay={ props.autoplay }
                 modules={ [Pagination, Navigation, Autoplay] }
             >
                 <SwiperSlide className='swiperSlide'>
