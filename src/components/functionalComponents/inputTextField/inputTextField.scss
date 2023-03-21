@@ -1,0 +1,22 @@
+@import "../../../style/common/variables.scss";
+
+.default-input {
+  width: 100%;
+  outline: none;
+  border: 2px solid $black;
+  padding: 2rem;
+  margin-top: 1rem;
+
+  border-radius: 0.5rem;
+
+  &--error {
+    border-color: $red;
+  }
+}
+
+.default-label {
+  width: 100%;
+  color: $grey-dark;
+  font-size: 1.4rem;
+  display: block;
+}
