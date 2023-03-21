@@ -10,7 +10,6 @@ import PreFooter from "../../components/hookComponents/preFooter/PreFooter";
 import "./cms.scss";
 import Header from "../../components/hookComponents/header/Header";
 import Footer from "../../components/functionalComponents/footer/Footer";
-import LoginForm from "../../components/hookComponents/categoryCard/loginForm/LoginForm";
 import InputTextField from "../../components/functionalComponents/inputTextField/InputTextField";
 
 import SignupForm from "../../components/hookComponents/signupForm/SignupForm";
