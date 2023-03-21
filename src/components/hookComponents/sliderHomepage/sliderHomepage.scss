@@ -1,5 +1,4 @@
-//  @import "../../style/common/mixin.scss";
-@import "../../../style/common/mixin.scss";
+@import "../../../style/common/variables.scss";
 
 .swiperSlide {
     // border: 2px solid red;
@@ -17,27 +16,28 @@
         left: 15%;
 
         p {
-            color: #fff;
-            font-size: 3.5rem;
+            color: $white;
+            font-size: $xx-large;
             text-transform: uppercase;
             text-shadow: 0 0 12px rgba(0, 0, 0, .333);
             font-weight: 600;
             text-align: left;
+            line-height: 1.2;
         }
     }
 
     &__info--link:hover p {
-        color: #ee6317;
+        color: $orange;
         transition: all 0.3s;
     }
 
     &__info--btn {
         cursor: pointer;
         text-transform: uppercase;
-        background-color: #ee6317;
+        background-color: $orange;
         border: none;
         padding: 10px 15px;
-        color: #fff;
+        color: $white;
         margin-top: 15px;
         font-size: 2rem;
     }
@@ -46,7 +46,7 @@
 
 /* target the active bullet */
 span.swiper-pagination-bullet.swiper-pagination-bullet-active {
-    background-color: #fff;
+    // background-color: $white;
     opacity: 1;
     width: 10px;
     height: 10px;
@@ -58,14 +58,13 @@ span.swiper-pagination-bullet.swiper-pagination-bullet {
     height: 10px;
 }
 
-.swiper-button-next,
-.swiper-button-prev {
-    //  background-color: #fff;
-    color: #fff !important;
-    border-radius: 50%;
-    padding: 1.5rem;
-    opacity: 0.9;
-}
+// .swiper-button-next,
+// .swiper-button-prev {
+//     color: $white !important;
+//     border-radius: 50%;
+//     padding: 1.5rem;
+//     opacity: 0.9;
+// }
 
 
 // MEDIA QUERIES
