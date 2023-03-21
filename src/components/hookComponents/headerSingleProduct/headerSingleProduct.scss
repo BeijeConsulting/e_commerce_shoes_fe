@@ -1,0 +1,35 @@
+@import "../../../style/common/variables.scss";
+
+.header {
+    border: 2px solid red;
+    margin: 5%;
+
+    &__container {
+        border: 2px solid rgb(60, 0, 255);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__category {
+        color: $grey-normal;
+        font-size: $x-small;
+        text-transform: uppercase;
+    }
+
+    &__price {
+        color: $orange;
+        font-size: $small;
+    }
+
+    &__brand {
+        margin: 1.4rem 0;
+        font-size: $medium;
+    }
+
+    &__name {
+        color: $grey-normal;
+        text-transform: uppercase;
+        font-size: x-large;
+    }
+}
