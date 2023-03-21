@@ -1,0 +1,72 @@
+@import "../../../style/common/variables.scss";
+@import "../../../style/common/mixin.scss";
+
+.filter-menu__items {
+  background-color: #f9f9f9;
+
+  > .item {
+    padding: 2rem 3rem;
+    border-bottom: 1px solid #e5e5e5;
+    position: relative;
+
+    .sub-item {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      padding: 0 3rem;
+      z-index: 2;
+      background-color: #eee;
+      box-shadow: 0 5px 13px -2px rgba(45, 45, 45, 80%);
+
+      > .item {
+        label {
+          cursor: pointer;
+          display: block;
+          margin: 2rem 0;
+          padding: 2rem;
+          border-radius: 1rem;
+          background-color: $white;
+          text-transform: uppercase;
+          font-size: $x-small;
+        }
+
+        input {
+          display: none;
+          &:checked + label {
+            background-color: $orange;
+            color: $white;
+            font-weight: 700;
+          }
+        }
+      }
+    }
+
+    &.active {
+      .sub-item {
+        display: block;
+      }
+    }
+
+    .price-range {
+      font-weight: 400;
+      margin-bottom: 2rem;
+      > div {
+        @include flex(flex-start);
+      }
+    }
+
+    .mui-slider-modifier {
+      color: $orange;
+      padding: 0;
+    }
+  }
+
+  header {
+    @include flex(space-between);
+    text-transform: uppercase;
+    color: $grey-normal;
+    cursor: pointer;
+  }
+}

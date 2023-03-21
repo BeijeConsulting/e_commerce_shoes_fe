@@ -13,8 +13,7 @@ import Footer from "../../components/functionalComponents/footer/Footer";
 import LoginForm from "../../components/hookComponents/categoryCard/loginForm/LoginForm";
 import InputTextField from "../../components/functionalComponents/inputTextField/InputTextField";
 
-
-import InputCheckbox from "../../components/functionalComponents/inputCheckbox/InputCheckbox";
+import FilterMenu from "../../components/hookComponents/filterMenu/FilterMenu";
 
 function Cms() {
   return (
@@ -26,7 +25,7 @@ function Cms() {
         content="e-commerce"
       />
       <Header />
-
+      <FilterMenu />
       {/* <div style={{ marginTop: "100px", marginLeft: "100px", width: "400px" }}>
         <LoginForm />
       </div>
