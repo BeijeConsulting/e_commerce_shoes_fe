@@ -1,8 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import Button from "../../functionalComponents/button/Button"
+
 
 import "./headerSingleProduct.scss"
 import SingleProductSlider from '../singleProductSlider/SingleProductSlider';
 import InfoProductBox from '../../functionalComponents/infoProductBox/InfoProductBox';
+import AccordionItem from "../accordionItem/AccordionItem"
+
 
 function HeaderSingleProduct(props) {
     return (
@@ -24,14 +29,26 @@ function HeaderSingleProduct(props) {
                     {/* DA SISTEMARE */ }
                     <p className='info__p'>Input Select taglie</p>
                     <InfoProductBox />
-                    <p className='info__p'>Bottone acquista</p>
+
+                    <Button
+                        label={ "ACQUISTA ORA" }
+                        buttonStyle={ "default-button" }
+                    />
                     <p className='info__p'>Tabella Taglie Link</p>
-                    <p className='info__p'>Accordion</p>
+                    <AccordionItem />
                 </div>
             </div>
 
         </div>
     )
+}
+
+HeaderSingleProduct.defaultProps = {
+
+}
+
+HeaderSingleProduct.propTypes = {
+
 }
 
 export default HeaderSingleProduct

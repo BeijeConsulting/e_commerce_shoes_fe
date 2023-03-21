@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../functionalComponents/button/Button';
 import "./boxImage.scss"
@@ -28,6 +29,14 @@ function BoxImage(props) {
             </div>
         </div>
     )
+}
+
+BoxImage.defaultProps = {
+
+}
+
+BoxImage.propTypes = {
+
 }
 
 export default BoxImage

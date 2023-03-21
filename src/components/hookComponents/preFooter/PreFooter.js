@@ -1,12 +1,12 @@
 import React from 'react';
-// import MobileFriendlyIcon from '@mui/icons-material/MobileFriendly';
+import PropTypes from 'prop-types';
 import { MdMobileFriendly } from "react-icons/md";
 import { GoLocation } from "react-icons/go";
 import { IoIosHelpBuoy } from "react-icons/io";
 import "./preFooter.scss"
 import { Link } from 'react-router-dom';
 
-function PreFooter() {
+function PreFooter(props) {
     return (
         <div className='preFooter'>
             <div className='preFooter__info'>
@@ -30,5 +30,14 @@ function PreFooter() {
         </div>
     )
 }
+
+PreFooter.defaultProps = {
+
+}
+
+PreFooter.propTypes = {
+
+}
+
 
 export default PreFooter
