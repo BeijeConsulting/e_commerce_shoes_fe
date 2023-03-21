@@ -13,6 +13,9 @@ import Footer from "../../components/functionalComponents/footer/Footer";
 import LoginForm from "../../components/hookComponents/categoryCard/loginForm/LoginForm";
 import InputTextField from "../../components/functionalComponents/inputTextField/InputTextField";
 
+
+import InputCheckbox from "../../components/functionalComponents/inputCheckbox/InputCheckbox";
+
 function Cms() {
   return (
     <>

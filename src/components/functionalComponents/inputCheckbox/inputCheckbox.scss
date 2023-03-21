@@ -1,0 +1,10 @@
+@import "../../../style/common/variables.scss";
+@import "../../../style/common/mixin.scss";
+
+.input-checkbox {
+  @include flex(flex-start, center);
+  font-size: $small;
+  input {
+    margin-right: 1rem;
+  }
+}
