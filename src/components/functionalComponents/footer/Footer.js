@@ -6,61 +6,87 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 
 function Footer() {
+    const menu = [
+        {
+            header: 'Nome Sito',
+            list: [
+                {
+                    anchor: 'Chi siamo',
+                    path: '/',
+                },
+                {
+                    anchor: 'Login',
+                    path: '/',
+                },
+                {
+                    anchor: 'Registrati',
+                    path: '/',
+                },
+            ]
+        },
+        {
+            header: 'Privacy e Cookie',
+            list: [
+                {
+                    anchor: 'Privacy policy',
+                    path: '/',
+                },
+                {
+                    anchor: 'Cookie policy',
+                    path: '/',
+                },
+                {
+                    anchor: 'Preferenze cookie',
+                    path: '/',
+                },
+            ]
+        },
+        {
+            header: 'Contatti',
+            list: [
+                {
+                    anchor: 'Servizio clienti',
+                    path: '/',
+                },
+                {
+                    anchor: 'FAQ',
+                    path: '/',
+                },
+                {
+                    anchor: 'Termini e condizioni',
+                    path: '/',
+                },
+                {
+                    anchor: 'Resi',
+                    path: '/',
+                },
+            ]
+        }
+    ]
+
+    function mapFooterMenu(item, key) {
+        return <div key={`${key}-${Math.random()}`} className='footer__top__list'>
+            <header>
+                {item.header}
+            </header>
+            <ul>
+                {item.list.map(mapSubFooterMenu)}
+            </ul>
+        </div>;
+
+    }
+
+    function mapSubFooterMenu(item, key) {
+        return <li key={`${key}-${Math.random()}`}>
+            <a href='#'>{item.anchor}</a>
+        </li>
+    }
+
     return (
         <footer id='footer'>
             <div className='footer__top'>
                 <nav>
-                    <div className='footer__top__list'>
-                        <header>
-                            Nome Sito
-                        </header>
-                        <ul>
-                            <li>
-                                <a href='#'>Chi siamo</a>
-                            </li>
-                            <li>
-                                <a href='#'>Login</a>
-                            </li>
-                            <li>
-                                <a href='#'>Registrati</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div className='footer__top__list'>
-                        <header>
-                            Privacy e Cookie
-                        </header>
-                        <ul>
-                            <li>
-                                <a href='#'>Privacy Policy</a>
-                            </li>
-                            <li>
-                                <a href='#'>Cookie Policy</a>
-                            </li>
-                            <li>
-                                <a href='#'>Preferenze cookie</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div className='footer__top__list'>
-                        <header>
-                            Contatti
-                        </header>
-                        <ul>
-                            <li>
-                                <a href='#'>Servizio Clienti</a>
-                            </li>
-                            <li>
-                                <a href='#'>FAQ</a>
-                            </li>
-                            <li>
-                                <a href='#'>Termini e Condizioni</a>
-                            </li>
-                            <li>
-                                <a href='#'>Resi</a>
-                            </li>
-                        </ul>
-                    </div>
+                    {menu.map(mapFooterMenu)}
                 </nav>
                 <div className='footer__top__socials'>
                     <a className='footer__top__socials__facebook' href='#'>
@@ -76,7 +102,7 @@ function Footer() {
             </div>
             <div className='footer__bottom'>
                 <small>
-                    Nome Sito SRL, P.IVA. 05593460162. Le foto dei prodotti presenti sul sito sono puramente esemplificative. &copy; 2023 Nome Sito
+                    &copy; 2023 Nome Sito SRL. P.IVA. 05593460162. Le foto dei prodotti presenti sul sito sono puramente esemplificative.
                 </small>
             </div>
         </footer>
