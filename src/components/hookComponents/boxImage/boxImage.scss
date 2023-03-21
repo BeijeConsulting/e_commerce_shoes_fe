@@ -1,0 +1,47 @@
+@import "../../../style/common/variables.scss";
+
+.box__container {
+    width: 100%;
+    position: relative;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    &__info {
+        // border: 2px solid red;
+        position: absolute;
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        top: 35%;
+        left: 15%;
+
+        h2 {
+            color: $white;
+            font-size: $xx-large;
+            text-transform: uppercase;
+            text-shadow: 0 0 12px rgba(0, 0, 0, .333);
+            font-weight: 600;
+            text-align: left;
+            line-height: 1.2;
+        }
+
+        p {
+            margin-top: 3rem;
+            font-size: $medium;
+            color: $white;
+        }
+
+    }
+
+}
+
+
+@media screen and (min-width:900px) {
+    .box__container__info {
+        top: 50%;
+    }
+}
