@@ -44,7 +44,6 @@ function Cms() {
         </div>
       </div>
       <PreFooter />
-      >>>>>>> 54429891c060d0d99b1458ee88712a7acfdb71e0
     </div>
   );
 }
