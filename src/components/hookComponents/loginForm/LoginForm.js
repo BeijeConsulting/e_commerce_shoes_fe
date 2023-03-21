@@ -3,6 +3,7 @@ import "./loginForm.scss";
 import { useForm } from "react-hook-form";
 import Button from "../../../functionalComponents/button/Button";
 import InputTextField from "../../../functionalComponents/inputTextField/InputTextField";
+import InputPasswordField from "../../inputPasswordField/InputPasswordField";
 
 function LoginForm() {
   const [state, setState] = useState({
@@ -41,7 +42,7 @@ function LoginForm() {
       "
       <div className="login-form__input-container">
         <InputTextField
-          name="email"
+          inputName="email"
           inputLabel="INDIRIZZO E-MAIL:"
           inputType="text"
           inputPlaceholder="Email"
@@ -54,8 +55,8 @@ function LoginForm() {
           }`}
         />
 
-        <InputTextField
-          name="password"
+        <InputPasswordField
+          inputName="password"
           inputLabel="PASSWORD:"
           inputType="password"
           inputPlaceholder="Password"
