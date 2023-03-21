@@ -11,6 +11,7 @@ import "./cms.scss";
 import Header from '../../components/hookComponents/header/Header';
 import LoginForm from "../../components/hookComponents/categoryCard/loginForm/LoginForm";
 import InputTextField from "../../components/functionalComponents/inputTextField/InputTextField";
+import HeaderSingleProduct from '../../components/hookComponents/headerSingleProduct/HeaderSingleProduct';
 
 function Cms() {
   return (
@@ -23,6 +24,8 @@ function Cms() {
       />
       <Header />
 
+      <HeaderSingleProduct />
+
       {/* <div style={{ marginTop: "100px", marginLeft: "100px", width: "400px" }}>
         <LoginForm />
       </div>
@@ -34,7 +37,7 @@ function Cms() {
         labelStyle="default-label password-margin-top"
         inputStyle={`default-input`}
       /> */}
-      <div>
+      {/* <div>
         <SliderHomepage />
 
         <div className="container__boxSlider">
@@ -45,8 +48,8 @@ function Cms() {
           <ProductSlider />
           <BoxImage image={boxNuoviArriviLifeStyle} />
         </div>
-      </div>
-      <PreFooter />
+      </div> */}
+      {/* <PreFooter /> */ }
     </>
   );
 }
