@@ -1,11 +1,9 @@
 @import "../../../style/common/variables.scss";
 
 .header {
-    border: 2px solid red;
     margin: 5%;
 
     &__container {
-        border: 2px solid rgb(60, 0, 255);
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -19,7 +17,7 @@
 
     &__price {
         color: $orange;
-        font-size: $small;
+        font-size: $large;
     }
 
     &__brand {
@@ -31,5 +29,33 @@
         color: $grey-normal;
         text-transform: uppercase;
         font-size: x-large;
+        margin-bottom: 4rem;
+    }
+}
+
+.info__container {
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (min-width: 800px) {
+    .info__container {
+        flex-direction: row;
+        width: 100%;
+    }
+
+    .info {
+        border: 2px solid red;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        &__p {
+            margin: 2rem 0;
+            font-size: 2rem;
+        }
+
     }
 }

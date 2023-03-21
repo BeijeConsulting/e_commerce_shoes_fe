@@ -1,11 +1,8 @@
 import React from 'react';
-import SliderHomepage from '../sliderHomepage/SliderHomepage';
-import shoe1 from "../../../assets/images/singleProduct/shoe1.jpeg"
-import shoe2 from "../../../assets/images/singleProduct/shoe1.jpeg"
-import shoe3 from "../../../assets/images/singleProduct/shoe1.jpeg"
 
 import "./headerSingleProduct.scss"
 import SingleProductSlider from '../singleProductSlider/SingleProductSlider';
+import InfoProductBox from '../../functionalComponents/infoProductBox/InfoProductBox';
 
 function HeaderSingleProduct(props) {
     return (
@@ -19,8 +16,19 @@ function HeaderSingleProduct(props) {
             <p className='header__name'>zoom superfly 9 mds academy fg m</p>
 
 
-            <SingleProductSlider />
+            <div className='info__container'>
+                <SingleProductSlider />
 
+                <div className='info'>
+
+                    {/* DA SISTEMARE */ }
+                    <p className='info__p'>Input Select taglie</p>
+                    <InfoProductBox />
+                    <p className='info__p'>Bottone acquista</p>
+                    <p className='info__p'>Tabella Taglie Link</p>
+                    <p className='info__p'>Accordion</p>
+                </div>
+            </div>
 
         </div>
     )

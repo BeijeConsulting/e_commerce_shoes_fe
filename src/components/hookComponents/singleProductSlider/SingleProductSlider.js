@@ -29,9 +29,8 @@ function SingleProductSlider() {
                 navigation={ true }
                 thumbs={ { swiper: thumbsSwiper } }
                 modules={ [FreeMode, Navigation, Thumbs] }
-                className="mySwiper2"
+                className="mySwiper"
             >
-
 
                 <SwiperSlide>
                     <img src={ shoe1 } alt="" />
@@ -42,8 +41,6 @@ function SingleProductSlider() {
                 <SwiperSlide>
                     <img src={ shoe3 } alt="" />
                 </SwiperSlide>
-
-
             </Swiper>
 
             <Swiper
@@ -53,7 +50,7 @@ function SingleProductSlider() {
                 freeMode={ true }
                 watchSlidesProgress={ true }
                 modules={ [FreeMode, Navigation, Thumbs] }
-                className="mySwiper"
+                className="mySwiper2"
             >
                 <SwiperSlide>
                     <img src={ shoe1 } alt="" />
@@ -64,7 +61,6 @@ function SingleProductSlider() {
                 <SwiperSlide>
                     <img src={ shoe3 } alt="" />
                 </SwiperSlide>
-
             </Swiper>
         </div>
     )
