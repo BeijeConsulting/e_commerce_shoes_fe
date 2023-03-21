@@ -1,4 +1,6 @@
 import React from 'react'
+import PropTypes from 'prop-types';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import adidasMobile from "../../../assets/images/mobile/adidas-mobile.jpeg";
@@ -81,6 +83,14 @@ function SliderHomepage(props) {
             </Swiper>
         </div>
     )
+}
+
+SliderHomepage.defaultProps = {
+
+}
+
+SliderHomepage.propTypes = {
+
 }
 
 export default SliderHomepage;
