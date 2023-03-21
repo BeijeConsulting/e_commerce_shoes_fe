@@ -3,6 +3,8 @@ import "./signupForm.scss";
 import InputTextField from "../../functionalComponents/inputTextField/InputTextField";
 import Button from "../../functionalComponents/button/Button";
 import { useForm } from "react-hook-form";
+import moment from "moment/moment";
+import InputCheckbox from "../../functionalComponents/inputCheckbox/InputCheckbox";
 
 function SignupForm() {
   const [state, setState] = useState({
@@ -15,11 +17,22 @@ function SignupForm() {
   const { register, handleSubmit } = useForm();
 
   const emailReg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i;
-  const passwordReg = /^.{8,}$/;
-
+  const passwordReg =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?])(?=.*[^\s]).{8,}$/;
   const onSubmit = (data) => {
     console.log("Success");
     console.log(data);
+
+    let currentData = moment();
+    let userBirthDate = data.birthDate;
+    let isInvalidAge = false;
+
+    if (
+      !moment(userBirthDate, true).isValid() ||
+      currentData.diff(userBirthDate, "years") < 16
+    ) {
+      isInvalidAge = true;
+    }
 
     setState({
       ...state,
@@ -27,7 +40,7 @@ function SignupForm() {
       invalidPassword: false,
       invalidFirstName: false,
       invalidLastName: false,
-      invalidAge: false,
+      invalidAge: isInvalidAge,
     });
   };
   const onError = (err) => {
@@ -50,7 +63,7 @@ function SignupForm() {
       "
       <div className="login-form__input-container">
         <InputTextField
-          name="firstName"
+          inputName="firstName"
           inputLabel="NOME:"
           inputType="text"
           inputPlaceholder="Nome"
@@ -62,7 +75,7 @@ function SignupForm() {
           }`}
         />
         <InputTextField
-          name="lastName"
+          inputName="lastName"
           inputLabel="COGNOME:"
           inputType="text"
           inputPlaceholder="Cognome"
@@ -74,7 +87,7 @@ function SignupForm() {
           }`}
         />
         <InputTextField
-          name="email"
+          inputName="email"
           inputLabel="INDIRIZZO E-MAIL:"
           inputType="text"
           inputPlaceholder="Email"
@@ -87,8 +100,12 @@ function SignupForm() {
           }`}
         />
 
+        {state.invalidEmail && (
+          <span className="error-message">L'indirizzo email non è valido</span>
+        )}
+
         <InputTextField
-          name="password"
+          inputName="password"
           inputLabel="PASSWORD:"
           inputType="password"
           inputPlaceholder="Password"
@@ -101,8 +118,21 @@ function SignupForm() {
           }`}
         />
 
+        {state.invalidPassword && (
+          <span className="error-message">
+            La password deve contenere:
+            <ul>
+              <li>Almeno 8 caratteri</li>
+              <li>Almeno un carattere minuscolo</li>
+              <li>Almeno un carattere maiuscolo</li>
+              <li>Almeno un numero</li>
+              <li>Almeno un carattere speciale</li>
+            </ul>
+          </span>
+        )}
+
         <InputTextField
-          name="birthDate"
+          inputName="birthDate"
           inputLabel="DATA DI NASCITA:"
           inputType="date"
           inputPlaceholder="Data di nascita"
@@ -113,10 +143,19 @@ function SignupForm() {
             state.invalidAge ? "default-input--error" : ""
           }`}
         />
-      </div>
-      <div>
-        <input type={"checkbox"} />
-        <label>Accept Terms</label>
+
+        {state.invalidAge && (
+          <span className="error-message">
+            Data non valida: devi avere almeno 16 anni
+          </span>
+        )}
+
+        <InputCheckbox
+          inputId={"acceptTerms"}
+          label={"Accetta i termini"}
+          inputClasses={"margin-top"}
+          isRequired={true}
+        />
       </div>
       <Button label="Sign Up" buttonStyle="submit-button button-margin-top" />
     </form>

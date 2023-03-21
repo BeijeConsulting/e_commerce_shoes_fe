@@ -12,7 +12,7 @@ function InputTextField(props) {
   return (
     <>
       {props.inputLabel && (
-        <label className={props.labelStyle} htmlFor={props.name}>
+        <label className={props.labelStyle} htmlFor={props.inputName}>
           {props.inputLabel}
         </label>
       )}
@@ -21,9 +21,9 @@ function InputTextField(props) {
         <input
           type={props.inputType}
           placeholder={props.inputPlaceholder}
-          name={props.name}
+          name={props.inputName}
           className={props.inputStyle}
-          {...register(props.name, {
+          {...register(props.inputName, {
             required: props.isRequired,
             pattern: props.regexValidation ? props.regexValidation : /.*/,
           })}
@@ -34,7 +34,7 @@ function InputTextField(props) {
         <input
           type={props.inputType}
           placeholder={props.inputPlaceholder}
-          name={props.name}
+          name={props.inputName}
           className={props.inputStyle}
           onChange={handleChange}
         />

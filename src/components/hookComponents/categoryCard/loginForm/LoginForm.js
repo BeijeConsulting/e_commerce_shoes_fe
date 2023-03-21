@@ -41,7 +41,7 @@ function LoginForm() {
       "
       <div className="login-form__input-container">
         <InputTextField
-          name="email"
+          inputName="email"
           inputLabel="INDIRIZZO E-MAIL:"
           inputType="text"
           inputPlaceholder="Email"
@@ -55,7 +55,7 @@ function LoginForm() {
         />
 
         <InputTextField
-          name="password"
+          inputName="password"
           inputLabel="PASSWORD:"
           inputType="password"
           inputPlaceholder="Password"
