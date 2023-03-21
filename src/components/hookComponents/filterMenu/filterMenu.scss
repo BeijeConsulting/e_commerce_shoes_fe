@@ -4,6 +4,26 @@
 .filter-menu__items {
   background-color: #f9f9f9;
 
+  header {
+    @include flex(space-between);
+    text-transform: uppercase;
+    color: $grey-normal;
+    cursor: pointer;
+
+    &.checked {
+      font-weight: 700;
+
+      &::before {
+        content: "";
+        position: absolute;
+        width: 4px;
+        height: 80%;
+        left: 0.5rem;
+        background-color: $orange;
+      }
+    }
+  }
+
   > .item {
     padding: 2rem 3rem;
     border-bottom: 1px solid #e5e5e5;
@@ -21,7 +41,7 @@
       box-shadow: 0 5px 13px -2px rgba(45, 45, 45, 80%);
 
       > .item {
-        label {
+        .label {
           cursor: pointer;
           display: block;
           margin: 2rem 0;
@@ -34,7 +54,7 @@
 
         input {
           display: none;
-          &:checked + label {
+          &:checked + .label {
             background-color: $orange;
             color: $white;
             font-weight: 700;
@@ -50,23 +70,13 @@
     }
 
     .price-range {
-      font-weight: 400;
-      margin-bottom: 2rem;
-      > div {
-        @include flex(flex-start);
-      }
+      @include flex(space-between);
+      margin-bottom: 1rem;
     }
 
     .mui-slider-modifier {
       color: $orange;
       padding: 0;
     }
-  }
-
-  header {
-    @include flex(space-between);
-    text-transform: uppercase;
-    color: $grey-normal;
-    cursor: pointer;
   }
 }
