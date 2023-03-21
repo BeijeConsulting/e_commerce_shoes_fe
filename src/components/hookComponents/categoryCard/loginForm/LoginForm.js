@@ -3,6 +3,7 @@ import "./loginForm.scss";
 import { useForm } from "react-hook-form";
 import Button from "../../../functionalComponents/button/Button";
 import InputTextField from "../../../functionalComponents/inputTextField/InputTextField";
+import InputPasswordField from "../../inputPasswordField/InputPasswordField";
 
 function LoginForm() {
   const [state, setState] = useState({
@@ -54,7 +55,7 @@ function LoginForm() {
           }`}
         />
 
-        <InputTextField
+        <InputPasswordField
           inputName="password"
           inputLabel="PASSWORD:"
           inputType="password"

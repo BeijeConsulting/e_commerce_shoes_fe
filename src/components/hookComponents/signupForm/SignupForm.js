@@ -5,6 +5,7 @@ import Button from "../../functionalComponents/button/Button";
 import { useForm } from "react-hook-form";
 import moment from "moment/moment";
 import InputCheckbox from "../../functionalComponents/inputCheckbox/InputCheckbox";
+import InputPasswordField from "../inputPasswordField/InputPasswordField";
 
 function SignupForm() {
   const [state, setState] = useState({
@@ -33,6 +34,8 @@ function SignupForm() {
     ) {
       isInvalidAge = true;
     }
+
+    console.log(currentData.diff(userBirthDate, "years"));
 
     setState({
       ...state,
@@ -70,7 +73,7 @@ function SignupForm() {
           register={register}
           isRequired={true}
           labelStyle="default-label margin-top"
-          inputStyle={`default-input ${
+          inputStyle={`default-input margin-top-small ${
             state.invalidFirstName ? "default-input--error" : ""
           }`}
         />
@@ -82,7 +85,7 @@ function SignupForm() {
           register={register}
           isRequired={true}
           labelStyle="default-label margin-top"
-          inputStyle={`default-input ${
+          inputStyle={`default-input margin-top-small ${
             state.invalidLastName ? "default-input--error" : ""
           }`}
         />
@@ -95,7 +98,7 @@ function SignupForm() {
           regexValidation={emailReg}
           isRequired={true}
           labelStyle="default-label margin-top"
-          inputStyle={`default-input ${
+          inputStyle={`default-input margin-top-small ${
             state.invalidEmail ? "default-input--error" : ""
           }`}
         />
@@ -104,7 +107,7 @@ function SignupForm() {
           <span className="error-message">L'indirizzo email non è valido</span>
         )}
 
-        <InputTextField
+        <InputPasswordField
           inputName="password"
           inputLabel="PASSWORD:"
           inputType="password"
@@ -113,7 +116,7 @@ function SignupForm() {
           regexValidation={passwordReg}
           isRequired={true}
           labelStyle="default-label margin-top"
-          inputStyle={`default-input ${
+          inputStyle={`default-input  ${
             state.invalidPassword ? "default-input--error" : ""
           }`}
         />
@@ -139,7 +142,7 @@ function SignupForm() {
           register={register}
           isRequired={true}
           labelStyle="default-label margin-top"
-          inputStyle={`default-input ${
+          inputStyle={`default-input margin-top-small ${
             state.invalidAge ? "default-input--error" : ""
           }`}
         />
