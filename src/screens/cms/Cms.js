@@ -24,13 +24,80 @@ import CartInfoBox from "../../components/functionalComponents/cartInfoBox/CartI
 
 import ProductCartItem from "../../components/hookComponents/productCartItem/ProductCartItem";
 import productImg from "../../assets/images/singleProduct/shoe1.jpeg";
-
+import ProductCard from "../../components/functionalComponents/ProductCard/ProductCard";
 import RecapCart from "../../components/functionalComponents/recapCart/RecapCart";
+import ProductGridLayout from "../../components/functionalComponents/productGridLayout/ProductGridLayout";
 
 function Cms() {
   return (
     <>
       <RecapCart total="$ 340.00" />
+      <ProductGridLayout>
+        <ProductCard
+          id={"001"}
+          image={productImg}
+          category={"Running"}
+          brand={"Nike"}
+          name={"Air Jordan"}
+          price={"$ 199.99"}
+          initialPrice={"$ 229.99"}
+        />
+        <ProductCard
+          id={"001"}
+          image={productImg}
+          category={"Running"}
+          brand={"Nike"}
+          name={"Air Jordan"}
+          price={"$ 199.99"}
+          initialPrice={"$ 229.99"}
+        />
+        <ProductCard
+          id={"001"}
+          image={productImg}
+          category={"Running"}
+          brand={"Nike"}
+          name={"Air Jordan"}
+          price={"$ 199.99"}
+          initialPrice={"$ 229.99"}
+        />
+        <ProductCard
+          id={"001"}
+          image={productImg}
+          category={"Running"}
+          brand={"Nike"}
+          name={"Air Jordan"}
+          price={"$ 199.99"}
+          initialPrice={"$ 229.99"}
+        />
+        <ProductCard
+          id={"001"}
+          image={productImg}
+          category={"Running"}
+          brand={"Nike"}
+          name={"Air Jordan"}
+          price={"$ 199.99"}
+          initialPrice={"$ 229.99"}
+        />
+        <ProductCard
+          id={"001"}
+          image={productImg}
+          category={"Running"}
+          brand={"Nike"}
+          name={"Air Jordan"}
+          price={"$ 199.99"}
+          initialPrice={"$ 229.99"}
+        />
+        <ProductCard
+          id={"001"}
+          image={productImg}
+          category={"Running"}
+          brand={"Nike"}
+          name={"Air Jordan"}
+          price={"$ 199.99"}
+          initialPrice={"$ 229.99"}
+        />
+      </ProductGridLayout>
+
       <ProductCartItem
         img={productImg}
         altImg="productAlt"
@@ -90,6 +157,5 @@ function Cms() {
     </>
   );
 }
-console.log(productImg);
 
 export default Cms;
