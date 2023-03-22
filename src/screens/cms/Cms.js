@@ -19,6 +19,7 @@ import SignupForm from "../../components/hookComponents/signupForm/SignupForm";
 import InputPasswordField from "../../components/hookComponents/inputPasswordField/InputPasswordField";
 import HeaderSingleProduct from "../../components/hookComponents/headerSingleProduct/HeaderSingleProduct";
 import WishListAccordion from '../../components/hookComponents/wishListAccordion/WishListAccordion';
+import CartInfoBox from "../../components/functionalComponents/cartInfoBox/CartInfoBox";
 
 function Cms() {
   return (
@@ -33,9 +34,8 @@ function Cms() {
 
       <Header />
       <CartHeader />
-
       <CouponInput />
-
+      <CartInfoBox />
       <WishListAccordion />
 
       {/* <HeaderSingleProduct /> */}
