@@ -28,5 +28,3 @@ InputCheckbox.defaultProps = {
 };
 
 export default InputCheckbox;
-
-export default InputCheckbox;
