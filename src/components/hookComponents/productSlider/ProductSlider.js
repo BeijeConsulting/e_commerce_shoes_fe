@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import PropTypes from 'prop-types';
 import { Swiper, SwiperSlide } from "swiper/react";
 import productCardImg from "../../../assets/images/productCardImg.jpg"
 import ProductCard from "../../functionalComponents/ProductCard/ProductCard";
@@ -12,7 +13,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 
-function ProductSlider() {
+function ProductSlider(props) {
 
     const swiperNavNextRef = useRef(null)
     const swiperNavPrevRef = useRef(null)
@@ -124,6 +125,14 @@ function ProductSlider() {
 
 
     )
+}
+
+ProductSlider.defaultProps = {
+
+}
+
+ProductSlider.propTypes = {
+
 }
 
 export default ProductSlider

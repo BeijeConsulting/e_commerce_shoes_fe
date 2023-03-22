@@ -1,4 +1,6 @@
 import React from 'react'
+import PropTypes from 'prop-types';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import adidasMobile from "../../../assets/images/mobile/adidas-mobile.jpeg";
@@ -20,16 +22,15 @@ import { Link } from 'react-router-dom';
 
 // Sostituire il button con il Button Component
 
-function SliderHomepage() {
+function SliderHomepage(props) {
+
+
     return (
         <div>
             <Swiper
-                pagination={ true }
-                navigation={ true }
-                autoplay={ {
-                    delay: 2500,
-                    disableOnInteraction: false,
-                } }
+                pagination={ props.pagination }
+                navigation={ props.navigation }
+                autoplay={ props.autoplay }
                 modules={ [Pagination, Navigation, Autoplay] }
             >
                 <SwiperSlide className='swiperSlide'>
@@ -82,6 +83,14 @@ function SliderHomepage() {
             </Swiper>
         </div>
     )
+}
+
+SliderHomepage.defaultProps = {
+
+}
+
+SliderHomepage.propTypes = {
+
 }
 
 export default SliderHomepage;

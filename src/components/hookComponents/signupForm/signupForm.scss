@@ -1,0 +1,28 @@
+@import "../../../style/common/variables.scss";
+
+.margin-top {
+  margin-top: 2rem;
+}
+
+.margin-top-extra {
+  margin-top: 3.4rem;
+}
+
+.margin-top-small {
+  margin-top: 0.8rem;
+}
+
+.error-message {
+  display: block;
+  color: $red;
+  margin-top: 0.8rem;
+  font-size: $x-small;
+  letter-spacing: 1.2px;
+
+  ul {
+    list-style: disc;
+    margin-top: 1.6rem;
+    line-height: 1.4;
+    padding-left: 3.5rem;
+  }
+}
