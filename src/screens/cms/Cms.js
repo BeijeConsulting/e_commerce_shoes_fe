@@ -17,6 +17,7 @@ import CartHeader from "../../components/functionalComponents/cartHeader/CartHea
 import SignupForm from "../../components/hookComponents/signupForm/SignupForm";
 import InputPasswordField from "../../components/hookComponents/inputPasswordField/InputPasswordField";
 import HeaderSingleProduct from "../../components/hookComponents/headerSingleProduct/HeaderSingleProduct";
+import WishListAccordion from '../../components/hookComponents/wishListAccordion/WishListAccordion';
 
 function Cms() {
   return (
@@ -32,7 +33,9 @@ function Cms() {
       <Header />
       <CartHeader />
 
-      <HeaderSingleProduct />
+      <WishListAccordion />
+
+      {/* <HeaderSingleProduct /> */ }
 
       {/* <div style={{ marginTop: "100px", marginLeft: "100px", width: "400px" }}>
         <LoginForm />
@@ -57,8 +60,8 @@ function Cms() {
           <BoxImage image={boxNuoviArriviLifeStyle} />
         </div>
       </div> */}
-      {/* <PreFooter /> */}
-      {/* </div> */}
+      {/* <PreFooter /> */ }
+      {/* </div> */ }
       <PreFooter />
       <Footer />
     </>

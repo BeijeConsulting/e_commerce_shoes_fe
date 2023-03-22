@@ -2,7 +2,6 @@ import React from "react";
 import "./button.scss";
 
 function Button(props) {
-  console.log(props.buttonStyle);
   function handleClick(e) {
     if (!props.handleClick) return;
 
@@ -10,10 +9,15 @@ function Button(props) {
   }
 
   return (
+<<<<<<< HEAD
     <button onClick={handleClick}
       className={props.buttonStyle}>
       {props.label}
       {props.children}
+=======
+    <button onClick={handleClick} className={props.buttonStyle}>
+      {props.label}
+>>>>>>> develop
     </button>
   );
 }
