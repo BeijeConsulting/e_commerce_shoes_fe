@@ -17,9 +17,21 @@ import SignupForm from "../../components/hookComponents/signupForm/SignupForm";
 import InputPasswordField from "../../components/hookComponents/inputPasswordField/InputPasswordField";
 import HeaderSingleProduct from "../../components/hookComponents/headerSingleProduct/HeaderSingleProduct";
 
+import ProductCartItem from "../../components/hookComponents/productCartItem/ProductCartItem";
+import productImg from "../../assets/images/singleProduct/shoe1.jpeg";
+
 function Cms() {
   return (
     <>
+      {/* <ProductCartItem
+        img={productImg}
+        altImg="productAlt"
+        price="$ 169.99"
+        productName={"Football shoes"}
+        brand={"Nike"}
+        quantity={"2"}
+      /> */}
+
       <Seo
         lang="it"
         title="Pagina principale"
@@ -62,5 +74,6 @@ function Cms() {
     </>
   );
 }
+console.log(productImg);
 
 export default Cms;

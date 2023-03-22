@@ -1,0 +1,111 @@
+@import "../../../style/common/variables.scss";
+@import "../../../style/common/mixin.scss";
+
+.cart-item {
+  position: relative;
+  //   height: 20rem;
+  width: 100%;
+
+  @include flex(flex-start, flex-start);
+
+  padding: 1rem;
+
+  &__img {
+    height: auto;
+    max-width: 17%;
+
+    @media screen and (max-width: 800px) {
+      max-width: 25%;
+    }
+  }
+
+  &__info {
+    margin-left: 8rem;
+
+    @media screen and (max-width: 800px) {
+      margin-left: 4rem;
+    }
+
+    &__price {
+      color: $orange;
+      font-size: $large;
+      margin-top: 1rem;
+    }
+    &__name {
+      font-size: $medium;
+      margin-top: 1.2rem;
+    }
+    &__brand {
+      font-size: $small;
+      margin-top: 0.6rem;
+    }
+    &__quantity {
+      position: relative;
+      font-size: $medium;
+      margin-top: 2rem;
+
+      input {
+        margin-left: 1.6rem;
+        display: inline-block;
+        width: 100px;
+        font-size: $small;
+        padding: 1rem;
+      }
+
+      .confirm {
+        position: absolute;
+        top: 50%;
+        right: -4rem;
+
+        background-color: $grey-light;
+        height: 100%;
+        width: 5rem;
+        cursor: pointer;
+
+        border-radius: 0.5rem;
+        @include flex();
+        transform: translate(50%, -50%);
+
+        &:hover {
+          background-color: $orange;
+        }
+
+        .undo {
+          position: absolute;
+          top: 50%;
+          right: -4rem;
+
+          background-color: $grey-light;
+          height: 100%;
+          width: 5rem;
+          cursor: pointer;
+
+          border-radius: 0.5rem;
+          @include flex();
+          transform: translate(50%, -50%);
+
+          &:hover {
+            background-color: $orange;
+          }
+        }
+      }
+    }
+  }
+
+  &__delete {
+    cursor: pointer;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+
+    transform: translate(-50%, 50%);
+
+    &__icon {
+      font-size: 30px !important;
+
+      @media screen and (max-width: 800px) {
+        font-size: 25px !important;
+      }
+    }
+  }
+}
