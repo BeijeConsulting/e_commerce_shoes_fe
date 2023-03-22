@@ -18,16 +18,19 @@ import CouponInput from "../../components/functionalComponents/couponInput/Coupo
 import SignupForm from "../../components/hookComponents/signupForm/SignupForm";
 import InputPasswordField from "../../components/hookComponents/inputPasswordField/InputPasswordField";
 import HeaderSingleProduct from "../../components/hookComponents/headerSingleProduct/HeaderSingleProduct";
-import WishListAccordion from '../../components/hookComponents/wishListAccordion/WishListAccordion';
-import WishListProductCard from '../../components/hookComponents/wishListProductCard/WishListProductCard';
+import WishListAccordion from "../../components/hookComponents/wishListAccordion/WishListAccordion";
+import WishListProductCard from "../../components/hookComponents/wishListProductCard/WishListProductCard";
 import CartInfoBox from "../../components/functionalComponents/cartInfoBox/CartInfoBox";
 
 import ProductCartItem from "../../components/hookComponents/productCartItem/ProductCartItem";
 import productImg from "../../assets/images/singleProduct/shoe1.jpeg";
 
+import RecapCart from "../../components/functionalComponents/recapCart/RecapCart";
+
 function Cms() {
   return (
     <>
+      <RecapCart total="$ 340.00" />
       <ProductCartItem
         img={productImg}
         altImg="productAlt"
@@ -44,17 +47,16 @@ function Cms() {
         content="e-commerce"
       />
 
-
       <WishListProductCard />
 
-      {/* <WishListAccordion /> */ }
+      {/* <WishListAccordion /> */}
       <Header />
       <CartHeader />
       <CouponInput />
       <CartInfoBox />
       <WishListAccordion />
 
-      {/* <HeaderSingleProduct /> */ }
+      {/* <HeaderSingleProduct /> */}
 
       {/* <div style={{ marginTop: "100px", marginLeft: "100px", width: "400px" }}>
         <LoginForm />
@@ -79,8 +81,8 @@ function Cms() {
           <BoxImage image={boxNuoviArriviLifeStyle} />
         </div>
       </div> */}
-      {/* <PreFooter /> */ }
-      {/* </div> */ }
+      {/* <PreFooter /> */}
+      {/* </div> */}
       <PreFooter />
       <Footer />
     </>
