@@ -6,13 +6,14 @@
   width: 100%;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 
-  @include flex(flex-start, flex-start);
+  @include flex(flex-start, center);
 
   padding: 1rem;
 
   &__img {
     height: auto;
     max-width: 17%;
+    min-width: 12rem;
 
     @media screen and (max-width: 800px) {
       max-width: 25%;
@@ -23,7 +24,15 @@
     margin-left: 8rem;
 
     @media screen and (max-width: 800px) {
-      margin-left: 4rem;
+      margin-left: 2rem;
+    }
+
+    &__color-size {
+      font-size: $x-small;
+      margin-top: 0.6rem;
+
+      @include flex(normal, normal);
+      gap: 1rem;
     }
 
     &__price {
@@ -47,9 +56,14 @@
       input {
         margin-left: 1.6rem;
         display: inline-block;
-        width: 100px;
+        width: 10rem;
         font-size: $small;
-        padding: 1rem;
+        padding: 0.6rem 1.2rem;
+
+        @media screen and (max-width: 800px) {
+          width: 7rem;
+          margin-left: 1rem;
+        }
       }
 
       .confirm {

@@ -38,6 +38,8 @@ function Cms() {
         productName={"Football shoes"}
         brand={"Nike"}
         quantity={"2"}
+        color={"Nero"}
+        size={"EU 42"}
       />
 
       <Seo

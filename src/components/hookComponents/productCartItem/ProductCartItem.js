@@ -44,6 +44,10 @@ function ProductCartItem(props) {
         <div className="cart-item__info__price">{props.price}</div>
         <div className="cart-item__info__name">{props.productName}</div>
         <div className="cart-item__info__brand">{props.brand}</div>
+        <div className="cart-item__info__color-size">
+          <span>{props.color}</span>
+          <span>{props.size}</span>
+        </div>
         <div className="cart-item__info__quantity">
           <span>Quantitá</span>{" "}
           <input
