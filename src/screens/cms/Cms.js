@@ -18,13 +18,97 @@ import CouponInput from "../../components/functionalComponents/couponInput/Coupo
 import SignupForm from "../../components/hookComponents/signupForm/SignupForm";
 import InputPasswordField from "../../components/hookComponents/inputPasswordField/InputPasswordField";
 import HeaderSingleProduct from "../../components/hookComponents/headerSingleProduct/HeaderSingleProduct";
-import WishListAccordion from '../../components/hookComponents/wishListAccordion/WishListAccordion';
-import WishListProductCard from '../../components/hookComponents/wishListProductCard/WishListProductCard';
+import WishListAccordion from "../../components/hookComponents/wishListAccordion/WishListAccordion";
+import WishListProductCard from "../../components/hookComponents/wishListProductCard/WishListProductCard";
 import CartInfoBox from "../../components/functionalComponents/cartInfoBox/CartInfoBox";
+
+import ProductCartItem from "../../components/hookComponents/productCartItem/ProductCartItem";
+import productImg from "../../assets/images/singleProduct/shoe1.jpeg";
+import ProductCard from "../../components/functionalComponents/ProductCard/ProductCard";
+import RecapCart from "../../components/functionalComponents/recapCart/RecapCart";
+import ProductGridLayout from "../../components/functionalComponents/productGridLayout/ProductGridLayout";
 
 function Cms() {
   return (
     <>
+      <RecapCart total="$ 340.00" />
+      <ProductGridLayout>
+        <ProductCard
+          id={"001"}
+          image={productImg}
+          category={"Running"}
+          brand={"Nike"}
+          name={"Air Jordan"}
+          price={"$ 199.99"}
+          initialPrice={"$ 229.99"}
+        />
+        <ProductCard
+          id={"001"}
+          image={productImg}
+          category={"Running"}
+          brand={"Nike"}
+          name={"Air Jordan"}
+          price={"$ 199.99"}
+          initialPrice={"$ 229.99"}
+        />
+        <ProductCard
+          id={"001"}
+          image={productImg}
+          category={"Running"}
+          brand={"Nike"}
+          name={"Air Jordan"}
+          price={"$ 199.99"}
+          initialPrice={"$ 229.99"}
+        />
+        <ProductCard
+          id={"001"}
+          image={productImg}
+          category={"Running"}
+          brand={"Nike"}
+          name={"Air Jordan"}
+          price={"$ 199.99"}
+          initialPrice={"$ 229.99"}
+        />
+        <ProductCard
+          id={"001"}
+          image={productImg}
+          category={"Running"}
+          brand={"Nike"}
+          name={"Air Jordan"}
+          price={"$ 199.99"}
+          initialPrice={"$ 229.99"}
+        />
+        <ProductCard
+          id={"001"}
+          image={productImg}
+          category={"Running"}
+          brand={"Nike"}
+          name={"Air Jordan"}
+          price={"$ 199.99"}
+          initialPrice={"$ 229.99"}
+        />
+        <ProductCard
+          id={"001"}
+          image={productImg}
+          category={"Running"}
+          brand={"Nike"}
+          name={"Air Jordan"}
+          price={"$ 199.99"}
+          initialPrice={"$ 229.99"}
+        />
+      </ProductGridLayout>
+
+      <ProductCartItem
+        img={productImg}
+        altImg="productAlt"
+        price="$ 169.99"
+        productName={"Football shoes"}
+        brand={"Nike"}
+        quantity={"2"}
+        color={"Nero"}
+        size={"EU 42"}
+      />
+
       <Seo
         lang="it"
         title="Pagina principale"
@@ -32,17 +116,16 @@ function Cms() {
         content="e-commerce"
       />
 
-
       <WishListProductCard />
 
-      {/* <WishListAccordion /> */ }
+      {/* <WishListAccordion /> */}
       <Header />
       <CartHeader />
       <CouponInput />
       <CartInfoBox />
       <WishListAccordion />
 
-      {/* <HeaderSingleProduct /> */ }
+      {/* <HeaderSingleProduct /> */}
 
       {/* <div style={{ marginTop: "100px", marginLeft: "100px", width: "400px" }}>
         <LoginForm />
@@ -67,8 +150,8 @@ function Cms() {
           <BoxImage image={boxNuoviArriviLifeStyle} />
         </div>
       </div> */}
-      {/* <PreFooter /> */ }
-      {/* </div> */ }
+      {/* <PreFooter /> */}
+      {/* </div> */}
       <PreFooter />
       <Footer />
     </>

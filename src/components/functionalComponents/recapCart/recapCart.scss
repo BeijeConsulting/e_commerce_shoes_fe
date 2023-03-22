@@ -1,0 +1,55 @@
+@import "../../../style/common/variables.scss";
+@import "../../../style/common/mixin.scss";
+
+.recap-container {
+  @include flex(center, center, column);
+  //   width: 600px;
+
+  text-align: center;
+  color: $white;
+
+  border-radius: 0.5rem;
+  padding: 4rem;
+  background-color: $grey-dark;
+  &__header {
+    font-size: $large;
+
+    @media screen and (max-width: 600px) {
+      font-size: $medium;
+    }
+  }
+
+  &__total {
+    padding: 1rem;
+    position: relative;
+
+    font-size: $medium;
+    margin-top: 4rem;
+    width: 100%;
+    @include flex(space-around);
+
+    @media screen and (max-width: 600px) {
+      font-size: $small;
+    }
+
+    .price {
+      font-weight: 700;
+      font-size: $large;
+      color: $orange;
+
+      @media screen and (max-width: 600px) {
+        font-size: $medium;
+      }
+    }
+
+    .underline {
+      display: block;
+      position: absolute;
+      left: 0;
+      bottom: -1rem;
+      height: 2px;
+      width: 100%;
+      background-color: $white;
+    }
+  }
+}
