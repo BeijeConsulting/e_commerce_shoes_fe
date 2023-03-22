@@ -1,0 +1,111 @@
+@import "../../../style/common/variables.scss";
+@import "../../../style/common/mixin.scss";
+
+.cart-header {
+  margin: 0 auto;
+  padding: 4.5rem 2rem 1rem;
+  text-transform: uppercase;
+
+  .__recap {
+    @include flex(flex-start, center);
+  }
+
+  .__prices {
+    @include flex(flex-start, stretch);
+  }
+
+  .__recap {
+    margin-bottom: 2rem;
+    h1 {
+      font-size: $medium;
+      font-weight: 900;
+      margin-right: 1rem;
+    }
+  }
+
+  .__quantity,
+  .__text {
+    font-size: $x-small;
+    color: $grey-normal;
+  }
+
+  .__price {
+    font-weight: 900;
+  }
+
+  .__text {
+    margin-bottom: 0.3rem;
+  }
+
+  .__before,
+  .__after {
+    margin-right: 5rem;
+  }
+
+  .__after {
+    .__price {
+      font-size: $medium;
+      color: $orange;
+    }
+  }
+
+  .__actions {
+    position: fixed;
+    z-index: 10;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem;
+    background-color: $white;
+    button {
+      &:first-child {
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .cart-header {
+    @include flex(space-between, center);
+
+    .__recap {
+      display: block;
+      margin-bottom: 0;
+      h1 {
+        margin-bottom: 1rem;
+      }
+    }
+
+    .__prices {
+      @include flex(flex-start, center);
+      flex-basis: 50%;
+      .__actions {
+        padding: 0;
+        box-shadow: none;
+        position: static;
+        bottom: 0;
+        z-index: 10;
+        flex-basis: 80%;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .cart-header {
+    .__prices {
+      flex-basis: 70%;
+    }
+    .__actions {
+      @include flex(space-between, center);
+      button {
+        &:first-child {
+          margin-bottom: 0;
+          margin-right: 1rem;
+        }
+      }
+    }
+  }
+}

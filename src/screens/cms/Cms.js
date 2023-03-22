@@ -13,9 +13,14 @@ import Footer from "../../components/functionalComponents/footer/Footer";
 import InputTextField from "../../components/functionalComponents/inputTextField/InputTextField";
 
 import FilterMenu from "../../components/hookComponents/filterMenu/FilterMenu";
+import CartHeader from "../../components/functionalComponents/cartHeader/CartHeader";
+import CouponInput from "../../components/functionalComponents/couponInput/CouponInput";
 import SignupForm from "../../components/hookComponents/signupForm/SignupForm";
 import InputPasswordField from "../../components/hookComponents/inputPasswordField/InputPasswordField";
 import HeaderSingleProduct from "../../components/hookComponents/headerSingleProduct/HeaderSingleProduct";
+import WishListAccordion from '../../components/hookComponents/wishListAccordion/WishListAccordion';
+import WishListProductCard from '../../components/hookComponents/wishListProductCard/WishListProductCard';
+import CartInfoBox from "../../components/functionalComponents/cartInfoBox/CartInfoBox";
 
 import ProductCartItem from "../../components/hookComponents/productCartItem/ProductCartItem";
 import productImg from "../../assets/images/singleProduct/shoe1.jpeg";
@@ -39,10 +44,17 @@ function Cms() {
         content="e-commerce"
       />
 
-      <Header />
-      <FilterMenu />
 
-      <HeaderSingleProduct />
+      <WishListProductCard />
+
+      {/* <WishListAccordion /> */ }
+      <Header />
+      <CartHeader />
+      <CouponInput />
+      <CartInfoBox />
+      <WishListAccordion />
+
+      {/* <HeaderSingleProduct /> */ }
 
       {/* <div style={{ marginTop: "100px", marginLeft: "100px", width: "400px" }}>
         <LoginForm />
@@ -67,8 +79,8 @@ function Cms() {
           <BoxImage image={boxNuoviArriviLifeStyle} />
         </div>
       </div> */}
-      {/* <PreFooter /> */}
-      {/* </div> */}
+      {/* <PreFooter /> */ }
+      {/* </div> */ }
       <PreFooter />
       <Footer />
     </>
