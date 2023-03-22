@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import './filterMenu.scss';
 
+import Button from '../../functionalComponents/button/Button';
+
 import Slider from '@mui/material/Slider';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -101,6 +103,23 @@ function FilterMenu() {
         }
     });
 
+    function resetFilters() {
+        setState(
+            {
+                ...state,
+                filters: {
+                    price: [20, 1000],
+                    onSale: false,
+                    genre: null,
+                    size: null,
+                    category: null,
+                    brand: null,
+                    color: null,
+                }
+            }
+        )
+    }
+
     function handleActive(event) {
         let active = event.target.getAttribute('data-filter');
         if (state.active === active) active = null;
@@ -124,11 +143,13 @@ function FilterMenu() {
     };
 
     function handleSaleChange() {
-        setState({
-            ...state,
-            filters: {
-                ...state.filters,
-                onSale: !state.filters.onSale,
+        setState(prevState => {
+            return {
+                ...state,
+                filters: {
+                    ...state.filters,
+                    onSale: !prevState.filters.onSale,
+                }
             }
         });
     };
@@ -221,14 +242,16 @@ function FilterMenu() {
         </div>
     }
 
+
+
     return (
         <aside className="filter-menu">
             <div className="filter-menu__items">
                 <div className={`item ${state.active === "price" ? 'active' : ''}`}>
                     <header onClick={handleActive} data-filter="price" className={`${state.filters.price[0] !== minMax[0] || state.filters.price[1] !== minMax[1] ? 'checked' : ''}`} >
-                        <div>prezzo</div>
-                        {state.active !== "price" && <KeyboardArrowDownIcon fontSize={'large'} />}
-                        {state.active === "price" && <KeyboardArrowUpIcon fontSize={'large'} />}
+                        <div data-filter="price">prezzo</div>
+                        {state.active !== "price" && <KeyboardArrowDownIcon data-filter="price" fontSize={'large'} />}
+                        {state.active === "price" && <KeyboardArrowUpIcon data-filter="price" fontSize={'large'} />}
                     </header>
                     <div className="sub-item">
                         <div className="item">
@@ -252,10 +275,10 @@ function FilterMenu() {
                 </div>
 
                 <div className={`item ${state.active === "on-sale" ? 'active' : ''}`}>
-                    <header onClick={handleActive} data-filter="on-sale" className={`${!!state.filters.onSale ? 'checked' : ''}`} >
-                        <div>Ribassi</div>
-                        {state.active !== "on-sale" && <KeyboardArrowDownIcon fontSize={'large'} />}
-                        {state.active === "on-sale" && <KeyboardArrowUpIcon fontSize={'large'} />}
+                    <header data-filter="on-sale" onClick={handleActive} className={`${!!state.filters.onSale ? 'checked' : ''}`} >
+                        <div data-filter="on-sale">ribassi</div>
+                        {state.active !== "on-sale" && <KeyboardArrowDownIcon data-filter="on-sale" fontSize={'large'} />}
+                        {state.active === "on-sale" && <KeyboardArrowUpIcon data-filter="on-sale" fontSize={'large'} />}
                     </header>
                     <div className="sub-item">
                         <div className="item">
@@ -267,9 +290,9 @@ function FilterMenu() {
 
                 <div className={`item ${state.active === "genre" ? 'active' : ''}`}>
                     <header onClick={handleActive} data-filter="genre" className={`${state.filters.genre ? 'checked' : ''}`} >
-                        <div>Genere</div>
-                        {state.active !== "genre" && <KeyboardArrowDownIcon fontSize={'large'} />}
-                        {state.active === "genre" && <KeyboardArrowUpIcon fontSize={'large'} />}
+                        <div data-filter="genre">genere</div>
+                        {state.active !== "genre" && <KeyboardArrowDownIcon data-filter="genre" fontSize={'large'} />}
+                        {state.active === "genre" && <KeyboardArrowUpIcon data-filter="genre" fontSize={'large'} />}
                     </header>
                     <div className="sub-item">
                         <div className="item">
@@ -287,12 +310,11 @@ function FilterMenu() {
                     </div>
                 </div>
 
-                <div className={`item ${state.active === "size" ? 'active' : ''
-                    } `}>
+                <div className={`item ${state.active === "size" ? 'active' : ''} `}>
                     <header onClick={handleActive} data-filter="size" className={`${state.filters.size ? 'checked' : ''} `} >
-                        <div>taglia</div>
-                        {state.active !== "size" && <KeyboardArrowDownIcon fontSize={'large'} />}
-                        {state.active === "size" && <KeyboardArrowUpIcon fontSize={'large'} />}
+                        <div data-filter="size">taglia</div>
+                        {state.active !== "size" && <KeyboardArrowDownIcon data-filter="size" fontSize={'large'} />}
+                        {state.active === "size" && <KeyboardArrowUpIcon data-filter="size" fontSize={'large'} />}
                     </header>
                     <div className="sub-item">
                         {state.active === 'size' && sizes.map(mapSizes)}
@@ -301,9 +323,9 @@ function FilterMenu() {
 
                 <div className={`item ${state.active === "category" ? 'active' : ''} `}>
                     <header onClick={handleActive} data-filter="category" className={`${state.filters.category ? 'checked' : ''} `} >
-                        <div>categoria</div>
-                        {state.active !== "category" && <KeyboardArrowDownIcon fontSize={'large'} />}
-                        {state.active === "category" && <KeyboardArrowUpIcon fontSize={'large'} />}
+                        <div data-filter="category">categoria</div>
+                        {state.active !== "category" && <KeyboardArrowDownIcon data-filter="category" fontSize={'large'} />}
+                        {state.active === "category" && <KeyboardArrowUpIcon data-filter="category" fontSize={'large'} />}
                     </header>
                     <div className="sub-item">
                         {state.active === "category" && categories.map(mapCategories)}
@@ -312,9 +334,9 @@ function FilterMenu() {
 
                 <div className={`item ${state.active === "brand" ? 'active' : ''} `}>
                     <header onClick={handleActive} data-filter="brand" className={`${state.filters.brand ? 'checked' : ''} `} >
-                        <div>brand</div>
-                        {state.active !== "brand" && <KeyboardArrowDownIcon fontSize={'large'} />}
-                        {state.active === "brand" && <KeyboardArrowUpIcon fontSize={'large'} />}
+                        <div data-filter="brand">brand</div>
+                        {state.active !== "brand" && <KeyboardArrowDownIcon data-filter="brand" fontSize={'large'} />}
+                        {state.active === "brand" && <KeyboardArrowUpIcon data-filter="brand" fontSize={'large'} />}
                     </header>
                     <div className="sub-item">
                         {state.active === "brand" && brands.map(mapBrands)}
@@ -323,16 +345,20 @@ function FilterMenu() {
 
                 <div className={`item ${state.active === "color" ? 'active' : ''} `}>
                     <header onClick={handleActive} data-filter="color" className={`${state.filters.color ? 'checked' : ''} `} >
-                        <div>colore</div>
-                        {state.active !== "color" && <KeyboardArrowDownIcon fontSize={'large'} />}
-                        {state.active === "color" && <KeyboardArrowUpIcon fontSize={'large'} />}
+                        <div data-filter="color">colore</div>
+                        {state.active !== "color" && <KeyboardArrowDownIcon data-filter="color" fontSize={'large'} />}
+                        {state.active === "color" && <KeyboardArrowUpIcon data-filter="color" fontSize={'large'} />}
                     </header>
                     <div className="sub-item">
                         {state.active === "color" && colors.map(mapColors)}
                     </div>
                 </div>
             </div>
-        </aside>
+            <div className="filter-menu__actions">
+                <Button label={'Applica filtri'} buttonStyle={'filter-button'} />
+                <span onClick={resetFilters} className="remove">cancella filtri</span>
+            </div>
+        </aside >
     )
 }
 
