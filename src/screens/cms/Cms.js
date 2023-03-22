@@ -23,14 +23,14 @@ import productImg from "../../assets/images/singleProduct/shoe1.jpeg";
 function Cms() {
   return (
     <>
-      {/* <ProductCartItem
+      <ProductCartItem
         img={productImg}
         altImg="productAlt"
         price="$ 169.99"
         productName={"Football shoes"}
         brand={"Nike"}
         quantity={"2"}
-      /> */}
+      />
 
       <Seo
         lang="it"
