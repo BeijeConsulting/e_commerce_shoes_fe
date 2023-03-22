@@ -13,6 +13,7 @@ import Footer from "../../components/functionalComponents/footer/Footer";
 import InputTextField from "../../components/functionalComponents/inputTextField/InputTextField";
 
 import FilterMenu from "../../components/hookComponents/filterMenu/FilterMenu";
+import CartHeader from "../../components/functionalComponents/cartHeader/CartHeader";
 import SignupForm from "../../components/hookComponents/signupForm/SignupForm";
 import InputPasswordField from "../../components/hookComponents/inputPasswordField/InputPasswordField";
 import HeaderSingleProduct from "../../components/hookComponents/headerSingleProduct/HeaderSingleProduct";
@@ -27,8 +28,9 @@ function Cms() {
         content="e-commerce"
       />
 
+
       <Header />
-      <FilterMenu />
+      <CartHeader />
 
       <HeaderSingleProduct />
 
