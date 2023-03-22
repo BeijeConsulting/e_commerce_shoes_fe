@@ -1,0 +1,126 @@
+@import "../../../style/common/variables.scss";
+@import "../../../style/common/mixin.scss";
+
+.filter-menu {
+  .filter-menu__items {
+    background-color: #f9f9f9;
+
+    header {
+      @include flex(space-between);
+      text-transform: uppercase;
+      color: $grey-normal;
+      cursor: pointer;
+
+      &.checked {
+        font-weight: 700;
+
+        &::before {
+          content: "";
+          position: absolute;
+          width: 4px;
+          height: 80%;
+          left: 0.5rem;
+          background-color: $orange;
+        }
+      }
+    }
+
+    > .item {
+      padding: 2rem 3rem;
+      border-bottom: 1px solid #e5e5e5;
+      position: relative;
+
+      .sub-item {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        padding: 0 3rem;
+        max-height: 31rem;
+        z-index: 2;
+        background-color: #eee;
+        overflow-y: auto;
+        box-shadow: 0 5px 13px -2px rgba(45, 45, 45, 80%);
+
+        > .item {
+          .label {
+            cursor: pointer;
+            display: block;
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 1rem;
+            background-color: $white;
+            text-transform: uppercase;
+            font-size: $x-small;
+          }
+
+          input {
+            display: none;
+            &:checked + .label {
+              background-color: $orange;
+              color: $white;
+              font-weight: 700;
+            }
+          }
+        }
+      }
+
+      &.active {
+        .sub-item {
+          display: block;
+        }
+      }
+
+      .price-range {
+        @include flex(space-between);
+        margin-bottom: 1rem;
+      }
+
+      .mui-slider-modifier {
+        color: $orange;
+        padding: 0;
+      }
+    }
+  }
+
+  .filter-menu__actions {
+    padding: 2rem;
+    text-align: center;
+    .remove {
+      cursor: pointer;
+      display: inline-block;
+      text-transform: uppercase;
+      font-size: $x-small;
+      font-weight: 700;
+      text-decoration: underline;
+      margin-top: 1rem;
+    }
+  }
+}
+
+// Responsive
+
+@media (min-width: 768px) {
+  .filter-menu__items {
+    @include flex(flex-start, center);
+    flex-wrap: wrap;
+    > .item {
+      margin: 0 2rem;
+      flex-basis: calc(25% - 4rem);
+      &:nth-child(4) {
+        margin-right: 0;
+        flex-basis: calc(25% - 4rem);
+      }
+      .sub-item {
+        left: 0;
+        width: fit-content;
+        min-width: 30rem;
+      }
+    }
+  }
+
+  .filter-menu__actions {
+    display: none;
+  }
+}
