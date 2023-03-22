@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./productCartItem.scss";
 import CheckIcon from "@mui/icons-material/Check";
 import { Check } from "@mui/icons-material";
@@ -6,15 +6,22 @@ import CloseIcon from "@mui/icons-material/Close";
 
 function ProductCartItem(props) {
   const [state, setState] = useState({
-    quantity: null,
+    quantity: props.quantity,
     showConfirmQuantity: false,
   });
+  const inputField = useRef();
 
   function apiCall() {
     console.log("Cart Item API call");
+    // console.log(Number(inputField.current.value));
+    let quantity =
+      Number(inputField.current.value) <= 0 ||
+      isNaN(Number(inputField.current.value))
+        ? props.quantity
+        : inputField.current.value;
 
     /* 1 - Far gestire la chiamata API dal parent in modo che possa aggiornare 
-        le props che possa ai children
+        le props che passa ai children
 
         2 - Fare la chiamata API direttamente dal children e far fare il re-rendering
         con le props aggiornate da redux
@@ -22,6 +29,7 @@ function ProductCartItem(props) {
 
     setState({
       ...state,
+      quantity: quantity,
       showConfirmQuantity: false,
     });
   }
@@ -51,7 +59,8 @@ function ProductCartItem(props) {
         <div className="cart-item__info__quantity">
           <span>Quantitá</span>{" "}
           <input
-            value={!state.quantity ? props.quantity : state.quantity}
+            ref={inputField}
+            value={state.quantity}
             type={"number"}
             onChange={setQuantity}
             min={1}
