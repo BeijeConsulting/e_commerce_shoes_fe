@@ -34,7 +34,7 @@ function ProductCard(props) {
               </div>
             )}
             <div className="product-card__info__second-col__price">
-              {props.price}
+              {props.price}€
             </div>
           </div>
         </div>
