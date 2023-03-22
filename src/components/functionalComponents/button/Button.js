@@ -9,15 +9,10 @@ function Button(props) {
   }
 
   return (
-<<<<<<< HEAD
     <button onClick={handleClick}
       className={props.buttonStyle}>
       {props.label}
       {props.children}
-=======
-    <button onClick={handleClick} className={props.buttonStyle}>
-      {props.label}
->>>>>>> develop
     </button>
   );
 }
