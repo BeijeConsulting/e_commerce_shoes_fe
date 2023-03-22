@@ -12,6 +12,7 @@ import Header from "../../components/hookComponents/header/Header";
 import Footer from "../../components/functionalComponents/footer/Footer";
 import InputTextField from "../../components/functionalComponents/inputTextField/InputTextField";
 
+import FilterMenu from "../../components/hookComponents/filterMenu/FilterMenu";
 import SignupForm from "../../components/hookComponents/signupForm/SignupForm";
 import InputPasswordField from "../../components/hookComponents/inputPasswordField/InputPasswordField";
 import HeaderSingleProduct from "../../components/hookComponents/headerSingleProduct/HeaderSingleProduct";
@@ -27,6 +28,7 @@ function Cms() {
       />
 
       <Header />
+      <FilterMenu />
 
       <HeaderSingleProduct />
 

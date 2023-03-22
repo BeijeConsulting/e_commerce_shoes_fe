@@ -52,3 +52,24 @@
     background-color: $grey-normal;
   }
 }
+
+.filter-button {
+  display: block;
+  background-color: $black;
+  color: $white;
+  text-transform: uppercase;
+
+  width: 100%;
+  font-size: 1.6rem;
+  padding: 1.2rem;
+
+  border-radius: 0.5rem;
+
+  cursor: pointer;
+
+  transition: all 150ms ease;
+
+  &:hover {
+    background-color: $grey-normal;
+  }
+}
