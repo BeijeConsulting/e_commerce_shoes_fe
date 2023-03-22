@@ -9,6 +9,7 @@ function InputTextField(props) {
 
     props.onChangeSendData(e);
   }
+
   return (
     <>
       {props.inputLabel && (

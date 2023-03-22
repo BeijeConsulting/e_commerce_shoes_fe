@@ -1,0 +1,46 @@
+@import "../../../style/common/variables.scss";
+@import "../../../style/common/mixin.scss";
+
+.coupon-input {
+  padding: 2rem;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 0.3rem;
+
+  label {
+    display: block;
+    cursor: pointer;
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+
+  .__input-container {
+    position: relative;
+
+    button {
+      width: 4rem;
+      height: 4rem;
+      background-color: $black;
+      color: $white;
+      border: 0;
+      border-radius: 0.3rem;
+
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 1rem;
+
+      cursor: pointer;
+    }
+  }
+
+  input {
+    width: 100%;
+    height: 5rem;
+    text-transform: uppercase;
+    font-weight: 300;
+    padding-right: 7rem;
+    padding-left: 1rem;
+    border-radius: 0.3rem;
+    border: 1px solid $black;
+  }
+}

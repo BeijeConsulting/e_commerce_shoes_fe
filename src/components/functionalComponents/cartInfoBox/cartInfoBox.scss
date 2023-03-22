@@ -1,0 +1,31 @@
+@import "../../../style/common/variables.scss";
+@import "../../../style/common/mixin.scss";
+
+.cart-info-box {
+  border-radius: 0.3rem;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.05);
+  padding: 2rem 3rem 4rem;
+  font-weight: 300;
+  font-size: $x-small;
+
+  .__title {
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .__shipping {
+    padding-bottom: 3.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+    padding-top: 1rem;
+    @include flex(flex-start, center);
+    .___home-icon-modifier {
+      font-size: $xx-large;
+      margin-right: 3rem;
+    }
+  }
+
+  img {
+    width: 100%;
+  }
+}

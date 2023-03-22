@@ -58,9 +58,10 @@
   background-color: $black;
   color: $white;
   text-transform: uppercase;
+  border: 0;
 
   width: 100%;
-  font-size: 1.6rem;
+  font-size: $small;
   padding: 1.2rem;
 
   border-radius: 0.5rem;
@@ -71,5 +72,20 @@
 
   &:hover {
     background-color: $grey-normal;
+  }
+}
+
+.paypal {
+  background-color: #ffc439;
+  transition: all 150ms ease;
+  border: 0;
+
+  &:hover {
+    background-color: #ffc439;
+    box-shadow: inset 0 0 100px 100px rgba(0, 0, 0, 0.2);
+  }
+
+  img {
+    height: $small;
   }
 }

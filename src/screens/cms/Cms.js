@@ -13,11 +13,14 @@ import Footer from "../../components/functionalComponents/footer/Footer";
 import InputTextField from "../../components/functionalComponents/inputTextField/InputTextField";
 
 import FilterMenu from "../../components/hookComponents/filterMenu/FilterMenu";
+import CartHeader from "../../components/functionalComponents/cartHeader/CartHeader";
+import CouponInput from "../../components/functionalComponents/couponInput/CouponInput";
 import SignupForm from "../../components/hookComponents/signupForm/SignupForm";
 import InputPasswordField from "../../components/hookComponents/inputPasswordField/InputPasswordField";
 import HeaderSingleProduct from "../../components/hookComponents/headerSingleProduct/HeaderSingleProduct";
 import WishListAccordion from '../../components/hookComponents/wishListAccordion/WishListAccordion';
 import WishListProductCard from '../../components/hookComponents/wishListProductCard/WishListProductCard';
+import CartInfoBox from "../../components/functionalComponents/cartInfoBox/CartInfoBox";
 
 function Cms() {
   return (
@@ -29,12 +32,15 @@ function Cms() {
         content="e-commerce"
       />
 
-      <Header />
-      <FilterMenu />
 
       <WishListProductCard />
 
       {/* <WishListAccordion /> */ }
+      <Header />
+      <CartHeader />
+      <CouponInput />
+      <CartInfoBox />
+      <WishListAccordion />
 
       {/* <HeaderSingleProduct /> */ }
 
