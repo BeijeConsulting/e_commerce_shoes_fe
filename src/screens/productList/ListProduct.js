@@ -88,7 +88,7 @@ function ListProduct() {
 
     return (
         <>
-            {/* {state.products?.map((item, key) => {
+            {state.products?.map((item, key) => {
                 return <ProductCard
                     key={key}
                     image={"https://www.cisalfasport.it/dw/image/v2/BBVV_PRD/on/demandware.static/-/Sites-cisalfa-master/default/dwdc711253/cisalfa/files/S5544515-18/image/S5544515_18.jpg?sw=444&sh=555"}
@@ -99,7 +99,7 @@ function ListProduct() {
                     initialPrice={item.starting_price}
                     price={item.starting_price + 30}
                 />
-            })} */}
+            })}
         </>
     )
 }
