@@ -1,138 +1,124 @@
-import React, { useRef } from 'react';
-import PropTypes from 'prop-types';
+import React, { useRef } from "react";
+import PropTypes from "prop-types";
 import { Swiper, SwiperSlide } from "swiper/react";
-import productCardImg from "../../../assets/images/productCardImg.jpg"
+import productCardImg from "../../../assets/images/productCardImg.jpg";
 import ProductCard from "../../functionalComponents/ProductCard/ProductCard";
-import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from "react-icons/bs"
-import "./productSlider.scss"
+import {
+  BsFillArrowLeftCircleFill,
+  BsFillArrowRightCircleFill,
+} from "react-icons/bs";
+import "./productSlider.scss";
 
 // Import Swiper styles
-import { Navigation, Pagination } from 'swiper';
+import { Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-
 function ProductSlider(props) {
+  const swiperNavNextRef = useRef(null);
+  const swiperNavPrevRef = useRef(null);
 
-    const swiperNavNextRef = useRef(null)
-    const swiperNavPrevRef = useRef(null)
+  return (
+    <div className="container__slide">
+      <div className="container__slide--h2">
+        <h2>Titolo</h2>
+      </div>
 
+      <Swiper
+        slidesPerView={1}
+        spaceBetween={10}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={{
+          nextEl: swiperNavNextRef.current,
+          prevEl: swiperNavPrevRef.current,
+        }}
+        breakpoints={{
+          300: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 20,
+          },
+          900: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+        }}
+        modules={[Pagination, Navigation]}
+        onInit={(swiper) => {
+          swiper.params.navigation.nextEl = swiperNavNextRef.current;
+          swiper.params.navigation.prevEl = swiperNavPrevRef.current;
+          swiper.navigation.init();
+          swiper.navigation.update();
+        }}
+        className="slider"
+      >
+        <SwiperSlide className="productSlider__slide">
+          <ProductCard
+            image={productCardImg}
+            brand={"Nike"}
+            name={"Nike Zoom"}
+            category={"sneakers"}
+            initialPrice={"199.00"}
+            price={"99.90"}
+            idProduct={"1"}
+          />
+        </SwiperSlide>
 
-    return (
-        <div className='container__slide'>
-            <div className='container__slide--h2'>
-                <h2>Titolo</h2>
-            </div>
+        <SwiperSlide className="productSlider__slide">
+          <ProductCard
+            image={productCardImg}
+            brand={"Nike"}
+            name={"Nike Zoom"}
+            category={"sneakers"}
+            initialPrice={"199.00"}
+            price={"99.90"}
+            idProduct={"1"}
+          />
+        </SwiperSlide>
 
-            <Swiper
-                slidesPerView={ 1 }
-                spaceBetween={ 10 }
-                pagination={ {
-                    clickable: true,
-                } }
+        <SwiperSlide className="productSlider__slide">
+          <ProductCard
+            image={productCardImg}
+            brand={"Nike"}
+            name={"Nike Zoom"}
+            category={"sneakers"}
+            initialPrice={"199.00"}
+            price={"99.90"}
+            idProduct={"1"}
+          />
+        </SwiperSlide>
 
-                navigation={ {
-                    nextEl: swiperNavNextRef.current,
-                    prevEl: swiperNavPrevRef.current
-                } }
+        <SwiperSlide className="productSlider__slide">
+          <ProductCard
+            image={productCardImg}
+            brand={"Nike"}
+            name={"Nike Zoom"}
+            category={"sneakers"}
+            initialPrice={"199.00"}
+            price={"99.90"}
+            idProduct={"1"}
+          />
+        </SwiperSlide>
 
-                breakpoints={ {
-                    300: {
-                        slidesPerView: 2,
-                        spaceBetween: 20,
-                    },
-                    768: {
-                        slidesPerView: 3,
-                        spaceBetween: 20,
-                    },
-                    900: {
-                        slidesPerView: 2,
-                        spaceBetween: 20,
-                    }
-                } }
-                modules={ [Pagination, Navigation] }
-
-                onInit={ (swiper) => {
-                    swiper.params.navigation.nextEl = swiperNavNextRef.current;
-                    swiper.params.navigation.prevEl = swiperNavPrevRef.current;
-                    swiper.navigation.init();
-                    swiper.navigation.update();
-                } }
-
-                className="slider"
-            >
-
-
-                <SwiperSlide className='productSlider__slide'>
-                    <ProductCard
-                        image={ productCardImg }
-                        brand={ "Nike" }
-                        name={ "Nike Zoom" }
-                        category={ "sneakers" }
-                        initialPrice={ "199.00" }
-                        price={ "99.90" }
-
-                    />
-                </SwiperSlide>
-
-                <SwiperSlide className='productSlider__slide'>
-                    <ProductCard
-                        image={ productCardImg }
-                        brand={ "Nike" }
-                        name={ "Nike Zoom" }
-                        category={ "sneakers" }
-                        initialPrice={ "199.00" }
-                        price={ "99.90" }
-                    />
-                </SwiperSlide>
-
-                <SwiperSlide className='productSlider__slide'>
-                    <ProductCard
-                        image={ productCardImg }
-                        brand={ "Nike" }
-                        name={ "Nike Zoom" }
-                        category={ "sneakers" }
-                        initialPrice={ "199.00" }
-                        price={ "99.90" }
-                    />
-                </SwiperSlide>
-
-                <SwiperSlide className='productSlider__slide'>
-                    <ProductCard
-                        image={ productCardImg }
-                        brand={ "Nike" }
-                        name={ "Nike Zoom" }
-                        category={ "sneakers" }
-                        initialPrice={ "199.00" }
-                        price={ "99.90" }
-                    />
-                </SwiperSlide>
-
-                <div className="swiperNavNext"
-                    ref={ swiperNavPrevRef }
-                >
-                    < BsFillArrowLeftCircleFill />
-                </div>
-                <div className="swiperNavPrev"
-                    ref={ swiperNavNextRef }
-                >
-                    < BsFillArrowRightCircleFill />
-                </div>
-
-            </Swiper>
+        <div className="swiperNavNext" ref={swiperNavPrevRef}>
+          <BsFillArrowLeftCircleFill />
         </div>
-
-
-    )
+        <div className="swiperNavPrev" ref={swiperNavNextRef}>
+          <BsFillArrowRightCircleFill />
+        </div>
+      </Swiper>
+    </div>
+  );
 }
 
-ProductSlider.defaultProps = {
+ProductSlider.defaultProps = {};
 
-}
+ProductSlider.propTypes = {};
 
-ProductSlider.propTypes = {
-
-}
-
-export default ProductSlider
+export default ProductSlider;

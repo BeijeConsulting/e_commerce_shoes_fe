@@ -4,8 +4,15 @@ import { useForm } from "react-hook-form";
 import Button from "../../functionalComponents/button/Button";
 import InputTextField from "../../functionalComponents/inputTextField/InputTextField";
 import InputPasswordField from "../inputPasswordField/InputPasswordField";
+import { signin, getUser } from "../../../services/authServices";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserCredentials } from "../../../redux/ducks/userDuck";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [state, setState] = useState({
     invalidEmail: false,
     invalidPassword: false,
@@ -13,11 +20,35 @@ function LoginForm() {
   const { register, handleSubmit } = useForm();
 
   const emailReg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i;
-  const passwordReg = /^.{8,}$/;
+  const passwordReg = /^.{2,}$/;
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log("Success");
     console.log(data);
+
+    const response = await signin({
+      email: data.email,
+      password: data.password,
+    });
+
+    if (response.status === 200) {
+      const user = await getUser(response.data.token);
+
+      dispatch(
+        setUserCredentials({
+          token: response.data.token,
+          refreshToken: response.data.refreshToken,
+          name: user.data.name,
+          surname: user.data.surname,
+          cartItems: user.data.cartItems,
+          wishlistItems: user.data.wishlistItems,
+        })
+      );
+
+      navigate("/");
+    }
+
+    console.log(response);
 
     setState({
       ...state,
@@ -25,6 +56,7 @@ function LoginForm() {
       invalidPassword: false,
     });
   };
+
   const onError = (err) => {
     console.log("Fail");
     console.log(err);

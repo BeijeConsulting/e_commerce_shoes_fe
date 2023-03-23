@@ -28,87 +28,11 @@ import ProductCard from "../../components/functionalComponents/ProductCard/Produ
 import RecapCart from "../../components/functionalComponents/recapCart/RecapCart";
 import ProductGridLayout from "../../components/functionalComponents/productGridLayout/ProductGridLayout";
 
+import { Outlet } from "react-router-dom";
+
 function Cms() {
   return (
     <>
-      <RecapCart total="$ 340.00" />
-      <ProductGridLayout>
-        <ProductCard
-          id={"001"}
-          image={productImg}
-          category={"Running"}
-          brand={"Nike"}
-          name={"Air Jordan"}
-          price={"$ 199.99"}
-          initialPrice={"$ 229.99"}
-        />
-        <ProductCard
-          id={"001"}
-          image={productImg}
-          category={"Running"}
-          brand={"Nike"}
-          name={"Air Jordan"}
-          price={"$ 199.99"}
-          initialPrice={"$ 229.99"}
-        />
-        <ProductCard
-          id={"001"}
-          image={productImg}
-          category={"Running"}
-          brand={"Nike"}
-          name={"Air Jordan"}
-          price={"$ 199.99"}
-          initialPrice={"$ 229.99"}
-        />
-        <ProductCard
-          id={"001"}
-          image={productImg}
-          category={"Running"}
-          brand={"Nike"}
-          name={"Air Jordan"}
-          price={"$ 199.99"}
-          initialPrice={"$ 229.99"}
-        />
-        <ProductCard
-          id={"001"}
-          image={productImg}
-          category={"Running"}
-          brand={"Nike"}
-          name={"Air Jordan"}
-          price={"$ 199.99"}
-          initialPrice={"$ 229.99"}
-        />
-        <ProductCard
-          id={"001"}
-          image={productImg}
-          category={"Running"}
-          brand={"Nike"}
-          name={"Air Jordan"}
-          price={"$ 199.99"}
-          initialPrice={"$ 229.99"}
-        />
-        <ProductCard
-          id={"001"}
-          image={productImg}
-          category={"Running"}
-          brand={"Nike"}
-          name={"Air Jordan"}
-          price={"$ 199.99"}
-          initialPrice={"$ 229.99"}
-        />
-      </ProductGridLayout>
-
-      <ProductCartItem
-        img={productImg}
-        altImg="productAlt"
-        price="$ 169.99"
-        productName={"Football shoes"}
-        brand={"Nike"}
-        quantity={"2"}
-        color={"Nero"}
-        size={"EU 42"}
-      />
-
       <Seo
         lang="it"
         title="Pagina principale"
@@ -116,14 +40,12 @@ function Cms() {
         content="e-commerce"
       />
 
-      <WishListProductCard />
-
-      {/* <WishListAccordion /> */}
       <Header />
-      <CartHeader />
-      <CouponInput />
-      <CartInfoBox />
-      <WishListAccordion />
+
+      <main>
+        <Outlet />
+        <PreFooter />
+      </main>
 
       {/* <HeaderSingleProduct /> */}
 
@@ -138,21 +60,9 @@ function Cms() {
         labelStyle="default-label password-margin-top"
         inputStyle={`default-input`}
       /> */}
-      {/* <div>
-        <SliderHomepage />
 
-        <div className="container__boxSlider">
-          <BoxImage image={boxNuoviArrivi} />
-          <ProductSlider />
-        </div>
-        <div className="container__boxSlider">
-          <ProductSlider />
-          <BoxImage image={boxNuoviArriviLifeStyle} />
-        </div>
-      </div> */}
       {/* <PreFooter /> */}
       {/* </div> */}
-      <PreFooter />
       <Footer />
     </>
   );

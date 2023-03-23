@@ -1,9 +1,9 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
 // We'll use redux-logger just as an example of adding another middleware
 import logger from "redux-logger";
 // DUCK
-import productCartDuck from "./productCartDuck";
-import userDuck from "./userDuck";
+import productCartDuck from "./ducks/productCartDuck";
+import userDuck from "./ducks/userDuck";
 
 const reducer = combineReducers({
   // here we will be adding reducers

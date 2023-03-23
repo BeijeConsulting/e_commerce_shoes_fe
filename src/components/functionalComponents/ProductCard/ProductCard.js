@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 function ProductCard(props) {
   return (
     <article className="product-card">
-      <Link to={"/product/" + props.id}>
+      <Link to={"/product/" + props.idProduct}>
         <picture>
           {/* <source media="(min-width:650px)" srcset="img_pink_flowers.jpg" />
         <source media="(min-width:350px)" srcset="img_white_flowers.jpg" /> */}

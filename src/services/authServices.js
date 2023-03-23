@@ -23,3 +23,9 @@ export async function refreshToken(refreshTokenObj, SECRET) {
 
   return { status: response.status, data: response.data };
 }
+
+export async function getUser(SECRET) {
+  const response = await getData("/user", SECRET);
+
+  return { status: response.status, data: response.data };
+}
