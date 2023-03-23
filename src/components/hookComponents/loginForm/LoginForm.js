@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./loginForm.scss";
 import { useForm } from "react-hook-form";
 import Button from "../../functionalComponents/button/Button";
@@ -8,6 +8,7 @@ import { signin, getUser } from "../../../services/authServices";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserCredentials } from "../../../redux/ducks/userDuck";
 import { useNavigate } from "react-router-dom";
+import { setLocalStorage } from "../../../utils/localStorageUtils";
 
 function LoginForm() {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ function LoginForm() {
     invalidEmail: false,
     invalidPassword: false,
   });
+
   const { register, handleSubmit } = useForm();
 
   const emailReg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i;
@@ -36,14 +38,14 @@ function LoginForm() {
 
       dispatch(
         setUserCredentials({
-          token: response.data.token,
-          refreshToken: response.data.refreshToken,
           name: user.data.name,
-          surname: user.data.surname,
           cartItems: user.data.cartItems,
           wishlistItems: user.data.wishlistItems,
         })
       );
+
+      setLocalStorage("token", response.data.token);
+      setLocalStorage("refreshToken", response.data.refreshToken);
 
       navigate("/");
     }
