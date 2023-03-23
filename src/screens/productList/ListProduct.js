@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useLocation } from 'react-router-dom';
 import { getProductList } from "../../services/productServices";
-import { getCategories } from "../../services/listsServices";
+import { getCategories } from "../../services/productServices";
 import ProductCard from '../../components/functionalComponents/ProductCard/ProductCard';
 
 function ListProduct() {
