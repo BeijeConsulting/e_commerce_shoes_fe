@@ -5,6 +5,8 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 
+import { useNavigate } from 'react-router-dom';
+
 function Footer() {
     const menu = [
         {
@@ -16,11 +18,11 @@ function Footer() {
                 },
                 {
                     anchor: 'Login',
-                    path: '/',
+                    path: '/identity/',
                 },
                 {
                     anchor: 'Registrati',
-                    path: '/',
+                    path: '/identity/signup',
                 },
             ]
         },
@@ -46,7 +48,7 @@ function Footer() {
             list: [
                 {
                     anchor: 'Servizio clienti',
-                    path: '/',
+                    path: '/customer-care',
                 },
                 {
                     anchor: 'FAQ',
@@ -58,11 +60,13 @@ function Footer() {
                 },
                 {
                     anchor: 'Resi',
-                    path: '/',
+                    path: '/customer-care/returns',
                 },
             ]
         }
     ]
+
+    const navigate = useNavigate();
 
     function mapFooterMenu(item, key) {
         return <div key={`${key}-${Math.random()}`} className='footer__top__list'>
@@ -78,8 +82,12 @@ function Footer() {
 
     function mapSubFooterMenu(item, key) {
         return <li key={`${key}-${Math.random()}`}>
-            <a href='#'>{item.anchor}</a>
+            <a onClick={goTo(item.path)}>{item.anchor}</a>
         </li>
+    }
+
+    const goTo = (path) => () => {
+        navigate(path)
     }
 
     return (

@@ -10,19 +10,19 @@ function PreFooter(props) {
     return (
         <div className='preFooter'>
             <div className='preFooter__info'>
-                <Link to={ "/" }>
+                <Link to={"/"}>
                     <MdMobileFriendly />
                     <p>#DownloadApp</p>
                 </Link>
             </div>
             <div className='preFooter__info'>
-                <Link to={ "/" }>
+                <Link to={"/customer-care/contacts"}>
                     <GoLocation />
                     <p>#Contatti</p>
                 </Link>
             </div>
             <div className='preFooter__info'>
-                <Link to={ "/" }>
+                <Link to={"/customer-care/"}>
                     <IoIosHelpBuoy />
                     <p>#Help</p>
                 </Link>

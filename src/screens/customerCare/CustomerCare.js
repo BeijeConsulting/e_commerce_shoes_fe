@@ -24,19 +24,19 @@ function CustomerCare() {
         },
         {
             title: "resi e rimborsi",
-            link: "returnAndRefund"
+            link: "returns"
         },
     ]
 
     function mapList(data) {
         return (
             <div
-                key={ Math.floor(Math.random() * 10000) }
+                key={Math.floor(Math.random() * 10000)}
             >
-                <NavLink to={ data.link }
-                    className={ `customer__list ${location.pathname === `customerCare/${data.link}` ? "active" : ""}` }
+                <NavLink to={data.link}
+                    className={`customer__list ${location.pathname === `customerCare/${data.link}` ? "active" : ""}`}
                 >
-                    { data.title }
+                    {data.title}
                 </NavLink>
 
             </div>
@@ -45,7 +45,7 @@ function CustomerCare() {
 
     return (
         <div className='customer'>
-            {/* Parte fissa */ }
+            {/* Parte fissa */}
             <div>
                 <div className='customer__header'>
                     <h2>Ciao,</h2>
@@ -55,7 +55,7 @@ function CustomerCare() {
                 </div>
                 <div className='customer__advice'>
                     <h2>Consigliati per te </h2>
-                    { data.map(mapList) }
+                    {data.map(mapList)}
                 </div>
 
             </div>
