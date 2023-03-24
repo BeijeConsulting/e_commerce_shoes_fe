@@ -12,6 +12,7 @@ import Home from "../screens/home/Home";
 import SingleProduct from "../screens/singleProduct/SingleProduct";
 import ProductsList from "../screens/productsList/ProductsList";
 import Cart from "../screens/cart/Cart";
+import Checkout from "../screens/checkout/Checkout";
 
 function Routing() {
   return (
@@ -38,9 +39,6 @@ function Routing() {
         {/* Cart */}
         <Route path="/cart" element={<Cart />} />
 
-
-
-
         {/* Customer care */}
         <Route path="/customer-care" element={<CustomerCare />}>
           <Route path="contacts" element={<Contacts />} />
@@ -48,6 +46,8 @@ function Routing() {
           <Route path="returns" element={<ReturnAndRefund />} />
         </Route>
       </Route>
+
+      <Route path="/checkout" element={<Checkout />} />
 
       {/* Signin - Signup */}
       <Route path="/identity" element={<Identity />}>

@@ -15,10 +15,10 @@ html {
 body {
   // border: 2px solid red;
   line-height: 1;
-  height: 100vh;
-  max-width: 1200px;
   font-size: $small;
   margin: auto;
+  max-width: 1200px;
+  background-color: $grey-light;
 }
 
 h1,

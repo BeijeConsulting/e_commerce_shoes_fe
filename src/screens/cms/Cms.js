@@ -9,7 +9,7 @@ import { Outlet } from "react-router-dom";
 
 function Cms() {
   return (
-    <>
+    <div className="cms">
       <Seo
         lang="it"
         title="Pagina principale"
@@ -24,7 +24,7 @@ function Cms() {
         <PreFooter />
       </main>
       <Footer />
-    </>
+    </div>
   );
 }
 
