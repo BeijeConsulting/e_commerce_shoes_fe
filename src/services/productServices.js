@@ -18,14 +18,14 @@ export async function getBrands() {
   return { status: response.status, data: response.data };
 }
 
-export async function getCategories() {
-  const response = await getData("/api/categories");
+export async function getCategories(lang) {
+  const response = await getData(`/api/categories/${lang}`);
 
   return { status: response.status, data: response.data };
 }
 
-export async function getColors() {
-  const response = await getData("/api/colors");
+export async function getColors(lang) {
+  const response = await getData(`/api/colors/${lang}`);
 
   return { status: response.status, data: response.data };
 }

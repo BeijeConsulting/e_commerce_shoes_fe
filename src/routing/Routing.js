@@ -10,23 +10,49 @@ import Delivery from "../screens/delivery/Delivery";
 import ReturnAndRefund from "../screens/returnsAndRefund/ReturnAndRefund";
 import Home from "../screens/home/Home";
 import SingleProduct from "../screens/singleProduct/SingleProduct";
+import ProductsList from "../screens/productsList/ProductsList";
+import Cart from "../screens/cart/Cart";
 
 function Routing() {
   return (
     <Routes>
       <Route path="/" element={<Cms />}>
+
+        {/* Homepage */}
         <Route index element={<Home />} />
-        <Route path="product/:id" element={<SingleProduct />} />
+
+        {/* Products list */}
+        <Route path="/products" element={<ProductsList />}>
+          <Route path=":first" element={<ProductsList />} />
+          <Route path=":first/:second" element={<ProductsList />} />
+        </Route>
+
+        {/* Brands */}
+        <Route path="/brands" element={<Cart />} />
+        <Route path="/brands/:brand" element={<ProductsList />} />
+
+
+        {/* Single products */}
+        <Route path="/product/:id" element={<SingleProduct />} />
+
+        {/* Cart */}
+        <Route path="/cart" element={<Cart />} />
+
+
+
+
+        {/* Customer care */}
+        <Route path="/customer-care" element={<CustomerCare />}>
+          <Route path="contacts" element={<Contacts />} />
+          <Route path="delivery" element={<Delivery />} />
+          <Route path="returns" element={<ReturnAndRefund />} />
+        </Route>
       </Route>
+
+      {/* Signin - Signup */}
       <Route path="/identity" element={<Identity />}>
         <Route index element={<LoginForm />} />
         <Route path="signup" element={<SignupForm />} />
-      </Route>
-
-      <Route path="/customerCare" element={<CustomerCare />}>
-        <Route path="contacts" element={<Contacts />} />
-        <Route path="delivery" element={<Delivery />} />
-        <Route path="returnAndRefund" element={<ReturnAndRefund />} />
       </Route>
     </Routes>
   );

@@ -2,6 +2,7 @@
 @import "../../../style/common/mixin.scss";
 
 .cart-header {
+  background-color: $white;
   margin: 0 auto;
   padding: 4.5rem 2rem 1rem;
   text-transform: uppercase;
@@ -68,6 +69,8 @@
 
 @media screen and (min-width: 992px) {
   .cart-header {
+    padding-left: 8rem;
+    padding-right: 8rem;
     @include flex(space-between, center);
 
     .__recap {
