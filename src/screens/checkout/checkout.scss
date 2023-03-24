@@ -1,0 +1,143 @@
+@import "../../style/common/variables.scss";
+@import "../../style/common/mixin.scss";
+
+.checkout {
+  margin: 0 auto;
+  max-width: 80rem;
+
+  header {
+    margin-bottom: 3rem;
+    text-align: center;
+    padding-top: 3rem;
+
+    img {
+      display: none;
+      width: 8rem;
+    }
+  }
+
+  .__container {
+    padding: 2rem;
+    background-color: $white;
+    margin-bottom: 1.5rem;
+
+    h2 {
+      font-size: $small;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    .__add-address {
+      display: inline-block;
+      padding-top: 4rem;
+      text-decoration: underline;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .__left {
+    button {
+      display: none;
+    }
+  }
+
+  .__delivery-address {
+    @include flex(space-between);
+    padding-right: 8rem;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+
+    label {
+      width: 100%;
+      cursor: pointer;
+    }
+
+    address {
+      font-style: normal;
+    }
+
+    .__name {
+      display: inline-block;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      margin-bottom: 0.3rem;
+    }
+
+    &:last-of-type {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    input[type="radio"] {
+      cursor: pointer;
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+
+  .__payment-method {
+    @include flex(flex-start);
+    margin-bottom: 1rem;
+
+    input {
+      cursor: pointer;
+      margin-right: 1rem;
+    }
+
+    img {
+      width: 4rem;
+      margin-right: 0.5rem;
+    }
+
+    label {
+      cursor: pointer;
+      @include flex(flex-start);
+    }
+  }
+
+  .__right {
+    button {
+      margin: 2rem 0 4rem;
+    }
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .checkout {
+    header {
+      padding-top: 0;
+      @include flex(space-between, center);
+
+      img {
+        display: block;
+      }
+    }
+
+    .__checkout-content {
+      @include flex(space-between, stretch);
+
+      .__left {
+        flex-basis: 65%;
+        margin-right: 2rem;
+        button {
+          display: inline-block;
+        }
+      }
+
+      .__right {
+        flex-basis: 35%;
+        button {
+          display: none;
+        }
+      }
+    }
+  }
+}

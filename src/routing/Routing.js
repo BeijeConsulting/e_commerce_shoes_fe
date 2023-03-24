@@ -12,9 +12,12 @@ import Home from "../screens/home/Home";
 import SingleProduct from "../screens/singleProduct/SingleProduct";
 import ProductsList from "../screens/productsList/ProductsList";
 import Cart from "../screens/cart/Cart";
+
 import UserInfo from "../screens/userInfo/UserInfo";
 import PersonalData from "../screens/personalData/PersonalData";
 import AddressList from "../screens/adressList/AdressList";
+
+import Checkout from "../screens/checkout/Checkout";
 
 function Routing() {
   return (
@@ -50,6 +53,8 @@ function Routing() {
           <Route path="returns" element={<ReturnAndRefund />} />
         </Route>
       </Route>
+
+      <Route path="/checkout" element={<Checkout />} />
 
       {/* Signin - Signup */}
       <Route path="/identity" element={<Identity />}>

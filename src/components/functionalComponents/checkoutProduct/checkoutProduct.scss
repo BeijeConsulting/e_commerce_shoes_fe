@@ -1,0 +1,40 @@
+@import "../../../style/common/variables.scss";
+@import "../../../style/common/mixin.scss";
+
+.checkout-product {
+  @include flex(flex-start, flex-start);
+  color: $grey-normal;
+  font-size: $x-small;
+
+  .__image {
+    margin-right: 2rem;
+  }
+
+  img {
+    width: 8rem;
+  }
+
+  .__price {
+    font-size: $small;
+    margin-bottom: 0.7rem;
+  }
+
+  .__price,
+  .__color-size,
+  .__quantity {
+    font-weight: 700;
+  }
+
+  .__name,
+  .__color-size,
+  .__quantity {
+    margin-bottom: 0.4rem;
+  }
+
+  .__color-size {
+    @include flex(flex-start, flex-start);
+    div:first-child {
+      margin-right: 2rem;
+    }
+  }
+}

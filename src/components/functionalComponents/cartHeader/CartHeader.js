@@ -1,9 +1,16 @@
 import React from "react";
 import './cartHeader.scss';
+import { useNavigate } from "react-router-dom";
 
 import Button from "../button/Button";
 
 function CartHeader() {
+    const navigate = useNavigate();
+
+    function goToCheckout() {
+        navigate("/checkout");
+    }
+
     return (
         <header className="cart-header">
             <div className="__recap">
@@ -20,7 +27,7 @@ function CartHeader() {
                     <div className="__price">375,87€</div>
                 </div>
                 <div className="__actions">
-                    <Button label={'PROCEDI AL CHECKOUT'} buttonStyle={'filter-button'} />
+                    <Button label={'PROCEDI AL CHECKOUT'} handleClick={goToCheckout} buttonStyle={'filter-button'} />
                     <Button buttonStyle={'filter-button paypal'}>
                         <img src={require('../../../assets/images/paypal/PayPal.svg.png')} />
                     </Button>
