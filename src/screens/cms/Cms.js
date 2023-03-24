@@ -4,7 +4,6 @@ import Seo from "../../components/functionalComponents/Seo";
 import Header from "../../components/hookComponents/header/Header";
 import PreFooter from "../../components/hookComponents/preFooter/PreFooter";
 import Footer from "../../components/functionalComponents/footer/Footer";
-import BrandList from "../../components/hookComponents/brandList/BrandList";
 
 import { Outlet } from "react-router-dom";
 
@@ -19,8 +18,6 @@ function Cms() {
       />
 
       <Header />
-
-      <BrandList />
 
       <main>
         <Outlet />
