@@ -23,8 +23,6 @@ import { Link } from 'react-router-dom';
 // Sostituire il button con il Button Component
 
 function SliderHomepage(props) {
-
-
     return (
         <div>
             <Swiper

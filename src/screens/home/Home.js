@@ -10,14 +10,18 @@ import boxNuoviArrivi from "../../assets/images/box/boxNuoviArrivi.jpeg";
 function Home() {
   return (
     <>
-      <SliderHomepage />
+      <SliderHomepage
+        pagination={ true }
+        navigation={ true }
+        autoplay={ true }
+      />
       <div className="container__boxSlider">
-        <BoxImage image={boxNuoviArrivi} />
+        <BoxImage image={ boxNuoviArrivi } />
         <ProductSlider />
       </div>
       <div className="container__boxSlider">
         <ProductSlider />
-        <BoxImage image={boxNuoviArriviLifeStyle} />
+        <BoxImage image={ boxNuoviArriviLifeStyle } />
       </div>
     </>
   );
