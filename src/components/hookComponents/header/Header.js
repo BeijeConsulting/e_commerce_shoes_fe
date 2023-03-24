@@ -21,7 +21,7 @@ function Header() {
   const navigate = useNavigate();
 
   const cartQuantity = useSelector((state) => state.userDuck.cartItems);
-  console.log(cartQuantity);
+  // console.log(cartQuantity);
 
   const menu = [
     {

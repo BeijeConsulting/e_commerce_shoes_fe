@@ -27,6 +27,7 @@ import productImg from "../../assets/images/singleProduct/shoe1.jpeg";
 import ProductCard from "../../components/functionalComponents/ProductCard/ProductCard";
 import RecapCart from "../../components/functionalComponents/recapCart/RecapCart";
 import ProductGridLayout from "../../components/functionalComponents/productGridLayout/ProductGridLayout";
+import BrandList from "../../components/hookComponents/brandList/BrandList";
 
 import { Outlet } from "react-router-dom";
 
@@ -41,6 +42,8 @@ function Cms() {
       />
 
       <Header />
+
+      <BrandList />
 
       <main>
         <Outlet />
