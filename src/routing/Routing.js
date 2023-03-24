@@ -12,14 +12,20 @@ import Home from "../screens/home/Home";
 import SingleProduct from "../screens/singleProduct/SingleProduct";
 import ProductsList from "../screens/productsList/ProductsList";
 import Cart from "../screens/cart/Cart";
+import UserInfo from "../screens/userInfo/UserInfo";
+import PersonalData from "../screens/personalData/PersonalData";
+import AddressList from "../screens/adressList/AdressList";
 
 function Routing() {
   return (
     <Routes>
       <Route path="/" element={<Cms />}>
-
         {/* Homepage */}
         <Route index element={<Home />} />
+        <Route path="user-info" element={<UserInfo />}>
+          <Route index element={<PersonalData />} />
+          <Route path="address-list" element={<AddressList />} />
+        </Route>
 
         {/* Products list */}
         <Route path="/products" element={<ProductsList />}>
@@ -31,15 +37,11 @@ function Routing() {
         <Route path="/brands" element={<Cart />} />
         <Route path="/brands/:brand" element={<ProductsList />} />
 
-
         {/* Single products */}
         <Route path="/product/:id" element={<SingleProduct />} />
 
         {/* Cart */}
         <Route path="/cart" element={<Cart />} />
-
-
-
 
         {/* Customer care */}
         <Route path="/customer-care" element={<CustomerCare />}>

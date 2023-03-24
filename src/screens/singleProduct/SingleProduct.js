@@ -14,26 +14,24 @@ import { useParams } from "react-router-dom";
 function SingleProduct() {
   const params = useParams();
   const dispatch = useDispatch();
-  const cartQuantity = useSelector((state) => state.productCartDuck.quantity);
+  const cartQuantity = useSelector((state) => state.userDuck.cartItems); //modificato lo state
 
-  const [state, setState] = useState(
-    {
-      product: [],
-    }
-  )
+  const [state, setState] = useState({
+    product: [],
+  });
 
   useEffect(() => {
     fetchProduct();
   }, []);
 
-  console.log(state.product)
+  console.log(state.product);
 
   async function fetchProduct() {
     const product = await axiosGetProduct();
     setState({
       product,
-    })
-  };
+    });
+  }
 
   async function axiosGetProduct() {
     const result = await getProduct(params.id);

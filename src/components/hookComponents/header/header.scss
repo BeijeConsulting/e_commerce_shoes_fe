@@ -24,6 +24,12 @@
       }
     }
   }
+
+  &__user-icons {
+    // border: 2px solid red;
+    display: flex;
+    gap: 1.5rem;
+  }
 }
 
 .main-header__top,

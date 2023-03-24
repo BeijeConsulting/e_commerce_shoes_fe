@@ -1,7 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import "./header.scss";
+
+// 18n
+import { use } from "i18next";
+
+// API
+import { getUser } from "../../../services/authServices";
+
+// UTILS
+import { getLocalStorage } from "../../../utils/localStorageUtils";
+
+// REDUX
+import { setUserCredentials } from "../../../redux/ducks/userDuck";
 
 // MUI TextField
 import TextField from "@mui/material/TextField";
@@ -13,14 +25,17 @@ import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import ClearIcon from "@mui/icons-material/Clear";
 
 function Header() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const cartQuantity = useSelector((state) => state.userDuck.cartItems);
+  const userIsLogged = useSelector((state) => state.userDuck.isLogged);
 
   const menu = [
     {
@@ -98,6 +113,50 @@ function Header() {
     fullWidthInput: false,
     width: 20,
   });
+
+  // check if there is token
+  useEffect(() => {
+    const token = getLocalStorage("token");
+    if (!token) return;
+
+    async function getUserInfo(token) {
+      const response = await getUser(token);
+
+      if (response.status === 200) {
+        dispatch(
+          setUserCredentials({
+            isLogged: true,
+            name: response.data.name,
+            surname: response.data.surname,
+            email: response.data.email,
+            adresses: [...response.data.addresses],
+            birthDate: {
+              dayOfMonth: response.data.birthDate.dayOfMonth,
+              monthValue: response.data.birthDate.monthValue,
+              month: response.data.birthDate.month,
+              year: response.data.birthDate.year,
+            },
+            cartItems: response.data.cartItems,
+            wishlistItems: response.data.wishlistItems,
+          })
+        );
+      }
+      console.log("useEffect", response);
+    }
+
+    getUserInfo(token);
+  }, []);
+
+  // if user is logged --> screen userInfo
+  // if user is not logged --> screen identity
+  function conditionalGoTo() {
+    console.log("islogged", userIsLogged);
+    if (userIsLogged) {
+      navigate("/user-info");
+    } else {
+      navigate("/identity");
+    }
+  }
 
   useEffect(() => {
     menuInterval = setInterval(() => {
@@ -277,12 +336,19 @@ function Header() {
               variant="standard"
             />
           </div>
-          <div onClick={goToCart}>
-            <IconButton aria-label="cart">
-              <Badge badgeContent={cartQuantity} color="primary">
-                <ShoppingCartIcon fontSize={"large"} />
-              </Badge>
-            </IconButton>
+          <div className="main-header__user-icons">
+            <div onClick={goToCart}>
+              <IconButton aria-label="cart">
+                <Badge badgeContent={cartQuantity} color="primary">
+                  <ShoppingCartIcon fontSize={"large"} />
+                </Badge>
+              </IconButton>
+            </div>
+            <div onClick={conditionalGoTo}>
+              <IconButton aria-label="cart">
+                <AccountCircleIcon fontSize={"large"} />
+              </IconButton>
+            </div>
           </div>
         </div>
         <div className="main-header__bottom">

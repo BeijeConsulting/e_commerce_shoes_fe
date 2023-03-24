@@ -41,6 +41,7 @@ function LoginForm() {
           name: user.data.name,
           cartItems: user.data.cartItems,
           wishlistItems: user.data.wishlistItems,
+          isLogged: true,
         })
       );
 
