@@ -21,7 +21,6 @@ function Header() {
   const navigate = useNavigate();
 
   const cartQuantity = useSelector((state) => state.userDuck.cartItems);
-  console.log(cartQuantity);
 
   const menu = [
     {
@@ -175,9 +174,8 @@ function Header() {
           <>
             <div
               onClick={item.bottom ? () => setActive(key) : () => goTo("path")}
-              className={`mobile-menu__item ${
-                state.active === key ? "active" : ""
-              }`}
+              className={`mobile-menu__item ${state.active === key ? "active" : ""
+                }`}
             >
               <div>{item.top.anchor}</div>
               {state.active === null && <ArrowForwardIosIcon />}
@@ -250,9 +248,8 @@ function Header() {
             </a>
           </div>
           <ul
-            className={`main-header__menu ${
-              !!state.fullWidthInput ? "d-none" : ""
-            }`}
+            className={`main-header__menu ${!!state.fullWidthInput ? "d-none" : ""
+              }`}
           >
             {menu.map(mapDesktopMenu)}
           </ul>
