@@ -11,6 +11,7 @@ import ReturnAndRefund from "../screens/returnsAndRefund/ReturnAndRefund";
 import Home from "../screens/home/Home";
 import SingleProduct from "../screens/singleProduct/SingleProduct";
 import ProductsList from "../screens/productsList/ProductsList";
+import Cart from "../screens/cart/Cart";
 
 function Routing() {
   return (
@@ -26,8 +27,19 @@ function Routing() {
           <Route path=":first/:second" element={<ProductsList />} />
         </Route>
 
+        {/* Brands */}
+        <Route path="/brands" element={<Cart />} />
+        <Route path="/brands/:brand" element={<ProductsList />} />
+
+
         {/* Single products */}
-        <Route path="product/:id" element={<SingleProduct />} />
+        <Route path="/product/:id" element={<SingleProduct />} />
+
+        {/* Cart */}
+        <Route path="/cart" element={<Cart />} />
+
+
+
 
         {/* Customer care */}
         <Route path="/customer-care" element={<CustomerCare />}>

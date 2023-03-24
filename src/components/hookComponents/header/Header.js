@@ -165,6 +165,10 @@ function Header() {
     console.log(path);
   }
 
+  function goToCart() {
+    navigate("/cart")
+  }
+
   function mapMobileMenu(item, key) {
     let showItem = false;
     if (state.active === key || state.active === null) showItem = true;
@@ -271,11 +275,13 @@ function Header() {
               variant="standard"
             />
           </div>
-          <IconButton aria-label="cart">
-            <Badge badgeContent={cartQuantity} color="primary">
-              <ShoppingCartIcon fontSize={"large"} />
-            </Badge>
-          </IconButton>
+          <div onClick={goToCart}>
+            <IconButton aria-label="cart">
+              <Badge badgeContent={cartQuantity} color="primary">
+                <ShoppingCartIcon fontSize={"large"} />
+              </Badge>
+            </IconButton>
+          </div>
         </div>
         <div className="main-header__bottom">
           <TextField

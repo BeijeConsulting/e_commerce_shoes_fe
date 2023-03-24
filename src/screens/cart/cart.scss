@@ -1,0 +1,54 @@
+@import "../../style/common/mixin.scss";
+@import "../../style/common/variables.scss";
+
+.cart {
+  background-color: #fbfbfb;
+  padding-bottom: 5rem;
+  border-bottom: 2px solid #2d2d2d;
+
+  .cart__content {
+    padding: 0 2rem;
+  }
+
+  header {
+    margin-bottom: 2rem;
+  }
+
+  article {
+    margin-bottom: 3rem;
+  }
+
+  .cart__content__left {
+    > div {
+      margin-bottom: 5rem;
+    }
+  }
+
+  .cart__content__right {
+    > div {
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .cart {
+    .cart__content {
+      padding: 0 8rem;
+      @include flex(space-between, stretch);
+    }
+
+    .cart__content__left {
+      flex-basis: 65%;
+
+      > div {
+        margin-bottom: none;
+      }
+    }
+
+    .cart__content__right {
+      padding-left: 2rem;
+      flex-basis: 35%;
+    }
+  }
+}
