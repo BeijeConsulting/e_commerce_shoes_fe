@@ -3,7 +3,7 @@
 
 .main-header__mobile-menu {
   height: 100%;
-  position: relative;
+  background-color: $white;
 
   .mobile-menu__item {
     @include flex(space-between, center);

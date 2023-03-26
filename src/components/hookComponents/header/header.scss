@@ -25,6 +25,10 @@
     }
   }
 
+  nav {
+    position: relative;
+  }
+
   &__user-icons {
     // border: 2px solid red;
     display: flex;
@@ -37,7 +41,6 @@
   padding: 1rem 2rem;
 }
 
-.main-header__menu,
 .main-header__top__input {
   display: none;
 }
@@ -74,8 +77,7 @@
   }
 
   .main-header__hamburger,
-  .main-header__bottom,
-  .main-header__mobile-menu {
+  .main-header__bottom {
     display: none !important;
   }
 
@@ -92,65 +94,7 @@
     padding-bottom: 0;
   }
 
-  .main-header__menu {
-    @include flex(space-around, center);
-    height: 100%;
-    width: 100%;
-
-    &.d-none {
-      display: none;
-    }
-
-    > li {
-      padding: 0 3rem;
-      @include flex(center, center);
-      cursor: pointer;
-      height: 100%;
-      text-transform: uppercase;
-      font-weight: 700;
-      color: $grey-normal;
-      font-size: $small;
-      position: relative;
-
-      .main-header__menu__sub {
-        display: none;
-        position: absolute;
-        top: 100%;
-        z-index: 10;
-      }
-
-      &:last-of-type {
-        margin-right: 0;
-      }
-      &:hover {
-        background-color: $red;
-        color: #fff;
-
-        .main-header__menu__sub {
-          display: block;
-          position: absolute;
-          left: 0;
-          background-color: $red;
-
-          ul {
-            padding: 2rem 10rem 0rem 3rem;
-
-            li {
-              margin-bottom: 2rem;
-              opacity: 0.8;
-              &:hover {
-                opacity: 1;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
   .main-header__top__input {
     display: block;
-    width: 20rem;
-    margin: 0 5rem 0 4rem;
   }
 }

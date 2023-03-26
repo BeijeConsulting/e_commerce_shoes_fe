@@ -6,6 +6,8 @@ import "./header.scss";
 import MobileMenu from "../mobileMenu/MobileMenu";
 import DesktopMenu from "../desktopMenu/DesktopMenu";
 
+import { motion } from "framer-motion";
+
 // 18n
 import { use } from "i18next";
 
@@ -29,8 +31,6 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import ClearIcon from "@mui/icons-material/Clear";
 
 function Header() {
@@ -106,15 +106,9 @@ function Header() {
     },
   ];
 
-  let menuInterval = null;
-  let inputInterval = null;
-
   const [state, setState] = useState({
     showMobileMenu: false,
-    right: 100,
-    active: null,
     fullWidthInput: false,
-    width: 20,
   });
 
   // check if there is token
@@ -161,60 +155,21 @@ function Header() {
     }
   }
 
-  useEffect(() => {
-    menuInterval = setInterval(() => {
-      let right = null;
-      if (state.right === 0) return;
-      if (state.right === 100 && !state.showMobileMenu) return;
-      right = state.right - 10;
-      setState({
-        ...state,
-        right: right,
-      });
-    }, 1);
-
-    return () => clearInterval(menuInterval);
-  }, [state.showMobileMenu, state.right]);
-
-  useEffect(() => {
-    inputInterval = setInterval(() => {
-      let width = null;
-      if (state.width === 70) return;
-      if (state.width === 20 && !state.fullWidthInput) return;
-      width = state.width + 5;
-      setState({
-        ...state,
-        width: width,
-      });
-    }, 4);
-
-    return () => clearInterval(inputInterval);
-  }, [state.fullWidthInput, state.width]);
-
-  function setActive(key) {
-    let menuIndex = state.active === null ? key : null;
-    setState({
-      ...state,
-      active: menuIndex,
-    });
-  }
-
   function toggleMobileMenu() {
-    let right = 100;
-    if (!!state.showMobileMenu) right = 0;
-    setState({
-      ...state,
-      showMobileMenu: !state.showMobileMenu,
-      active: null,
-      right,
+    setState(function (prevState) {
+      return {
+        ...state,
+        showMobileMenu: !prevState.showMobileMenu,
+      }
     });
   }
 
   function toggleInput() {
-    setState({
-      ...state,
-      width: 20,
-      fullWidthInput: !state.fullWidthInput,
+    setState(function (prevState) {
+      return {
+        ...state,
+        fullWidthInput: !prevState.fullWidthInput,
+      }
     });
   }
 
@@ -255,24 +210,38 @@ function Header() {
             </a>
           </div>
           <DesktopMenu menu={menu} fullWidthInput={state.fullWidthInput} />
-          <div
-            className="main-header__top__input"
-            style={{ width: `${state.width}rem` }}
+          <motion.div
+            initial={false}
+            style={{ margin: "0 5rem 0 4rem" }}
+            animate={state.fullWidthInput ? {
+              width: "50%", transition: {
+                duration: 0.3,
+              },
+            } : {
+              width: "20%", transition: {
+                duration: 0,
+              },
+            }}
           >
-            <TextField
-              onBlur={toggleInput}
-              onFocus={toggleInput}
-              fullWidth
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon fontSize={"large"} />
-                  </InputAdornment>
-                ),
-              }}
-              variant="standard"
-            />
-          </div>
+            <div
+              className="main-header__top__input"
+              style={{ width: `${state.width}rem` }}
+            >
+              <TextField
+                onBlur={toggleInput}
+                onFocus={toggleInput}
+                fullWidth
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon fontSize={"large"} />
+                    </InputAdornment>
+                  ),
+                }}
+                variant="standard"
+              />
+            </div>
+          </motion.div>
           <div className="main-header__user-icons">
             <div onClick={goToCart}>
               <IconButton aria-label="cart">
@@ -301,9 +270,12 @@ function Header() {
             variant="standard"
           />
         </div>
-        {!!state.showMobileMenu && <MobileMenu menu={menu} setActive={setActive} mobileActive={state.active} mobileRight={state.right} />}
+        <MobileMenu
+          menu={menu}
+          showMobileMenu={state.showMobileMenu}
+        />
       </nav>
-    </header>
+    </header >
   );
 }
 
