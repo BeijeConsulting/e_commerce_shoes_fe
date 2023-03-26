@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import "./header.scss";
 
+import MobileMenu from "../mobileMenu/MobileMenu";
+import DesktopMenu from "../desktopMenu/DesktopMenu";
+
 // 18n
 import { use } from "i18next";
 
@@ -220,68 +223,8 @@ function Header() {
     navigate("/");
   }
 
-  function goTo(path) {
-    console.log(path);
-  }
-
   function goToCart() {
     navigate("/cart");
-  }
-
-  function mapMobileMenu(item, key) {
-    let showItem = false;
-    if (state.active === key || state.active === null) showItem = true;
-    return (
-      <li key={`${key}-${Math.random()}`}>
-        {!!showItem && (
-          <>
-            <div
-              onClick={item.bottom ? () => setActive(key) : () => goTo("path")}
-              className={`mobile-menu__item ${
-                state.active === key ? "active" : ""
-              }`}
-            >
-              <div>{item.top.anchor}</div>
-              {state.active === null && <ArrowForwardIosIcon />}
-              {state.active === key && (
-                <KeyboardBackspaceIcon fontSize={"large"} />
-              )}
-            </div>
-            {state.active === key && item.bottom && (
-              <ul>{item.bottom.map(mapMobileSubMenu)}</ul>
-            )}
-          </>
-        )}
-      </li>
-    );
-  }
-
-  function mapMobileSubMenu(item, key) {
-    return (
-      <li key={`${key}-${Math.random()}`} className="mobile-menu__item">
-        <div>{item.anchor}</div>
-        <ArrowForwardIosIcon />
-      </li>
-    );
-  }
-
-  function mapDesktopMenu(item, key) {
-    return (
-      <li key={`${key}-${Math.random()}`}>
-        <div>{item.top.anchor}</div>
-        <div className="main-header__menu__sub">
-          {item.bottom && <ul>{item.bottom.map(mapDesktopSubMenu)}</ul>}
-        </div>
-      </li>
-    );
-  }
-
-  function mapDesktopSubMenu(item, key) {
-    return (
-      <li key={`${key}-${Math.random()}`}>
-        <div>{item.anchor}</div>
-      </li>
-    );
   }
 
   return (
@@ -311,13 +254,7 @@ function Header() {
               />
             </a>
           </div>
-          <ul
-            className={`main-header__menu ${
-              !!state.fullWidthInput ? "d-none" : ""
-            }`}
-          >
-            {menu.map(mapDesktopMenu)}
-          </ul>
+          <DesktopMenu menu={menu} fullWidthInput={state.fullWidthInput} />
           <div
             className="main-header__top__input"
             style={{ width: `${state.width}rem` }}
@@ -364,20 +301,7 @@ function Header() {
             variant="standard"
           />
         </div>
-        {!!state.showMobileMenu && (
-          <div
-            className="main-header__mobile-menu"
-            style={{ right: `${state.right}%` }}
-          >
-            <ul>{menu.map(mapMobileMenu)}</ul>
-            <div className="main-header__mobile-menu__bottom">
-              <button>ACCEDI</button>
-              <p className="main-header__mobile-menu__bottom__text">
-                Non hai un account? REGISTRATI QUI
-              </p>
-            </div>
-          </div>
-        )}
+        {!!state.showMobileMenu && <MobileMenu menu={menu} setActive={setActive} mobileActive={state.active} mobileRight={state.right} />}
       </nav>
     </header>
   );
