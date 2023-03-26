@@ -1,9 +1,6 @@
 import React from "react";
 import "./desktopMenu.scss";
 
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-
 function DesktopMenu(props) {
     function mapDesktopMenu(item, key) {
         return (

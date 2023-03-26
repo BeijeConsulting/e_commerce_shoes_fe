@@ -179,6 +179,7 @@ function Header() {
   }
 
   function goToCart() {
+    if (cartQuantity === 0) return;
     navigate("/cart");
   }
 
