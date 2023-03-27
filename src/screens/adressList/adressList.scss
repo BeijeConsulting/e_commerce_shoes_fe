@@ -1,0 +1,59 @@
+@import "../../style/common/variables.scss";
+
+.address {
+
+    h2 {
+        text-transform: uppercase;
+        text-align: center;
+        margin: 6rem;
+        font-size: $large;
+    }
+
+
+    margin-top: 2rem;
+
+    h3 {
+        text-transform: uppercase;
+        margin-top: 6rem;
+    }
+
+    li {
+        margin: 2rem 0;
+        font-size: $medium;
+    }
+
+
+
+    &__p {
+        margin: 0.9rem 0;
+        color: $grey-normal;
+        font-size: $small;
+        text-transform: uppercase;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .address__container {
+        h3 {
+            font-size: $medium;
+        }
+
+        li {
+            font-size: $medium;
+            display: flex;
+            align-items: center;
+            margin: 1rem 0;
+        }
+
+
+        span {
+            margin-left: 2rem;
+        }
+
+
+        &__p {
+            font-size: $medium;
+        }
+
+    }
+}

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import ChangeUserDataForm from "../../components/hookComponents/changeUserDataForm/ChangeUserDataForm";
-import "./personalData.scss";
 import Button from "../../components/functionalComponents/button/Button";
-import { useSelector } from "react-redux";
+import "./personalData.scss";
 
 function PersonalData() {
   const [state, setState] = useState({
@@ -18,32 +18,52 @@ function PersonalData() {
     setState({ showForm: !state.showForm });
   }
   return (
-    <div>
+    <div className='personalData'>
+      <h1>I tuoi Dati Personali</h1>
       <h2>Dati Anagrafici</h2>
 
       <ul>
-        <li>{userData?.name}</li>
-        <li>{userData?.surname}</li>
         <li>
-          {`${userData?.birthDate?.dayOfMonth
-            ?.toString()
-            ?.padStart(2, "0")}/${userData?.birthDate?.monthValue
-            ?.toString()
-            .padStart(2, "0")}/${userData?.birthDate?.year}`}
+          Nome:
+          <span>
+            { userData?.name }
+          </span>
+        </li>
+        <li>
+          Nome:
+          <span>
+            { userData?.surname }
+          </span>
+        </li>
+        <li>
+          Data di nascita:
+          <span>
+            { `${userData?.birthDate?.dayOfMonth
+              ?.toString()
+              ?.padStart(2, "0")}/${userData?.birthDate?.monthValue
+                ?.toString()
+                .padStart(2, "0")}/${userData?.birthDate?.year}` }
+          </span>
         </li>
       </ul>
 
       <h2>Dati Account</h2>
       <ul>
-        <li>{userData?.email}</li>
+        <li>Email:
+          <span className='personalData__email'>
+            { userData?.email }
+          </span>
+        </li>
       </ul>
 
-      {state.showForm && <ChangeUserDataForm />}
-      <Button
-        label={state.showForm ? "ANNULLA" : "MODIFICA DATI"}
-        handleClick={toggleForm}
-        buttonStyle="submit-button"
-      />
+      { state.showForm && <ChangeUserDataForm /> }
+      <div className='container__button'>
+        <Button
+          label={ state.showForm ? "ANNULLA" : "MODIFICA DATI" }
+          handleClick={ toggleForm }
+          buttonStyle="default-button"
+        />
+      </div>
     </div>
   );
 }

@@ -17,6 +17,7 @@ import Search from "../screens/search/Search";
 import UserInfo from "../screens/userInfo/UserInfo";
 import PersonalData from "../screens/personalData/PersonalData";
 import AddressList from "../screens/adressList/AdressList";
+import OrderList from "../screens/orderList/OrderList";
 
 import Checkout from "../screens/checkout/Checkout";
 import Faq from '../screens/faq/Faq';
@@ -34,6 +35,7 @@ function Routing() {
         <Route path="user-info" element={<UserInfo />}>
           <Route index element={<PersonalData />} />
           <Route path="address-list" element={<AddressList />} />
+          <Route path="order-list" element={<OrderList />} />
         </Route>
 
         {/* Products list */}
