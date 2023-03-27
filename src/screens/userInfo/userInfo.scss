@@ -1,2 +1,22 @@
 @import "../../style/common/variables.scss";
 @import "../../style/common/mixin.scss";
+
+.userInfo {
+    padding: 2% 4%;
+
+    h1 {
+        margin: 5rem 0;
+    }
+
+    a {
+        color: $grey-normal;
+        text-decoration: underline;
+    }
+
+    a:hover {
+        color: $orange;
+    }
+
+
+
+}

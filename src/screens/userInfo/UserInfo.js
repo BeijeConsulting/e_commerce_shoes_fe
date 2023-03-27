@@ -1,35 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Outlet } from "react-router-dom";
-import "./userInfo.scss";
-import { NavLink } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 
-function UserInfo() {
-  const location = useLocation();
-  console.log(location);
+// Router
+import { Outlet, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+// Utils
+import { getLocalStorage } from '../../utils/localStorageUtils';
+// SCSS
+import "./userInfo.scss";
+
+function UserInfo(props) {
+  const navigate = useNavigate()
+
+  // if user is not logged --> go to identityScreen 
+  useEffect(() => {
+    const localStorage = getLocalStorage("token")
+    if (!localStorage) navigate("/identity")
+  }, [])
+
 
   return (
-    <div>
+    <div className='userInfo'>
       <h1>IL MIO ACCOUNT</h1>
 
-      {/* Form */}
+      {/* Form */ }
 
       <NavLink
-        to={"address-list"}
-        className={`customer__list ${
-          location.pathname === `user-info/address-list` ? "active" : ""
-        }`}
+
+        to={ "address-list" }
+        className={ "customer__list" }
       >
-        <p>Indirizzi</p>
+        Indirizzi
       </NavLink>
       <NavLink
-        to={"/user-info"}
-        className={`customer__list ${
-          location.pathname === `user-info` ? "active" : ""
-        }`}
+
+        to={ "/user-info" }
+        className={ "customer__list" }
       >
-        <p>Dati Personali</p>
+        Dati Personali
       </NavLink>
 
       <Outlet />
