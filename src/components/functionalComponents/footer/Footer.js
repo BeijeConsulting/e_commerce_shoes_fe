@@ -14,7 +14,7 @@ function Footer() {
             list: [
                 {
                     anchor: 'Chi siamo',
-                    path: '/',
+                    path: '/customer-care/about-us',
                 },
                 {
                     anchor: 'Login',
@@ -31,15 +31,11 @@ function Footer() {
             list: [
                 {
                     anchor: 'Privacy policy',
-                    path: '/',
+                    path: '/customer-care/privacy',
                 },
                 {
                     anchor: 'Cookie policy',
-                    path: '/',
-                },
-                {
-                    anchor: 'Preferenze cookie',
-                    path: '/',
+                    path: '/customer-care/cookie',
                 },
             ]
         },
@@ -52,11 +48,11 @@ function Footer() {
                 },
                 {
                     anchor: 'FAQ',
-                    path: '/',
+                    path: '/customer-care/faq',
                 },
                 {
                     anchor: 'Termini e condizioni',
-                    path: '/',
+                    path: '/customer-care/terms-and-condictions',
                 },
                 {
                     anchor: 'Resi',

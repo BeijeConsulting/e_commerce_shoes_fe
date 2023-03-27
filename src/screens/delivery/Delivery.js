@@ -28,9 +28,6 @@ function Delivery() {
             <p>
                 In caso di reso o di annullamento dell'ordine, la tariffa di consegna standard e la tariffa di consegna da lunga distanza vengono rimborsate solo in caso di restituzione dell'intero ordine, non in caso di restituzione parziale.
             </p>
-            <Link to={ "/customerCare" }>
-                Torna all'inizio
-            </Link>
         </div>
     )
 }

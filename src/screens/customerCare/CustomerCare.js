@@ -17,6 +17,22 @@ function CustomerCare() {
 
     const data = [
         {
+            title: "Chi siamo",
+            link: "about-us"
+        },
+        {
+            title: "Termini e condizioni",
+            link: "terms-and-condictions"
+        },
+        {
+            title: "Privacy policy",
+            link: "privacy"
+        },
+        {
+            title: "Cookie policy",
+            link: "cookie"
+        },
+        {
             title: "contatti",
             link: "contacts",
         },
@@ -36,38 +52,35 @@ function CustomerCare() {
 
     function mapList(data) {
         return (
-            <div
-                key={ Math.floor(Math.random() * 10000) }
-            >
-                <NavLink to={ data.link }
-                    className={ `customer__list ${location.pathname === `customerCare/${data.link}` ? "active" : ""}` }
+            <li>
+                <NavLink to={data.link}
+                    className={`customer__list ${location.pathname === `customerCare/${data.link}` ? "active" : ""}`}
                 >
-                    { data.title }
+                    {data.title}
                 </NavLink>
-
-            </div>
+            </li>
         )
     }
 
     return (
         <div className='customer'>
-            {/* Parte fissa */ }
-            <div>
-                <div className='customer__header'>
-                    <h2>Ciao,</h2>
-                    <h3>come possiamo aiutarti?</h3>
-                    <p>Nella sezione FAQ puoi trovare più velocemente la risposta alle tue domande. Inoltre, potrai seguire la tua spedizione oppure avere tutte le informazioni necessarie sui resi e rimborsi.</p>
+            {/* Parte fissa */}
+            <header>
+                <h2>Ciao,<br />come possiamo aiutarti?
+                </h2>
+                <p>Nella sezione FAQ puoi trovare più velocemente la risposta alle tue domande. Inoltre, potrai seguire la tua spedizione oppure avere tutte le informazioni necessarie sui resi e rimborsi.</p>
+            </header>
 
-                </div>
+            <div className='customer__content'>
                 <div className='customer__advice'>
-                    <h2>Consigliati per te </h2>
-                    { data.map(mapList) }
+                    <h2>Servizio Clienti</h2>
+                    <ul>
+                        {data.map(mapList)}
+                    </ul>
                 </div>
-
-            </div>
-
-            <div className='outlet'>
-                <Outlet />
+                <div className='customer__outlet'>
+                    <Outlet />
+                </div>
             </div>
         </div>
     )

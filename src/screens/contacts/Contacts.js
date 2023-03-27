@@ -9,15 +9,11 @@ function Contacts() {
             <h1>Contatti</h1>
             <h3>
                 Se hai difficoltà o dubbi relativi allo shop online, il nostro Servizio Clienti è a tua disposizione. Scopri come contattarci cliccando <span>
-                    <Link to={ "/" }>
+                    <Link to={"/"}>
                         quì.
                     </Link>
                 </span>
             </h3>
-
-            <Link to={ "/customerCare" }>
-                Torna all'inizio
-            </Link>
         </div>
     )
 }
