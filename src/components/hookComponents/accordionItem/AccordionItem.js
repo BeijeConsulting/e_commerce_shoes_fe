@@ -8,7 +8,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 function AccordionItem(props) {
-    const data = [
+    const dataSingleProduct = [
         {
             title: "Descrizione",
             answer: "Nike Court Vision Low è un classico rivisitato con materiali riciclati per almeno il 20% del suo peso, mentre la tomaia e gli strati esterni cuciti mantengono l'essenza dello stile originale. Il morbido collare a taglio basso assicura eleganza e comfort perfetti.",
@@ -50,7 +50,7 @@ function AccordionItem(props) {
 
     return (
         <>
-            { data.map(mapList) }
+            { dataSingleProduct.map(mapList) }
         </>
     )
 }
