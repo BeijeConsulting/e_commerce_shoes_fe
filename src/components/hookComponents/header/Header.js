@@ -30,8 +30,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ClearIcon from "@mui/icons-material/Clear";
+import UserMenuNav from '../userMenuNav/UserMenuNav';
+import CartNavMenu from '../cartNavMenu/CartNavMenu';
 
 function Header() {
   const navigate = useNavigate();
@@ -143,16 +144,18 @@ function Header() {
     getUserInfo(token);
   }, []);
 
+
+  // QUESTA LOGICA é IN USERMENUNAV
   // if user is logged --> screen userInfo
   // if user is not logged --> screen identity
-  function conditionalGoTo() {
-    console.log("islogged", userIsLogged);
-    if (userIsLogged) {
-      navigate("/user-info");
-    } else {
-      navigate("/identity");
-    }
-  }
+  // function conditionalGoTo() {
+  //   console.log("islogged", userIsLogged);
+  //   if (userIsLogged) {
+  //     navigate("/user-info");
+  //   } else {
+  //     navigate("/identity");
+  //   }
+  // }
 
   function toggleMobileMenu() {
     setState(function (prevState) {
@@ -253,18 +256,24 @@ function Header() {
           </motion.div>
           <div className="main-header__user-icons">
             <div onClick={goToCart}>
-              <IconButton aria-label="cart">
-                <Badge badgeContent={cartQuantity} color="primary">
-                  <ShoppingCartIcon fontSize={"large"} />
-                </Badge>
-              </IconButton>
+              <CartNavMenu
+                name={"Nike Zoom AIr"}
+                brand={"Nike"}
+                listedPrice={"199.00"}
+                sellingPrice={"60.00"}
+                productSize={"M41"}
+                quantity={"1"}
+              />
             </div>
-            <div onClick={conditionalGoTo}>
-              <IconButton aria-label="cart">
-                <AccountCircleIcon fontSize={"large"} />
-              </IconButton>
-            </div>
+
+            <UserMenuNav />
           </div>
+
+          {/* <div
+            className="main-header__user-icons"
+          >
+          </div> */}
+
         </div>
         <div className="main-header__bottom">
           <TextField
