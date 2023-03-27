@@ -20,6 +20,10 @@ import AddressList from "../screens/adressList/AdressList";
 
 import Checkout from "../screens/checkout/Checkout";
 import Faq from '../screens/faq/Faq';
+import AboutUs from "../screens/aboutUs/AbousUs";
+import Terms from "../screens/terms/Terms";
+import Privacy from "../screens/privacy/Privacy";
+import Cookie from "../screens/cookie/Cookie";
 
 function Routing() {
   return (
@@ -53,10 +57,14 @@ function Routing() {
 
         {/* Customer care */}
         <Route path="/customer-care" element={<CustomerCare />}>
+          <Route path="about-us" element={<AboutUs />} />
           <Route path="contacts" element={<Contacts />} />
           <Route path="delivery" element={<Delivery />} />
           <Route path="returns" element={<ReturnAndRefund />} />
           <Route path="faq" element={<Faq />} />
+          <Route path="privacy" element={<Privacy />} />
+          <Route path="cookie" element={<Cookie />} />
+          <Route path="terms-and-condictions" element={<Terms />} />
         </Route>
       </Route>
 

@@ -45,6 +45,7 @@ function Header() {
     {
       top: {
         anchor: "uomo",
+        path: "uomo",
       },
       bottom: [
         {
