@@ -1,0 +1,56 @@
+@import "../../style/common/variables.scss";
+
+.personalData {
+
+    // padding: 2% 4%;
+    h1 {
+        text-align: center;
+        text-transform: uppercase;
+        font-size: $large;
+    }
+
+    h2 {
+        margin-top: 3rem;
+    }
+
+    ul {
+        margin-top: 2.5rem;
+    }
+
+    li {
+        margin: 1.5rem 0;
+        color: $grey-normal;
+        font-size: $medium;
+        text-transform: uppercase;
+
+        span {
+            color: $black;
+            margin-left: 1rem;
+            text-transform: capitalize;
+        }
+    }
+
+    &__email {
+        span {
+            text-transform: lowercase;
+        }
+    }
+}
+
+.container__button {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    width: 60%;
+    margin-top: 6rem;
+}
+
+@media screen and (min-width: 850px) {
+    // .personalData {
+    //     margin: 0 10%;
+    // }
+
+    .container__button {
+        width: 40%;
+    }
+}

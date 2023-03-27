@@ -1,0 +1,65 @@
+@import "../../style/common/variables.scss";
+@import "../../style/common/mixin.scss";
+
+.search-no-products {
+  background-color: #fbfbfb;
+  padding: 5rem 2rem;
+  text-align: center;
+  img {
+    display: none;
+  }
+  > div {
+    text-align: start;
+  }
+
+  h1,
+  h2 {
+    font-size: $large;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    padding-top: 3rem;
+    margin-bottom: 2rem;
+  }
+
+  ol {
+    margin-top: 1rem;
+    list-style-type: decimal;
+    list-style-position: inside;
+    li {
+      padding-top: 1rem;
+    }
+  }
+
+  nav {
+    ul {
+      text-transform: uppercase;
+      font-weight: 700;
+      @include flex(flex-start, stretch);
+      flex-wrap: wrap;
+      li {
+        margin-right: 3rem;
+        margin-top: 1rem;
+      }
+    }
+    a {
+      text-decoration: underline;
+      &:hover {
+        text-decoration: none;
+        color: $orange;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .search-no-products {
+    padding: 10rem 15rem;
+    @include flex(flex-start, stretch);
+    img {
+      display: block;
+      margin-right: 10rem;
+    }
+  }
+}
