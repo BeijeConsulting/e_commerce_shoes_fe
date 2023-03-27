@@ -1,102 +1,108 @@
 @import "../../../style/common/variables.scss";
+@import "../../../style/common/mixin.scss";
 
 .container__accordion {
-    display: flex;
-    flex-direction: column;
-    margin: 5%;
-    width: auto;
+  display: flex;
+  flex-direction: column;
+  margin: 5%;
+  width: auto;
 }
 
 .accordion {
-    // border: 2px solid red;
-    // margin-bottom: 3rem;
-    // box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  // border: 2px solid red;
+  // margin-bottom: 3rem;
+  // box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 
+  &__info {
+    display: flex;
+    padding: 10px;
+    width: 100%;
 
-    &__info {
-        display: flex;
-        padding: 10px;
-        width: 100%;
-
-        h3 {
-            font-size: $small;
-            display: inline-block;
-            margin: 4px 4px 0 0;
-        }
-
-        p {
-            font-size: $small;
-            display: inline-block;
-            margin: 4px 4px 0 0;
-            color: $grey-normal;
-        }
-
-        span {
-            color: $green;
-            font-weight: 600;
-            display: inline-block;
-            margin-left: 1rem;
-        }
+    h3 {
+      font-size: $small;
+      display: inline-block;
+      margin: 4px 4px 0 0;
     }
 
-    .accordion__stato {
-        margin-left: 0;
+    p {
+      font-size: $small;
+      display: inline-block;
+      margin: 4px 4px 0 0;
+      color: $grey-normal;
     }
 
+    span {
+      color: $green;
+      font-weight: 600;
+      display: inline-block;
+      margin-left: 1rem;
+    }
+  }
+
+  .accordion__stato {
+    margin-left: 0;
+  }
+}
+
+.accordion__list {
+  @include flex(space-between, center, column);
+
+  @media screen and (min-width: 800px) {
+    flex-direction: row;
+  }
 }
 
 .accordion__details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 2rem auto;
+
+  h3 {
+    font-size: $medium;
+    margin-right: 4rem;
+  }
+
+  img {
+    width: 30%;
+    object-fit: cover;
+  }
+
+  &--price {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 2rem auto;
-
-    h3 {
-        font-size: $medium;
-        margin-right: 4rem;
-    }
-
-    img {
-        width: 30%;
-        object-fit: cover;
-    }
-
-    &--price {
-        display: flex;
-        justify-content: end;
-        margin-top: 2rem;
-        padding-bottom: 2rem;
-        border-bottom: 1px solid #ccc;
-        color: $orange;
-        font-size: $medium;
-    }
+    justify-content: end;
+    margin-top: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #ccc;
+    color: $orange;
+    font-size: $medium;
+  }
 }
 
-
 @media screen and (min-width: 1050px) {
-    .accordion {
-        &__info {
-            h3 {
-                margin-bottom: 0.6rem;
-            }
-        }
+  .accordion {
+    &__info {
+      h3 {
+        margin-bottom: 0.6rem;
+      }
     }
+  }
 
-    .accordion__summary--wrapper {
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-    }
+  .accordion__summary--wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
 
-    .accordion__details {
-        img {
-            width: 15%;
-            object-fit: cover;
-        }
+  .accordion__details {
+    img {
+      width: 15%;
+      object-fit: cover;
     }
+  }
 
-    .accordion__info {
-        flex-direction: column;
-        justify-content: center;
-    }
+  .accordion__info {
+    flex-direction: column;
+    justify-content: center;
+  }
 }
