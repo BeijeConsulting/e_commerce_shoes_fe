@@ -6,6 +6,12 @@ export async function getProductList(filter = "") {
   return { status: response.status, data: response.data };
 }
 
+export async function getSearchProducts(term) {
+  const response = await getData("/api/products/search/?q=" + term);
+
+  return { status: response.status, data: response.data };
+}
+
 export async function getProduct(id, lang = "it") {
   const response = await getData("/api/products/" + id + "/" + lang);
 

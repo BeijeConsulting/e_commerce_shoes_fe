@@ -12,6 +12,7 @@ import Home from "../screens/home/Home";
 import SingleProduct from "../screens/singleProduct/SingleProduct";
 import ProductsList from "../screens/productsList/ProductsList";
 import Cart from "../screens/cart/Cart";
+import Search from "../screens/search/Search";
 
 import UserInfo from "../screens/userInfo/UserInfo";
 import PersonalData from "../screens/personalData/PersonalData";
@@ -23,45 +24,48 @@ import Faq from '../screens/faq/Faq';
 function Routing() {
   return (
     <Routes>
-      <Route path="/" element={ <Cms /> }>
-        {/* Homepage */ }
-        <Route index element={ <Home /> } />
-        <Route path="user-info" element={ <UserInfo /> }>
-          <Route index element={ <PersonalData /> } />
-          <Route path="address-list" element={ <AddressList /> } />
+      <Route path="/" element={<Cms />}>
+        {/* Homepage */}
+        <Route index element={<Home />} />
+        <Route path="user-info" element={<UserInfo />}>
+          <Route index element={<PersonalData />} />
+          <Route path="address-list" element={<AddressList />} />
         </Route>
 
-        {/* Products list */ }
-        <Route path="/products" element={ <ProductsList /> }>
-          <Route path=":first" element={ <ProductsList /> } />
-          <Route path=":first/:second" element={ <ProductsList /> } />
+        {/* Products list */}
+        <Route path="/products" element={<ProductsList />}>
+          <Route path=":first" element={<ProductsList />} />
+          <Route path=":first/:second" element={<ProductsList />} />
         </Route>
 
-        {/* Brands */ }
-        <Route path="/brands" element={ <Cart /> } />
-        <Route path="/brands/:brand" element={ <ProductsList /> } />
+        {/* Search */}
+        <Route path="/search" element={<Search />} />
 
-        {/* Single products */ }
-        <Route path="/product/:id" element={ <SingleProduct /> } />
+        {/* Brands */}
+        <Route path="/brands" element={<Cart />} />
+        <Route path="/brands/:brand" element={<ProductsList />} />
 
-        {/* Cart */ }
-        <Route path="/cart" element={ <Cart /> } />
+        {/* Single products */}
+        <Route path="/product/:id" element={<SingleProduct />} />
 
-        {/* Customer care */ }
-        <Route path="/customer-care" element={ <CustomerCare /> }>
-          <Route path="contacts" element={ <Contacts /> } />
-          <Route path="delivery" element={ <Delivery /> } />
-          <Route path="returns" element={ <ReturnAndRefund /> } />
-          <Route path="faq" element={ <Faq /> } />
+        {/* Cart */}
+        <Route path="/cart" element={<Cart />} />
+
+        {/* Customer care */}
+        <Route path="/customer-care" element={<CustomerCare />}>
+          <Route path="contacts" element={<Contacts />} />
+          <Route path="delivery" element={<Delivery />} />
+          <Route path="returns" element={<ReturnAndRefund />} />
+          <Route path="faq" element={<Faq />} />
         </Route>
       </Route>
 
-      <Route path="/checkout" element={ <Checkout /> } />
+      <Route path="/checkout" element={<Checkout />} />
 
-      {/* Signin - Signup */ }
-      <Route path="/identity" element={ <Identity /> }>
-        <Route index element={ <LoginForm /> } />
-        <Route path="signup" element={ <SignupForm /> } />
+      {/* Signin - Signup */}
+      <Route path="/identity" element={<Identity />}>
+        <Route index element={<LoginForm />} />
+        <Route path="signup" element={<SignupForm />} />
       </Route>
     </Routes>
   );
