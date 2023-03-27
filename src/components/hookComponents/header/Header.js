@@ -30,8 +30,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ClearIcon from "@mui/icons-material/Clear";
+import UserMenuNav from '../userMenuNav/UserMenuNav';
 
 function Header() {
   const navigate = useNavigate();
@@ -144,16 +144,18 @@ function Header() {
     getUserInfo(token);
   }, []);
 
+
+  // QUESTA LOGICA é IN USERMENUNAV
   // if user is logged --> screen userInfo
   // if user is not logged --> screen identity
-  function conditionalGoTo() {
-    console.log("islogged", userIsLogged);
-    if (userIsLogged) {
-      navigate("/user-info");
-    } else {
-      navigate("/identity");
-    }
-  }
+  // function conditionalGoTo() {
+  //   console.log("islogged", userIsLogged);
+  //   if (userIsLogged) {
+  //     navigate("/user-info");
+  //   } else {
+  //     navigate("/identity");
+  //   }
+  // }
 
   function toggleMobileMenu() {
     setState(function (prevState) {
@@ -188,33 +190,33 @@ function Header() {
       <nav>
         <div className="main-header__top">
           <div className="main-header__top__left">
-            {!state.showMobileMenu && (
+            { !state.showMobileMenu && (
               <MenuIcon
-                onClick={toggleMobileMenu}
+                onClick={ toggleMobileMenu }
                 className="main-header__hamburger"
-                fontSize={"large"}
+                fontSize={ "large" }
               />
-            )}
-            {!!state.showMobileMenu && (
+            ) }
+            { !!state.showMobileMenu && (
               <ClearIcon
-                onClick={toggleMobileMenu}
+                onClick={ toggleMobileMenu }
                 className="main-header__hamburger"
-                fontSize={"large"}
+                fontSize={ "large" }
               />
-            )}
-            <a onClick={goToHome} href="">
+            ) }
+            <a onClick={ goToHome } href="">
               <img
                 className="main-header__logo"
-                src={require("../../../assets/images/logo/logo-312.png")}
+                src={ require("../../../assets/images/logo/logo-312.png") }
                 alt="logo"
               />
             </a>
           </div>
-          <DesktopMenu menu={menu} fullWidthInput={state.fullWidthInput} />
+          <DesktopMenu menu={ menu } fullWidthInput={ state.fullWidthInput } />
           <motion.div
-            initial={false}
-            style={{ margin: "0 5rem 0 4rem" }}
-            animate={state.fullWidthInput ? {
+            initial={ false }
+            style={ { margin: "0 5rem 0 4rem" } }
+            animate={ state.fullWidthInput ? {
               width: "50%", transition: {
                 duration: 0.3,
               },
@@ -222,58 +224,61 @@ function Header() {
               width: "20%", transition: {
                 duration: 0,
               },
-            }}
+            } }
           >
             <div
               className="main-header__top__input"
-              style={{ width: `${state.width}rem` }}
+              style={ { width: `${state.width}rem` } }
             >
               <TextField
-                onBlur={toggleInput}
-                onFocus={toggleInput}
+                onBlur={ toggleInput }
+                onFocus={ toggleInput }
                 fullWidth
-                InputProps={{
+                InputProps={ {
                   startAdornment: (
                     <InputAdornment position="start">
-                      <SearchIcon fontSize={"large"} />
+                      <SearchIcon fontSize={ "large" } />
                     </InputAdornment>
                   ),
-                }}
+                } }
                 variant="standard"
               />
             </div>
           </motion.div>
           <div className="main-header__user-icons">
-            <div onClick={goToCart}>
+            <div onClick={ goToCart }>
               <IconButton aria-label="cart">
-                <Badge badgeContent={cartQuantity} color="primary">
-                  <ShoppingCartIcon fontSize={"large"} />
+                <Badge badgeContent={ cartQuantity } color="primary">
+                  <ShoppingCartIcon fontSize={ "large" } />
                 </Badge>
               </IconButton>
             </div>
-            <div onClick={conditionalGoTo}>
-              <IconButton aria-label="cart">
-                <AccountCircleIcon fontSize={"large"} />
-              </IconButton>
-            </div>
+            <UserMenuNav />
+
           </div>
+
+          {/* <div
+            className="main-header__user-icons"
+          >
+          </div> */}
+
         </div>
         <div className="main-header__bottom">
           <TextField
             fullWidth
-            InputProps={{
+            InputProps={ {
               startAdornment: (
-                <InputAdornment position="start" sx={{ cursor: "pointer" }}>
-                  <SearchIcon fontSize={"large"} />
+                <InputAdornment position="start" sx={ { cursor: "pointer" } }>
+                  <SearchIcon fontSize={ "large" } />
                 </InputAdornment>
               ),
-            }}
+            } }
             variant="standard"
           />
         </div>
         <MobileMenu
-          menu={menu}
-          showMobileMenu={state.showMobileMenu}
+          menu={ menu }
+          showMobileMenu={ state.showMobileMenu }
         />
       </nav>
     </header >
