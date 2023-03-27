@@ -32,6 +32,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import ClearIcon from "@mui/icons-material/Clear";
 import UserMenuNav from '../userMenuNav/UserMenuNav';
+import CartNavMenu from '../cartNavMenu/CartNavMenu';
 
 function Header() {
   const navigate = useNavigate();
@@ -247,14 +248,17 @@ function Header() {
           </motion.div>
           <div className="main-header__user-icons">
             <div onClick={ goToCart }>
-              <IconButton aria-label="cart">
-                <Badge badgeContent={ cartQuantity } color="primary">
-                  <ShoppingCartIcon fontSize={ "large" } />
-                </Badge>
-              </IconButton>
+              <CartNavMenu
+                name={ "Nike Zoom AIr" }
+                brand={ "Nike" }
+                listedPrice={ "199.00" }
+                sellingPrice={ "60.00" }
+                productSize={ "M41" }
+                quantity={ "1" }
+              />
             </div>
-            <UserMenuNav />
 
+            <UserMenuNav />
           </div>
 
           {/* <div
