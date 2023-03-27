@@ -5,4 +5,8 @@ function setLocalStorage(key, data) {
   JSON.stringify(localStorage.setItem(key, JSON.stringify(data)));
 }
 
-export { getLocalStorage, setLocalStorage };
+function clearLocalStorage(key) {
+  localStorage.clear(key)
+}
+
+export { getLocalStorage, setLocalStorage, clearLocalStorage };
