@@ -32,6 +32,15 @@ function UserInfo() {
         <p>Dati Personali</p>
       </NavLink>
 
+      <NavLink
+        to={"order-list"}
+        className={`customer__list ${
+          location.pathname === `user-info/order-list` ? "active" : ""
+        }`}
+      >
+        <p>Lista Ordini</p>
+      </NavLink>
+
       <Outlet />
     </div>
   );
