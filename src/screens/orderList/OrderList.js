@@ -13,16 +13,12 @@ function OrderList() {
     totalQuantity: [],
   });
 
-  console.log(userFirstName);
   useEffect(() => {
     async function fetchData() {
       const token = getLocalStorage("token");
-      console.log(token);
       const response = await getOrderList(getLocalStorage("token"));
 
       if (response.status === 200) {
-        console.log(response.data.orders);
-
         setState({
           ...state,
           orderList: response.data.orders,
