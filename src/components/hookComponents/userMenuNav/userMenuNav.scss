@@ -1,0 +1,27 @@
+@import "../../../style/common/variables.scss";
+
+.userMenuNav {
+    // border: 2px solid red;
+    z-index: 99;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 3%;
+}
+
+.item {
+    font-size: $small;
+
+    span {
+        font-weight: 600;
+        color: $orange;
+    }
+}
+
+.logOut {
+    font-size: $medium !important;
+
+    &__p {
+        font-size: $small;
+    }
+}
