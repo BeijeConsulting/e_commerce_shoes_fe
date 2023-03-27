@@ -18,48 +18,50 @@ import PersonalData from "../screens/personalData/PersonalData";
 import AddressList from "../screens/adressList/AdressList";
 
 import Checkout from "../screens/checkout/Checkout";
+import Faq from '../screens/faq/Faq';
 
 function Routing() {
   return (
     <Routes>
-      <Route path="/" element={<Cms />}>
-        {/* Homepage */}
-        <Route index element={<Home />} />
-        <Route path="user-info" element={<UserInfo />}>
-          <Route index element={<PersonalData />} />
-          <Route path="address-list" element={<AddressList />} />
+      <Route path="/" element={ <Cms /> }>
+        {/* Homepage */ }
+        <Route index element={ <Home /> } />
+        <Route path="user-info" element={ <UserInfo /> }>
+          <Route index element={ <PersonalData /> } />
+          <Route path="address-list" element={ <AddressList /> } />
         </Route>
 
-        {/* Products list */}
-        <Route path="/products" element={<ProductsList />}>
-          <Route path=":first" element={<ProductsList />} />
-          <Route path=":first/:second" element={<ProductsList />} />
+        {/* Products list */ }
+        <Route path="/products" element={ <ProductsList /> }>
+          <Route path=":first" element={ <ProductsList /> } />
+          <Route path=":first/:second" element={ <ProductsList /> } />
         </Route>
 
-        {/* Brands */}
-        <Route path="/brands" element={<Cart />} />
-        <Route path="/brands/:brand" element={<ProductsList />} />
+        {/* Brands */ }
+        <Route path="/brands" element={ <Cart /> } />
+        <Route path="/brands/:brand" element={ <ProductsList /> } />
 
-        {/* Single products */}
-        <Route path="/product/:id" element={<SingleProduct />} />
+        {/* Single products */ }
+        <Route path="/product/:id" element={ <SingleProduct /> } />
 
-        {/* Cart */}
-        <Route path="/cart" element={<Cart />} />
+        {/* Cart */ }
+        <Route path="/cart" element={ <Cart /> } />
 
-        {/* Customer care */}
-        <Route path="/customer-care" element={<CustomerCare />}>
-          <Route path="contacts" element={<Contacts />} />
-          <Route path="delivery" element={<Delivery />} />
-          <Route path="returns" element={<ReturnAndRefund />} />
+        {/* Customer care */ }
+        <Route path="/customer-care" element={ <CustomerCare /> }>
+          <Route path="contacts" element={ <Contacts /> } />
+          <Route path="delivery" element={ <Delivery /> } />
+          <Route path="returns" element={ <ReturnAndRefund /> } />
+          <Route path="faq" element={ <Faq /> } />
         </Route>
       </Route>
 
-      <Route path="/checkout" element={<Checkout />} />
+      <Route path="/checkout" element={ <Checkout /> } />
 
-      {/* Signin - Signup */}
-      <Route path="/identity" element={<Identity />}>
-        <Route index element={<LoginForm />} />
-        <Route path="signup" element={<SignupForm />} />
+      {/* Signin - Signup */ }
+      <Route path="/identity" element={ <Identity /> }>
+        <Route index element={ <LoginForm /> } />
+        <Route path="signup" element={ <SignupForm /> } />
       </Route>
     </Routes>
   );

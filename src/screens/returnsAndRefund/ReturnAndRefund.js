@@ -22,7 +22,7 @@ function ReturnAndRefund() {
             <h3>Hai pagato con Paypal?</h3>
             <p>Riceverai la cifra relativa agli articoli resi sullo stesso account Paypal.</p>
 
-            <Link to={ "/customerCare" }>
+            <Link to={ "/customer-care" }>
                 Torna all'inizio
             </Link>
         </div>
