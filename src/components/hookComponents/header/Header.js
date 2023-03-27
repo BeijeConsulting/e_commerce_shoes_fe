@@ -27,9 +27,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 // MUI Icons
 import Badge from "@mui/material/Badge";
 import MenuIcon from "@mui/icons-material/Menu";
-import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import ClearIcon from "@mui/icons-material/Clear";
 import UserMenuNav from '../userMenuNav/UserMenuNav';
 import CartNavMenu from '../cartNavMenu/CartNavMenu';
@@ -43,74 +41,36 @@ function Header() {
 
   const menu = [
     {
-      top: {
-        anchor: "uomo",
-        path: "uomo",
-      },
-      bottom: [
-        {
-          anchor: "sportive",
-        },
-        {
-          anchor: "eleganti",
-        },
-        {
-          anchor: "casual",
-        },
-      ],
+      top: "uomo",
+      bottom: true,
     },
     {
-      top: {
-        anchor: "donna",
-      },
-      bottom: [
-        {
-          anchor: "sportive",
-        },
-        {
-          anchor: "eleganti",
-        },
-        {
-          anchor: "casual",
-        },
-      ],
+      top: "donna",
+      bottom: true,
     },
     {
-      top: {
-        anchor: "unisex",
-      },
-      bottom: [
-        {
-          anchor: "sportive",
-        },
-        {
-          anchor: "eleganti",
-        },
-        {
-          anchor: "casual",
-        },
-      ],
+      top: "unisex",
+      bottom: true,
     },
     {
-      top: {
-        anchor: "brand",
-      },
+      top: "brand",
+      bottom: false,
     },
     {
-      top: {
-        anchor: "offerte",
-      },
+      top: "offerte",
+      bottom: false,
     },
     {
-      top: {
-        anchor: "nuovi arrivi",
-      },
+      top: "nuovi arrivi",
+      path: "nuovi-arrivi",
+      bottom: false,
     },
   ];
 
   const [state, setState] = useState({
     showMobileMenu: false,
     fullWidthInput: false,
+    categories: ["camminata", "trail running", "basket", "sneakers"],
   });
 
   // check if there is token
@@ -221,7 +181,11 @@ function Header() {
               />
             </a>
           </div>
-          <DesktopMenu menu={menu} fullWidthInput={state.fullWidthInput} />
+          <DesktopMenu
+            categories={state.categories}
+            menu={menu}
+            fullWidthInput={state.fullWidthInput}
+          />
           <motion.div
             initial={false}
             style={{ margin: "0 5rem 0 4rem" }}
@@ -266,15 +230,8 @@ function Header() {
                 quantity={"1"}
               />
             </div>
-
             <UserMenuNav />
           </div>
-
-          {/* <div
-            className="main-header__user-icons"
-          >
-          </div> */}
-
         </div>
         <div className="main-header__bottom">
           <TextField
@@ -290,6 +247,7 @@ function Header() {
           />
         </div>
         <MobileMenu
+          categories={state.categories}
           menu={menu}
           showMobileMenu={state.showMobileMenu}
         />
