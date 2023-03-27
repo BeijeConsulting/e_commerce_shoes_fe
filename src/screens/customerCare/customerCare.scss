@@ -15,6 +15,7 @@
 
     a {
         color: $grey-normal;
+        text-decoration: underline;
     }
 
     a:hover {
@@ -34,10 +35,13 @@
     }
 
     &__advice {
-        margin-top: 3rem;
+        margin: 3rem 0;
+
+        h2 {
+            margin-bottom: 4rem;
+        }
     }
 }
-
 
 
 .outlet {

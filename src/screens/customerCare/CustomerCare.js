@@ -1,10 +1,12 @@
 import React from 'react';
+// Router
+import { Outlet, useLocation } from "react-router";
+import { NavLink } from 'react-router-dom';
+
 import PropTypes from 'prop-types';
 import "./customerCare.scss"
 
-import { Outlet, useNavigate, useLocation } from "react-router";
-
-import { Link, NavLink } from 'react-router-dom';
+// i18Next
 import { changeLanguage } from 'i18next';
 
 
@@ -26,17 +28,21 @@ function CustomerCare() {
             title: "resi e rimborsi",
             link: "returns"
         },
+        {
+            title: "FAQ",
+            link: "faq"
+        },
     ]
 
     function mapList(data) {
         return (
             <div
-                key={Math.floor(Math.random() * 10000)}
+                key={ Math.floor(Math.random() * 10000) }
             >
-                <NavLink to={data.link}
-                    className={`customer__list ${location.pathname === `customerCare/${data.link}` ? "active" : ""}`}
+                <NavLink to={ data.link }
+                    className={ `customer__list ${location.pathname === `customerCare/${data.link}` ? "active" : ""}` }
                 >
-                    {data.title}
+                    { data.title }
                 </NavLink>
 
             </div>
@@ -45,7 +51,7 @@ function CustomerCare() {
 
     return (
         <div className='customer'>
-            {/* Parte fissa */}
+            {/* Parte fissa */ }
             <div>
                 <div className='customer__header'>
                     <h2>Ciao,</h2>
@@ -55,7 +61,7 @@ function CustomerCare() {
                 </div>
                 <div className='customer__advice'>
                     <h2>Consigliati per te </h2>
-                    {data.map(mapList)}
+                    { data.map(mapList) }
                 </div>
 
             </div>

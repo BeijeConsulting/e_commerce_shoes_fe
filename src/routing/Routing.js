@@ -12,6 +12,7 @@ import Home from "../screens/home/Home";
 import SingleProduct from "../screens/singleProduct/SingleProduct";
 import ProductsList from "../screens/productsList/ProductsList";
 import Cart from "../screens/cart/Cart";
+import Search from "../screens/search/Search";
 
 import UserInfo from "../screens/userInfo/UserInfo";
 import PersonalData from "../screens/personalData/PersonalData";
@@ -19,6 +20,7 @@ import AddressList from "../screens/adressList/AdressList";
 import OrderList from "../screens/orderList/OrderList";
 
 import Checkout from "../screens/checkout/Checkout";
+import Faq from '../screens/faq/Faq';
 
 function Routing() {
   return (
@@ -38,6 +40,9 @@ function Routing() {
           <Route path=":first/:second" element={<ProductsList />} />
         </Route>
 
+        {/* Search */}
+        <Route path="/search" element={<Search />} />
+
         {/* Brands */}
         <Route path="/brands" element={<Cart />} />
         <Route path="/brands/:brand" element={<ProductsList />} />
@@ -53,6 +58,7 @@ function Routing() {
           <Route path="contacts" element={<Contacts />} />
           <Route path="delivery" element={<Delivery />} />
           <Route path="returns" element={<ReturnAndRefund />} />
+          <Route path="faq" element={<Faq />} />
         </Route>
       </Route>
 

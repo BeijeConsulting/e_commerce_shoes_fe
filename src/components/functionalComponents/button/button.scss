@@ -89,3 +89,21 @@
     height: $small;
   }
 }
+
+.navCartBtn {
+  display: block;
+  outline: none;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+
+  color: #fff;
+  background-color: $orange;
+  border: 1px solid $orange;
+  padding: 1rem 4rem;
+
+  font-size: $medium;
+  border-radius: 0.5rem;
+
+  transition: all 150ms ease-in;
+}
