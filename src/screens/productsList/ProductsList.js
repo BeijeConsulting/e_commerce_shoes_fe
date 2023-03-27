@@ -3,8 +3,11 @@ import { getProductList, getCategories } from "../../services/productServices";
 import ProductCard from '../../components/functionalComponents/ProductCard/ProductCard';
 import ProductGridLayout from '../../components/functionalComponents/productGridLayout/ProductGridLayout';
 import FilterMenu from "../../components/hookComponents/filterMenu/FilterMenu";
+import { useLocation } from "react-router-dom";
 
 function ProductsList() {
+    const location = useLocation();
+
     const [state, setState] = useState(
         {
             products: [],
@@ -26,6 +29,8 @@ function ProductsList() {
     };
 
     async function axiosGetProductsList() {
+        const { pathname } = location;
+
         const result = await getProductList();
         return await result.data;
     }

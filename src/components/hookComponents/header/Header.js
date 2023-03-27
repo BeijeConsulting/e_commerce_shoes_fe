@@ -138,7 +138,6 @@ function Header() {
           })
         );
       }
-      console.log("useEffect", response);
     }
 
     getUserInfo(token);
@@ -181,6 +180,14 @@ function Header() {
   function goToCart() {
     if (cartQuantity === 0) return;
     navigate("/cart");
+  }
+
+  function searchProducts(e) {
+    if (e.key.toLowerCase() !== "enter") return;
+    if (!e.target.value) return;
+    const term = e.target.value.split(" ").join("-");
+    navigate(`/search?q=${term}`);
+    return console.log(term);
   }
 
   return (
@@ -229,6 +236,7 @@ function Header() {
               style={{ width: `${state.width}rem` }}
             >
               <TextField
+                onKeyUp={searchProducts}
                 onBlur={toggleInput}
                 onFocus={toggleInput}
                 fullWidth
