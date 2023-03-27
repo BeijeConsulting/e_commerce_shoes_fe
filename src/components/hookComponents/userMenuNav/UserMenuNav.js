@@ -1,6 +1,8 @@
+import React, { useState } from 'react';
+
 import { AccountCircle, Logout } from '@mui/icons-material';
 import { Avatar, Divider, IconButton, ListItemIcon, Menu, MenuItem } from '@mui/material';
-import React, { useState } from 'react';
+
 import { setUserCredentials } from '../../../redux/ducks/userDuck';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
