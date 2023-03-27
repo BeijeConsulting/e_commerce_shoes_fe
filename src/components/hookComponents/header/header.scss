@@ -47,7 +47,6 @@
 
 .main-header__top {
   @include flex(space-between, center);
-  margin-top: 1rem;
 }
 
 .main-header__top__left {
