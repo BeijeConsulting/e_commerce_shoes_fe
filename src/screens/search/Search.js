@@ -64,7 +64,7 @@ function Search() {
                     <img src={require("../../assets/images/no-products.png")} alt="no products found" />
                     <div>
                         <h1>Nessun risultato di ricerca</h1>
-                        <p>Prova nuovamente la ricerca con questi accorgimenti:</p>
+                        <p>La ricerca <strong>{searchParams.get("q").split("-").join(" ")}</strong> non ha prodotto alcun risultato. Prova nuovamente la ricerca con questi accorgimenti:</p>
                         <ol>
                             <li>Controlla attentamente la parola cercata</li>
                             <li>Limita la ricerca a una o due parole</li>

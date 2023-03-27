@@ -186,8 +186,8 @@ function Header() {
     if (e.key.toLowerCase() !== "enter") return;
     if (!e.target.value) return;
     const term = e.target.value.split(" ").join("-");
+    e.target.value = "";
     navigate(`/search?q=${term}`);
-    return console.log(term);
   }
 
   return (
