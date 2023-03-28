@@ -30,7 +30,7 @@ import Cookie from "../screens/cookie/Cookie";
 function Routing() {
 
   function RedirectToLanguage() {
-    return <Navigate replace to={ "it" } />
+    return <Navigate replace to={ "it/" } />
   }
 
   // function ToLanguage() {

@@ -9,6 +9,7 @@ import { getLocalStorage } from '../../utils/localStorageUtils';
 // SCSS
 import "./userInfo.scss";
 import { useTranslation } from 'react-i18next';
+import i18n from '../../assets/translations/i18n';
 
 function UserInfo(props) {
   const navigate = useNavigate();
@@ -22,32 +23,34 @@ function UserInfo(props) {
     if (!localStorage) navigate("/identity")
   }, [])
 
+  const lang = i18n.language
+  const { pathname } = useLocation()
+  console.log(pathname)
 
   return (
     <div className='userInfo'>
       <h1>IL MIO ACCOUNT</h1>
 
-      {/* Form */}
+      {/* Form */ }
 
       <NavLink
-
-        to={"address-list"}
-        className={"customer__list"}
+        to={ "address-list" }
+        className={ "customer__list" }
       >
         { t("userInfo.addresses") }
       </NavLink>
-      <NavLink
 
-        to={"/user-info"}
-        className={"customer__list"}
+      <NavLink
+        to={ "" }
+        className={ "customer__list" }
       >
         { t("userInfo.personalData") }
       </NavLink>
 
       <NavLink
-        to={"order-list"}
-        className={`customer__list ${location.pathname === `user-info/order-list` ? "active" : ""
-          }`}
+        to={ "order-list" }
+        className={ `customer__list ${location.pathname === `user-info/order-list` ? "active" : ""
+          }` }
       >
         <p>Lista Ordini</p>
       </NavLink>
