@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getProductList, getCategories } from "../../services/productServices";
+import { getProductList } from "../../services/productServices";
 import ProductCard from '../../components/functionalComponents/ProductCard/ProductCard';
 import ProductGridLayout from '../../components/functionalComponents/productGridLayout/ProductGridLayout';
 import FilterMenu from "../../components/hookComponents/filterMenu/FilterMenu";
@@ -11,7 +11,6 @@ function ProductsList() {
     const [state, setState] = useState(
         {
             products: [],
-            categories: [],
         }
     )
 
@@ -21,10 +20,9 @@ function ProductsList() {
 
     async function fetchProducts() {
         const products = await axiosGetProductsList();
-        const categories = await axiosGetCategoriesList();
         setState({
+            ...state,
             products,
-            categories,
         })
     };
 
@@ -35,9 +33,16 @@ function ProductsList() {
         return await result.data;
     }
 
-    async function axiosGetCategoriesList() {
-        const result = await getCategories();
-        return await result.data;
+    async function getFilteredProducts(filter) {
+        console.table(filter);
+
+
+
+        /* const result = await getProductList();
+        setState({
+            ...state,
+            products: result,
+        }) */
     }
 
     function mapProducts(item, key) {
@@ -56,7 +61,7 @@ function ProductsList() {
 
     return (
         <>
-            <FilterMenu />
+            <FilterMenu filterFunc={getFilteredProducts} />
             <ProductGridLayout>
                 {state.products?.map(mapProducts)}
             </ProductGridLayout>
