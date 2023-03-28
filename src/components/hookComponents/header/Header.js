@@ -142,7 +142,6 @@ function Header() {
 
   return (
     <header className="main-header">
-      <SwitchLanguage />
       <nav>
         <div className="main-header__top">
           <div className="main-header__top__left">

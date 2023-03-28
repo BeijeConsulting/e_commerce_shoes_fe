@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
+// Router
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import i18n, { switchLang } from '../../../assets/translations/i18n';
+// Redux
+import { useDispatch, useSelector } from 'react-redux';
 import { setLanguage } from '../../../redux/ducks/languageDuck';
+// i18n
+import i18n, { switchLang } from '../../../assets/translations/i18n';
+import italian from "../../../assets/images/svg/italian.svg"
+import english from "../../../assets/images/svg/english.svg"
+// SCSS
+import "./switchLanguage.scss"
 
 
 function SwitchLanguage(props) {
     const [selected, setSelected] = useState('it');
 
     const currentLanguage = useSelector((state) => state.languageDuck.currentLanguage)
-    // console.log(currentLanguage)
 
     useEffect(() => {
         if (!localStorage.getItem("currentLanguage")) {
@@ -35,15 +42,39 @@ function SwitchLanguage(props) {
 
 
     return (
-        <div>
-            <button onClick={ selectLanguage("it") }>
-                IT
-            </button>
-            <button onClick={ selectLanguage("en") }>
-                EN
-            </button>
+        <div className='switchLanguage'>
+
+            <div className='switchLanguage__container' >
+                <div className='switchLanguage__lang' onClick={ selectLanguage("it") } >
+                    <span>
+                        IT
+                    </span>
+
+                    <img src={ italian } alt='icon' />
+                </div>
+            </div>
+
+            <div className='switchLanguage__container'  >
+                <div className='switchLanguage__lang' onClick={ selectLanguage("en") }>
+                    <span>
+                        EN
+                    </span>
+
+                    <img src={ english } alt='icon' />
+                </div>
+            </div>
+
+
         </div>
     )
+}
+
+SwitchLanguage.defaultProps = {
+
+}
+
+SwitchLanguage.propTypes = {
+
 }
 
 export default SwitchLanguage
