@@ -1,0 +1,44 @@
+@import "../../../style/common/variables.scss";
+
+.switchLanguage {
+    display: flex;
+    justify-content: center;
+    // border: 2px solid red;
+    width: 20rem;
+    margin: 1rem auto;
+
+
+    &__container {
+        display: flex;
+        align-items: center;
+        // max-width: 35%;
+        width: 100%;
+        justify-content: center;
+
+
+    }
+
+    &__lang {
+        display: flex;
+        align-items: center;
+
+        img {
+            width: 30%;
+            object-fit: cover;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        span {
+            margin-right: 1rem;
+            font-size: $small;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        img:hover,
+        span:hover {
+            transform: scale(1.2);
+        }
+    }
+}
