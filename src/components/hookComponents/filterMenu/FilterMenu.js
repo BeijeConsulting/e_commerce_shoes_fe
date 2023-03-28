@@ -10,20 +10,11 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { getCategories, getColors, getBrands } from "../../../services/productServices";
 
 function FilterMenu(props) {
-    const minMax = [20, 200];
-
     const [state, setState] = useState({
         active: null,
         brands: [],
         categories: [],
         colors: [],
-        filters: {
-            price: null,
-            type: null,
-            category: null,
-            brand: null,
-            color: null,
-        }
     });
 
     useEffect(() => {
@@ -42,25 +33,6 @@ function FilterMenu(props) {
         })
     };
 
-    function resetFilters() {
-        const filters = {
-            price: null,
-            type: null,
-            category: null,
-            brand: null,
-            color: null,
-        };
-
-        props.filterFunc(filters);
-
-        setState(
-            {
-                ...state,
-                filters,
-            }
-        )
-    }
-
     function handleActive(event) {
         let active = event.target.getAttribute('data-filter');
         if (state.active === active) active = null;
@@ -73,131 +45,56 @@ function FilterMenu(props) {
         )
     }
 
-    function changePrice(event, value) {
-        setState({
-            ...state,
-            filters: {
-                ...state.filters,
-                price: [...value],
-            }
-        });
-    };
-
-    function handlePriceChange(event, value) {
-        const filters = { ...state.filters };
-        filters.price = [...value];
-
-        if (value[0] === minMax[0] && value[1] === minMax[1]) filters.price = null;
-
-        props.filterFunc(filters);
-
-        setState({
-            ...state,
-            filters: {
-                ...state.filters,
-                price: filters.price,
-            }
-        });
-    };
-
-    function handleTypeChange(e) {
-        const filters = { ...state.filters };
-
-        let choice = e.target.value;
-        if (filters.type === choice) choice = null;
-
-        filters.type = choice;
-        props.filterFunc(filters);
-
-        setState({
-            ...state,
-            filters: {
-                ...state.filters,
-                type: choice,
-            }
-        });
-    };
-
-    function handleCategoryChange(e) {
-        const filters = { ...state.filters };
-
-        let choice = e.target.value;
-        if (filters.category === choice) choice = null;
-
-        filters.category = choice;
-        props.filterFunc(filters);
-
-        setState({
-            ...state,
-            filters: {
-                ...state.filters,
-                category: choice,
-            }
-        });
-    };
-
-    function handleBrandChange(e) {
-        const filters = { ...state.filters };
-
-        let choice = e.target.value;
-        if (filters.brand === choice) choice = null;
-
-        filters.brand = choice;
-        props.filterFunc(filters);
-
-        setState({
-            ...state,
-            filters: {
-                ...state.filters,
-                brand: choice,
-            }
-        });
-    };
-
-    function handleColorChange(e) {
-        const filters = { ...state.filters };
-
-        let choice = e.target.value;
-        if (filters.color === choice) choice = null;
-
-        filters.color = choice;
-        props.filterFunc(filters);
-
-        setState({
-            ...state,
-            filters: {
-                ...state.filters,
-                color: choice,
-            }
-        });
-    };
-
     function mapCategories(item, key) {
         return <div className="item" key={`${key}-${Math.random()}`}>
-            <input type={'checkbox'} id={`category-${key + 1}`} value={item.category} onChange={handleCategoryChange} checked={state.filters.category === item.category ? true : false} />
+            <input type={'checkbox'} id={`category-${key + 1}`} value={item.category} onChange={props.handleCategoryChange} checked={props.filters.category === item.category ? true : false} />
             <label className="label" htmlFor={`category-${key + 1}`}>{item.category}</label>
         </div>
     }
 
     function mapBrands(item, key) {
         return <div className="item" key={`${key}-${Math.random()}`}>
-            <input type={'checkbox'} id={`brand-${key + 1}`} value={item.brand} onChange={handleBrandChange} checked={state.filters.brand === item.brand ? true : false} />
+            <input type={'checkbox'} id={`brand-${key + 1}`} value={item.brand} onChange={props.handleBrandChange} checked={props.filters.brand === item.brand ? true : false} />
             <label className="label" htmlFor={`brand-${key + 1}`}>{item.brand}</label>
         </div>
     }
 
     function mapColors(item, key) {
         return <div className="item" key={`${key}-${Math.random()}`}>
-            <input type={'checkbox'} id={`color-${key + 1}`} value={item.color} onChange={handleColorChange} checked={state.filters.color === item.color ? true : false} />
+            <input type={'checkbox'} id={`color-${key + 1}`} value={item.color} onChange={props.handleColorChange} checked={props.filters.color === item.color ? true : false} />
             <label className="label" htmlFor={`color-${key + 1}`}>{item.color}</label>
         </div>
     }
 
     return (
-        <aside className="filter-menu">
+        <aside className={`filter-menu ${props.showFilter ? 'active' : ''} ${props.screenType} `}>
             <div className="filter-menu__items">
-                <div className={`item ${state.active === "price" ? 'active' : ''}`}>
-                    <header onClick={handleActive} data-filter="price" className={`${state.filters.price ? 'checked' : ''}`} >
+
+
+                <div className={`item ${state.active === "order" ? 'active' : ''} `}>
+                    <header onClick={handleActive} data-filter="order" className={`${props.filters.orderBy ? 'checked' : ''} `} >
+                        <div data-filter="order">ordina</div>
+                        {state.active !== "order" && <KeyboardArrowDownIcon data-filter="order" fontSize={'large'} />}
+                        {state.active === "order" && <KeyboardArrowUpIcon data-filter="order" fontSize={'large'} />}
+                    </header>
+                    <div className="sub-item">
+                        <div className="item">
+                            <input type={'checkbox'} id="order1" value={'date'} onChange={props.handleOrderByChange} checked={props.filters.orderBy === 'date' ? true : false} />
+                            <label className="label" htmlFor="order1">novità</label>
+                        </div>
+                        <div className="item">
+                            <input type={'checkbox'} id="order2" value={'price.desc'} onChange={props.handleOrderByChange} checked={props.filters.orderBy === 'price.desc' ? true : false} />
+                            <label className="label" htmlFor="order2">prezzo: alto-basso</label>
+                        </div>
+                        <div className="item">
+                            <input type={'checkbox'} id="order3" value={'price.asc'} onChange={props.handleOrderByChange} checked={props.filters.orderBy === 'price.asc' ? true : false} />
+                            <label className="label" htmlFor="order3">prezzo: basso-alto</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div className={`item ${state.active === "price" ? 'active' : ''} `}>
+                    <header onClick={handleActive} data-filter="price" className={`${props.filters.price ? 'checked' : ''} `} >
                         <div data-filter="price">prezzo</div>
                         {state.active !== "price" && <KeyboardArrowDownIcon data-filter="price" fontSize={'large'} />}
                         {state.active === "price" && <KeyboardArrowUpIcon data-filter="price" fontSize={'large'} />}
@@ -206,17 +103,17 @@ function FilterMenu(props) {
                         <div className="item">
                             <div className="label">
                                 <div className="price-range">
-                                    <div>{state.filters.price ? state.filters.price[0] : minMax[0]}€</div>
-                                    <div>{state.filters.price ? state.filters.price[1] : minMax[1]}€</div>
+                                    <div>{props.filters.price ? props.filters.price[0] : props.minMax[0]}€</div>
+                                    <div>{props.filters.price ? props.filters.price[1] : props.minMax[1]}€</div>
                                 </div>
                                 <Slider
                                     className="mui-slider-modifier"
-                                    value={state.filters.price ? state.filters.price : minMax}
-                                    onChange={changePrice}
-                                    onChangeCommitted={handlePriceChange}
+                                    value={props.filters.price ? props.filters.price : props.minMax}
+                                    onChange={props.changePrice}
+                                    onChangeCommitted={props.handlePriceChange}
                                     valueLabelDisplay="auto"
-                                    min={minMax[0]}
-                                    max={minMax[1]}
+                                    min={props.minMax[0]}
+                                    max={props.minMax[1]}
                                     color="primary"
                                 />
                             </div>
@@ -224,30 +121,30 @@ function FilterMenu(props) {
                     </div>
                 </div>
 
-                <div className={`item ${state.active === "type" ? 'active' : ''}`}>
-                    <header onClick={handleActive} data-filter="type" className={`${state.filters.type ? 'checked' : ''}`} >
+                <div className={`item ${state.active === "type" ? 'active' : ''} `}>
+                    <header onClick={handleActive} data-filter="type" className={`${props.filters.type ? 'checked' : ''} `} >
                         <div data-filter="type">genere</div>
                         {state.active !== "type" && <KeyboardArrowDownIcon data-filter="type" fontSize={'large'} />}
                         {state.active === "type" && <KeyboardArrowUpIcon data-filter="type" fontSize={'large'} />}
                     </header>
                     <div className="sub-item">
                         <div className="item">
-                            <input type={'checkbox'} id="type1" value={'m'} onChange={handleTypeChange} checked={state.filters.type === 'm' ? true : false} />
+                            <input type={'checkbox'} id="type1" value={'m'} onChange={props.handleTypeChange} checked={props.filters.type === 'm' ? true : false} />
                             <label className="label" htmlFor="type1">uomo</label>
                         </div>
                         <div className="item">
-                            <input type={'checkbox'} id="type2" value={'w'} onChange={handleTypeChange} checked={state.filters.type === 'w' ? true : false} />
+                            <input type={'checkbox'} id="type2" value={'w'} onChange={props.handleTypeChange} checked={props.filters.type === 'w' ? true : false} />
                             <label className="label" htmlFor="type2">donna</label>
                         </div>
                         <div className="item">
-                            <input type={'checkbox'} id="type3" value={'u'} onChange={handleTypeChange} checked={state.filters.type === 'u' ? true : false} />
+                            <input type={'checkbox'} id="type3" value={'u'} onChange={props.handleTypeChange} checked={props.filters.type === 'u' ? true : false} />
                             <label className="label" htmlFor="type3">unisex</label>
                         </div>
                     </div>
                 </div>
 
                 <div className={`item ${state.active === "category" ? 'active' : ''} `}>
-                    <header onClick={handleActive} data-filter="category" className={`${state.filters.category ? 'checked' : ''} `} >
+                    <header onClick={handleActive} data-filter="category" className={`${props.filters.category ? 'checked' : ''} `} >
                         <div data-filter="category">categoria</div>
                         {state.active !== "category" && <KeyboardArrowDownIcon data-filter="category" fontSize={'large'} />}
                         {state.active === "category" && <KeyboardArrowUpIcon data-filter="category" fontSize={'large'} />}
@@ -258,7 +155,7 @@ function FilterMenu(props) {
                 </div>
 
                 <div className={`item ${state.active === "brand" ? 'active' : ''} `}>
-                    <header onClick={handleActive} data-filter="brand" className={`${state.filters.brand ? 'checked' : ''} `} >
+                    <header onClick={handleActive} data-filter="brand" className={`${props.filters.brand ? 'checked' : ''} `} >
                         <div data-filter="brand">brand</div>
                         {state.active !== "brand" && <KeyboardArrowDownIcon data-filter="brand" fontSize={'large'} />}
                         {state.active === "brand" && <KeyboardArrowUpIcon data-filter="brand" fontSize={'large'} />}
@@ -269,7 +166,7 @@ function FilterMenu(props) {
                 </div>
 
                 <div className={`item ${state.active === "color" ? 'active' : ''} `}>
-                    <header onClick={handleActive} data-filter="color" className={`${state.filters.color ? 'checked' : ''} `} >
+                    <header onClick={handleActive} data-filter="color" className={`${props.filters.color ? 'checked' : ''} `} >
                         <div data-filter="color">colore</div>
                         {state.active !== "color" && <KeyboardArrowDownIcon data-filter="color" fontSize={'large'} />}
                         {state.active === "color" && <KeyboardArrowUpIcon data-filter="color" fontSize={'large'} />}
@@ -280,8 +177,8 @@ function FilterMenu(props) {
                 </div>
             </div>
             <div className="filter-menu__actions">
-                <Button label={'Applica filtri'} buttonStyle={'filter-button'} />
-                <span onClick={resetFilters} className="remove">cancella filtri</span>
+                <Button label={'visualizza articoli'} handleClick={props.hideFilterMenu} buttonStyle={'filter-button'} />
+                <span onClick={props.resetFilters} className="remove">cancella filtri</span>
             </div>
         </aside >
     )

@@ -2,6 +2,23 @@
 @import "../../../style/common/mixin.scss";
 
 .filter-menu {
+  display: none;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background-color: $white;
+
+  &.mobile {
+  }
+
+  &.desktop {
+    display: none;
+  }
+
+  &.active {
+    display: block;
+  }
+
   .filter-menu__items {
     background-color: #f9f9f9;
 
@@ -102,25 +119,31 @@
 // Responsive
 
 @media (min-width: 768px) {
-  .filter-menu__items {
-    @include flex(flex-start, center);
-    flex-wrap: wrap;
-    > .item {
-      margin: 0 2rem;
-      flex-basis: calc(25% - 4rem);
-      &:nth-child(4) {
-        margin-right: 0;
+  .filter-menu {
+    &.desktop {
+      display: block;
+      position: static;
+    }
+    .filter-menu__items {
+      @include flex(flex-start, center);
+      flex-wrap: wrap;
+      > .item {
+        margin: 0 2rem;
         flex-basis: calc(25% - 4rem);
-      }
-      .sub-item {
-        left: 0;
-        width: fit-content;
-        min-width: 30rem;
+        &:nth-child(4) {
+          margin-right: 0;
+          flex-basis: calc(25% - 4rem);
+        }
+        .sub-item {
+          left: 0;
+          width: fit-content;
+          min-width: 30rem;
+        }
       }
     }
-  }
 
-  .filter-menu__actions {
-    display: none;
+    .filter-menu__actions {
+      display: none;
+    }
   }
 }
