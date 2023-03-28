@@ -1,65 +1,110 @@
 @import "../../style/common/variables.scss";
+@import "../../style/common/mixin.scss";
 
 .customer {
-    padding: 2rem;
+  padding: 2rem;
 
-    &__list {
-        display: flex;
-        flex-direction: column;
-        margin: 2rem auto;
-        text-transform: capitalize;
-        font-size: $medium;
-        font-weight: 600;
-        cursor: pointer;
+  li {
+    margin: 2rem auto;
+    text-transform: capitalize;
+    font-size: $medium;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  a {
+    color: $grey-normal;
+    text-decoration: underline;
+    display: inline-block;
+  }
+
+  a:hover {
+    color: $orange;
+    text-decoration: none;
+  }
+
+  .active {
+    color: $orange;
+    text-decoration: none;
+  }
+
+  header {
+    p {
+      margin-top: 2rem;
+      line-height: 1.3;
+    }
+  }
+
+  &__content {
+    margin-top: 3rem;
+  }
+
+  &__advice {
+    margin-bottom: 3rem;
+
+    h2 {
+      margin-bottom: 4rem;
+    }
+  }
+
+  &__outlet {
+    margin-top: 5rem;
+
+    > .accordion {
+      &:first-child {
+        padding-top: 0;
+      }
+    }
+
+    h1 {
+      margin-bottom: 3rem;
+    }
+
+    h1 {
+      font-size: $large;
+    }
+
+    h3 {
+      color: $grey-normal;
+      line-height: 1.4;
     }
 
     a {
-        color: $grey-normal;
-        text-decoration: underline;
+      color: $orange;
+      font-weight: 600;
     }
 
-    a:hover {
-        color: $orange;
+    p {
+      margin: 1rem 0;
+      line-height: 1.3;
     }
-
-    .active {
-        color: $orange;
-    }
-
-    &__header {
-
-        p {
-            margin-top: 2rem;
-            line-height: 1.3;
-        }
-    }
-
-    &__advice {
-        margin: 3rem 0;
-
-        h2 {
-            margin-bottom: 4rem;
-        }
-    }
-}
-
-
-.outlet {
-    margin-top: 5rem;
+  }
 }
 
 @media screen and (min-width: 768px) {
-    .customer__header {
-        h2 {
-            font-size: $x-large;
-        }
-
-        h3 {
-            font-size: $large;
-        }
-
-        p {
-            font-size: $medium;
-        }
+  .customer {
+    h3 {
+      font-size: $large;
     }
+
+    p {
+      font-size: $medium;
+    }
+
+    &__content {
+      @include flex(space-between, stretch);
+      > div {
+        &:first-child {
+          flex-basis: 25%;
+        }
+        &:last-child {
+          flex-basis: 75%;
+        }
+      }
+    }
+
+    &__outlet {
+      margin-top: 0;
+    }
+  }
 }

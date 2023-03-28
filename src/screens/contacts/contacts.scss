@@ -1,27 +1,7 @@
 @import "../../style/common/variables.scss";
 
 .contacts {
-    h1 {
-        margin: 1rem 0 3rem 0;
-    }
-
-    h3 {
-        color: $grey-normal;
-        line-height: 1.4;
-        margin-bottom: 2rem;
-
-        a {
-            color: $orange;
-            font-weight: 600;
-        }
-    }
-
-    a {
-        color: $orange;
-        font-weight: 600;
-    }
-
-    a:hover {
-        color: $blue;
-    }
+  h3 {
+    margin-bottom: 2rem;
+  }
 }

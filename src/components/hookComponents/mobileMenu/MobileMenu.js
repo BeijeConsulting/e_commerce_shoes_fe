@@ -22,37 +22,54 @@ function MobileMenu(props) {
     function mapMobileMenu(item, key) {
         let showItem = false;
         if (state.active === key || state.active === null) showItem = true;
-        return (
-            <li key={`${key}-${Math.random()}`}>
-                {!!showItem && (
-                    <>
-                        <div
-                            onClick={item.bottom ? () => setActive(key) : () => goTo("path")}
-                            className={`mobile-menu__item ${state.active === key ? "active" : ""
-                                }`}
-                        >
-                            <div>{item.top.anchor}</div>
-                            {state.active === null && <ArrowForwardIosIcon />}
-                            {state.active === key && (
-                                <KeyboardBackspaceIcon fontSize={"large"} />
-                            )}
-                        </div>
-                        {state.active === key && item.bottom && (
-                            <ul>{item.bottom.map(mapMobileSubMenu)}</ul>
-                        )}
-                    </>
-                )}
+
+        if (item.bottom === false) {
+            return <li key={`${key}-${Math.random()}`}>
+                {state.active === null && <div
+                    onClick={() => goTo(`/${item.top}`)}
+                    className={"mobile-menu__item"}
+                >
+                    <div>{item.top}</div>
+                    <ArrowForwardIosIcon />
+                </div>}
             </li>
-        );
+        }
+
+        if (item.bottom === true) {
+            return (
+                <li key={`${key}-${Math.random()}`}>
+                    {!!showItem && (
+                        <>
+                            <div
+                                onClick={() => setActive(key)}
+                                className={`mobile-menu__item ${state.active === key ? "active" : ""
+                                    }`}
+                            >
+                                <div>{item.top}</div>
+                                {state.active === null && <ArrowForwardIosIcon />}
+                                {state.active === key && (
+                                    <KeyboardBackspaceIcon fontSize={"large"} />
+                                )}
+                            </div>
+                            {state.active === key && (
+                                <ul>{mapMobileSubMenu(item.top)}</ul>
+                            )}
+                        </>
+                    )}
+                </li>
+            );
+        }
     }
 
-    function mapMobileSubMenu(item, key) {
-        return (
-            <li key={`${key}-${Math.random()}`} className="mobile-menu__item">
-                <div>{item.anchor}</div>
-                <ArrowForwardIosIcon />
-            </li>
-        );
+    function mapMobileSubMenu(path) {
+        return props.categories.map(function (item, key) {
+            return (
+                <li key={`${key}-${Math.random()}`} className="mobile-menu__item" onClick={() => goTo(`/${path}/${item}`)}>
+                    <div>{item}</div>
+                    <ArrowForwardIosIcon />
+                </li>
+            );
+        })
     }
 
     function goTo(path) {

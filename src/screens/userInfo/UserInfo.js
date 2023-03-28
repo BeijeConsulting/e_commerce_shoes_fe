@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 // Router
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 // Utils
 import { getLocalStorage } from '../../utils/localStorageUtils';
@@ -11,7 +11,8 @@ import "./userInfo.scss";
 import { useTranslation } from 'react-i18next';
 
 function UserInfo(props) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const { t } = useTranslation()
 
@@ -26,21 +27,29 @@ function UserInfo(props) {
     <div className='userInfo'>
       <h1>IL MIO ACCOUNT</h1>
 
-      {/* Form */ }
+      {/* Form */}
 
       <NavLink
 
-        to={ "address-list" }
-        className={ "customer__list" }
+        to={"address-list"}
+        className={"customer__list"}
       >
         { t("userInfo.addresses") }
       </NavLink>
       <NavLink
 
-        to={ "/user-info" }
-        className={ "customer__list" }
+        to={"/user-info"}
+        className={"customer__list"}
       >
         { t("userInfo.personalData") }
+      </NavLink>
+
+      <NavLink
+        to={"order-list"}
+        className={`customer__list ${location.pathname === `user-info/order-list` ? "active" : ""
+          }`}
+      >
+        <p>Lista Ordini</p>
       </NavLink>
 
       <Outlet />

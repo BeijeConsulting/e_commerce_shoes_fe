@@ -37,7 +37,7 @@ function Footer() {
             list: [
                 {
                     anchor: 'Privacy policy',
-                    path: '/',
+                    path: '/customer-care/privacy',
                 },
                 {
                     anchor: 'Cookie policy',

@@ -17,9 +17,14 @@ import Search from "../screens/search/Search";
 import UserInfo from "../screens/userInfo/UserInfo";
 import PersonalData from "../screens/personalData/PersonalData";
 import AddressList from "../screens/adressList/AdressList";
+import OrderList from "../screens/orderList/OrderList";
 
 import Checkout from "../screens/checkout/Checkout";
 import Faq from '../screens/faq/Faq';
+import AboutUs from "../screens/aboutUs/AbousUs";
+import Terms from "../screens/terms/Terms";
+import Privacy from "../screens/privacy/Privacy";
+import Cookie from "../screens/cookie/Cookie";
 
 
 function Routing() {

@@ -38,73 +38,36 @@ function Header() {
 
   const menu = [
     {
-      top: {
-        anchor: "uomo",
-      },
-      bottom: [
-        {
-          anchor: "sportive",
-        },
-        {
-          anchor: "eleganti",
-        },
-        {
-          anchor: "casual",
-        },
-      ],
+      top: "uomo",
+      bottom: true,
     },
     {
-      top: {
-        anchor: "donna",
-      },
-      bottom: [
-        {
-          anchor: "sportive",
-        },
-        {
-          anchor: "eleganti",
-        },
-        {
-          anchor: "casual",
-        },
-      ],
+      top: "donna",
+      bottom: true,
     },
     {
-      top: {
-        anchor: "unisex",
-      },
-      bottom: [
-        {
-          anchor: "sportive",
-        },
-        {
-          anchor: "eleganti",
-        },
-        {
-          anchor: "casual",
-        },
-      ],
+      top: "unisex",
+      bottom: true,
     },
     {
-      top: {
-        anchor: "brand",
-      },
+      top: "brand",
+      bottom: false,
     },
     {
-      top: {
-        anchor: "offerte",
-      },
+      top: "offerte",
+      bottom: false,
     },
     {
-      top: {
-        anchor: "nuovi arrivi",
-      },
+      top: "nuovi arrivi",
+      path: "nuovi-arrivi",
+      bottom: false,
     },
   ];
 
   const [state, setState] = useState({
     showMobileMenu: false,
     fullWidthInput: false,
+    categories: ["camminata", "trail running", "basket", "sneakers"],
   });
 
   // check if there is token
@@ -205,7 +168,11 @@ function Header() {
               />
             </a>
           </div>
-          <DesktopMenu menu={ menu } fullWidthInput={ state.fullWidthInput } />
+          <DesktopMenu
+            categories={ state.categories }
+            menu={ menu }
+            fullWidthInput={ state.fullWidthInput }
+          />
           <motion.div
             initial={ false }
             style={ { margin: "0 5rem 0 4rem" } }
@@ -250,10 +217,8 @@ function Header() {
                 quantity={ "1" }
               />
             </div>
-
             <UserMenuNav />
           </div>
-
         </div>
         <div className="main-header__bottom">
           <TextField
@@ -269,6 +234,7 @@ function Header() {
           />
         </div>
         <MobileMenu
+          categories={ state.categories }
           menu={ menu }
           showMobileMenu={ state.showMobileMenu }
         />

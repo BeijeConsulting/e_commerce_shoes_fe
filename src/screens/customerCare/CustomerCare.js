@@ -35,16 +35,13 @@ function CustomerCare() {
 
     function mapList(data) {
         return (
-            <div
-                key={ Math.floor(Math.random() * 10000) }
-            >
+            <li>
                 <NavLink to={ data.link }
                     className={ `customer__list ${location.pathname === `customerCare/${data.link}` ? "active" : ""}` }
                 >
                     { data.title }
                 </NavLink>
-
-            </div>
+            </li>
         )
     }
 
@@ -56,19 +53,17 @@ function CustomerCare() {
                     <h2>{ t("customerCare.hi") },</h2>
                     <h3>{ t("customerCare.help") }?</h3>
                     <p>Nella sezione FAQ puoi trovare più velocemente la risposta alle tue domande. Inoltre, potrai seguire la tua spedizione oppure avere tutte le informazioni necessarie sui resi e rimborsi.</p>
-
                 </div>
-                <div className='customer__advice'>
-                    <h2>{ t("customerCare.forYou") }</h2>
-                    { data.map(mapList) }
+                <div className='customer__content'>
+
+                    <div className='customer__advice'>
+                        <h2>{ t("customerCare.forYou") }</h2>
+                        { data.map(mapList) }
+                    </div>
                 </div>
-
-            </div>
-
-            <div className='outlet'>
-                <Outlet />
             </div>
         </div>
+
     )
 }
 
