@@ -7,21 +7,19 @@ import Slider from '@mui/material/Slider';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
-import { getCategories, getColors, getBrands, getSizes } from "../../../services/productServices";
+import { getCategories, getColors, getBrands } from "../../../services/productServices";
 
 function FilterMenu(props) {
-    const minMax = [20, 1000];
+    const minMax = [20, 200];
 
     const [state, setState] = useState({
         active: null,
-        sizes: [],
         brands: [],
         categories: [],
         colors: [],
         filters: {
-            price: [20, 1000],
-            genre: null,
-            size: null,
+            price: null,
+            type: null,
             category: null,
             brand: null,
             color: null,
@@ -36,28 +34,29 @@ function FilterMenu(props) {
         const categories = await getCategories("it");
         const colors = await getColors("it");
         const brands = await getBrands();
-        const sizes = await getSizes();
         setState({
             ...state,
             categories: categories.data,
             colors: colors.data,
             brands: brands.data,
-            sizes: sizes.data,
         })
     };
 
     function resetFilters() {
+        const filters = {
+            price: null,
+            type: null,
+            category: null,
+            brand: null,
+            color: null,
+        };
+
+        props.filterFunc(filters);
+
         setState(
             {
                 ...state,
-                filters: {
-                    price: [20, 1000],
-                    genre: null,
-                    size: null,
-                    category: null,
-                    brand: null,
-                    color: null,
-                }
+                filters,
             }
         )
     }
@@ -74,9 +73,21 @@ function FilterMenu(props) {
         )
     }
 
+    function changePrice(event, value) {
+        setState({
+            ...state,
+            filters: {
+                ...state.filters,
+                price: [...value],
+            }
+        });
+    };
+
     function handlePriceChange(event, value) {
         const filters = { ...state.filters };
         filters.price = [...value];
+
+        if (value[0] === minMax[0] && value[1] === minMax[1]) filters.price = null;
 
         props.filterFunc(filters);
 
@@ -89,38 +100,20 @@ function FilterMenu(props) {
         });
     };
 
-    function handleGenreChange(e) {
+    function handleTypeChange(e) {
         const filters = { ...state.filters };
 
         let choice = e.target.value;
-        if (filters.genre === choice) choice = null;
+        if (filters.type === choice) choice = null;
 
-        filters.genre = choice;
+        filters.type = choice;
         props.filterFunc(filters);
 
         setState({
             ...state,
             filters: {
                 ...state.filters,
-                genre: choice,
-            }
-        });
-    };
-
-    function handleSizeChange(e) {
-        const filters = { ...state.filters };
-
-        let choice = e.target.value;
-        if (filters.size === choice) choice = null;
-
-        filters.size = choice;
-        props.filterFunc(filters);
-
-        setState({
-            ...state,
-            filters: {
-                ...state.filters,
-                size: choice,
+                type: choice,
             }
         });
     };
@@ -179,13 +172,6 @@ function FilterMenu(props) {
         });
     };
 
-    function mapSizes(item, key) {
-        return <div className="item" key={`${key}-${Math.random()}`}>
-            <input type={'checkbox'} id={`size-${key + 1}`} value={item} onChange={handleSizeChange} checked={state.filters.size === item ? true : false} />
-            <label className="label" htmlFor={`size-${key + 1}`}>{item}</label>
-        </div>
-    }
-
     function mapCategories(item, key) {
         return <div className="item" key={`${key}-${Math.random()}`}>
             <input type={'checkbox'} id={`category-${key + 1}`} value={item.category} onChange={handleCategoryChange} checked={state.filters.category === item.category ? true : false} />
@@ -211,7 +197,7 @@ function FilterMenu(props) {
         <aside className="filter-menu">
             <div className="filter-menu__items">
                 <div className={`item ${state.active === "price" ? 'active' : ''}`}>
-                    <header onClick={handleActive} data-filter="price" className={`${state.filters.price[0] !== minMax[0] || state.filters.price[1] !== minMax[1] ? 'checked' : ''}`} >
+                    <header onClick={handleActive} data-filter="price" className={`${state.filters.price ? 'checked' : ''}`} >
                         <div data-filter="price">prezzo</div>
                         {state.active !== "price" && <KeyboardArrowDownIcon data-filter="price" fontSize={'large'} />}
                         {state.active === "price" && <KeyboardArrowUpIcon data-filter="price" fontSize={'large'} />}
@@ -220,13 +206,14 @@ function FilterMenu(props) {
                         <div className="item">
                             <div className="label">
                                 <div className="price-range">
-                                    <div>{state.filters.price[0]}€</div>
-                                    <div>{state.filters.price[1]}€</div>
+                                    <div>{state.filters.price ? state.filters.price[0] : minMax[0]}€</div>
+                                    <div>{state.filters.price ? state.filters.price[1] : minMax[1]}€</div>
                                 </div>
                                 <Slider
                                     className="mui-slider-modifier"
-                                    value={state.filters.price}
-                                    onChange={handlePriceChange}
+                                    value={state.filters.price ? state.filters.price : minMax}
+                                    onChange={changePrice}
+                                    onChangeCommitted={handlePriceChange}
                                     valueLabelDisplay="auto"
                                     min={minMax[0]}
                                     max={minMax[1]}
@@ -237,36 +224,25 @@ function FilterMenu(props) {
                     </div>
                 </div>
 
-                <div className={`item ${state.active === "genre" ? 'active' : ''}`}>
-                    <header onClick={handleActive} data-filter="genre" className={`${state.filters.genre ? 'checked' : ''}`} >
-                        <div data-filter="genre">genere</div>
-                        {state.active !== "genre" && <KeyboardArrowDownIcon data-filter="genre" fontSize={'large'} />}
-                        {state.active === "genre" && <KeyboardArrowUpIcon data-filter="genre" fontSize={'large'} />}
+                <div className={`item ${state.active === "type" ? 'active' : ''}`}>
+                    <header onClick={handleActive} data-filter="type" className={`${state.filters.type ? 'checked' : ''}`} >
+                        <div data-filter="type">genere</div>
+                        {state.active !== "type" && <KeyboardArrowDownIcon data-filter="type" fontSize={'large'} />}
+                        {state.active === "type" && <KeyboardArrowUpIcon data-filter="type" fontSize={'large'} />}
                     </header>
                     <div className="sub-item">
                         <div className="item">
-                            <input type={'checkbox'} id="genre1" value={'m'} onChange={handleGenreChange} checked={state.filters.genre === 'm' ? true : false} />
-                            <label className="label" htmlFor="genre1">uomo</label>
+                            <input type={'checkbox'} id="type1" value={'m'} onChange={handleTypeChange} checked={state.filters.type === 'm' ? true : false} />
+                            <label className="label" htmlFor="type1">uomo</label>
                         </div>
                         <div className="item">
-                            <input type={'checkbox'} id="genre2" value={'f'} onChange={handleGenreChange} checked={state.filters.genre === 'f' ? true : false} />
-                            <label className="label" htmlFor="genre2">donna</label>
+                            <input type={'checkbox'} id="type2" value={'w'} onChange={handleTypeChange} checked={state.filters.type === 'w' ? true : false} />
+                            <label className="label" htmlFor="type2">donna</label>
                         </div>
                         <div className="item">
-                            <input type={'checkbox'} id="genre3" value={'u'} onChange={handleGenreChange} checked={state.filters.genre === 'u' ? true : false} />
-                            <label className="label" htmlFor="genre3">unisex</label>
+                            <input type={'checkbox'} id="type3" value={'u'} onChange={handleTypeChange} checked={state.filters.type === 'u' ? true : false} />
+                            <label className="label" htmlFor="type3">unisex</label>
                         </div>
-                    </div>
-                </div>
-
-                <div className={`item ${state.active === "size" ? 'active' : ''} `}>
-                    <header onClick={handleActive} data-filter="size" className={`${state.filters.size ? 'checked' : ''} `} >
-                        <div data-filter="size">taglia</div>
-                        {state.active !== "size" && <KeyboardArrowDownIcon data-filter="size" fontSize={'large'} />}
-                        {state.active === "size" && <KeyboardArrowUpIcon data-filter="size" fontSize={'large'} />}
-                    </header>
-                    <div className="sub-item">
-                        {state.active === 'size' && state.sizes.map(mapSizes)}
                     </div>
                 </div>
 

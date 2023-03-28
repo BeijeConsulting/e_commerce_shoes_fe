@@ -33,16 +33,29 @@ function ProductsList() {
         return await result.data;
     }
 
-    async function getFilteredProducts(filter) {
-        console.table(filter);
+    async function getFilteredProducts(obj) {
+        let params = "?";
 
+        for (let key in obj) {
+            if (obj[key] !== null) {
+                if (key === "price") {
+                    params += `minPrice=${obj[key][0]}&maxPrice=${obj[key][1]}&`
+                } else {
+                    params += `${key}=${obj[key]}&`
+                }
+            };
+        }
 
+        if (params.length === 1) params = "";
 
-        /* const result = await getProductList();
+        if (params) params = params.slice(0, params.length - 1);
+
+        const result = await getProductList(params);
+        console.log(params, result)
         setState({
             ...state,
-            products: result,
-        }) */
+            products: result.data,
+        })
     }
 
     function mapProducts(item, key) {
