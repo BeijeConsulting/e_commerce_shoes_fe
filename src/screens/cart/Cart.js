@@ -51,7 +51,7 @@ const cartList = {
   },
 };
 
-setLocalStorage("cart-list", cartList);
+// setLocalStorage("cart-list", cartList);
 
 function Cart() {
   const localData = getCartStoredList();
@@ -111,15 +111,23 @@ function Cart() {
       return item.id === id && item.size === size;
     });
 
-    console.log(localData.info.numberItems);
+    console.log("localData.info.numberItems: " + localData.info.numberItems);
+    console.log("deltaQuantity: " + deltaQuantity);
+    console.log("deltaPrice: " + deltaPrice);
+    console.log("itemCanged.quantity: " + itemChanged.quantity);
 
-    itemChanged.quantity = Number(itemChanged.quantity) + deltaQuantity;
+    itemChanged.quantity = Number(itemChanged.quantity) + Number(deltaQuantity);
     itemChanged.sellingItemTotalPrice =
-      Number(itemChanged.sellingItemTotalPrice) + deltaPrice;
+      Number(itemChanged.sellingItemTotalPrice) + Number(deltaPrice);
     localData.info.numberItems =
-      Number(localData.info.numberItems) + deltaQuantity;
-    localData.info.totalPrice = Number(localData.info.totalPrice) + deltaPrice;
+      Number(localData.info.numberItems) + Number(deltaQuantity);
+    localData.info.totalPrice =
+      Number(localData.info.totalPrice) + Number(deltaPrice);
     // console.log(localData);
+
+    console.log("localData.info.numberItems: " + localData.info.numberItems);
+    console.log("itemCanged.quantity: " + itemChanged.quantity);
+    console.log("---------------------------");
 
     setLocalStorage("cart-list", localData);
 

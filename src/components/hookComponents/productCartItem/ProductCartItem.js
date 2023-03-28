@@ -11,7 +11,7 @@ function ProductCartItem(props) {
   });
 
   useEffect(() => {
-    console.log(state);
+    // console.log(state);
   });
   const inputField = useRef();
 
@@ -36,8 +36,8 @@ function ProductCartItem(props) {
     */
 
     if (!isInvalidInput) {
-      const deltaQuantity = quantity - props.quantity;
-      const deltaPrice = singleProductPrice * deltaQuantity;
+      const deltaQuantity = Number(quantity) - Number(props.quantity);
+      const deltaPrice = Number(singleProductPrice) * Number(deltaQuantity);
       console.log("deltaQuantity ", deltaQuantity);
       console.log("deltaPrice", deltaPrice);
       props.handleList(props.id, props.size, deltaQuantity, deltaPrice);
