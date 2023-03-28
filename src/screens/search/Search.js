@@ -26,7 +26,7 @@ function Search() {
     async function fetchProducts() {
         const searchTerm = searchParams.get("q");
         const products = await getSearchProducts(searchTerm);
-        const categories = await getCategories();
+        const categories = await getCategories("it");
         const foundProducts = products.data.length > 0;
         setState({
             products: products.data,
