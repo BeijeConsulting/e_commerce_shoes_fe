@@ -51,7 +51,8 @@ function ProductCartItem(props) {
   }
 
   function setQuantity(e) {
-    let showConfirmQuantity = e.target.value === props.quantity ? false : true;
+    let showConfirmQuantity =
+      e.target.value === props.quantity.toString() ? false : true;
 
     setState({
       ...state,
@@ -65,7 +66,7 @@ function ProductCartItem(props) {
       <img className="cart-item__img" src={props.img} alt={props.altImg} />
 
       <div className="cart-item__info">
-        <div className="cart-item__info__price">$ {props.price}</div>
+        <div className="cart-item__info__price">€ {props.price}</div>
         <div className="cart-item__info__name">{props.productName}</div>
         <div className="cart-item__info__brand">{props.brand}</div>
         <div className="cart-item__info__color-size">

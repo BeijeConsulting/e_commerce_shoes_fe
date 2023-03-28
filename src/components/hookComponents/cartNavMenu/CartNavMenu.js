@@ -64,7 +64,7 @@ function CartNavMenu() {
                 <h3>{item.name}</h3>
                 <div className="container__price">
                   <p className="newPrice">
-                    $ {Number(item.sellingItemTotalPrice).toFixed(2)}
+                    € {Number(item.sellingItemTotalPrice).toFixed(2)}
                   </p>
                   {/* <p className="oldPrice">{data.listedPrice}$</p> */}
                 </div>

@@ -32,10 +32,6 @@ function SingleProduct() {
     fetchProduct();
   }, []);
 
-  useEffect(() => {
-    console.log(state);
-  });
-
   async function fetchProduct() {
     const product = await axiosGetProduct();
     setState({
@@ -52,9 +48,9 @@ function SingleProduct() {
   function updateCart() {
     let itemFound = undefined;
     let localData = getLocalStorage("cart-list");
-    console.log(localData);
+    // console.log(localData);
     if (!state.sizeSelected) {
-      console.log("Seleziona una taglia");
+      // console.log("Seleziona una taglia");
       return;
     }
 
@@ -82,18 +78,18 @@ function SingleProduct() {
       };
     } else {
       itemFound = localData.items.find((item) => {
-        console.log("item.size: " + item.size);
-        console.log("sizeValue: " + sizeValue.current);
+        // console.log("item.size: " + item.size);
+        // console.log("sizeValue: " + sizeValue.current);
         return (
           item.id.toString() === state.product.id.toString() &&
           item.size.toString() === sizeValue.current.toString()
         );
       });
 
-      console.log(itemFound);
+      // console.log(itemFound);
 
       if (!itemFound) {
-        console.log("item not found");
+        // console.log("item not found");
         localData.items.push({
           id: state.product.id.toString(),
           name: state.product.name,
@@ -111,14 +107,14 @@ function SingleProduct() {
           Number(Number(localData.info.totalPrice).toFixed(2)) +
           Number(Number(state.product.listed_price).toFixed(2));
 
-        console.log("------------------");
+        // console.log("------------------");
       } else {
-        console.log("item found");
+        // console.log("item found");
 
-        console.log(
-          "itemFound.sellingItemTotalPrice " + itemFound.sellingItemTotalPrice
-        );
-        console.log("state.product.listed_price " + state.product.listed_price);
+        // console.log(
+        //   "itemFound.sellingItemTotalPrice " + itemFound.sellingItemTotalPrice
+        // );
+        // console.log("state.product.listed_price " + state.product.listed_price);
 
         itemFound.quantity = itemFound.quantity + 1;
         itemFound.sellingItemTotalPrice =
@@ -130,14 +126,14 @@ function SingleProduct() {
           Number(Number(localData.info.totalPrice).toFixed(2)) +
           Number(Number(state.product.listed_price).toFixed(2));
 
-        console.log(
-          "itemFound.sellingItemTotalPrice " + itemFound.sellingItemTotalPrice
-        );
-        console.log("state.product.listed_price " + state.product.listed_price);
-        console.log("---------------------");
+        // console.log(
+        //   "itemFound.sellingItemTotalPrice " + itemFound.sellingItemTotalPrice
+        // );
+        // console.log("state.product.listed_price " + state.product.listed_price);
+        // console.log("---------------------");
       }
     }
-    console.log(localData);
+    // console.log(localData);
 
     setLocalStorage("cart-list", localData);
   }
@@ -175,7 +171,7 @@ function SingleProduct() {
         <header>
           <div className="header__container">
             <p className="header__category">{state.product.category}</p>
-            <p className="header__price">{state.product.listed_price}€</p>
+            <p className="header__price">€ {state.product.listed_price}</p>
           </div>
           <h2 className="header__brand">{state.product.brand}</h2>
           <p className="header__name">{state.product.name}</p>
@@ -187,7 +183,11 @@ function SingleProduct() {
           <div className="info">
             {/* DA SISTEMARE */}
             <p className="info__p">Input Select taglie</p>
-            <select onChange={handleSelect} name="sizes">
+            <select
+              className="info__select-size"
+              onChange={handleSelect}
+              name="sizes"
+            >
               <option value={"none"} disabled={state.sizeSelected}>
                 Seleziona taglia
               </option>

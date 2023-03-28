@@ -90,7 +90,7 @@ function Cart() {
 
     const indexElementToDelete = localData.items.indexOf(itemToDelete);
     localData.items.splice(indexElementToDelete, 1);
-    console.log(localData);
+    // console.log(localData);
 
     localData.info.numberItems = Number(localData.info.numberItems) - quantity;
     localData.info.totalPrice = Number(localData.info.totalPrice) - price;
@@ -104,17 +104,17 @@ function Cart() {
   }
 
   function updateCartList(id, size, deltaQuantity, deltaPrice) {
-    console.log(id);
+    // console.log(id);
     // console.log(localData);
 
     const itemChanged = localData.items.find((item) => {
       return item.id === id && item.size === size;
     });
 
-    console.log("localData.info.numberItems: " + localData.info.numberItems);
-    console.log("deltaQuantity: " + deltaQuantity);
-    console.log("deltaPrice: " + deltaPrice);
-    console.log("itemCanged.quantity: " + itemChanged.quantity);
+    // console.log("localData.info.numberItems: " + localData.info.numberItems);
+    // console.log("deltaQuantity: " + deltaQuantity);
+    // console.log("deltaPrice: " + deltaPrice);
+    // console.log("itemCanged.quantity: " + itemChanged.quantity);
 
     itemChanged.quantity = Number(itemChanged.quantity) + Number(deltaQuantity);
     itemChanged.sellingItemTotalPrice =
@@ -125,9 +125,9 @@ function Cart() {
       Number(localData.info.totalPrice) + Number(deltaPrice);
     // console.log(localData);
 
-    console.log("localData.info.numberItems: " + localData.info.numberItems);
-    console.log("itemCanged.quantity: " + itemChanged.quantity);
-    console.log("---------------------------");
+    // console.log("localData.info.numberItems: " + localData.info.numberItems);
+    // console.log("itemCanged.quantity: " + itemChanged.quantity);
+    // console.log("---------------------------");
 
     setLocalStorage("cart-list", localData);
 
@@ -156,6 +156,10 @@ function Cart() {
     );
   }
 
+  function checkCoupon() {
+    console.log("check coupon");
+  }
+
   return (
     <div className="cart">
       <CartHeader
@@ -165,7 +169,7 @@ function Cart() {
       <div className="cart__content">
         <div className="cart__content__left">
           <ul>{state.cart.items.map(renderCartList)}</ul>
-          <CouponInput />
+          <CouponInput handleCoupon={checkCoupon} />
         </div>
         <div className="cart__content__right">
           <RecapCart total={Number(state.cart.info.totalPrice).toFixed(2)} />
