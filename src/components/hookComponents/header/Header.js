@@ -10,36 +10,31 @@ import { motion } from "framer-motion";
 
 // 18n
 import { use } from "i18next";
-
 // API
-import { getUser } from "../../../services/authServices";
-
+import { getUserAuth } from "../../../services/authServices";
 // UTILS
 import { getLocalStorage } from "../../../utils/localStorageUtils";
-
 // REDUX
 import { setUserCredentials } from "../../../redux/ducks/userDuck";
-
 // MUI TextField
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
-
 // MUI Icons
-import Badge from "@mui/material/Badge";
 import MenuIcon from "@mui/icons-material/Menu";
-import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import ClearIcon from "@mui/icons-material/Clear";
 import UserMenuNav from '../userMenuNav/UserMenuNav';
 import CartNavMenu from '../cartNavMenu/CartNavMenu';
+import SwitchLanguage from '../switchLanguage/SwitchLanguage';
+import i18n from '../../../assets/translations/i18n';
+
 
 function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const cartQuantity = useSelector((state) => state.userDuck.cartItems);
-  const userIsLogged = useSelector((state) => state.userDuck.isLogged);
+  const lang = i18n.language.slice(0, 2)
 
   const menu = [
     {
@@ -117,8 +112,8 @@ function Header() {
     const token = getLocalStorage("token");
     if (!token) return;
 
-    async function getUserInfo(token) {
-      const response = await getUser(token);
+    async function getUserInfo() {
+      const response = await getUserAuth();
 
       if (response.status === 200) {
         dispatch(
@@ -141,21 +136,10 @@ function Header() {
       }
     }
 
-    getUserInfo(token);
+    getUserInfo();
   }, []);
 
 
-  // QUESTA LOGICA é IN USERMENUNAV
-  // if user is logged --> screen userInfo
-  // if user is not logged --> screen identity
-  // function conditionalGoTo() {
-  //   console.log("islogged", userIsLogged);
-  //   if (userIsLogged) {
-  //     navigate("/user-info");
-  //   } else {
-  //     navigate("/identity");
-  //   }
-  // }
 
   function toggleMobileMenu() {
     setState(function (prevState) {
@@ -177,7 +161,7 @@ function Header() {
 
   function goToHome(e) {
     e.preventDefault();
-    navigate("/");
+    navigate(`/${lang}/`);
   }
 
   function goToCart() {
@@ -195,36 +179,37 @@ function Header() {
 
   return (
     <header className="main-header">
+      <SwitchLanguage />
       <nav>
         <div className="main-header__top">
           <div className="main-header__top__left">
-            {!state.showMobileMenu && (
+            { !state.showMobileMenu && (
               <MenuIcon
-                onClick={toggleMobileMenu}
+                onClick={ toggleMobileMenu }
                 className="main-header__hamburger"
-                fontSize={"large"}
+                fontSize={ "large" }
               />
-            )}
-            {!!state.showMobileMenu && (
+            ) }
+            { !!state.showMobileMenu && (
               <ClearIcon
-                onClick={toggleMobileMenu}
+                onClick={ toggleMobileMenu }
                 className="main-header__hamburger"
-                fontSize={"large"}
+                fontSize={ "large" }
               />
-            )}
-            <a onClick={goToHome} href="">
+            ) }
+            <a onClick={ goToHome } href="">
               <img
                 className="main-header__logo"
-                src={require("../../../assets/images/logo/logo-312.png")}
+                src={ require("../../../assets/images/logo/logo-312.png") }
                 alt="logo"
               />
             </a>
           </div>
-          <DesktopMenu menu={menu} fullWidthInput={state.fullWidthInput} />
+          <DesktopMenu menu={ menu } fullWidthInput={ state.fullWidthInput } />
           <motion.div
-            initial={false}
-            style={{ margin: "0 5rem 0 4rem" }}
-            animate={state.fullWidthInput ? {
+            initial={ false }
+            style={ { margin: "0 5rem 0 4rem" } }
+            animate={ state.fullWidthInput ? {
               width: "50%", transition: {
                 duration: 0.3,
               },
@@ -232,65 +217,60 @@ function Header() {
               width: "20%", transition: {
                 duration: 0,
               },
-            }}
+            } }
           >
             <div
               className="main-header__top__input"
-              style={{ width: `${state.width}rem` }}
+              style={ { width: `${state.width}rem` } }
             >
               <TextField
-                onKeyUp={searchProducts}
-                onBlur={toggleInput}
-                onFocus={toggleInput}
+                onKeyUp={ searchProducts }
+                onBlur={ toggleInput }
+                onFocus={ toggleInput }
                 fullWidth
-                InputProps={{
+                InputProps={ {
                   startAdornment: (
                     <InputAdornment position="start">
-                      <SearchIcon fontSize={"large"} />
+                      <SearchIcon fontSize={ "large" } />
                     </InputAdornment>
                   ),
-                }}
+                } }
                 variant="standard"
               />
             </div>
           </motion.div>
           <div className="main-header__user-icons">
-            <div onClick={goToCart}>
+            <div onClick={ goToCart }>
               <CartNavMenu
-                name={"Nike Zoom AIr"}
-                brand={"Nike"}
-                listedPrice={"199.00"}
-                sellingPrice={"60.00"}
-                productSize={"M41"}
-                quantity={"1"}
+                name={ "Nike Zoom AIr" }
+                brand={ "Nike" }
+                listedPrice={ "199.00" }
+                sellingPrice={ "60.00" }
+                productSize={ "M41" }
+                quantity={ "1" }
               />
             </div>
 
             <UserMenuNav />
           </div>
 
-          {/* <div
-            className="main-header__user-icons"
-          >
-          </div> */}
-
         </div>
         <div className="main-header__bottom">
           <TextField
             fullWidth
-            InputProps={{
+            InputProps={ {
               startAdornment: (
-                <InputAdornment position="start" sx={{ cursor: "pointer" }}>
-                  <SearchIcon fontSize={"large"} />
+                <InputAdornment position="start" sx={ { cursor: "pointer" } }>
+                  <SearchIcon fontSize={ "large" } />
                 </InputAdornment>
               ),
-            }}
+            } }
             variant="standard"
           />
         </div>
         <MobileMenu
-          menu={menu}
-          showMobileMenu={state.showMobileMenu}
+          menu={ menu }
+          showMobileMenu={ state.showMobileMenu }
         />
       </nav>
     </header >

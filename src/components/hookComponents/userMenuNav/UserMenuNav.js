@@ -1,20 +1,33 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
+
+// Redux
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserCredentials } from '../../../redux/ducks/userDuck';
+// Router
+import { useNavigate } from 'react-router-dom';
+// Utils
+import { clearLocalStorage } from '../../../utils/localStorageUtils';
+// API
+import { signOut } from '../../../services/authServices';
+// MUI
 import { AccountCircle, Logout } from '@mui/icons-material';
 import { Avatar, Divider, IconButton, ListItemIcon, Menu, MenuItem } from '@mui/material';
-
-import { setUserCredentials } from '../../../redux/ducks/userDuck';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { clearLocalStorage, getLocalStorage } from '../../../utils/localStorageUtils';
-import "./userMenuNav.scss"
-import { getUser, signout } from '../../../services/authServices';
+// SCSS
+import "./userMenuNav.scss";
+import i18n from '../../../assets/translations/i18n';
+import { useTranslation } from 'react-i18next';
 
 function UserMenuNav(props) {
     const [anchorEl, setAnchorEl] = useState(null);
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
+    const lang = i18n.language.slice(0, 2)
+    const { t } = useTranslation();
+
 
     function handleClose() {
         setAnchorEl(null);
@@ -31,7 +44,7 @@ function UserMenuNav(props) {
     function conditionalGoTo() {
         console.log("islogged", userIsLogged);
         if (userIsLogged) {
-            navigate("/user-info");
+            navigate("user-info");
         } else {
             navigate("/identity");
         }
@@ -43,13 +56,9 @@ function UserMenuNav(props) {
         navigate("/identity/signup")
     }
 
-    function userLogOut() {
-        const token = getLocalStorage("token");
-        const refreshToken = getLocalStorage("refreshToken");
-
-
-        //    const response = await signout(refreshToken)
-        //     console.log("responeToken", response);
+    async function userLogOut() {
+        const response = await signOut()
+        console.log("responeToken", response);
 
         dispatch(
             setUserCredentials(
@@ -59,7 +68,7 @@ function UserMenuNav(props) {
             ))
 
         clearLocalStorage()
-        navigate("/")
+        navigate(`/${lang}/`)
     }
 
 
@@ -99,12 +108,12 @@ function UserMenuNav(props) {
                         { userIsLogged ?
                             <p onClick={ conditionalGoTo } className='item'>
                                 <span>
-                                    Mio Profilo
+                                    { t("userMenuNav.profile") }
                                 </span>
                             </p> :
                             <p onClick={ conditionalGoTo }
                                 className='item'>
-                                Accedi</p> }
+                                { t("userMenuNav.logIn") }</p> }
                     </MenuItem>
                     <MenuItem onClick={ conditionalGoTo }>
                         {
@@ -118,7 +127,7 @@ function UserMenuNav(props) {
                         {
                             <p
                                 className='item'>
-                                Ordini
+                                { t("userMenuNav.orders") }
                             </p>
                         }
                     </MenuItem>
@@ -148,4 +157,12 @@ function UserMenuNav(props) {
     )
 }
 
-export default UserMenuNav
+UserMenuNav.defaultProps = {
+
+}
+
+UserMenuNav.propTypes = {
+
+}
+
+export default UserMenuNav;
