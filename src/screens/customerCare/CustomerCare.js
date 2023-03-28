@@ -7,25 +7,24 @@ import PropTypes from 'prop-types';
 import "./customerCare.scss"
 
 // i18Next
-import { changeLanguage } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 
 function CustomerCare() {
-
     const location = useLocation();
-    console.log(location);
+    const { t } = useTranslation()
 
     const data = [
         {
-            title: "contatti",
+            title: t("customerCare.contacts"),
             link: "contacts",
         },
         {
-            title: "spedizioni",
+            title: t("customerCare.delivery"),
             link: "delivery",
         },
         {
-            title: "resi e rimborsi",
+            title: t("customerCare.returnsAndRefunds"),
             link: "returns"
         },
         {
@@ -54,13 +53,13 @@ function CustomerCare() {
             {/* Parte fissa */ }
             <div>
                 <div className='customer__header'>
-                    <h2>Ciao,</h2>
-                    <h3>come possiamo aiutarti?</h3>
+                    <h2>{ t("customerCare.hi") },</h2>
+                    <h3>{ t("customerCare.help") }?</h3>
                     <p>Nella sezione FAQ puoi trovare più velocemente la risposta alle tue domande. Inoltre, potrai seguire la tua spedizione oppure avere tutte le informazioni necessarie sui resi e rimborsi.</p>
 
                 </div>
                 <div className='customer__advice'>
-                    <h2>Consigliati per te </h2>
+                    <h2>{ t("customerCare.forYou") }</h2>
                     { data.map(mapList) }
                 </div>
 

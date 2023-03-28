@@ -8,9 +8,12 @@ import { NavLink } from "react-router-dom";
 import { getLocalStorage } from '../../utils/localStorageUtils';
 // SCSS
 import "./userInfo.scss";
+import { useTranslation } from 'react-i18next';
 
 function UserInfo(props) {
   const navigate = useNavigate()
+
+  const { t } = useTranslation()
 
   // if user is not logged --> go to identityScreen 
   useEffect(() => {
@@ -30,14 +33,14 @@ function UserInfo(props) {
         to={ "address-list" }
         className={ "customer__list" }
       >
-        Indirizzi
+        { t("userInfo.addresses") }
       </NavLink>
       <NavLink
 
         to={ "/user-info" }
         className={ "customer__list" }
       >
-        Dati Personali
+        { t("userInfo.personalData") }
       </NavLink>
 
       <Outlet />
