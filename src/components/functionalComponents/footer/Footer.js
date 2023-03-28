@@ -8,6 +8,7 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../../assets/translations/i18n';
+import SwitchLanguage from '../../hookComponents/switchLanguage/SwitchLanguage';
 
 
 function Footer() {
@@ -116,6 +117,7 @@ function Footer() {
                 </div>
             </div>
             <div className='footer__bottom'>
+                <SwitchLanguage />
                 <small>
                     &copy; 2023 Nome Sito SRL. P.IVA. 05593460162. Le foto dei prodotti presenti sul sito sono puramente esemplificative.
                 </small>
