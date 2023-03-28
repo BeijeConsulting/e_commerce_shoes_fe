@@ -6,7 +6,7 @@ function setLocalStorage(key, data) {
 }
 
 function clearLocalStorage(key) {
-  localStorage.clear(key)
+  localStorage.clear(key);
 }
 
 export { getLocalStorage, setLocalStorage, clearLocalStorage };

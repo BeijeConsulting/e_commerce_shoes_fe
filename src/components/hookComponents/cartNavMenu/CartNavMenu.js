@@ -1,170 +1,148 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { getLocalStorage } from "../../../utils/localStorageUtils";
 // Redux
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 // Router
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 // Component
-import Button from "../../functionalComponents/button/Button"
+import Button from "../../functionalComponents/button/Button";
 // MUI
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { Badge, Divider, IconButton, Menu, MenuItem } from '@mui/material';
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { Badge, Divider, IconButton, Menu, MenuItem } from "@mui/material";
 // Images
-import shoe from "../../../assets/images/singleProduct/shoe1.jpeg"
+import shoe from "../../../assets/images/singleProduct/shoe1.jpeg";
 //SCSS
-import "./cartNavMenu.scss"
+import "./cartNavMenu.scss";
 
-function CartNavMenu(props) {
-    const [anchorEl, setAnchorEl] = useState(null);
+function CartNavMenu() {
+  const [state, setState] = useState({
+    anchorEl: null,
+    itemCartList: getCartStoredList(),
+  });
 
-    const navigate = useNavigate()
+  const navigate = useNavigate();
 
-    function handleClose() {
-        setAnchorEl(null);
-    };
+  function getCartStoredList() {
+    // console.log(getLocalStorage("cart-list"));
+    if (!getLocalStorage("cart-list")) return [];
 
-    function handleMenu(event) {
-        setAnchorEl(event.currentTarget);
-    };
+    return getLocalStorage("cart-list");
+  }
 
-    const cartQuantity = useSelector((state) => state.userDuck.cartItems);
+  function handleClose() {
+    setState({
+      ...state,
+      anchorEl: null,
+    });
+  }
 
-    function goToCart() {
-        navigate("/cart")
-    }
+  function handleMenu(event) {
+    setState({
+      ...state,
+      anchorEl: event.currentTarget,
+      itemCartList: getCartStoredList(),
+    });
+  }
 
-    const dataProducts = [
-        {
-            name: "Nike Air Zoom",
-            brand: "Nike",
-            listedPrice: 199.00,
-            sellingPrice: 40.00,
-            productSize: "M41",
-            quantity: 1
-        },
-        {
-            name: "Nike Air Zoom",
-            brand: "Nike",
-            listedPrice: 199.00,
-            sellingPrice: 40.00,
-            productSize: "M41",
-            quantity: 1,
-        }
-    ]
+  const cartQuantity = useSelector((state) => state.userDuck.cartItems);
 
-    function mapList(data, i) {
-        return (
-            <div key={ i }>
-                <MenuItem
-                >
-                    <div className='cartNavMenu__menu'>
-                        <div className="cartNavMenu__image">
-                            <img src={ shoe } alt="" />
-                        </div>
-                        <div className="cartNavMenu__info">
-                            <div className="cartNavMenu__info-name-price">
-                                <h3>{ data.name }</h3>
-                                <div className='container__price'>
-                                    <p className="newPrice">
-                                        { data.sellingPrice }$
-                                    </p>
-                                    <p className='oldPrice'>
-                                        { data.listedPrice }$
-                                    </p>
-                                </div>
-                            </div>
-                            <p className='brand'>
-                                { data.brand }
-                            </p>
-                            <div className='container__size-cartQuantity'>
-                                <p className='infoSize'>
-                                    Taglia: { data.productSize }
-                                </p>
-                                <p className='quantity'>
-                                    Quantità: { data.quantity }
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </MenuItem>
-            </div>
-        )
-    }
+  function goToCart() {
+    navigate("/cart");
+  }
 
-
+  function mapList(item) {
     return (
-        <div className='cartMenuNav'>
-            <div>
-                <IconButton
-                    size="large"
-                    aria-label="account of current user"
-                    aria-controls="menu-appbar"
-                    aria-haspopup="true"
-                    onClick={ handleMenu }
-                    color="inherit"
-                >
-                    <Badge badgeContent={ cartQuantity } color="primary">
-                        <ShoppingCartIcon fontSize='large' />
-                    </Badge>
-                </IconButton>
-                <Menu
-                    id="menu-appbar"
-                    anchorEl={ anchorEl }
-                    anchorOrigin={ {
-                        vertical: 'center',
-                        horizontal: 66,
-                    } }
-                    keepMounted
-                    transformOrigin={ {
-                        vertical: -30,
-                        horizontal: "right",
-                    } }
-                    open={ Boolean(anchorEl) }
-                    onClose={ handleClose }
-                >
-
-                    <MenuItem >
-                        <h2>Carrello</h2>
-                    </MenuItem>
-
-
-                    {/* Qui bisogna fare il map di tutti i prodotti che l'utente aggiunge */ }
-                    { dataProducts.map(mapList) }
-
-
-                    <Divider />
-
-                    <MenuItem
-                        className='item'
-                        onClick={ handleClose }>
-                        <p>
-                            Totale: 200.00
-                        </p>
-                    </MenuItem>
-                    <MenuItem
-                        className='item'
-                        onClick={ handleClose }>
-                        <div className='item__btn'>
-                            <Button
-                                buttonStyle={ "navCartBtn" }
-                                label={ "CARRELLO" }
-                                handleClick={ goToCart }
-                            />
-                        </div>
-                    </MenuItem>
-                </Menu>
+      <div key={"00" + item.id + item.size}>
+        <MenuItem>
+          <div className="cartNavMenu__menu">
+            <div className="cartNavMenu__image">
+              <img src={item.image} alt="product" />
             </div>
-        </div>
-    )
+            <div className="cartNavMenu__info">
+              <div className="cartNavMenu__info-name-price">
+                <h3>{item.name}</h3>
+                <div className="container__price">
+                  <p className="newPrice">
+                    $ {Number(item.sellingItemTotalPrice).toFixed(2)}
+                  </p>
+                  {/* <p className="oldPrice">{data.listedPrice}$</p> */}
+                </div>
+              </div>
+              <p className="brand">{item.brand}</p>
+              <div className="container__size-cartQuantity">
+                <p className="infoSize">Taglia: {item.size}</p>
+                <p className="quantity">Quantità: {item.quantity}</p>
+              </div>
+            </div>
+          </div>
+        </MenuItem>
+      </div>
+    );
+  }
+
+  return (
+    <div className="cartMenuNav">
+      <div>
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="menu-appbar"
+          aria-haspopup="true"
+          onClick={handleMenu}
+          color="inherit"
+        >
+          <Badge badgeContent={cartQuantity} color="primary">
+            <ShoppingCartIcon fontSize="large" />
+          </Badge>
+        </IconButton>
+        <Menu
+          id="menu-appbar"
+          anchorEl={state.anchorEl}
+          anchorOrigin={{
+            vertical: "center",
+            horizontal: 66,
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: -30,
+            horizontal: "right",
+          }}
+          open={Boolean(state.anchorEl)}
+          onClose={handleClose}
+        >
+          <MenuItem>
+            <h2>Carrello</h2>
+          </MenuItem>
+
+          {/* Qui bisogna fare il map di tutti i prodotti che l'utente aggiunge */}
+          {state?.itemCartList?.items?.map(mapList)}
+
+          <Divider />
+
+          <MenuItem className="item" onClick={handleClose}>
+            <p>
+              Totale: ${" "}
+              {Number(state?.itemCartList?.info?.totalPrice).toFixed(2)}
+            </p>
+          </MenuItem>
+          <MenuItem className="item" onClick={handleClose}>
+            <div className="item__btn">
+              <Button
+                buttonStyle={"navCartBtn"}
+                label={"CARRELLO"}
+                handleClick={goToCart}
+              />
+            </div>
+          </MenuItem>
+        </Menu>
+      </div>
+    </div>
+  );
 }
 
-CartNavMenu.defaultProps = {
+CartNavMenu.defaultProps = {};
 
-}
-
-CartNavMenu.propTypes = {
-
-}
+CartNavMenu.propTypes = {};
 
 export default CartNavMenu;

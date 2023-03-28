@@ -50,6 +50,7 @@ const cartList = {
     totalPrice: "800.50",
   },
 };
+
 setLocalStorage("cart-list", cartList);
 
 function Cart() {
@@ -82,9 +83,9 @@ function Cart() {
   //     );
   //   }
 
-  function deleteItem(id, quantity, price) {
+  function deleteItem(id, size, quantity, price) {
     const itemToDelete = localData.items.find((item) => {
-      return item.id === id;
+      return item.id === id && item.size === size;
     });
 
     const indexElementToDelete = localData.items.indexOf(itemToDelete);
@@ -102,12 +103,12 @@ function Cart() {
     });
   }
 
-  function updateCartList(id, deltaQuantity, deltaPrice) {
+  function updateCartList(id, size, deltaQuantity, deltaPrice) {
     console.log(id);
     // console.log(localData);
 
     const itemChanged = localData.items.find((item) => {
-      return item.id === id;
+      return item.id === id && item.size === size;
     });
 
     console.log(localData.info.numberItems);
@@ -130,7 +131,7 @@ function Cart() {
 
   function renderCartList(item) {
     return (
-      <li key={item.id}>
+      <li key={item.id + item.size}>
         <ProductCartItem
           handleList={updateCartList}
           handleDelete={deleteItem}

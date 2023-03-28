@@ -18,7 +18,7 @@ function ProductCartItem(props) {
   const singleProductPrice = Number(props.price) / Number(props.quantity);
 
   function deleteItem() {
-    props.handleDelete(props.id, props.quantity, props.price);
+    props.handleDelete(props.id, props.size, props.quantity, props.price);
   }
 
   function handleInput() {
@@ -40,7 +40,7 @@ function ProductCartItem(props) {
       const deltaPrice = singleProductPrice * deltaQuantity;
       console.log("deltaQuantity ", deltaQuantity);
       console.log("deltaPrice", deltaPrice);
-      props.handleList(props.id, deltaQuantity, deltaPrice);
+      props.handleList(props.id, props.size, deltaQuantity, deltaPrice);
     }
 
     setState({
