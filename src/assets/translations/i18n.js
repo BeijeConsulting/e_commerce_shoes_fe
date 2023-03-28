@@ -14,7 +14,7 @@ i18n
   // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
     debug: true,
-    fallbackLng: "en",
+    fallbackLng: "it",
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
     },
@@ -23,6 +23,10 @@ i18n
       it: italianLanguage,
     },
   });
+
+export const switchLang = async (lang) => {
+  await i18n.changeLanguage(lang);
+}
 
 console.log(i18n);
 
