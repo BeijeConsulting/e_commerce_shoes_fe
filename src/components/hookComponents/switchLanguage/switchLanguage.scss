@@ -3,15 +3,14 @@
 .switchLanguage {
     display: flex;
     justify-content: center;
-    // border: 2px solid red;
     width: 20rem;
     margin: 1rem auto;
 
 
     &__container {
         display: flex;
+        margin: 0 auto;
         align-items: center;
-        // max-width: 35%;
         width: 100%;
         justify-content: center;
 
@@ -21,6 +20,8 @@
     &__lang {
         display: flex;
         align-items: center;
+        width: 100%;
+        justify-content: center;
 
         img {
             width: 30%;
