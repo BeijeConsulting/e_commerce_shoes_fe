@@ -14,9 +14,12 @@ import { Badge, Divider, IconButton, Menu, MenuItem } from '@mui/material';
 import shoe from "../../../assets/images/singleProduct/shoe1.jpeg"
 //SCSS
 import "./cartNavMenu.scss"
+import { useTranslation } from 'react-i18next';
 
 function CartNavMenu(props) {
     const [anchorEl, setAnchorEl] = useState(null);
+
+    const { t } = useTranslation()
 
     const navigate = useNavigate()
 
@@ -79,10 +82,10 @@ function CartNavMenu(props) {
                             </p>
                             <div className='container__size-cartQuantity'>
                                 <p className='infoSize'>
-                                    Taglia: { data.productSize }
+                                    { t("cartNavMenu.size") }: { data.productSize }
                                 </p>
                                 <p className='quantity'>
-                                    Quantità: { data.quantity }
+                                    { t("cartNavMenu.quantity") }: { data.quantity }
                                 </p>
                             </div>
                         </div>

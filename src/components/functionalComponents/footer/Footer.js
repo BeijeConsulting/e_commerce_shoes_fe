@@ -6,22 +6,28 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import i18n from '../../../assets/translations/i18n';
+
 
 function Footer() {
+    const { t } = useTranslation();
+    const lang = i18n.language.slice(0, 2)
+
     const menu = [
         {
             header: 'Nome Sito',
             list: [
                 {
-                    anchor: 'Chi siamo',
-                    path: '/',
+                    anchor: t("footer.whoWeAre"),
+                    path: `user-info`,
                 },
                 {
                     anchor: 'Login',
                     path: '/identity/',
                 },
                 {
-                    anchor: 'Registrati',
+                    anchor: t("footer.registration"),
                     path: '/identity/signup',
                 },
             ]
@@ -38,28 +44,28 @@ function Footer() {
                     path: '/',
                 },
                 {
-                    anchor: 'Preferenze cookie',
+                    anchor: t("footer.preference"),
                     path: '/',
                 },
             ]
         },
         {
-            header: 'Contatti',
+            header: t("footer.contacts"),
             list: [
                 {
-                    anchor: 'Servizio clienti',
+                    anchor: t("footer.serviceClient"),
                     path: '/customer-care',
                 },
                 {
                     anchor: 'FAQ',
+                    path: 'customer-care/faq',
+                },
+                {
+                    anchor: t("footer.termAndConditions"),
                     path: '/',
                 },
                 {
-                    anchor: 'Termini e condizioni',
-                    path: '/',
-                },
-                {
-                    anchor: 'Resi',
+                    anchor: t("footer.returns"),
                     path: '/customer-care/returns',
                 },
             ]
@@ -69,20 +75,20 @@ function Footer() {
     const navigate = useNavigate();
 
     function mapFooterMenu(item, key) {
-        return <div key={`${key}-${Math.random()}`} className='footer__top__list'>
+        return <div key={ `${key}-${Math.random()}` } className='footer__top__list'>
             <header>
-                {item.header}
+                { item.header }
             </header>
             <ul>
-                {item.list.map(mapSubFooterMenu)}
+                { item.list.map(mapSubFooterMenu) }
             </ul>
         </div>;
 
     }
 
     function mapSubFooterMenu(item, key) {
-        return <li key={`${key}-${Math.random()}`}>
-            <a onClick={goTo(item.path)}>{item.anchor}</a>
+        return <li key={ `${key}-${Math.random()}` }>
+            <a onClick={ goTo(item.path) }>{ item.anchor }</a>
         </li>
     }
 
@@ -90,21 +96,22 @@ function Footer() {
         navigate(path)
     }
 
+
     return (
         <footer id='footer'>
             <div className='footer__top'>
                 <nav>
-                    {menu.map(mapFooterMenu)}
+                    { menu.map(mapFooterMenu) }
                 </nav>
                 <div className='footer__top__socials'>
                     <a className='footer__top__socials__facebook' href='#'>
-                        <FacebookIcon fontSize={'inherit'} />
+                        <FacebookIcon fontSize={ 'inherit' } />
                     </a>
                     <a className='footer__top__socials__instagram' href='#'>
-                        <InstagramIcon fontSize={'inherit'} />
+                        <InstagramIcon fontSize={ 'inherit' } />
                     </a>
                     <a className='footer__top__socials__youtube' href='#'>
-                        <YouTubeIcon fontSize={'inherit'} />
+                        <YouTubeIcon fontSize={ 'inherit' } />
                     </a>
                 </div>
             </div>
