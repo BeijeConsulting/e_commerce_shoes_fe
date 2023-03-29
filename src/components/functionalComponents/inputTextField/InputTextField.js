@@ -2,7 +2,7 @@ import React from "react";
 import "./inputTextField.scss";
 
 function InputTextField(props) {
-  const register = props?.register;
+  const register = props?.register ?? null;
 
   function handleChange(e) {
     if (!props?.onChangeSendData) return;
