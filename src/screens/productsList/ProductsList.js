@@ -7,11 +7,15 @@ import FilterMenu from "../../components/hookComponents/filterMenu/FilterMenu";
 import { useLocation } from "react-router-dom";
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from 'react-i18next';
+import Seo from '../../components/functionalComponents/Seo';
 
 function ProductsList() {
     const location = useLocation();
 
     const minMax = [20, 200];
+    const { t } = useTranslation()
+
 
     const [state, setState] = useState(
         {
@@ -30,7 +34,9 @@ function ProductsList() {
 
     useEffect(() => {
         fetchProducts();
-    }, []);
+        // ogni volta che cambia t (la lingua) ho un rerender e chiamata api con la lingua giusta
+    }, [t]);
+
 
     async function fetchProducts() {
         const { pathname } = location;

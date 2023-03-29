@@ -1,8 +1,16 @@
 import React from "react";
+import { Helmet } from 'react-helmet';
+import Seo from '../../components/functionalComponents/Seo';
 
 function AboutUs() {
     return (
         <>
+            <Seo
+                title="Chi Siamo"
+                description="E-commerce di scarpe italiane"
+                content="e-commerce"
+            />
+
             <h1>Chi siamo</h1>
             <p>Cisalfasport.it è lo shop online di riferimento nel mondo dello sport. Grazie all'affiliazione con Intersport, il più grande network dello sport, il Gruppo Cisalfa Sport ha saputo costruire e consolidare collaborazioni con i più importanti brand del settore Sport e Lifestyle.</p>
             <p>Lo shop online offre un'ampia selezione di prodotti: abbigliamento, calzature e accessori per le principali discipline sportive e collezioni citywear e sportswear per il tempo libero di tutta la famiglia.</p>

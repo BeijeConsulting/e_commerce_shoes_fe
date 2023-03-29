@@ -8,10 +8,14 @@ import { NavLink } from "react-router-dom";
 import { getLocalStorage } from '../../utils/localStorageUtils';
 // SCSS
 import "./userInfo.scss";
+import { useTranslation } from 'react-i18next';
+import Seo from '../../components/functionalComponents/Seo';
 
 function UserInfo(props) {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const { t } = useTranslation()
 
   // if user is not logged --> go to identityScreen 
   useEffect(() => {
@@ -19,32 +23,35 @@ function UserInfo(props) {
     if (!localStorage) navigate("/identity")
   }, [])
 
-
   return (
     <div className='userInfo'>
+      <Seo
+        title="Account Personale"
+        description="Faq"
+        content="e-commerce"
+      />
       <h1>IL MIO ACCOUNT</h1>
 
-      {/* Form */}
+      {/* Form */ }
 
       <NavLink
-
-        to={"address-list"}
-        className={"customer__list"}
+        to={ "address-list" }
+        className={ "customer__list" }
       >
-        Indirizzi
-      </NavLink>
-      <NavLink
-
-        to={"/user-info"}
-        className={"customer__list"}
-      >
-        Dati Personali
+        { t("userInfo.addresses") }
       </NavLink>
 
       <NavLink
-        to={"order-list"}
-        className={`customer__list ${location.pathname === `user-info/order-list` ? "active" : ""
-          }`}
+        to={ "" }
+        className={ "customer__list" }
+      >
+        { t("userInfo.personalData") }
+      </NavLink>
+
+      <NavLink
+        to={ "order-list" }
+        className={ `customer__list ${location.pathname === `user-info/order-list` ? "active" : ""
+          }` }
       >
         <p>Lista Ordini</p>
       </NavLink>

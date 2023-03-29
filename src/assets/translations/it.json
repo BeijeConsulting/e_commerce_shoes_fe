@@ -1,5 +1,71 @@
 {
   "translation": {
-    "greeting": "Ciao"
+    "greeting": "Ciao",
+    "footer": {
+      "whoWeAre": "Chi Siamo",
+      "registration": "Registrati",
+      "preference": "Preferenze cookie",
+      "contacts": "Contatti",
+      "serviceClient": "Servizio clienti",
+      "termAndConditions": "Termini e condizioni",
+      "returns": "Resi"
+    },
+    "preFooter": {
+      "contacts": "Contatti",
+      "help": "Help"
+    },
+    "sliderHomepage": {
+      "new": "nuovo",
+      "arrives": "arrivi",
+      "lookNow": "scopri ora",
+      "theBest": "le migliori"
+    },
+    "userMenuNav": {
+      "profile": "Profilo",
+      "logIn": "Accedi",
+      "orders": "Ordini"
+    },
+    "cartNavMenu": {
+      "size": "taglia",
+      "quantity": "quantità"
+    },
+    "userInfo": {
+      "personalData": "dati personali",
+      "addresses": "indirizzi"
+    },
+    "personalData": {
+      "personalData": "i tuoi dati personali",
+      "personalDetails": "Dati anagrafici",
+      "name": "nome",
+      "lastName": "cognome",
+      "birdthDate": "data di nascita",
+      "accountData": "Dati account",
+      "email": "email"
+    },
+    "customerCare": {
+      "contacts": "Contatti",
+      "delivery": "Spedizioni",
+      "returnsAndRefunds": "Resi e Rimborsi",
+      "hi": "Ciao",
+      "help": "come possiamo aiutarti",
+      "forYou": "Consigliati per te"
+    },
+    "faq": {
+      "refunds": "Rimborso",
+      "payment": "Metodi di pagamento",
+      "payPal": "PayPal",
+      "returnsAndRefunds": "Resi e Rimborsi"
+    },
+    "addresses": {
+      "address": "Indirizzo",
+      "country": "Paese",
+      "zipCode": "Cap",
+      "nameAndLastName": "Nome e cognome",
+      "telephone": "telefono",
+      "deliveryInstructions": "instruzioni per il corriere",
+      "yourAddresses": "I tuoi indirizzi",
+      "emptyAddress": "Non hai inserito nessun indirizzo"
+    },
+    "lang": "it"
   }
 }

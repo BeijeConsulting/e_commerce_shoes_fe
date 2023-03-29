@@ -5,6 +5,7 @@ import "./checkout.scss";
 import RecapCart from "../../components/functionalComponents/recapCart/RecapCart";
 import Button from "../../components/functionalComponents/button/Button";
 import CheckoutProduct from "../../components/functionalComponents/checkoutProduct/CheckoutProduct";
+import Seo from '../../components/functionalComponents/Seo';
 
 function Checkout() {
     const location = useLocation();
@@ -30,10 +31,15 @@ function Checkout() {
 
     return (
         <div className="checkout">
+            <Seo
+                title="Checkout"
+                description="Checkout"
+                content="e-commerce"
+            />
             <header>
-                <img src={require("../../assets/images/logo/logo-312.png")} alt="logo" />
+                <img src={ require("../../assets/images/logo/logo-312.png") } alt="logo" />
                 <h1>CHECKOUT</h1>
-                <img src={require("../../assets/images/digicert.png")} alt="digicert logo" />
+                <img src={ require("../../assets/images/digicert.png") } alt="digicert logo" />
             </header>
 
             <div className="__checkout-content">
@@ -54,7 +60,7 @@ function Checkout() {
                                         <p>Lasciare al portiere</p>
                                     </address>
                                 </label>
-                                <input type={'radio'} name="delivery-address" id="delivery-address-1" />
+                                <input type={ 'radio' } name="delivery-address" id="delivery-address-1" />
                             </li>
                         </ul>
                         <a className="__add-address">Aggiungi un nuovo indirizzo</a>
@@ -63,45 +69,45 @@ function Checkout() {
                         <h2>opzioni di pagamento</h2>
                         <ul>
                             <li className="__payment-method">
-                                <input type={'radio'} name="payment-methods" id="payment-methods-1" />
+                                <input type={ 'radio' } name="payment-methods" id="payment-methods-1" />
                                 <label htmlFor="payment-methods-1">
-                                    <img src={require("../../assets/images/payments/mastercard.png")} alt={"mastercard logo"} />
+                                    <img src={ require("../../assets/images/payments/mastercard.png") } alt={ "mastercard logo" } />
                                     <p>Carta di credito **** 1234</p>
                                 </label>
                             </li>
                             <li className="__payment-method">
-                                <input type={'radio'} name="payment-methods" id="payment-methods-2" />
+                                <input type={ 'radio' } name="payment-methods" id="payment-methods-2" />
                                 <label htmlFor="payment-methods-2">
-                                    <img src={require("../../assets/images/payments/paypal.png")} alt={"paypal logo"} />
+                                    <img src={ require("../../assets/images/payments/paypal.png") } alt={ "paypal logo" } />
                                     <p>PayPal</p>
                                 </label>
                             </li>
                             <li className="__payment-method">
-                                <input type={'radio'} name="payment-methods" id="payment-methods-3" />
+                                <input type={ 'radio' } name="payment-methods" id="payment-methods-3" />
                                 <label htmlFor="payment-methods-3">
-                                    <img src={require("../../assets/images/payments/klarnainstalments.png")} alt={"klarna logo"} />
+                                    <img src={ require("../../assets/images/payments/klarnainstalments.png") } alt={ "klarna logo" } />
                                     <p>Paga in 3 rate con Klarna</p>
                                 </label>
                             </li>
                         </ul>
                     </div>
-                    <Button handleClick={submitOrder} label={'ACQUISTA ORA'} buttonStyle={'filter-button'} />
+                    <Button handleClick={ submitOrder } label={ 'ACQUISTA ORA' } buttonStyle={ 'filter-button' } />
                 </div>
                 <div className="__right">
                     <div className="__container">
                         <h2>10 prodotti</h2>
                         <CheckoutProduct
-                            productSrc={'https://images.asos-media.com/products/asos-design-occhiali-da-sole-neri-retro-con-lenti-fume/8064078-1-black?$s$'}
-                            productAlt={'lala'}
-                            productPrice={35.22}
-                            productName={"ASOS DESIGN - Occhiali da sole neri rétro con lenti fumé"}
-                            productColor={"Nero"}
-                            productSize={"EU 38"}
-                            productQuantity={2}
+                            productSrc={ 'https://images.asos-media.com/products/asos-design-occhiali-da-sole-neri-retro-con-lenti-fume/8064078-1-black?$s$' }
+                            productAlt={ 'lala' }
+                            productPrice={ 35.22 }
+                            productName={ "ASOS DESIGN - Occhiali da sole neri rétro con lenti fumé" }
+                            productColor={ "Nero" }
+                            productSize={ "EU 38" }
+                            productQuantity={ 2 }
                         />
                     </div>
                     <RecapCart />
-                    <Button handleClick={submitOrder} label={'ACQUISTA ORA'} buttonStyle={'filter-button'} />
+                    <Button handleClick={ submitOrder } label={ 'ACQUISTA ORA' } buttonStyle={ 'filter-button' } />
                 </div>
             </div>
         </div>

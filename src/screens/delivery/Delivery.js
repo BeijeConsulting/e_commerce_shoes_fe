@@ -1,12 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import "./delivery.scss"
-import { Link } from 'react-router-dom';
+import Seo from '../../components/functionalComponents/Seo';
 
 
 function Delivery() {
     return (
         <div className='delivery'>
+            <Seo
+                title="Spedizioni"
+                description="Gestione delle spedizioni"
+                content="e-commerce"
+            />
             <h1>Spedizioni</h1>
             <h3>Tempi e costi di spedizione</h3>
             <p>

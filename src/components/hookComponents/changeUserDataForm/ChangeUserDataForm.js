@@ -8,6 +8,7 @@ import InputPasswordField from "../inputPasswordField/InputPasswordField";
 import Button from "../../functionalComponents/button/Button";
 
 import { useForm } from "react-hook-form";
+import { updateUser } from '../../../services/authServices';
 
 function ChangeUserDataForm() {
   const [state, setState] = useState({
@@ -18,21 +19,37 @@ function ChangeUserDataForm() {
   const passwordReg =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?])(?=.*[^\s]).{8,}$/;
 
-  function onSubmit() {}
 
-  function onError() {}
+  // PROVA API
+  async function getResponseUpdateUser() {
+    const response = await updateUser({
+      authorities: [
+        "user"
+      ],
+      firstName: "Luca",
+    })
+    console.log("RESPONSE", response)
+  }
+  getResponseUpdateUser()
+  ////////////////////////////////////////////////////////////////
+
+  const onSubmit = async (data) => {
+
+  };
+
+  function onError() { }
 
   return (
-    <form className="login-form" onSubmit={handleSubmit(onSubmit, onError)}>
+    <form className="login-form" onSubmit={ handleSubmit(onSubmit, onError) }>
       <div className="login-form__input-container">
         <InputTextField
           inputName="email"
           inputLabel="INDIRIZZO E-MAIL:"
           inputType="text"
           inputPlaceholder="Email"
-          register={register}
+          register={ register }
           labelStyle="default-label  "
-          inputStyle={`default-input margin-top-small`}
+          inputStyle={ `default-input margin-top-small` }
         />
 
         <InputPasswordField
@@ -40,13 +57,12 @@ function ChangeUserDataForm() {
           inputLabel="PASSWORD:"
           inputType="password"
           inputPlaceholder="Password"
-          register={register}
-          regexValidation={passwordReg}
-          isRequired={true}
+          register={ register }
+          regexValidation={ passwordReg }
+          isRequired={ true }
           labelStyle="default-label password-margin-top margin-top-extra"
-          inputStyle={`default-input ${
-            state.isInvalidActualPassword ? "default-input--error" : ""
-          }`}
+          inputStyle={ `default-input ${state.isInvalidActualPassword ? "default-input--error" : ""
+            }` }
         />
 
         <InputPasswordField
@@ -54,13 +70,12 @@ function ChangeUserDataForm() {
           inputLabel="PASSWORD:"
           inputType="password"
           inputPlaceholder="Password"
-          register={register}
-          regexValidation={passwordReg}
-          isRequired={true}
+          register={ register }
+          regexValidation={ passwordReg }
+          isRequired={ true }
           labelStyle="default-label password-margin-top margin-top-extra"
-          inputStyle={`default-input ${
-            state.isInvalidNewPassword ? "default-input--error" : ""
-          }`}
+          inputStyle={ `default-input ${state.isInvalidNewPassword ? "default-input--error" : ""
+            }` }
         />
       </div>
       <Button

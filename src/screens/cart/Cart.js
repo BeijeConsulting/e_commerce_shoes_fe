@@ -14,6 +14,7 @@ import {
 import { getProduct } from "../../services/productServices";
 
 import imageProduct from "../../assets/images/singleProduct/shoe1.jpeg";
+import Seo from "../../components/functionalComponents/Seo";
 
 const cartList = {
   items: [
@@ -50,7 +51,8 @@ const cartList = {
     totalPrice: "800.50",
   },
 };
-setLocalStorage("cart-list", cartList);
+
+// setLocalStorage("cart-list", cartList);
 
 function Cart() {
   const localData = getCartStoredList();
@@ -82,14 +84,14 @@ function Cart() {
   //     );
   //   }
 
-  function deleteItem(id, quantity, price) {
+  function deleteItem(id, size, quantity, price) {
     const itemToDelete = localData.items.find((item) => {
-      return item.id === id;
+      return item.id === id && item.size === size;
     });
 
     const indexElementToDelete = localData.items.indexOf(itemToDelete);
     localData.items.splice(indexElementToDelete, 1);
-    console.log(localData);
+    // console.log(localData);
 
     localData.info.numberItems = Number(localData.info.numberItems) - quantity;
     localData.info.totalPrice = Number(localData.info.totalPrice) - price;
@@ -102,23 +104,31 @@ function Cart() {
     });
   }
 
-  function updateCartList(id, deltaQuantity, deltaPrice) {
-    console.log(id);
+  function updateCartList(id, size, deltaQuantity, deltaPrice) {
+    // console.log(id);
     // console.log(localData);
 
     const itemChanged = localData.items.find((item) => {
-      return item.id === id;
+      return item.id === id && item.size === size;
     });
 
-    console.log(localData.info.numberItems);
+    // console.log("localData.info.numberItems: " + localData.info.numberItems);
+    // console.log("deltaQuantity: " + deltaQuantity);
+    // console.log("deltaPrice: " + deltaPrice);
+    // console.log("itemCanged.quantity: " + itemChanged.quantity);
 
-    itemChanged.quantity = Number(itemChanged.quantity) + deltaQuantity;
+    itemChanged.quantity = Number(itemChanged.quantity) + Number(deltaQuantity);
     itemChanged.sellingItemTotalPrice =
-      Number(itemChanged.sellingItemTotalPrice) + deltaPrice;
+      Number(itemChanged.sellingItemTotalPrice) + Number(deltaPrice);
     localData.info.numberItems =
-      Number(localData.info.numberItems) + deltaQuantity;
-    localData.info.totalPrice = Number(localData.info.totalPrice) + deltaPrice;
+      Number(localData.info.numberItems) + Number(deltaQuantity);
+    localData.info.totalPrice =
+      Number(localData.info.totalPrice) + Number(deltaPrice);
     // console.log(localData);
+
+    // console.log("localData.info.numberItems: " + localData.info.numberItems);
+    // console.log("itemCanged.quantity: " + itemChanged.quantity);
+    // console.log("---------------------------");
 
     setLocalStorage("cart-list", localData);
 
@@ -130,7 +140,7 @@ function Cart() {
 
   function renderCartList(item) {
     return (
-      <li key={item.id}>
+      <li key={item.id + item.size}>
         <ProductCartItem
           handleList={updateCartList}
           handleDelete={deleteItem}
@@ -147,8 +157,17 @@ function Cart() {
     );
   }
 
+  function checkCoupon() {
+    console.log("check coupon");
+  }
+
   return (
     <div className="cart">
+      <Seo
+        title="Carrello"
+        description="Gestione del carrello"
+        content="e-commerce"
+      />
       <CartHeader
         quantity={state.cart.info.numberItems}
         totalPrice={Number(state.cart.info.totalPrice).toFixed(2)}
@@ -156,7 +175,7 @@ function Cart() {
       <div className="cart__content">
         <div className="cart__content__left">
           <ul>{state.cart.items.map(renderCartList)}</ul>
-          <CouponInput />
+          <CouponInput handleCoupon={checkCoupon} />
         </div>
         <div className="cart__content__right">
           <RecapCart total={Number(state.cart.info.totalPrice).toFixed(2)} />

@@ -11,14 +11,14 @@ function ProductCartItem(props) {
   });
 
   useEffect(() => {
-    console.log(state);
+    // console.log(state);
   });
   const inputField = useRef();
 
   const singleProductPrice = Number(props.price) / Number(props.quantity);
 
   function deleteItem() {
-    props.handleDelete(props.id, props.quantity, props.price);
+    props.handleDelete(props.id, props.size, props.quantity, props.price);
   }
 
   function handleInput() {
@@ -36,11 +36,11 @@ function ProductCartItem(props) {
     */
 
     if (!isInvalidInput) {
-      const deltaQuantity = quantity - props.quantity;
-      const deltaPrice = singleProductPrice * deltaQuantity;
+      const deltaQuantity = Number(quantity) - Number(props.quantity);
+      const deltaPrice = Number(singleProductPrice) * Number(deltaQuantity);
       console.log("deltaQuantity ", deltaQuantity);
       console.log("deltaPrice", deltaPrice);
-      props.handleList(props.id, deltaQuantity, deltaPrice);
+      props.handleList(props.id, props.size, deltaQuantity, deltaPrice);
     }
 
     setState({
@@ -51,7 +51,8 @@ function ProductCartItem(props) {
   }
 
   function setQuantity(e) {
-    let showConfirmQuantity = e.target.value === props.quantity ? false : true;
+    let showConfirmQuantity =
+      e.target.value === props.quantity.toString() ? false : true;
 
     setState({
       ...state,
@@ -65,7 +66,7 @@ function ProductCartItem(props) {
       <img className="cart-item__img" src={props.img} alt={props.altImg} />
 
       <div className="cart-item__info">
-        <div className="cart-item__info__price">$ {props.price}</div>
+        <div className="cart-item__info__price">€ {props.price}</div>
         <div className="cart-item__info__name">{props.productName}</div>
         <div className="cart-item__info__brand">{props.brand}</div>
         <div className="cart-item__info__color-size">
