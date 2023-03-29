@@ -158,7 +158,7 @@ function CartNavMenu() {
           <MenuItem className="item" onClick={handleClose}>
             <p>
               Totale: ${" "}
-              {Number(state?.itemCartList?.info?.totalPrice ?? 0).toFixed(2)}
+              {Number(state.itemCartList?.info?.totalPrice ?? 0).toFixed(2)}
             </p>
           </MenuItem>
           <MenuItem className="item" onClick={handleClose}>

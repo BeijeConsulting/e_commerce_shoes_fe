@@ -196,7 +196,7 @@ function SingleProduct() {
               <option value={"none"} disabled={state.sizeSelected}>
                 Seleziona taglia
               </option>
-              {state?.product?.productSizes?.map(renderSizesOption)}
+              {state.product?.productSizes?.map(renderSizesOption)}
             </select>
             <InfoProductBox />
 

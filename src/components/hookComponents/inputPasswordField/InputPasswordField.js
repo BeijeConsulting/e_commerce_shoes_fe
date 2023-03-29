@@ -7,7 +7,7 @@ function InputPasswordField(props) {
   const [state, setState] = useState({
     showPassword: false,
   });
-  const register = props?.register ?? null;
+  const register = props.register;
 
   function handleChange(e) {
     if (!props?.onChangeSendData) return;

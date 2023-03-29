@@ -26,7 +26,7 @@ function AdressList(props) {
 
   function mapList(data, i) {
     return (
-      <div className="address__container" key={data.id}>
+      <div className="address__container" key={data?.id}>
         <Seo
           title="I tuoi indirizzi"
           description="Gestione degli indirizzi personali"
