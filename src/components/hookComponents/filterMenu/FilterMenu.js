@@ -150,7 +150,7 @@ function FilterMenu(props) {
                         {state.active === "category" && <KeyboardArrowUpIcon data-filter="category" fontSize={'large'} />}
                     </header>
                     <div className="sub-item">
-                        {state.active === "category" && categories.map(mapCategories)}
+                        {state.active === "category" && state.categories.map(mapCategories)}
                     </div>
                 </div>
 
