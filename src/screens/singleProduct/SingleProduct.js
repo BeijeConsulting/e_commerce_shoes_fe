@@ -175,11 +175,11 @@ function SingleProduct() {
       <div className="single-product">
         <header>
           <div className="header__container">
-            <p className="header__category">{state.product.category}</p>
-            <p className="header__price">€ {state.product.listed_price}</p>
+            <p className="header__category">{state.product?.category}</p>
+            <p className="header__price">€ {state.product?.listed_price}</p>
           </div>
-          <h2 className="header__brand">{state.product.brand}</h2>
-          <p className="header__name">{state.product.name}</p>
+          <h2 className="header__brand">{state.product?.brand}</h2>
+          <p className="header__name">{state.product?.name}</p>
         </header>
 
         <div className="info__container">
