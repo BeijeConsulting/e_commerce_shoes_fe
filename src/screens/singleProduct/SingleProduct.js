@@ -168,7 +168,7 @@ function SingleProduct() {
   return (
     <>
       <Seo
-        title={state.product.name}
+        title={state.product?.name}
         description="Gestione del carrello"
         content="e-commerce"
       />
