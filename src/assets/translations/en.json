@@ -1,5 +1,71 @@
 {
   "translation": {
-    "greeting": "Hello"
+    "greeting": "Hello",
+    "footer": {
+      "whoWeAre": "Who We Are",
+      "registration": "Registration",
+      "preference": "Preference cookie",
+      "contacts": "Contacts",
+      "serviceClient": "Client service",
+      "termAndConditions": "Term and conditions",
+      "returns": "Returns"
+    },
+    "preFooter": {
+      "contacts": "Contacts",
+      "help": "Help"
+    },
+    "sliderHomepage": {
+      "new": "new",
+      "arrives": "arrives",
+      "lookNow": "look now",
+      "theBest": "the best"
+    },
+    "userMenuNav": {
+      "profile": "Profile",
+      "logIn": "Log In",
+      "orders": "Orders"
+    },
+    "cartNavMenu": {
+      "size": "size",
+      "quantity": "quantity"
+    },
+    "userInfo": {
+      "personalData": "personal data",
+      "addresses": "addresses"
+    },
+    "personalData": {
+      "personalData": "your personal data",
+      "personalDetails": "Personal details",
+      "name": "name",
+      "lastName": "last name",
+      "birdthDate": "birdth date",
+      "accountData": "Account data",
+      "email": "email"
+    },
+    "customerCare": {
+      "contacts": "Contacts",
+      "delivery": "Delivery",
+      "returnsAndRefunds": "Returns and Refunds",
+      "hi": "Hi",
+      "help": "how can we help you",
+      "forYou": "For you"
+    },
+    "faq": {
+      "refunds": "Refunds",
+      "payment": "Payment",
+      "payPal": "PayPal",
+      "returnsAndRefunds": "Returns and Refunds"
+    },
+    "addresses": {
+      "address": "Address",
+      "country": "Country",
+      "zipCode": "Zip Code",
+      "nameAndLastName": "Name and Last name",
+      "telephone": "Telephone",
+      "deliveryInstructions": "Delivery Instructions",
+      "yourAddresses": "Your addresses",
+      "emptyAddress": "Empty Addresses"
+    },
+    "lang": "en"
   }
 }

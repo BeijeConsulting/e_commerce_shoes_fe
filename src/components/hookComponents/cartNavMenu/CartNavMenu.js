@@ -14,12 +14,17 @@ import { Badge, Divider, IconButton, Menu, MenuItem } from "@mui/material";
 import shoe from "../../../assets/images/singleProduct/shoe1.jpeg";
 //SCSS
 import "./cartNavMenu.scss";
+import { useTranslation } from "react-i18next";
 
 function CartNavMenu() {
   const [state, setState] = useState({
     anchorEl: null,
     itemCartList: getCartStoredList(),
   });
+
+  const cartQuantity = useSelector((state) => state.userDuck.cartItems);
+
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
 
@@ -45,7 +50,60 @@ function CartNavMenu() {
     });
   }
 
-  const cartQuantity = useSelector((state) => state.userDuck.cartItems);
+  function goToCart() {
+    navigate("cart");
+  }
+
+  const dataProducts = [
+    {
+      name: "Nike Air Zoom",
+      brand: "Nike",
+      listedPrice: 199.0,
+      sellingPrice: 40.0,
+      productSize: "M41",
+      quantity: 1,
+    },
+    {
+      name: "Nike Air Zoom",
+      brand: "Nike",
+      listedPrice: 199.0,
+      sellingPrice: 40.0,
+      productSize: "M41",
+      quantity: 1,
+    },
+  ];
+
+  function mapList(data, i) {
+    return (
+      <div key={i}>
+        <MenuItem>
+          <div className="cartNavMenu__menu">
+            <div className="cartNavMenu__image">
+              <img src={shoe} alt="" />
+            </div>
+            <div className="cartNavMenu__info">
+              <div className="cartNavMenu__info-name-price">
+                <h3>{data.name}</h3>
+                <div className="container__price">
+                  <p className="newPrice">{data.sellingPrice}$</p>
+                  <p className="oldPrice">{data.listedPrice}$</p>
+                </div>
+              </div>
+              <p className="brand">{data.brand}</p>
+              <div className="container__size-cartQuantity">
+                <p className="infoSize">
+                  {t("cartNavMenu.size")}: {data.productSize}
+                </p>
+                <p className="quantity">
+                  {t("cartNavMenu.quantity")}: {data.quantity}
+                </p>
+              </div>
+            </div>
+          </div>
+        </MenuItem>
+      </div>
+    );
+  }
 
   function goToCart() {
     navigate("/cart");

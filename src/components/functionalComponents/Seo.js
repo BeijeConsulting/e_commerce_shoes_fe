@@ -1,13 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet'
+import i18n from '../../assets/translations/i18n';
 
 function Seo(props) {
+    const lang = i18n.language.slice(0, 2)
     return (
-        <div>
+        <>
             <Helmet>
                 { /* Standard metadata tags */ }
-                <html lang={ props.lang } />
+                <html lang={ lang } />
                 <title>{ props.title }</title>
                 <meta name='description' content={ props.description } />
                 { /* End standard metadata tags */ }
@@ -31,7 +33,7 @@ function Seo(props) {
                 <meta property="twitter:image:alt" content={ props.altImg } />
                 { /* End Twitter tags */ }
             </Helmet>
-        </div>
+        </>
     )
 }
 

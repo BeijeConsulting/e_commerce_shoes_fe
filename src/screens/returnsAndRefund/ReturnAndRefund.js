@@ -2,11 +2,17 @@ import React from 'react';
 import "./returnAndrefund.scss"
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Seo from '../../components/functionalComponents/Seo';
 
 
 function ReturnAndRefund() {
     return (
         <div className='returns'>
+            <Seo
+                title="Resi e Rimborsi"
+                description="Gestione dei resi e dei rimborsi"
+                content="e-commerce"
+            />
             <h1>Resi e Rimborsi</h1>
             <p>
                 Se hai effettuato un reso il rimborso avverrà entro 14 giorni dalla data di consegna del pacco al corriere. Non appena il reso sarà ricevuto e controllato ti invieremo un'email di conferma. Nel caso tu abbia pagato le spese per la spedizione standard e decida di rendere l'ordine per intero, queste ti verranno rimborsate.

@@ -8,6 +8,7 @@
   cursor: pointer;
 
   color: #fff;
+  text-transform: uppercase;
   background-color: $orange;
   border: 1px solid $orange;
   padding: 1rem 4rem;
@@ -37,6 +38,7 @@
   display: block;
   background-color: $black;
   color: $white;
+  border: none;
 
   width: 100%;
   font-size: 2rem;

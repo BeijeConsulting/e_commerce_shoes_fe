@@ -14,7 +14,7 @@ import {
   setLocalStorage,
   getLocalStorage,
 } from "../../utils/localStorageUtils";
-import { set } from "lodash";
+import Seo from "../../components/functionalComponents/Seo";
 
 function SingleProduct() {
   const params = useParams();
@@ -167,6 +167,11 @@ function SingleProduct() {
 
   return (
     <>
+      <Seo
+        title={state.product.name}
+        description="Gestione del carrello"
+        content="e-commerce"
+      />
       <div className="single-product">
         <header>
           <div className="header__container">

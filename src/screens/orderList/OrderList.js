@@ -3,6 +3,7 @@ import { getOrderList } from "../../services/orderServices";
 import OrderListAccordion from "../../components/hookComponents/wishListAccordion/OrderListAccordion";
 import { getLocalStorage } from "../../utils/localStorageUtils";
 import { useSelector } from "react-redux";
+import Seo from '../../components/functionalComponents/Seo';
 
 function OrderList() {
   const userFirstName = useSelector((state) => state.userDuck.name);
@@ -15,8 +16,8 @@ function OrderList() {
 
   useEffect(() => {
     async function fetchData() {
-      const token = getLocalStorage("token");
-      const response = await getOrderList(getLocalStorage("token"));
+      // const token = getLocalStorage("token");
+      const response = await getOrderList();
 
       if (response.status === 200) {
         setState({
@@ -44,18 +45,25 @@ function OrderList() {
 
   function renderOrderList(order, i) {
     return (
-      <li key={order.orderId}>
+      <li key={ order.orderId }>
         <OrderListAccordion
-          recipient={{ firstName: userFirstName, lastName: userLastName }}
-          totalQuantity={state.totalQuantity[i]}
-          totalPrice={Number(order.paidTotalPrice).toFixed(2)}
-          products={order.productList}
+          recipient={ { firstName: userFirstName, lastName: userLastName } }
+          totalQuantity={ state.totalQuantity[i] }
+          totalPrice={ Number(order.paidTotalPrice).toFixed(2) }
+          products={ order.productList }
         />
       </li>
     );
   }
 
-  return <div>{<ul>{state.orderList.map(renderOrderList)}</ul>}</div>;
+  return <div>
+    <Seo
+      title="I tuoi Ordini"
+      description="Gestione degli ordini"
+      content="e-commerce"
+    />
+    { <ul>{ state.orderList.map(renderOrderList) }</ul> }
+  </div>;
 }
 
 export default OrderList;

@@ -1,5 +1,7 @@
 import { getData } from "../genericAxios/genericAxios";
 
+
+
 export async function getProductList(filter = "") {
   const response = await getData("/products" + filter);
 
@@ -12,7 +14,7 @@ export async function getSearchProducts(term) {
   return { status: response.status, data: response.data };
 }
 
-export async function getProduct(id, lang = "it") {
+export async function getProduct(id, lang) {
   const response = await getData("/products/" + id + "/" + lang);
 
   return { status: response.status, data: response.data };

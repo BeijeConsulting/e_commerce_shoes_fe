@@ -19,10 +19,12 @@ import "swiper/css/effect-fade";
 
 import { Autoplay, Navigation, Pagination } from 'swiper';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
-// Sostituire il button con il Button Component
 
 function SliderHomepage(props) {
+    const { t } = useTranslation();
+
     return (
         <div>
             <Swiper
@@ -48,13 +50,13 @@ function SliderHomepage(props) {
                     <div className='swiperSlide__info'>
                         <Link to={ "/" }>
                             <div className='swiperSlide__info--link'>
-                                <p>nuovi</p>
-                                <p>arrivi</p>
+                                <p>{ t("sliderHomepage.new") }</p>
+                                <p>{ t("sliderHomepage.arrives") }</p>
                             </div>
                         </Link>
                         <button
                             className='swiperSlide__info--btn'>
-                            scopri ora
+                            { t("sliderHomepage.lookNow") }
                         </button>
                     </div>
                 </SwiperSlide>
@@ -68,13 +70,13 @@ function SliderHomepage(props) {
                     <div className='swiperSlide__info'>
                         <Link to={ "/" }>
                             <div className='swiperSlide__info--link'>
-                                <p>le migliori</p>
+                                <p>{ t("sliderHomepage.theBest") }</p>
                                 <p>sneakers</p>
                             </div>
                         </Link>
                         <button
                             className='swiperSlide__info--btn'>
-                            scopri ora
+                            { t("sliderHomepage.lookNow") }
                         </button>
                     </div>
                 </SwiperSlide>

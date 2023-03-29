@@ -4,15 +4,20 @@ import { useForm } from "react-hook-form";
 import Button from "../../functionalComponents/button/Button";
 import InputTextField from "../../functionalComponents/inputTextField/InputTextField";
 import InputPasswordField from "../inputPasswordField/InputPasswordField";
-import { signin, getUser } from "../../../services/authServices";
+import { signin, getUser, getUserAuth } from "../../../services/authServices";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserCredentials } from "../../../redux/ducks/userDuck";
 import { useNavigate } from "react-router-dom";
-import { setLocalStorage } from "../../../utils/localStorageUtils";
+import { getLocalStorage, setLocalStorage } from "../../../utils/localStorageUtils";
+import i18n from '../../../assets/translations/i18n';
+import Seo from '../../functionalComponents/Seo';
 
 function LoginForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const lang = i18n.language.slice(0, 2)
+  // const lang = localStorage.getItem("currentLanguage")
 
   const [state, setState] = useState({
     invalidEmail: false,
@@ -48,7 +53,7 @@ function LoginForm() {
       setLocalStorage("token", response.data.token);
       setLocalStorage("refreshToken", response.data.refreshToken);
 
-      navigate("/");
+      navigate(`/${lang}`);
     }
 
     console.log(response);
@@ -73,20 +78,24 @@ function LoginForm() {
   // console.log(errors);
 
   return (
-    <form className="login-form" onSubmit={handleSubmit(onSubmit, onError)}>
+    <form className="login-form" onSubmit={ handleSubmit(onSubmit, onError) }>
+      <Seo
+        title="LogIn"
+        description="LogIn"
+        content="e-commerce"
+      />
       <div className="login-form__input-container">
         <InputTextField
           inputName="email"
           inputLabel="INDIRIZZO E-MAIL:"
           inputType="text"
           inputPlaceholder="Email"
-          register={register}
-          regexValidation={emailReg}
-          isRequired={true}
+          register={ register }
+          regexValidation={ emailReg }
+          isRequired={ true }
           labelStyle="default-label  "
-          inputStyle={`default-input margin-top-small ${
-            state.invalidEmail ? "default-input--error" : ""
-          }`}
+          inputStyle={ `default-input margin-top-small ${state.invalidEmail ? "default-input--error" : ""
+            }` }
         />
 
         <InputPasswordField
@@ -94,13 +103,12 @@ function LoginForm() {
           inputLabel="PASSWORD:"
           inputType="password"
           inputPlaceholder="Password"
-          register={register}
-          regexValidation={passwordReg}
-          isRequired={true}
+          register={ register }
+          regexValidation={ passwordReg }
+          isRequired={ true }
           labelStyle="default-label password-margin-top margin-top-extra"
-          inputStyle={`default-input ${
-            state.invalidPassword ? "default-input--error" : ""
-          }`}
+          inputStyle={ `default-input ${state.invalidPassword ? "default-input--error" : ""
+            }` }
         />
       </div>
       <Button label="Login" buttonStyle="submit-button button-margin-top" />

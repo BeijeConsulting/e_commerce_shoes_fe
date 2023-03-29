@@ -4,11 +4,13 @@ import logger from "redux-logger";
 // DUCK
 import productCartDuck from "./ducks/productCartDuck";
 import userDuck from "./ducks/userDuck";
+import languageDuck from './ducks/languageDuck';
 
 const reducer = combineReducers({
   // here we will be adding reducers
   productCartDuck,
   userDuck,
+  languageDuck
 });
 
 const store = configureStore({

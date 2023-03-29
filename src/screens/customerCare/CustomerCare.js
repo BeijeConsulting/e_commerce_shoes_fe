@@ -7,41 +7,25 @@ import PropTypes from 'prop-types';
 import "./customerCare.scss"
 
 // i18Next
-import { changeLanguage } from 'i18next';
+import { useTranslation } from 'react-i18next';
+import Seo from '../../components/functionalComponents/Seo';
 
 
 function CustomerCare() {
-
     const location = useLocation();
-    console.log(location);
+    const { t } = useTranslation()
 
     const data = [
         {
-            title: "Chi siamo",
-            link: "about-us"
-        },
-        {
-            title: "Termini e condizioni",
-            link: "terms-and-condictions"
-        },
-        {
-            title: "Privacy policy",
-            link: "privacy"
-        },
-        {
-            title: "Cookie policy",
-            link: "cookie"
-        },
-        {
-            title: "contatti",
+            title: t("customerCare.contacts"),
             link: "contacts",
         },
         {
-            title: "spedizioni",
+            title: t("customerCare.delivery"),
             link: "delivery",
         },
         {
-            title: "resi e rimborsi",
+            title: t("customerCare.returnsAndRefunds"),
             link: "returns"
         },
         {
@@ -50,13 +34,13 @@ function CustomerCare() {
         },
     ]
 
-    function mapList(data) {
+    function mapList(data, i) {
         return (
-            <li>
-                <NavLink to={data.link}
-                    className={`customer__list ${location.pathname === `customerCare/${data.link}` ? "active" : ""}`}
+            <li key={ i }>
+                <NavLink to={ data.link }
+                    className={ `customer__list ${location.pathname === `customerCare/${data.link}` ? "active" : ""}` }
                 >
-                    {data.title}
+                    { data.title }
                 </NavLink>
             </li>
         )
@@ -64,7 +48,11 @@ function CustomerCare() {
 
     return (
         <div className='customer'>
-            {/* Parte fissa */}
+            <Seo
+                title="Cutomer care"
+                description="E-commerce di scarpe italiane"
+                content="e-commerce"
+            />
             <header>
                 <h2>Ciao,<br />come possiamo aiutarti?
                 </h2>
@@ -75,7 +63,7 @@ function CustomerCare() {
                 <div className='customer__advice'>
                     <h2>Servizio Clienti</h2>
                     <ul>
-                        {data.map(mapList)}
+                        { data.map(mapList) }
                     </ul>
                 </div>
                 <div className='customer__outlet'>

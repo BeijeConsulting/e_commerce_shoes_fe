@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import ChangeUserDataForm from "../../components/hookComponents/changeUserDataForm/ChangeUserDataForm";
 import Button from "../../components/functionalComponents/button/Button";
 import "./personalData.scss";
+import { useTranslation } from 'react-i18next';
 
 function PersonalData() {
   const [state, setState] = useState({
@@ -12,31 +13,31 @@ function PersonalData() {
 
   const userData = useSelector((state) => state.userDuck);
 
-  console.log("personal data", userData);
+  const { t } = useTranslation()
 
   function toggleForm() {
     setState({ showForm: !state.showForm });
   }
   return (
     <div className='personalData'>
-      <h1>I tuoi Dati Personali</h1>
-      <h2>Dati Anagrafici</h2>
+      <h1>{ t("personalData.personalData") }</h1>
+      <h2>{ t("personalData.personalDetails") }</h2>
 
       <ul>
         <li>
-          Nome:
+          { t("personalData.name") }:
           <span>
             { userData?.name }
           </span>
         </li>
         <li>
-          Nome:
+          { t("personalData.lastName") }:
           <span>
             { userData?.surname }
           </span>
         </li>
         <li>
-          Data di nascita:
+          { t("personalData.birdthDate") }:
           <span>
             { `${userData?.birthDate?.dayOfMonth
               ?.toString()
@@ -47,9 +48,9 @@ function PersonalData() {
         </li>
       </ul>
 
-      <h2>Dati Account</h2>
+      <h2>{ t("personalData.accountData") }</h2>
       <ul>
-        <li>Email:
+        <li>{ t("personalData.email") }:
           <span className='personalData__email'>
             { userData?.email }
           </span>

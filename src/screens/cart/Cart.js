@@ -14,6 +14,7 @@ import {
 import { getProduct } from "../../services/productServices";
 
 import imageProduct from "../../assets/images/singleProduct/shoe1.jpeg";
+import Seo from "../../components/functionalComponents/Seo";
 
 const cartList = {
   items: [
@@ -162,6 +163,11 @@ function Cart() {
 
   return (
     <div className="cart">
+      <Seo
+        title="Carrello"
+        description="Gestione del carrello"
+        content="e-commerce"
+      />
       <CartHeader
         quantity={state.cart.info.numberItems}
         totalPrice={Number(state.cart.info.totalPrice).toFixed(2)}

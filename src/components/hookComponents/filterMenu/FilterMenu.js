@@ -7,7 +7,8 @@ import Slider from '@mui/material/Slider';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
-function FilterMenu() {
+function FilterMenu(props) {
+    console.log("PROPS IN FILTER MENU", props);
     const minMax = [20, 1000];
     const sizes = ['m38', 'm39', 'm40', 'm41', 'm42'];
     const categories = ['sneakers', 'stivali', 'sliders', 'sandali', 'infradito', 'eleganti'];
@@ -224,7 +225,7 @@ function FilterMenu() {
     function mapCategories(item, key) {
         return <div className="item" key={ `${key}-${Math.random()}` }>
             <input type={ 'checkbox' } id={ `category-${key + 1}` } value={ item } onChange={ handleCategoryChange } checked={ state.filters.category === item ? true : false } />
-            <label className="label" htmlFor={ `category-${key + 1}` }>{ item }</label>
+            <label className="label" htmlFor={ `category-${key + 1}` }>{ item.category }</label>
         </div>
     }
 
@@ -328,7 +329,7 @@ function FilterMenu() {
                         { state.active === "category" && <KeyboardArrowUpIcon data-filter="category" fontSize={ 'large' } /> }
                     </header>
                     <div className="sub-item">
-                        { state.active === "category" && categories.map(mapCategories) }
+                        { state.active === "category" && props.categories.map(mapCategories) }
                     </div>
                 </div>
 
