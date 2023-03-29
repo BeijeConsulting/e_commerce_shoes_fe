@@ -10,6 +10,7 @@ import { setUserCredentials } from "../../../redux/ducks/userDuck";
 import { useNavigate } from "react-router-dom";
 import { getLocalStorage, setLocalStorage } from "../../../utils/localStorageUtils";
 import i18n from '../../../assets/translations/i18n';
+import Seo from '../../functionalComponents/Seo';
 
 function LoginForm() {
   const dispatch = useDispatch();
@@ -78,6 +79,11 @@ function LoginForm() {
 
   return (
     <form className="login-form" onSubmit={ handleSubmit(onSubmit, onError) }>
+      <Seo
+        title="LogIn"
+        description="LogIn"
+        content="e-commerce"
+      />
       <div className="login-form__input-container">
         <InputTextField
           inputName="email"

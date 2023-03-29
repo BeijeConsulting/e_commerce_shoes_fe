@@ -1,12 +1,12 @@
 import React from "react";
 import "./productCard.scss";
 import { Link } from "react-router-dom";
+import i18n from '../../../assets/translations/i18n';
 
 function ProductCard(props) {
-
   return (
     // <Link to={ "/product/" + props.idProduct + `/${t("lang")}` }>
-    <Link to={ "/product/" + props.idProduct }>
+    <Link to={ "product/" + props.idProduct }>
       <article className="product-card">
         <picture>
           {/* <source media="(min-width:650px)" srcset="img_pink_flowers.jpg" />

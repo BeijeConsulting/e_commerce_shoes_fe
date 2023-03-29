@@ -127,11 +127,6 @@ function Header() {
     navigate(`/${lang}/`);
   }
 
-  function goToCart() {
-    if (cartQuantity === 0) return;
-    navigate("/cart");
-  }
-
   function searchProducts(e) {
     if (e.key.toLowerCase() !== "enter") return;
     if (!e.target.value) return;
@@ -206,7 +201,7 @@ function Header() {
             </div>
           </motion.div>
           <div className="main-header__user-icons">
-            <div onClick={ goToCart }>
+            <div >
               <CartNavMenu
                 name={ "Nike Zoom AIr" }
                 brand={ "Nike" }

@@ -7,13 +7,11 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import i18n from '../../../assets/translations/i18n';
 import SwitchLanguage from '../../hookComponents/switchLanguage/SwitchLanguage';
 
 
 function Footer() {
     const { t } = useTranslation();
-    const lang = i18n.language.slice(0, 2)
 
     const menu = [
         {
@@ -21,11 +19,11 @@ function Footer() {
             list: [
                 {
                     anchor: t("footer.whoWeAre"),
-                    path: `user-info`,
+                    path: `customer-care`,
                 },
                 {
                     anchor: 'Login',
-                    path: '/identity/',
+                    path: '/identity',
                 },
                 {
                     anchor: t("footer.registration"),
@@ -38,7 +36,7 @@ function Footer() {
             list: [
                 {
                     anchor: 'Privacy policy',
-                    path: '/customer-care/privacy',
+                    path: '/customer-care',
                 },
                 {
                     anchor: 'Cookie policy',
@@ -67,7 +65,7 @@ function Footer() {
                 },
                 {
                     anchor: t("footer.returns"),
-                    path: '/customer-care/returns',
+                    path: 'customer-care/returns',
                 },
             ]
         }

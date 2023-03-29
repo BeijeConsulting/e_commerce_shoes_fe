@@ -10,6 +10,7 @@ import { getLocalStorage } from '../../utils/localStorageUtils';
 // SCSS
 import "./adressList.scss";
 import { useTranslation } from 'react-i18next';
+import Seo from '../../components/functionalComponents/Seo';
 
 function AdressList(props) {
   const userData = useSelector((state) => state.userDuck);
@@ -27,6 +28,11 @@ function AdressList(props) {
   function mapList(data, i) {
     return (
       <div className='address__container' key={ data.id }>
+        <Seo
+          title="I tuoi indirizzi"
+          description="Gestione degli indirizzi personali"
+          content="e-commerce"
+        />
         <h3>{ t("addresses.address") } n. { i + 1 }</h3>
         <ul>
           <li>

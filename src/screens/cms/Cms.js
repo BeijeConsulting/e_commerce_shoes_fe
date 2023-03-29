@@ -28,12 +28,6 @@ function Cms() {
 
   return (
     <div className="cms">
-      <Seo
-        lang="it"
-        title="Pagina principale"
-        description="Descrizione pagina principale"
-        content="e-commerce"
-      />
 
       <Header />
 

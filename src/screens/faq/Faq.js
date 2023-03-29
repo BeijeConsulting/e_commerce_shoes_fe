@@ -7,6 +7,7 @@ import "./faq.scss";
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useTranslation } from 'react-i18next';
+import Seo from '../../components/functionalComponents/Seo';
 
 
 function Faq(props) {
@@ -38,6 +39,11 @@ function Faq(props) {
     function mapList(data, i) {
         return (
             <div className='accordion' key={ i }>
+                <Seo
+                    title="FAQ"
+                    description="Faq"
+                    content="e-commerce"
+                />
                 <Accordion sx={ { boxShadow: "none" } }>
                     <AccordionSummary
                         expandIcon={ <ExpandMoreIcon /> }

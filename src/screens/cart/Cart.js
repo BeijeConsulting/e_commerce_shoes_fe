@@ -14,6 +14,7 @@ import {
 import { getProduct } from "../../services/productServices";
 
 import imageProduct from "../../assets/images/singleProduct/shoe1.jpeg";
+import Seo from '../../components/functionalComponents/Seo';
 
 const cartList = {
   items: [
@@ -130,18 +131,18 @@ function Cart() {
 
   function renderCartList(item) {
     return (
-      <li key={item.id}>
+      <li key={ item.id }>
         <ProductCartItem
-          handleList={updateCartList}
-          handleDelete={deleteItem}
-          id={item.id}
-          productName={item.name}
-          brand={item.brand}
-          price={Number(item.sellingItemTotalPrice).toFixed(2)}
-          quantity={item.quantity}
-          color={item.color}
-          size={item.size}
-          img={item.image}
+          handleList={ updateCartList }
+          handleDelete={ deleteItem }
+          id={ item.id }
+          productName={ item.name }
+          brand={ item.brand }
+          price={ Number(item.sellingItemTotalPrice).toFixed(2) }
+          quantity={ item.quantity }
+          color={ item.color }
+          size={ item.size }
+          img={ item.image }
         />
       </li>
     );
@@ -149,17 +150,22 @@ function Cart() {
 
   return (
     <div className="cart">
+      <Seo
+        title="Carrello"
+        description="Gestione del carrello"
+        content="e-commerce"
+      />
       <CartHeader
-        quantity={state.cart.info.numberItems}
-        totalPrice={Number(state.cart.info.totalPrice).toFixed(2)}
+        quantity={ state.cart.info.numberItems }
+        totalPrice={ Number(state.cart.info.totalPrice).toFixed(2) }
       />
       <div className="cart__content">
         <div className="cart__content__left">
-          <ul>{state.cart.items.map(renderCartList)}</ul>
+          <ul>{ state.cart.items.map(renderCartList) }</ul>
           <CouponInput />
         </div>
         <div className="cart__content__right">
-          <RecapCart total={Number(state.cart.info.totalPrice).toFixed(2)} />
+          <RecapCart total={ Number(state.cart.info.totalPrice).toFixed(2) } />
           <CartInfoBox />
         </div>
       </div>

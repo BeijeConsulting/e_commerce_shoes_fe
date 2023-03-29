@@ -34,7 +34,7 @@ function CartNavMenu(props) {
     const cartQuantity = useSelector((state) => state.userDuck.cartItems);
 
     function goToCart() {
-        navigate("/cart")
+        navigate("cart")
     }
 
     const dataProducts = [

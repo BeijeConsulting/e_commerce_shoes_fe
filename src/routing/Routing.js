@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Cms from "../screens/cms/Cms";
 import Identity from "../screens/identity/Identity";
 import SignupForm from "../components/hookComponents/signupForm/SignupForm";
@@ -21,10 +21,7 @@ import OrderList from "../screens/orderList/OrderList";
 
 import Checkout from "../screens/checkout/Checkout";
 import Faq from '../screens/faq/Faq';
-import AboutUs from "../screens/aboutUs/AbousUs";
-import Terms from "../screens/terms/Terms";
-import Privacy from "../screens/privacy/Privacy";
-import Cookie from "../screens/cookie/Cookie";
+
 
 
 function Routing() {
@@ -32,16 +29,6 @@ function Routing() {
   function RedirectToLanguage() {
     return <Navigate replace to={ "it/" } />
   }
-
-  // function ToLanguage() {
-  //   // const { i18n } = useTranslation();
-  //   const { pathname } = useLocation();
-
-  //   console.log("PATHNAME ROUTING", pathname)
-
-  //   // return <Navigate replace to={ `it/${pathname}` } />
-  // }
-
 
   return (
     <Routes>
@@ -55,6 +42,7 @@ function Routing() {
         <Route path="user-info" element={ <UserInfo /> }>
           <Route index element={ <PersonalData /> } />
           <Route path="address-list" element={ <AddressList /> } />
+          <Route path="order-list" element={ <OrderList /> } />
         </Route>
 
         {/* Products list */ }

@@ -8,6 +8,7 @@ import "./customerCare.scss"
 
 // i18Next
 import { useTranslation } from 'react-i18next';
+import Seo from '../../components/functionalComponents/Seo';
 
 
 function CustomerCare() {
@@ -33,9 +34,9 @@ function CustomerCare() {
         },
     ]
 
-    function mapList(data) {
+    function mapList(data, i) {
         return (
-            <li>
+            <li key={ i }>
                 <NavLink to={ data.link }
                     className={ `customer__list ${location.pathname === `customerCare/${data.link}` ? "active" : ""}` }
                 >
@@ -47,23 +48,29 @@ function CustomerCare() {
 
     return (
         <div className='customer'>
-            {/* Parte fissa */ }
-            <div>
-                <div className='customer__header'>
-                    <h2>{ t("customerCare.hi") },</h2>
-                    <h3>{ t("customerCare.help") }?</h3>
-                    <p>Nella sezione FAQ puoi trovare più velocemente la risposta alle tue domande. Inoltre, potrai seguire la tua spedizione oppure avere tutte le informazioni necessarie sui resi e rimborsi.</p>
-                </div>
-                <div className='customer__content'>
+            <Seo
+                title="Cutomer care"
+                description="E-commerce di scarpe italiane"
+                content="e-commerce"
+            />
+            <header>
+                <h2>Ciao,<br />come possiamo aiutarti?
+                </h2>
+                <p>Nella sezione FAQ puoi trovare più velocemente la risposta alle tue domande. Inoltre, potrai seguire la tua spedizione oppure avere tutte le informazioni necessarie sui resi e rimborsi.</p>
+            </header>
 
-                    <div className='customer__advice'>
-                        <h2>{ t("customerCare.forYou") }</h2>
+            <div className='customer__content'>
+                <div className='customer__advice'>
+                    <h2>Servizio Clienti</h2>
+                    <ul>
                         { data.map(mapList) }
-                    </div>
+                    </ul>
+                </div>
+                <div className='customer__outlet'>
+                    <Outlet />
                 </div>
             </div>
         </div>
-
     )
 }
 

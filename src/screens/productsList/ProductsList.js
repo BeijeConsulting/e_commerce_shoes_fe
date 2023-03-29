@@ -5,6 +5,7 @@ import ProductGridLayout from '../../components/functionalComponents/productGrid
 import FilterMenu from "../../components/hookComponents/filterMenu/FilterMenu";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import Seo from '../../components/functionalComponents/Seo';
 
 function ProductsList() {
     const location = useLocation();
@@ -67,6 +68,11 @@ function ProductsList() {
 
     return (
         <>
+            <Seo
+                title="Prodotti"
+                description="Prodotti"
+                content="e-commerce"
+            />
             <FilterMenu categories={ state.categories } />
             <ProductGridLayout>
                 { state.products?.map(mapProducts) }

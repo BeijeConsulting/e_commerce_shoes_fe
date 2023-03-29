@@ -18,13 +18,13 @@ function PreFooter(props) {
                 </Link>
             </div>
             <div className='preFooter__info'>
-                <Link to={ "/customer-care/contacts" }>
+                <Link to={ "customer-care/contacts" }>
                     <GoLocation />
                     <p>#{ t("preFooter.contacts") }</p>
                 </Link>
             </div>
             <div className='preFooter__info'>
-                <Link to={ "/customer-care/" }>
+                <Link to={ "customer-care" }>
                     <IoIosHelpBuoy />
                     <p>#{ t("preFooter.help") }</p>
                 </Link>

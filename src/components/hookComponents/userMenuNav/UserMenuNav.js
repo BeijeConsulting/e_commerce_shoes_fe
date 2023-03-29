@@ -52,6 +52,17 @@ function UserMenuNav(props) {
         handleClose()
     }
 
+    function conditionalGoToCart() {
+        console.log("islogged", userIsLogged);
+        if (userIsLogged) {
+            navigate("user-info/order-list");
+        } else {
+            navigate("/identity");
+        }
+
+        handleClose()
+    }
+
     function goToRegistartion() {
         navigate("/identity/signup")
     }
@@ -69,6 +80,10 @@ function UserMenuNav(props) {
 
         clearLocalStorage()
         navigate(`/${lang}/`)
+    }
+
+    function goToOrders() {
+        navigate("user-info/order-list")
     }
 
 
@@ -123,7 +138,7 @@ function UserMenuNav(props) {
                             </p>
                         }
                     </MenuItem>
-                    <MenuItem onClick={ conditionalGoTo }>
+                    <MenuItem onClick={ conditionalGoToCart }>
                         {
                             <p
                                 className='item'>

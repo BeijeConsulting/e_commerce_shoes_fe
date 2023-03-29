@@ -9,7 +9,7 @@ import { getLocalStorage } from '../../utils/localStorageUtils';
 // SCSS
 import "./userInfo.scss";
 import { useTranslation } from 'react-i18next';
-import i18n from '../../assets/translations/i18n';
+import Seo from '../../components/functionalComponents/Seo';
 
 function UserInfo(props) {
   const navigate = useNavigate();
@@ -23,12 +23,13 @@ function UserInfo(props) {
     if (!localStorage) navigate("/identity")
   }, [])
 
-  const lang = i18n.language
-  const { pathname } = useLocation()
-  console.log(pathname)
-
   return (
     <div className='userInfo'>
+      <Seo
+        title="Account Personale"
+        description="Faq"
+        content="e-commerce"
+      />
       <h1>IL MIO ACCOUNT</h1>
 
       {/* Form */ }

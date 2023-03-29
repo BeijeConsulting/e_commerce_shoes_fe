@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateCartQuantity } from "../../redux/ducks/productCartDuck";
 import { getProduct } from "../../services/productServices";
 import { useParams } from "react-router-dom";
+import Seo from '../../components/functionalComponents/Seo';
 
 function SingleProduct() {
   const params = useParams();
@@ -44,28 +45,33 @@ function SingleProduct() {
 
   return (
     <>
+      <Seo
+        title={ state.product.name }
+        description="Gestione del carrello"
+        content="e-commerce"
+      />
       <div className="single-product">
         <header>
           <div className="header__container">
-            <p className="header__category">{state.product.category}</p>
-            <p className="header__price">{state.product.listed_price}€</p>
+            <p className="header__category">{ state.product.category }</p>
+            <p className="header__price">{ state.product.listed_price }€</p>
           </div>
-          <h2 className="header__brand">{state.product.brand}</h2>
-          <p className="header__name">{state.product.name}</p>
+          <h2 className="header__brand">{ state.product.brand }</h2>
+          <p className="header__name">{ state.product.name }</p>
         </header>
 
         <div className="info__container">
           <SingleProductSlider />
 
           <div className="info">
-            {/* DA SISTEMARE */}
+            {/* DA SISTEMARE */ }
             <p className="info__p">Input Select taglie</p>
             <InfoProductBox />
 
             <Button
-              handleClick={updateCart}
-              label={"AGGIUNGI AL CARRELLO"}
-              buttonStyle={"default-button"}
+              handleClick={ updateCart }
+              label={ "AGGIUNGI AL CARRELLO" }
+              buttonStyle={ "default-button" }
             />
             <p className="info__p">Tabella Taglie Link</p>
             <AccordionItem />

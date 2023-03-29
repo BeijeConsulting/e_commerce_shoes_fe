@@ -28,7 +28,7 @@ export const switchLang = async (lang) => {
   await i18n.changeLanguage(lang);
 }
 
-console.log(i18n);
+// console.log(i18n);
 
 export default i18n;
 

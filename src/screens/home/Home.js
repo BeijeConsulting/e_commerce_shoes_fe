@@ -13,13 +13,19 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { getLocalStorage } from '../../utils/localStorageUtils';
 import { useSelector } from 'react-redux';
 import SwitchLanguage from '../../components/hookComponents/switchLanguage/SwitchLanguage';
+import Seo from '../../components/functionalComponents/Seo';
 
 
 function Home() {
 
   return (
     <>
-
+      <Seo
+        // lang="it"
+        title="Belle Scarpe"
+        description="E-commerce di scarpe italiane"
+        content="e-commerce"
+      />
       <SliderHomepage
         pagination={ true }
         navigation={ true }
