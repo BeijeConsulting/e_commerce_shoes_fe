@@ -1,23 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./loginForm.scss";
 import { useForm } from "react-hook-form";
 import Button from "../../functionalComponents/button/Button";
 import InputTextField from "../../functionalComponents/inputTextField/InputTextField";
 import InputPasswordField from "../inputPasswordField/InputPasswordField";
-import { signin, getUser, getUserAuth } from "../../../services/authServices";
-import { useDispatch, useSelector } from "react-redux";
+import { signin, getUser } from "../../../services/authServices";
+import { useDispatch } from "react-redux";
 import { setUserCredentials } from "../../../redux/ducks/userDuck";
 import { useNavigate } from "react-router-dom";
-import { getLocalStorage, setLocalStorage } from "../../../utils/localStorageUtils";
+import { setLocalStorage } from "../../../utils/localStorageUtils";
 import i18n from '../../../assets/translations/i18n';
 import Seo from '../../functionalComponents/Seo';
+import { setToken } from '../../../redux/ducks/tokenDuck';
 
 function LoginForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const lang = i18n.language.slice(0, 2)
-  // const lang = localStorage.getItem("currentLanguage")
+
 
   const [state, setState] = useState({
     invalidEmail: false,
@@ -30,9 +31,6 @@ function LoginForm() {
   const passwordReg = /^.{2,}$/;
 
   const onSubmit = async (data) => {
-    console.log("Success");
-    console.log(data);
-
     const response = await signin({
       email: data.email,
       password: data.password,
@@ -49,6 +47,13 @@ function LoginForm() {
           isLogged: true,
         })
       );
+
+      dispatch(
+        setToken({
+          token: response.data.token,
+          refreshToken: response.data.refreshToken
+        })
+      )
 
       setLocalStorage("token", response.data.token);
       setLocalStorage("refreshToken", response.data.refreshToken);

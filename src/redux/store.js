@@ -5,12 +5,14 @@ import logger from "redux-logger";
 import productCartDuck from "./ducks/productCartDuck";
 import userDuck from "./ducks/userDuck";
 import languageDuck from './ducks/languageDuck';
+import tokenDuck from './ducks/tokenDuck';
 
 const reducer = combineReducers({
   // here we will be adding reducers
   productCartDuck,
   userDuck,
-  languageDuck
+  languageDuck,
+  tokenDuck
 });
 
 const store = configureStore({

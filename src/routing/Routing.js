@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Cms from "../screens/cms/Cms";
 import Identity from "../screens/identity/Identity";
@@ -21,10 +21,61 @@ import OrderList from "../screens/orderList/OrderList";
 
 import Checkout from "../screens/checkout/Checkout";
 import Faq from '../screens/faq/Faq';
+import { useDispatch } from 'react-redux';
+import { getLocalStorage } from '../utils/localStorageUtils';
+import { setToken } from '../redux/ducks/tokenDuck';
+import { setUserCredentials } from '../redux/ducks/userDuck';
+import { getUserAuth } from '../services/authServices';
 
 
 
 function Routing() {
+  const dispatch = useDispatch()
+  const token = getLocalStorage("token");
+  const refreshToken = getLocalStorage("refreshToken");
+
+
+  // check if there is token
+  useEffect(() => {
+    async function getUserInfo() {
+      const response = await getUserAuth(token);
+
+      if (response.status === 200) {
+        dispatch(
+          setUserCredentials({
+            isLogged: true,
+            name: response.data.name,
+            surname: response.data.surname,
+            email: response.data.email,
+            adresses: [...response.data.addresses],
+            birthDate: {
+              dayOfMonth: response.data.birthDate.dayOfMonth,
+              monthValue: response.data.birthDate.monthValue,
+              month: response.data.birthDate.month,
+              year: response.data.birthDate.year,
+            },
+            cartItems: response.data.cartItems,
+            wishlistItems: response.data.wishlistItems,
+          })
+        );
+      }
+    }
+
+    if (token) {
+      dispatch(
+        setToken({
+          token,
+          refreshToken
+        })
+      )
+      getUserInfo();
+    }
+  }, []);
+
+
+
+
+  // console.log("TOKEN", isTokenExist)
 
   function RedirectToLanguage() {
     return <Navigate replace to={ "it/" } />

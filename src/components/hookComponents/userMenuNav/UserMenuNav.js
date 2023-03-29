@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserCredentials } from '../../../redux/ducks/userDuck';
+import { removeUserCredentials, setUserCredentials } from '../../../redux/ducks/userDuck';
 // Router
 import { useNavigate } from 'react-router-dom';
 // Utils
@@ -18,9 +18,13 @@ import { Avatar, Divider, IconButton, ListItemIcon, Menu, MenuItem } from '@mui/
 import "./userMenuNav.scss";
 import i18n from '../../../assets/translations/i18n';
 import { useTranslation } from 'react-i18next';
+import { removeToken } from '../../../redux/ducks/tokenDuck';
 
 function UserMenuNav(props) {
     const [anchorEl, setAnchorEl] = useState(null);
+
+    const token = useSelector((state) => state.tokenDuck.token)
+    const refreshToken = useSelector((state) => state.tokenDuck.refreshToken)
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -68,15 +72,21 @@ function UserMenuNav(props) {
     }
 
     async function userLogOut() {
-        const response = await signOut()
+        const response = await signOut(refreshToken, token)
         console.log("responeToken", response);
 
         dispatch(
-            setUserCredentials(
-                {
-                    isLogged: false,
-                }
-            ))
+            removeUserCredentials()
+        )
+
+
+        dispatch(
+            removeToken()
+        )
+
+
+
+
 
         clearLocalStorage()
         navigate(`/${lang}/`)

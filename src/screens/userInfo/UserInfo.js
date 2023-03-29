@@ -1,27 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 
 // Router
-import { Outlet, useNavigate, useLocation } from "react-router-dom";
-import { NavLink } from "react-router-dom";
+import { Outlet, useNavigate, useLocation, NavLink } from "react-router-dom";
 // Utils
-import { getLocalStorage } from '../../utils/localStorageUtils';
 // SCSS
 import "./userInfo.scss";
 import { useTranslation } from 'react-i18next';
 import Seo from '../../components/functionalComponents/Seo';
+import { useSelector } from 'react-redux';
 
 function UserInfo(props) {
   const navigate = useNavigate();
   const location = useLocation();
+  const token = useSelector((state) => state.tokenDuck.token);
 
   const { t } = useTranslation()
 
   // if user is not logged --> go to identityScreen 
   useEffect(() => {
-    const localStorage = getLocalStorage("token")
-    if (!localStorage) navigate("/identity")
-  }, [])
+    if (!token) navigate("/identity")
+  }, [token])
 
   return (
     <div className='userInfo'>
@@ -60,6 +59,7 @@ function UserInfo(props) {
     </div>
   );
 }
+
 
 UserInfo.defaultProps = {};
 

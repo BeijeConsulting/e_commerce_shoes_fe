@@ -9,6 +9,17 @@ export const setUserCredentials = (obj) => (dispatch) => {
   }
 };
 
+export const removeUserCredentials = () => (dispatch) => {
+  try {
+    return dispatch(removeUserCredentialsAction());
+  } catch (err) {
+    return console.log(err);
+  }
+};
+
+
+
+
 // Slice
 const userDuck = createSlice({
   name: "user",
@@ -33,10 +44,20 @@ const userDuck = createSlice({
       state.cartItems = action.payload.cartItems;
       state.wishlistItems = action.payload.wishlistItems;
     },
+    removeUserCredentialsAction: (state) => {
+      state.isLogged = false;
+      state.name = "";
+      state.surname = "";
+      state.email = "";
+      state.adresses = [];
+      state.birthDate = {};
+      state.cartItems = 0;
+      state.wishlistItems = 0;
+    },
   },
 });
 
 export default userDuck.reducer;
 
 // Actions
-const { setUserCredentialsAction } = userDuck.actions;
+const { setUserCredentialsAction, removeUserCredentialsAction } = userDuck.actions;

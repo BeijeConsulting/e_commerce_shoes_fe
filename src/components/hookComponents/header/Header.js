@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+
 import "./header.scss";
 
 import MobileMenu from "../mobileMenu/MobileMenu";
@@ -9,13 +9,10 @@ import DesktopMenu from "../desktopMenu/DesktopMenu";
 import { motion } from "framer-motion";
 
 // 18n
-import { use } from "i18next";
 // API
-import { getUserAuth } from "../../../services/authServices";
 // UTILS
-import { getLocalStorage } from "../../../utils/localStorageUtils";
 // REDUX
-import { setUserCredentials } from "../../../redux/ducks/userDuck";
+
 // MUI TextField
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -25,15 +22,14 @@ import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
 import UserMenuNav from '../userMenuNav/UserMenuNav';
 import CartNavMenu from '../cartNavMenu/CartNavMenu';
-import SwitchLanguage from '../switchLanguage/SwitchLanguage';
 import i18n from '../../../assets/translations/i18n';
 
 
 function Header() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
-  const cartQuantity = useSelector((state) => state.userDuck.cartItems);
+
+
   const lang = i18n.language.slice(0, 2)
 
   const menu = [
@@ -69,40 +65,6 @@ function Header() {
     fullWidthInput: false,
     categories: ["camminata", "trail running", "basket", "sneakers"],
   });
-
-  // check if there is token
-  useEffect(() => {
-    const token = getLocalStorage("token");
-    if (!token) return;
-
-    async function getUserInfo() {
-      const response = await getUserAuth();
-
-      if (response.status === 200) {
-        dispatch(
-          setUserCredentials({
-            isLogged: true,
-            name: response.data.name,
-            surname: response.data.surname,
-            email: response.data.email,
-            adresses: [...response.data.addresses],
-            birthDate: {
-              dayOfMonth: response.data.birthDate.dayOfMonth,
-              monthValue: response.data.birthDate.monthValue,
-              month: response.data.birthDate.month,
-              year: response.data.birthDate.year,
-            },
-            cartItems: response.data.cartItems,
-            wishlistItems: response.data.wishlistItems,
-          })
-        );
-      }
-    }
-
-    getUserInfo();
-  }, []);
-
-
 
   function toggleMobileMenu() {
     setState(function (prevState) {

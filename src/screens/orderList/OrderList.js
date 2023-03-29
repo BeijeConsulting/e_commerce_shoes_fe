@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { getOrderList } from "../../services/orderServices";
 import OrderListAccordion from "../../components/hookComponents/wishListAccordion/OrderListAccordion";
-import { getLocalStorage } from "../../utils/localStorageUtils";
+
 import { useSelector } from "react-redux";
 import Seo from '../../components/functionalComponents/Seo';
 
 function OrderList() {
   const userFirstName = useSelector((state) => state.userDuck.name);
   const userLastName = useSelector((state) => state.userDuck.surname);
+  const token = useSelector((state) => state.tokenDuck.token)
 
   const [state, setState] = useState({
     orderList: [],
@@ -16,8 +17,8 @@ function OrderList() {
 
   useEffect(() => {
     async function fetchData() {
-      // const token = getLocalStorage("token");
-      const response = await getOrderList();
+
+      const response = await getOrderList(token);
 
       if (response.status === 200) {
         setState({

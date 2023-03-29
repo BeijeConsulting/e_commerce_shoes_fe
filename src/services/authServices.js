@@ -25,11 +25,8 @@ export async function updateUser(obj) {
   return { status: response?.status, data: response?.data };
 }
 
-export async function signOut() {
-  const refreshTokenStorage = getLocalStorage("refreshToken")
-  const tokenStorage = getLocalStorage("token")
-
-  const response = await postDataAuth("/sign_out", { refreshToken: refreshTokenStorage }, tokenStorage);
+export async function signOut(refreshToken, SECRET) {
+  const response = await postDataAuth("/sign_out", { refreshToken: refreshToken }, SECRET);
 
   return { status: response?.status, data: response?.data };
 }
@@ -48,9 +45,8 @@ export async function getUser(SECRET) {
 }
 
 // GET user data with Authentication
-export async function getUserAuth() {
-  const tokenStorage = getLocalStorage("token")
-  const response = await getDataAuth("/user", tokenStorage);
+export async function getUserAuth(SECRET) {
+  const response = await getDataAuth("/user", SECRET);
 
   return { status: response?.status, data: response?.data };
 }

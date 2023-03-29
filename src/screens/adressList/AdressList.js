@@ -6,23 +6,23 @@ import { useSelector } from "react-redux";
 // Router
 import { useNavigate } from 'react-router-dom';
 // Utils
-import { getLocalStorage } from '../../utils/localStorageUtils';
+
 // SCSS
 import "./adressList.scss";
 import { useTranslation } from 'react-i18next';
 import Seo from '../../components/functionalComponents/Seo';
 
 function AdressList(props) {
+  // const token = useSelector((state) => state.tokenDuck.token)
   const userData = useSelector((state) => state.userDuck);
   const navigate = useNavigate()
 
   const { t } = useTranslation()
 
   // if user is not logged --> go to identityScreen 
-  useEffect(() => {
-    const localStorage = getLocalStorage("token")
-    if (!localStorage) navigate("/identity")
-  }, [])
+  /* useEffect(() => {
+    if (!token) navigate("/identity")
+  }, []) */
 
 
   function mapList(data, i) {

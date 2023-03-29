@@ -1,9 +1,9 @@
-import { getData, getDataAuth, postData, putData } from "../genericAxios/genericAxios";
-import { getLocalStorage } from '../utils/localStorageUtils';
+import { getDataAuth, postData, putData } from "../genericAxios/genericAxios";
 
-export async function getOrderList() {
-  const tokenStorage = getLocalStorage("token")
-  const response = await getDataAuth("/orders/order_list", tokenStorage);
+
+export async function getOrderList(SECRET) {
+
+  const response = await getDataAuth("/orders/order_list", SECRET);
 
   return { status: response.status, data: response.data };
 }
