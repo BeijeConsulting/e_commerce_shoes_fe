@@ -65,6 +65,15 @@ function FilterMenu(props) {
             brands: brands.data,
             showType,
             showCategory,
+            active: null,
+            filters: {
+                orderBy: null,
+                price: null,
+                type: null,
+                category: null,
+                brand: null,
+                color: null,
+            }
         })
     };
 

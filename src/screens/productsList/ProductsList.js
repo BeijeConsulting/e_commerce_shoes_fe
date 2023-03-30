@@ -27,41 +27,38 @@ function ProductsList() {
     }, [pathname, t]);
 
 
-    async function fetchProducts() {
+    async function fetchProducts(obj = null) {
         let type = null;
         let category = null;
         let result = null;
+        let query = "";
 
         const pathToArray = pathname.split("/").filter(item => item !== "");
 
         if (pathToArray.length === 3) {
-            if (pathToArray[2] === "new") {
-                result = await getNewProductsList(0);
-            } else {
+            if (pathToArray[2] !== "new") {
                 type = pathToArray[2].slice(0, 1);
-                result = await getProductsList(0, `?type=${type}`);
+                query = `?type=${type}`;
             }
         } else if (pathToArray.length === 4) {
             type = pathToArray[2].slice(0, 1);
             category = pathToArray[3].split("-").join("%20");
-            result = await getProductsList(0, `?type=${type}&category=${category}`);
+            query = `?type=${type}&category=${category}`;
         }
+
+        if (obj) {
+            if (obj.type === null) obj.type = type;
+            if (obj.category === null) obj.category = category;
+            query = getQuery(obj);
+        }
+
+        result = await getProductsList(0, query);
 
         setState({
             ...state,
             products: result.data.products,
         })
     };
-
-    async function fetchFilteredProducts(obj) {
-        const query = getQuery(obj);
-        const result = await getProductsList(0, query);
-
-        setState({
-            ...state,
-            products: result.data.products,
-        })
-    }
 
     function getQuery(obj) {
         let query = "?";
@@ -97,7 +94,7 @@ function ProductsList() {
         <div className="products-list">
             <FilterMenu
                 types={types}
-                filterFunc={fetchFilteredProducts}
+                filterFunc={fetchProducts}
             />
             <ProductGridLayout>
                 {state.products?.map(mapProducts)}
