@@ -175,6 +175,7 @@ function ChangeUserDataForm(props) {
           labelStyle="default-label  "
           inputStyle={ `default-input margin-top-small` }
         />
+
         <InputTextField
           inputName="lastName"
           defaultValueInput={ userInfo.surname }

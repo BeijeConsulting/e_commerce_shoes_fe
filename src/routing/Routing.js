@@ -46,18 +46,13 @@ function Routing() {
         dispatch(
           setUserCredentials({
             isLogged: true,
-            name: response.data.name,
-            surname: response.data.surname,
+            name: response.data.first_name,
+            surname: response.data.last_name,
             email: response.data.email,
             adresses: [...response.data.addresses],
-            birthDate: {
-              dayOfMonth: response.data.birthDate.dayOfMonth,
-              monthValue: response.data.birthDate.monthValue,
-              month: response.data.birthDate.month,
-              year: response.data.birthDate.year,
-            },
-            cartItems: response.data.cartItems,
-            wishlistItems: response.data.wishlistItems,
+            birthDate: response.data.birth_date,
+            cartItems: response.data.cart_items,
+            wishlistItems: response.data.wish_list_item,
           })
         );
       }

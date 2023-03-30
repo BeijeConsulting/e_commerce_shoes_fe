@@ -44,18 +44,13 @@ function LoginForm() {
 
       dispatch(
         setUserCredentials({
-          name: user.data.name,
-          surname: user.data.surname,
+          name: user.data.first_name,
+          surname: user.data.last_name,
           email: user.data.email,
           adresses: [...user.data.addresses],
-          birthDate: {
-            dayOfMonth: user.data.birthDate.dayOfMonth,
-            monthValue: user.data.birthDate.monthValue,
-            month: user.data.birthDate.month,
-            year: user.data.birthDate.year,
-          },
-          cartItems: user.data.cartItems,
-          wishListItems: user.data.wishListItems,
+          birthDate: user.data.birth_date,
+          cartItems: user.data.cart_items,
+          wishListItems: user.data.wish_list_item,
           isLogged: true,
         })
       );

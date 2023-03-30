@@ -16,7 +16,7 @@ function PersonalData() {
   }
 
   const userData = useSelector((state) => state.userDuck);
-
+  console.log("USERDATA", userData);
   const { t } = useTranslation()
 
 
@@ -41,11 +41,7 @@ function PersonalData() {
         <li>
           { t("personalData.birdthDate") }:
           <span>
-            { `${userData?.birthDate?.dayOfMonth
-              ?.toString()
-              ?.padStart(2, "0")}/${userData?.birthDate?.monthValue
-                ?.toString()
-                .padStart(2, "0")}/${userData?.birthDate?.year}` }
+            {/* { userData?.birthDate } */ }
           </span>
         </li>
       </ul>
