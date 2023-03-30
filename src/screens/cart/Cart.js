@@ -72,7 +72,7 @@ function Cart() {
         items: [],
       };
 
-      setLocalStorage("cart-list", initCartList);
+      // setLocalStorage("cart-list", initCartList);
       return structuredClone(initCartList);
     }
     return structuredClone(storage);

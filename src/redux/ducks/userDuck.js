@@ -17,13 +17,11 @@ export const removeUserCredentials = () => (dispatch) => {
   }
 };
 
-
-
-
 // Slice
 const userDuck = createSlice({
   name: "user",
   initialState: {
+    userId: null,
     name: "",
     surname: "",
     email: "",
@@ -35,6 +33,7 @@ const userDuck = createSlice({
   },
   reducers: {
     setUserCredentialsAction: (state, action) => {
+      state.userId = action.payload.userId;
       state.isLogged = action.payload.isLogged;
       state.name = action.payload.name;
       state.surname = action.payload.surname;
@@ -46,6 +45,7 @@ const userDuck = createSlice({
     },
     removeUserCredentialsAction: (state) => {
       state.isLogged = false;
+      state.userId = null;
       state.name = "";
       state.surname = "";
       state.email = "";
@@ -60,4 +60,5 @@ const userDuck = createSlice({
 export default userDuck.reducer;
 
 // Actions
-const { setUserCredentialsAction, removeUserCredentialsAction } = userDuck.actions;
+const { setUserCredentialsAction, removeUserCredentialsAction } =
+  userDuck.actions;

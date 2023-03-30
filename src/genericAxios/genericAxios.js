@@ -1,11 +1,11 @@
 import axios from "axios";
 import { PROPERTIES } from "../utils/properties";
 
-import { refreshToken } from '../services/authServices';
-import { getLocalStorage, setLocalStorage } from '../utils/localStorageUtils';
+import { refreshToken } from "../services/authServices";
+import { getLocalStorage, setLocalStorage } from "../utils/localStorageUtils";
 
-import store from "../redux/store"
-import { setToken } from '../redux/ducks/tokenDuck';
+import store from "../redux/store";
+import { setToken } from "../redux/ducks/tokenDuck";
 
 const axiosInstance = axios.create({
   baseURL: PROPERTIES.BASE_URL,
@@ -58,13 +58,12 @@ axiosInstanceToken.interceptors.response.use(
       if (updateToken.status === 200) {
         const { token, refreshToken } = updateToken.data;
 
-        store.dispatch(setToken(
-          {
+        store.dispatch(
+          setToken({
             token,
-            refreshToken
-          }
-        ))
-
+            refreshToken,
+          })
+        );
 
         setLocalStorage("token", token);
         setLocalStorage("refreshToken", refreshToken);
@@ -76,7 +75,6 @@ axiosInstanceToken.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
 
 export async function postData(resource, obj, header = null) {
   const response = await axiosInstance.post(resource, obj, {
@@ -113,6 +111,14 @@ export async function putData(resource, obj, header = null) {
 
   return response;
 }
+
+export async function putDataParams(resource, header = null) {
+  const response = await axiosInstance.put(resource, {
+    headers: header !== null ? { Authorization: `Bearer ${header}` } : null,
+  });
+
+  return response;
+}
 // PUT with Authentication
 export async function putDataAuth(resource, obj, header = null) {
   const response = await axiosInstanceToken.put(resource, obj, {
@@ -123,7 +129,7 @@ export async function putDataAuth(resource, obj, header = null) {
 }
 
 export async function deleteData(resource, header = null) {
-  const response = await axiosInstance.put(resource, {
+  const response = await axiosInstance.delete(resource, {
     headers: header !== null ? { Authorization: `Bearer ${header}` } : null,
   });
 
@@ -131,7 +137,7 @@ export async function deleteData(resource, header = null) {
 }
 // DELETE with Authentication
 export async function deleteDataAuth(resource, header = null) {
-  const response = await axiosInstance.put(resource, {
+  const response = await axiosInstance.delete(resource, {
     headers: header !== null ? { Authorization: `Bearer ${header}` } : null,
   });
 

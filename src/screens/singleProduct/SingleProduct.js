@@ -15,11 +15,16 @@ import {
   getLocalStorage,
 } from "../../utils/localStorageUtils";
 import Seo from "../../components/functionalComponents/Seo";
+import { addItemToCartList, getCartList } from "../../services/cartServices";
+import moment from "moment";
 
 function SingleProduct() {
   const params = useParams();
   const dispatch = useDispatch();
   const cartQuantity = useSelector((state) => state.userDuck.cartItems); //modificato lo state
+  const isLogged = useSelector((state) => state.userDuck.isLogged);
+  const userId = useSelector((state) => state.userDuck.userId);
+  const token = useSelector((state) => state.tokenDuck.token);
 
   const [state, setState] = useState({
     product: [],
@@ -27,13 +32,29 @@ function SingleProduct() {
   });
 
   let sizeValue = useRef(null);
+  let productDetailsId = useRef(null);
 
   useEffect(() => {
     fetchProduct();
+    async function userCartList(token) {
+      const response = await getCartList(token);
+      console.log(response);
+      // const resp = await addItemToCartList({
+      //   id: 2,
+      //   productDetailsId: 4,
+      //   quantity: 1,
+      //   userId: 61,
+      // });
+
+      // console.log(resp);
+    }
+
+    userCartList(token);
   }, []);
 
   async function fetchProduct() {
     const product = await axiosGetProduct();
+    console.log(product);
     setState({
       ...state,
       product,
@@ -65,6 +86,7 @@ function SingleProduct() {
         items: [
           {
             id: state.product.id.toString(),
+            productDetailsId: productDetailsId.current,
             name: state.product.name,
             brand: state.product.brand,
             quantity: 1,
@@ -92,6 +114,7 @@ function SingleProduct() {
         // console.log("item not found");
         localData.items.push({
           id: state.product.id.toString(),
+          productDetailsId: productDetailsId.current,
           name: state.product.name,
           brand: state.product.brand,
           quantity: 1,
@@ -102,9 +125,9 @@ function SingleProduct() {
           ),
         });
 
-        localData.info.numberItems = Number(localData.info.numberItems) + 1;
-        localData.info.totalPrice =
-          Number(Number(localData.info.totalPrice).toFixed(2)) +
+        localData.numberItems = Number(localData.numberItems) + 1;
+        localData.totalPrice =
+          Number(Number(localData.totalPrice).toFixed(2)) +
           Number(Number(state.product.listed_price).toFixed(2));
 
         // console.log("------------------");
@@ -121,9 +144,9 @@ function SingleProduct() {
           Number(Number(itemFound.sellingItemTotalPrice).toFixed(2)) +
           Number(Number(state.product.listed_price).toFixed(2));
 
-        localData.info.numberItems = localData.info.numberItems + 1;
-        localData.info.totalPrice =
-          Number(Number(localData.info.totalPrice).toFixed(2)) +
+        localData.numberItems = localData.numberItems + 1;
+        localData.totalPrice =
+          Number(Number(localData.totalPrice).toFixed(2)) +
           Number(Number(state.product.listed_price).toFixed(2));
 
         // console.log(
@@ -134,6 +157,16 @@ function SingleProduct() {
       }
     }
     // console.log(localData);
+    if (isLogged) {
+      const obj = {
+        id: state.product.id,
+        productDetailsId: productDetailsId.current,
+        quantity: 1,
+        userId: getLocalStorage("user-id"),
+      };
+      console.log(obj);
+      addItemToCartList(obj);
+    }
 
     setLocalStorage("cart-list", localData);
   }
@@ -154,6 +187,8 @@ function SingleProduct() {
     const newSize = state.product.productSizes.find((size) => {
       return size.eu === e.target.value;
     });
+
+    productDetailsId.current = newSize.productDetailsId;
     // console.log(newSize.selling_price);
     setState({
       ...state,
