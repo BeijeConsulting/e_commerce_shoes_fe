@@ -3,7 +3,7 @@ import { getData } from "../genericAxios/genericAxios";
 
 
 export async function getProductList(page, filter = "") {
-  const response = await getData(`/products/page=${page}/perPage=24${filter ? `?${filter}` : ""}`);
+  const response = await getData(`/products/page=${page}/perPage=24` + filter);
 
   return { status: response.status, data: response.data };
 }

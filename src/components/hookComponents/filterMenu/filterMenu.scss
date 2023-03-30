@@ -8,13 +8,6 @@
   width: 100%;
   background-color: $white;
 
-  &.mobile {
-  }
-
-  &.desktop {
-    display: none;
-  }
-
   &.active {
     display: block;
   }
@@ -120,10 +113,7 @@
 
 @media (min-width: 768px) {
   .filter-menu {
-    &.desktop {
-      display: block;
-      position: static;
-    }
+    display: block;
     .filter-menu__items {
       @include flex(flex-start, center);
       flex-wrap: wrap;

@@ -6,9 +6,8 @@ import ProductGridLayout from '../../components/functionalComponents/productGrid
 import FilterMenu from "../../components/hookComponents/filterMenu/FilterMenu";
 import { useLocation } from "react-router-dom";
 import FilterListIcon from '@mui/icons-material/FilterList';
-import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from 'react-i18next';
-import Seo from '../../components/functionalComponents/Seo';
+import { useMediaQuery } from "@mui/material";
 
 function ProductsList() {
     const location = useLocation();
@@ -20,6 +19,7 @@ function ProductsList() {
         {
             products: [],
             showFilter: false,
+            isMobile: useMediaQuery('(max-width:767px)'),
             filters: {
                 orderBy: null,
                 price: null,
@@ -63,9 +63,10 @@ function ProductsList() {
         if (params.length === 1) params = "";
 
         if (params) params = params.slice(0, params.length - 1);
-        console.log(params);
-        const result = await getProductList(params);
-        return result.data;
+        console.log("PARAMS", params);
+        const result = await getProductList(0, params);
+        console.log("PRODUCTS", result.data.products);
+        return result.data.products;
     }
 
     function mapProducts(item, key) {
@@ -123,7 +124,6 @@ function ProductsList() {
     };
 
     async function handleOrderByChange(e) {
-        console.log(state.filters)
         const filters = { ...state.filters };
         let choice = e.target.value;
         if (filters.orderBy === choice) choice = null;
@@ -158,7 +158,6 @@ function ProductsList() {
 
     async function handleTypeChange(e) {
         const filters = { ...state.filters };
-        console.log(filters)
         let choice = e.target.value;
         if (filters.type === choice) choice = null;
         filters.type = choice;
@@ -213,7 +212,6 @@ function ProductsList() {
         let choice = e.target.value;
         if (filters.color === choice) choice = null;
         filters.color = choice;
-        console.log(filters)
         const products = await fetchFilteredProducts(filters);
 
         setState({
@@ -234,42 +232,8 @@ function ProductsList() {
                     <div>filtra/ordina</div>
                 </div>
             </div>
-            <AnimatePresence>
-                {state.showFilter && (
-                    <motion.div
-                        style={{
-                            position: "absolute",
-                            top: 0,
-                            width: "100%",
-                            zIndex: 2,
-                        }}
-                        initial={{ right: "100%" }}
-                        animate={{ right: "0%" }}
-                        exit={{ right: "100%" }}
-                        transition={{
-                            duration: 0.1,
-                        }}
-                    >
-                        <FilterMenu
-                            screenType={"mobile"}
-                            minMax={minMax}
-                            handleColorChange={handleColorChange}
-                            handleBrandChange={handleBrandChange}
-                            handleCategoryChange={handleCategoryChange}
-                            handleTypeChange={handleTypeChange}
-                            handlePriceChange={handlePriceChange}
-                            handleOrderByChange={handleOrderByChange}
-                            changePrice={changePrice}
-                            resetFilters={resetFilters}
-                            filters={state.filters}
-                            showFilter={state.showFilter}
-                            hideFilterMenu={hideFilterMenu}
-                        />
-                    </motion.div>
-                )}
-            </AnimatePresence>
             <FilterMenu
-                screenType={"desktop"}
+                isMobile={state.isMobile}
                 minMax={minMax}
                 handleColorChange={handleColorChange}
                 handleBrandChange={handleBrandChange}
@@ -280,6 +244,7 @@ function ProductsList() {
                 changePrice={changePrice}
                 resetFilters={resetFilters}
                 filters={state.filters}
+                showFilter={state.showFilter}
                 hideFilterMenu={hideFilterMenu}
             />
             <ProductGridLayout>
