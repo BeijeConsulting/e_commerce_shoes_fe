@@ -27,9 +27,6 @@ import i18n from '../../../assets/translations/i18n';
 
 function Header() {
   const navigate = useNavigate();
-
-
-
   const lang = i18n.language.slice(0, 2)
 
   const menu = [
@@ -94,7 +91,7 @@ function Header() {
     if (!e.target.value) return;
     const term = e.target.value.split(" ").join("-");
     e.target.value = "";
-    navigate(`/search?q=${term}`);
+    navigate(`search?q=${term}`);
   }
 
   return (
@@ -102,37 +99,37 @@ function Header() {
       <nav>
         <div className="main-header__top">
           <div className="main-header__top__left">
-            { !state.showMobileMenu && (
+            {!state.showMobileMenu && (
               <MenuIcon
-                onClick={ toggleMobileMenu }
+                onClick={toggleMobileMenu}
                 className="main-header__hamburger"
-                fontSize={ "large" }
+                fontSize={"large"}
               />
-            ) }
-            { !!state.showMobileMenu && (
+            )}
+            {!!state.showMobileMenu && (
               <ClearIcon
-                onClick={ toggleMobileMenu }
+                onClick={toggleMobileMenu}
                 className="main-header__hamburger"
-                fontSize={ "large" }
+                fontSize={"large"}
               />
-            ) }
-            <a onClick={ goToHome } href="">
+            )}
+            <a onClick={goToHome} href="">
               <img
                 className="main-header__logo"
-                src={ require("../../../assets/images/logo/logo-312.png") }
+                src={require("../../../assets/images/logo/logo-312.png")}
                 alt="logo"
               />
             </a>
           </div>
           <DesktopMenu
-            categories={ state.categories }
-            menu={ menu }
-            fullWidthInput={ state.fullWidthInput }
+            categories={state.categories}
+            menu={menu}
+            fullWidthInput={state.fullWidthInput}
           />
           <motion.div
-            initial={ false }
-            style={ { margin: "0 5rem 0 4rem" } }
-            animate={ state.fullWidthInput ? {
+            initial={false}
+            style={{ margin: "0 5rem 0 4rem" }}
+            animate={state.fullWidthInput ? {
               width: "50%", transition: {
                 duration: 0.3,
               },
@@ -140,24 +137,24 @@ function Header() {
               width: "20%", transition: {
                 duration: 0,
               },
-            } }
+            }}
           >
             <div
               className="main-header__top__input"
-              style={ { width: `${state.width}rem` } }
+              style={{ width: `${state.width}rem` }}
             >
               <TextField
-                onKeyUp={ searchProducts }
-                onBlur={ toggleInput }
-                onFocus={ toggleInput }
+                onKeyUp={searchProducts}
+                onBlur={toggleInput}
+                onFocus={toggleInput}
                 fullWidth
-                InputProps={ {
+                InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <SearchIcon fontSize={ "large" } />
+                      <SearchIcon fontSize={"large"} />
                     </InputAdornment>
                   ),
-                } }
+                }}
                 variant="standard"
               />
             </div>
@@ -165,12 +162,12 @@ function Header() {
           <div className="main-header__user-icons">
             <div >
               <CartNavMenu
-                name={ "Nike Zoom AIr" }
-                brand={ "Nike" }
-                listedPrice={ "199.00" }
-                sellingPrice={ "60.00" }
-                productSize={ "M41" }
-                quantity={ "1" }
+                name={"Nike Zoom AIr"}
+                brand={"Nike"}
+                listedPrice={"199.00"}
+                sellingPrice={"60.00"}
+                productSize={"M41"}
+                quantity={"1"}
               />
             </div>
             <UserMenuNav />
@@ -179,20 +176,20 @@ function Header() {
         <div className="main-header__bottom">
           <TextField
             fullWidth
-            InputProps={ {
+            InputProps={{
               startAdornment: (
-                <InputAdornment position="start" sx={ { cursor: "pointer" } }>
-                  <SearchIcon fontSize={ "large" } />
+                <InputAdornment position="start" sx={{ cursor: "pointer" }}>
+                  <SearchIcon fontSize={"large"} />
                 </InputAdornment>
               ),
-            } }
+            }}
             variant="standard"
           />
         </div>
         <MobileMenu
-          categories={ state.categories }
-          menu={ menu }
-          showMobileMenu={ state.showMobileMenu }
+          categories={state.categories}
+          menu={menu}
+          showMobileMenu={state.showMobileMenu}
         />
       </nav>
     </header >

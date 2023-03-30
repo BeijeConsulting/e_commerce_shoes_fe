@@ -16,7 +16,6 @@ function ProductsList() {
     const minMax = [20, 200];
     const { t } = useTranslation()
 
-
     const [state, setState] = useState(
         {
             products: [],
@@ -41,10 +40,10 @@ function ProductsList() {
     async function fetchProducts() {
         const { pathname } = location;
 
-        const products = await getProductList();
+        const products = await getProductList(0);
         setState({
             ...state,
-            products: products.data,
+            products: products.data.products,
         })
     };
 
