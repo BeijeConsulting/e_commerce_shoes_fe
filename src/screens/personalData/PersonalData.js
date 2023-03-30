@@ -11,13 +11,15 @@ function PersonalData() {
     showForm: false,
   });
 
+  function toggleForm() {
+    setState({ showForm: !state.showForm });
+  }
+
   const userData = useSelector((state) => state.userDuck);
 
   const { t } = useTranslation()
 
-  function toggleForm() {
-    setState({ showForm: !state.showForm });
-  }
+
   return (
     <div className='personalData'>
       <h1>{ t("personalData.personalData") }</h1>
@@ -57,14 +59,20 @@ function PersonalData() {
         </li>
       </ul>
 
+
+
       { state.showForm && <ChangeUserDataForm /> }
-      <div className='container__button'>
+      <div className='container__button' >
         <Button
           label={ state.showForm ? "ANNULLA" : "MODIFICA DATI" }
           handleClick={ toggleForm }
           buttonStyle="default-button"
         />
       </div>
+
+
+
+
     </div>
   );
 }

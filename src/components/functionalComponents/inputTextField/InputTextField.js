@@ -12,34 +12,35 @@ function InputTextField(props) {
 
   return (
     <>
-      {props.inputLabel && (
-        <label className={props.labelStyle} htmlFor={props.inputName}>
-          {props.inputLabel}
+      { props.inputLabel && (
+        <label className={ props.labelStyle } htmlFor={ props.inputName }>
+          { props.inputLabel }
         </label>
-      )}
+      ) }
 
-      {register && (
+      { register && (
         <input
-          type={props.inputType}
-          placeholder={props.inputPlaceholder}
-          name={props.inputName}
-          className={props.inputStyle}
-          {...register(props.inputName, {
+          defaultValue={ props.defaultValueInput }
+          type={ props.inputType }
+          placeholder={ props.inputPlaceholder }
+          name={ props.inputName }
+          className={ props.inputStyle }
+          { ...register(props.inputName, {
             required: props.isRequired,
             pattern: props.regexValidation ? props.regexValidation : /.*/,
-          })}
+          }) }
         />
-      )}
+      ) }
 
-      {!register && (
+      { !register && (
         <input
-          type={props.inputType}
-          placeholder={props.inputPlaceholder}
-          name={props.inputName}
-          className={props.inputStyle}
-          onChange={handleChange}
+          type={ props.inputType }
+          placeholder={ props.inputPlaceholder }
+          name={ props.inputName }
+          className={ props.inputStyle }
+          onChange={ handleChange }
         />
-      )}
+      ) }
     </>
   );
 }

@@ -73,7 +73,7 @@ function UserMenuNav(props) {
 
     async function userLogOut() {
         const response = await signOut(refreshToken, token)
-        console.log("responeToken", response);
+        console.log("SIGNOUT", response);
 
         dispatch(
             removeUserCredentials()
@@ -83,9 +83,6 @@ function UserMenuNav(props) {
         dispatch(
             removeToken()
         )
-
-
-
 
 
         clearLocalStorage()

@@ -40,6 +40,8 @@ function Routing() {
     async function getUserInfo() {
       const response = await getUserAuth(token);
 
+      console.log("ROUTING", response)
+
       if (response.status === 200) {
         dispatch(
           setUserCredentials({
