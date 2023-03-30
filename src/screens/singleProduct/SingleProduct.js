@@ -66,7 +66,7 @@ function SingleProduct() {
     return await result.data;
   }
 
-  function updateCart() {
+  async function updateCart() {
     let itemFound = undefined;
     let localData = getLocalStorage("cart-list");
     // console.log(localData);
@@ -79,13 +79,12 @@ function SingleProduct() {
 
     if (!localData) {
       localData = {
-        info: {
-          numberItems: 1,
-          totalPrice: Number(state.product.listed_price).toFixed(2),
-        },
+        numberItems: 1,
+        totalPrice: Number(state.product.listed_price).toFixed(2),
+
         items: [
           {
-            id: state.product.id.toString(),
+            productId: state.product.id.toString(),
             productDetailsId: productDetailsId.current,
             name: state.product.name,
             brand: state.product.brand,
@@ -103,7 +102,7 @@ function SingleProduct() {
         // console.log("item.size: " + item.size);
         // console.log("sizeValue: " + sizeValue.current);
         return (
-          item.id.toString() === state.product.id.toString() &&
+          item.productId?.toString() === state.product.id.toString() &&
           item.size.toString() === sizeValue.current.toString()
         );
       });
@@ -113,7 +112,7 @@ function SingleProduct() {
       if (!itemFound) {
         // console.log("item not found");
         localData.items.push({
-          id: state.product.id.toString(),
+          productId: state.product.id.toString(),
           productDetailsId: productDetailsId.current,
           name: state.product.name,
           brand: state.product.brand,
@@ -165,7 +164,12 @@ function SingleProduct() {
         userId: getLocalStorage("user-id"),
       };
       console.log(obj);
-      addItemToCartList(obj);
+      const addItem = await addItemToCartList(obj);
+
+      const localDataResponse = await getCartList();
+      if (localDataResponse.status === 200) {
+        localData = localDataResponse.data;
+      }
     }
 
     setLocalStorage("cart-list", localData);

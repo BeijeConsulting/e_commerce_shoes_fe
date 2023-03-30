@@ -128,6 +128,14 @@ export async function putDataAuth(resource, obj, header = null) {
   return response;
 }
 
+export async function putDataAuthParams(resource, header = null) {
+  const response = await axiosInstanceToken.put(resource, {
+    headers: header !== null ? { Authorization: `Bearer ${header}` } : null,
+  });
+
+  return response;
+}
+
 export async function deleteData(resource, header = null) {
   const response = await axiosInstance.delete(resource, {
     headers: header !== null ? { Authorization: `Bearer ${header}` } : null,
@@ -136,10 +144,8 @@ export async function deleteData(resource, header = null) {
   return response;
 }
 // DELETE with Authentication
-export async function deleteDataAuth(resource, header = null) {
-  const response = await axiosInstance.delete(resource, {
-    headers: header !== null ? { Authorization: `Bearer ${header}` } : null,
-  });
+export async function deleteDataAuth(resource) {
+  const response = await axiosInstanceToken.delete(resource);
 
   return response;
 }

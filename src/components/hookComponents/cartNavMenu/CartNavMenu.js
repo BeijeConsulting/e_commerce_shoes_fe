@@ -36,10 +36,9 @@ function CartNavMenu() {
 
     if (!storage) {
       const initCartList = {
-        info: {
-          numberItems: 0,
-          totalPrice: "0.00",
-        },
+        numberItems: 0,
+        totalPrice: "0.00",
+
         items: [],
       };
 
@@ -88,7 +87,7 @@ function CartNavMenu() {
 
   function mapList(item) {
     return (
-      <div key={"00" + item.id + item.size}>
+      <div key={"00" + item.productCartId + item.size}>
         <MenuItem>
           <div className="cartNavMenu__menu">
             <div className="cartNavMenu__image">

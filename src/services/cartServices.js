@@ -1,9 +1,11 @@
 import {
+  deleteDataAuth,
   getData,
   getDataAuth,
   postData,
   postDataAuth,
   putData,
+  putDataAuthParams,
   putDataParams,
 } from "../genericAxios/genericAxios";
 
@@ -31,11 +33,19 @@ export async function addListItemToCartList(items) {
   return { status: response.status, data: response.data };
 }
 
-export async function updateItemToCartList(itemId, SECRET) {
-  const response = await putDataParams(
-    "/shoppingcart/update/" + itemId,
-    SECRET
+export async function updateItemToCartList(itemId, newQuantity) {
+  console.log(
+    "/shoppingcart/update/" + itemId + "?new_quantity=" + newQuantity
   );
+  const response = await putDataAuthParams(
+    "/shoppingcart/update/" + itemId + "?new_quantity=" + newQuantity
+  );
+
+  return { status: response.status, data: response.data };
+}
+
+export async function deleteCartItem(id) {
+  const response = await deleteDataAuth("/shoppingcart/delete/" + id);
 
   return { status: response.status, data: response.data };
 }

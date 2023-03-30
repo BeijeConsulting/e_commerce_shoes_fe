@@ -6,7 +6,12 @@ import CartInfoBox from "../../components/functionalComponents/cartInfoBox/CartI
 import CouponInput from "../../components/functionalComponents/couponInput/CouponInput";
 import RecapCart from "../../components/functionalComponents/recapCart/RecapCart";
 import ProductCartItem from "../../components/hookComponents/productCartItem/ProductCartItem";
-import { getCartList, getCartListDetail } from "../../services/cartServices";
+import {
+  deleteCartItem,
+  getCartList,
+  getCartListDetail,
+  updateItemToCartList,
+} from "../../services/cartServices";
 import {
   getLocalStorage,
   setLocalStorage,
@@ -15,6 +20,8 @@ import { getProduct } from "../../services/productServices";
 
 import imageProduct from "../../assets/images/singleProduct/shoe1.jpeg";
 import Seo from "../../components/functionalComponents/Seo";
+import { useSelect } from "@mui/base";
+import { useSelector } from "react-redux";
 
 const cartList = {
   items: [
@@ -55,7 +62,8 @@ const cartList = {
 // setLocalStorage("cart-list", cartList);
 
 function Cart() {
-  const localData = getCartStoredList();
+  let localData = getCartStoredList();
+  const isLogged = useSelector((state) => state.userDuck.isLogged);
   const [state, setState] = useState({
     cart: localData,
   });
@@ -65,10 +73,9 @@ function Cart() {
 
     if (!storage) {
       const initCartList = {
-        info: {
-          numberItems: 0,
-          totalPrice: "0.00",
-        },
+        numberItems: 0,
+        totalPrice: "0.00",
+
         items: [],
       };
 
@@ -78,17 +85,35 @@ function Cart() {
     return structuredClone(storage);
   }
 
-  function deleteItem(id, size, quantity, price) {
-    const itemToDelete = localData.items.find((item) => {
-      return item.id === id && item.size === size;
-    });
+  async function deleteItem(id, size, quantity, price) {
+    let itemToDelete = null;
 
-    const indexElementToDelete = localData.items.indexOf(itemToDelete);
-    localData.items.splice(indexElementToDelete, 1);
-    // console.log(localData);
+    if (isLogged) {
+      itemToDelete = localData.items.find((item) => {
+        return item.id === id;
+      });
+    } else {
+      itemToDelete = localData.items.find((item) => {
+        return item.productId === id && item.size === size;
+      });
+    }
 
-    localData.info.numberItems = Number(localData.info.numberItems) - quantity;
-    localData.info.totalPrice = Number(localData.info.totalPrice) - price;
+    if (isLogged) {
+      const updateCartresponse = await deleteCartItem(itemToDelete.id);
+      if (updateCartresponse.status === 200) {
+        const getUpdate = await getCartList();
+        if (getUpdate.status === 200) {
+          localData = getUpdate.data;
+        }
+      }
+    } else {
+      const indexElementToDelete = localData.items.indexOf(itemToDelete);
+      localData.items.splice(indexElementToDelete, 1);
+      // console.log(localData);
+
+      localData.numberItems = Number(localData.numberItems) - quantity;
+      localData.totalPrice = Number(localData.totalPrice) - price;
+    }
 
     setLocalStorage("cart-list", localData);
 
@@ -98,13 +123,20 @@ function Cart() {
     });
   }
 
-  function updateCartList(id, size, deltaQuantity, deltaPrice) {
+  async function updateCartList(id, size, deltaQuantity, deltaPrice) {
     // console.log(id);
     // console.log(localData);
+    let itemChanged = null;
 
-    const itemChanged = localData.items.find((item) => {
-      return item.id === id && item.size === size;
-    });
+    if (isLogged) {
+      itemChanged = localData.items.find((item) => {
+        return item.id === id;
+      });
+    } else {
+      itemChanged = localData.items.find((item) => {
+        return item.productId === id && item.size === size;
+      });
+    }
 
     // console.log("localData.info.numberItems: " + localData.info.numberItems);
     // console.log("deltaQuantity: " + deltaQuantity);
@@ -114,16 +146,28 @@ function Cart() {
     itemChanged.quantity = Number(itemChanged.quantity) + Number(deltaQuantity);
     itemChanged.sellingItemTotalPrice =
       Number(itemChanged.sellingItemTotalPrice) + Number(deltaPrice);
-    localData.info.numberItems =
-      Number(localData.info.numberItems) + Number(deltaQuantity);
-    localData.info.totalPrice =
-      Number(localData.info.totalPrice) + Number(deltaPrice);
+    localData.numberItems =
+      Number(localData.numberItems) + Number(deltaQuantity);
+    localData.totalPrice = Number(localData.totalPrice) + Number(deltaPrice);
     // console.log(localData);
 
     // console.log("localData.info.numberItems: " + localData.info.numberItems);
     // console.log("itemCanged.quantity: " + itemChanged.quantity);
     // console.log("---------------------------");
 
+    if (isLogged) {
+      console.log("itemChanged", itemChanged.quantity);
+      const updateCartresponse = await updateItemToCartList(
+        itemChanged.id,
+        itemChanged.quantity
+      );
+      if (updateCartresponse.status === 200) {
+        const getUpdate = await getCartList();
+        if (getUpdate.status === 200) {
+          localData = getUpdate.data;
+        }
+      }
+    }
     setLocalStorage("cart-list", localData);
 
     setState({
@@ -138,7 +182,7 @@ function Cart() {
         <ProductCartItem
           handleList={updateCartList}
           handleDelete={deleteItem}
-          id={item.id}
+          id={isLogged ? item.id : item.productId}
           productName={item.name}
           brand={item.brand}
           price={Number(item.sellingItemTotalPrice).toFixed(2)}
@@ -163,8 +207,8 @@ function Cart() {
         content="e-commerce"
       />
       <CartHeader
-        quantity={state.cart.info.numberItems}
-        totalPrice={Number(state.cart.info.totalPrice).toFixed(2)}
+        quantity={state.cart.numberItems}
+        totalPrice={Number(state.cart.totalPrice).toFixed(2)}
       />
       <div className="cart__content">
         <div className="cart__content__left">
@@ -172,7 +216,7 @@ function Cart() {
           <CouponInput handleCoupon={checkCoupon} />
         </div>
         <div className="cart__content__right">
-          <RecapCart total={Number(state.cart.info.totalPrice).toFixed(2)} />
+          <RecapCart total={Number(state.cart.totalPrice).toFixed(2)} />
           <CartInfoBox />
         </div>
       </div>

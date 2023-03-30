@@ -3,8 +3,10 @@ import "./productCartItem.scss";
 import CheckIcon from "@mui/icons-material/Check";
 import { Check } from "@mui/icons-material";
 import CloseIcon from "@mui/icons-material/Close";
+import { useSelector } from "react-redux";
 
 function ProductCartItem(props) {
+  const isLogged = useSelector((state) => state.userDuck.isLogged);
   const [state, setState] = useState({
     quantity: props.quantity,
     showConfirmQuantity: false,
