@@ -109,10 +109,24 @@
   }
 }
 
+.filter-menu__show-filter {
+  margin: 2rem;
+  text-transform: capitalize;
+  display: inline-block;
+  > div {
+    @include flex(flex-start, center);
+    > div {
+      margin-left: 0.5rem;
+      font-size: $x-small;
+    }
+  }
+}
+
 // Responsive
 
 @media (min-width: 768px) {
   .filter-menu {
+    position: static;
     display: block;
     .filter-menu__items {
       @include flex(flex-start, center);

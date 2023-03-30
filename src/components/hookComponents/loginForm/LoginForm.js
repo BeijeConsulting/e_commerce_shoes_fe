@@ -35,6 +35,8 @@ function LoginForm() {
       password: data.password,
     });
 
+    console.log(response)
+
     if (response.status === 200) {
       const user = await getUser(response.data.token);
 
@@ -94,9 +96,8 @@ function LoginForm() {
           regexValidation={emailReg}
           isRequired={true}
           labelStyle="default-label  "
-          inputStyle={`default-input margin-top-small ${
-            state.invalidEmail ? "default-input--error" : ""
-          }`}
+          inputStyle={`default-input margin-top-small ${state.invalidEmail ? "default-input--error" : ""
+            }`}
         />
 
         <InputPasswordField
@@ -108,9 +109,8 @@ function LoginForm() {
           regexValidation={passwordReg}
           isRequired={true}
           labelStyle="default-label password-margin-top margin-top-extra"
-          inputStyle={`default-input ${
-            state.invalidPassword ? "default-input--error" : ""
-          }`}
+          inputStyle={`default-input ${state.invalidPassword ? "default-input--error" : ""
+            }`}
         />
       </div>
       <Button label="Login" buttonStyle="submit-button button-margin-top" />
