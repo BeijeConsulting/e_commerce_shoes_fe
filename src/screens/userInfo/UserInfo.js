@@ -9,18 +9,24 @@ import "./userInfo.scss";
 import { useTranslation } from 'react-i18next';
 import Seo from '../../components/functionalComponents/Seo';
 import { useSelector } from 'react-redux';
+import { getLocalStorage } from '../../utils/localStorageUtils';
 
 function UserInfo(props) {
   const navigate = useNavigate();
   const location = useLocation();
+
   const token = useSelector((state) => state.tokenDuck.token);
+  const tokenStorage = getLocalStorage("token")
 
   const { t } = useTranslation()
 
   // if user is not logged --> go to identityScreen 
   useEffect(() => {
-    if (!token) navigate("/identity")
-  }, [token])
+    if (!tokenStorage) navigate("/identity")
+
+    // console.log("TOKENstorage", tokenStorage)
+    // console.log("TOKEN", token)
+  }, [tokenStorage])
 
   return (
     <div className='userInfo'>
