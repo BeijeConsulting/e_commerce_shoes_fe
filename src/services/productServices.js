@@ -2,8 +2,14 @@ import { getData } from "../genericAxios/genericAxios";
 
 
 
-export async function getProductList(page, filter = "") {
+export async function getProductsList(page, filter = "") {
   const response = await getData(`/products/page=${page}/perPage=24` + filter);
+
+  return { status: response.status, data: response.data };
+}
+
+export async function getNewProductsList(page, filter = "") {
+  const response = await getData(`/products/new/page=${page}/perPage=24` + filter);
 
   return { status: response.status, data: response.data };
 }
@@ -15,7 +21,7 @@ export async function getSearchProducts(term, page) {
 }
 
 export async function getProduct(id, lang) {
-  const response = await getData(`"/products/${id}/${lang}`);
+  const response = await getData(`/products/${id}/${lang}`);
 
   return { status: response.status, data: response.data };
 }

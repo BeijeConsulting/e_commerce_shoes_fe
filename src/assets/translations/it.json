@@ -1,6 +1,12 @@
 {
   "translation": {
     "greeting": "Ciao",
+    "header": {
+      "men": "uomo",
+      "woman": "donna",
+      "new": "novità",
+      "newPath": "novita"
+    },
     "footer": {
       "whoWeAre": "Chi Siamo",
       "registration": "Registrati",
@@ -12,6 +18,9 @@
     "preFooter": {
       "contacts": "Contatti",
       "help": "Help"
+    },
+    "productsList": {
+      "products": "prodotti"
     },
     "sliderHomepage": {
       "new": "nuovo",

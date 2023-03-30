@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
 import "./productsList.scss";
-import { getProductList } from "../../services/productServices";
+import { getProductsList, getNewProductsList } from "../../services/productServices";
 import ProductCard from '../../components/functionalComponents/ProductCard/ProductCard';
 import ProductGridLayout from '../../components/functionalComponents/productGridLayout/ProductGridLayout';
 import FilterMenu from "../../components/hookComponents/filterMenu/FilterMenu";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import i18n from "../../assets/translations/i18n";
 
 function ProductsList() {
     const location = useLocation();
+    const { pathname } = location;
+    const lang = i18n.language.slice(0, 2);
+    const types = ["men", "woman", "unisex"]
 
     const { t } = useTranslation()
 
@@ -20,15 +24,29 @@ function ProductsList() {
 
     useEffect(() => {
         fetchProducts();
-        // ogni volta che cambia t (la lingua) ho un rerender e chiamata api con la lingua giusta
-    }, [t]);
+    }, [pathname, t]);
 
 
     async function fetchProducts() {
-        const { pathname } = location;
+        let type = null;
+        let category = null;
+        let result = null;
 
-        const result = await getProductList(0);
-        console.log(result)
+        const pathToArray = pathname.split("/").filter(item => item !== "");
+
+        if (pathToArray.length === 3) {
+            if (pathToArray[2] === "new") {
+                result = await getNewProductsList(0);
+            } else {
+                type = pathToArray[2].slice(0, 1);
+                result = await getProductsList(0, `?type=${type}`);
+            }
+        } else if (pathToArray.length === 4) {
+            type = pathToArray[2].slice(0, 1);
+            category = pathToArray[3].split("-").join("%20");
+            result = await getProductsList(0, `?type=${type}&category=${category}`);
+        }
+
         setState({
             ...state,
             products: result.data.products,
@@ -37,7 +55,7 @@ function ProductsList() {
 
     async function fetchFilteredProducts(obj) {
         const query = getQuery(obj);
-        const result = await getProductList(0, query);
+        const result = await getProductsList(0, query);
 
         setState({
             ...state,
@@ -56,7 +74,7 @@ function ProductsList() {
                 }
             };
         }
-        if (query.length === 1) query = "";
+        if (query.length < 2) query = "";
         if (query) query = query.slice(0, query.length - 1);
         return query;
     }
@@ -78,6 +96,7 @@ function ProductsList() {
     return (
         <div className="products-list">
             <FilterMenu
+                types={types}
                 filterFunc={fetchFilteredProducts}
             />
             <ProductGridLayout>

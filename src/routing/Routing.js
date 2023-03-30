@@ -30,12 +30,14 @@ import { setToken } from '../redux/ducks/tokenDuck';
 import { setUserCredentials } from '../redux/ducks/userDuck';
 import { getUserAuth } from '../services/authServices';
 import i18n from "../assets/translations/i18n";
+import { useTranslation } from "react-i18next";
 
 function Routing() {
   const dispatch = useDispatch()
   const token = getLocalStorage("token");
   const refreshToken = getLocalStorage("refreshToken");
   const lang = i18n.language.slice(0, 2);
+  const { t } = useTranslation();
 
   // check if there is token
   useEffect(() => {
@@ -88,8 +90,7 @@ function Routing() {
 
       <Route path="" element={<RedirectToLanguage />}></Route>
 
-      <Route path=":lang" element={<Cms />}>
-
+      <Route path="/:lang" element={<Cms />}>
         {/* Homepage */}
         <Route index element={<Home />} />
         <Route path="user-info" element={<UserInfo />}>
@@ -99,7 +100,7 @@ function Routing() {
         </Route>
 
         {/* Products list */}
-        <Route path="products" element={<ProductsList />}>
+        <Route path={"products"} element={<ProductsList />}>
           <Route path=":first" element={<ProductsList />} />
           <Route path=":first/:second" element={<ProductsList />} />
         </Route>
@@ -133,7 +134,7 @@ function Routing() {
       <Route path="checkout" element={<Checkout />} />
 
       {/* Signin - Signup */}
-      <Route path="identity" element={<Identity />}>
+      <Route path=":lang/identity" element={<Identity />}>
         <Route index element={<LoginForm />} />
         <Route path="signup" element={<SignupForm />} />
       </Route>

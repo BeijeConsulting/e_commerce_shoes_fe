@@ -11,9 +11,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useMediaQuery } from "@mui/material";
 
 import { getCategories, getColors, getBrands } from "../../../services/productServices";
+import { useLocation } from "react-router-dom";
 
 function FilterMenu(props) {
     const minMax = [20, 200];
+    const location = useLocation();
+    const { pathname } = location;
 
     const [state, setState] = useState({
         showFilter: false,
@@ -23,6 +26,8 @@ function FilterMenu(props) {
         brands: [],
         categories: [],
         colors: [],
+        showType: true,
+        showCategory: true,
         filters: {
             orderBy: null,
             price: null,
@@ -35,17 +40,31 @@ function FilterMenu(props) {
 
     useEffect(() => {
         fetchFilterParams();
-    }, []);
+    }, [pathname]);
 
     async function fetchFilterParams() {
+        const pathToArray = pathname.split("/").filter(item => item !== "");
+
+        let showType = true;
+        let showCategory = true;
         const categories = await getCategories("it");
         const colors = await getColors("it");
         const brands = await getBrands();
+
+        if (props.types.includes(pathToArray[2])) showType = false;
+
+        for (let i = 0; i < categories.data.length; i++) {
+            console.log(categories.data[i]["category"])
+            if (categories.data[i]["category"].toLowerCase().split(" ").join("-") === pathToArray[3]) showCategory = false;
+        }
+
         setState({
             ...state,
             categories: categories.data,
             colors: colors.data,
             brands: brands.data,
+            showType,
+            showCategory,
         })
     };
 
@@ -61,18 +80,22 @@ function FilterMenu(props) {
         )
     }
 
-    function resetFilters() {
+    async function resetFilters() {
+        const filters = {
+            orderBy: null,
+            price: null,
+            type: null,
+            category: null,
+            brand: null,
+            color: null,
+        }
+
+        await props.filterFunc(filters);
+
         setState(
             {
                 ...state,
-                filters: {
-                    orderBy: null,
-                    price: null,
-                    type: null,
-                    category: null,
-                    brand: null,
-                    color: null,
-                },
+                filters: { ...filters }
             }
         )
     }
@@ -295,7 +318,7 @@ function FilterMenu(props) {
                                     </div>
                                 </div>
 
-                                <div className={`item ${state.active === "type" ? 'active' : ''} `}>
+                                {!!state.showType && <div className={`item ${state.active === "type" ? 'active' : ''} `}>
                                     <header onClick={handleActive} data-filter="type" className={`${state.filters.type ? 'checked' : ''} `} >
                                         <div data-filter="type">genere</div>
                                         {state.active !== "type" && <KeyboardArrowDownIcon data-filter="type" fontSize={'large'} />}
@@ -315,9 +338,9 @@ function FilterMenu(props) {
                                             <label className="label" htmlFor="type3">unisex</label>
                                         </div>
                                     </div>
-                                </div>
+                                </div>}
 
-                                <div className={`item ${state.active === "category" ? 'active' : ''} `}>
+                                {!!state.showCategory && <div className={`item ${state.active === "category" ? 'active' : ''} `}>
                                     <header onClick={handleActive} data-filter="category" className={`${state.filters.category ? 'checked' : ''} `} >
                                         <div data-filter="category">categoria</div>
                                         {state.active !== "category" && <KeyboardArrowDownIcon data-filter="category" fontSize={'large'} />}
@@ -326,7 +349,7 @@ function FilterMenu(props) {
                                     <div className="sub-item">
                                         {state.active === "category" && state.categories.map(mapCategories)}
                                     </div>
-                                </div>
+                                </div>}
 
                                 <div className={`item ${state.active === "brand" ? 'active' : ''} `}>
                                     <header onClick={handleActive} data-filter="brand" className={`${state.filters.brand ? 'checked' : ''} `} >

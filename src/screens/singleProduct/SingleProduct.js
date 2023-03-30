@@ -15,8 +15,10 @@ import {
   getLocalStorage,
 } from "../../utils/localStorageUtils";
 import Seo from "../../components/functionalComponents/Seo";
+import i18n from "../../assets/translations/i18n";
 
 function SingleProduct() {
+  const lang = i18n.language.slice(0, 2)
   const params = useParams();
   const dispatch = useDispatch();
   const cartQuantity = useSelector((state) => state.userDuck.cartItems); //modificato lo state
@@ -33,16 +35,11 @@ function SingleProduct() {
   }, []);
 
   async function fetchProduct() {
-    const product = await axiosGetProduct();
+    const result = await getProduct(params.id, lang);
     setState({
       ...state,
-      product,
+      product: result.data
     });
-  }
-
-  async function axiosGetProduct() {
-    const result = await getProduct(params.id);
-    return await result.data;
   }
 
   function updateCart() {

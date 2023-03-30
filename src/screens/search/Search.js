@@ -5,7 +5,7 @@ import ProductCard from "../../components/functionalComponents/ProductCard/Produ
 import ProductGridLayout from "../../components/functionalComponents/productGridLayout/ProductGridLayout";
 
 import { useSearchParams } from "react-router-dom";
-import { getSearchProducts, getCategories, getProductList } from "../../services/productServices";
+import { getSearchProducts, getCategories } from "../../services/productServices";
 
 function Search() {
     const [searchParams] = useSearchParams();

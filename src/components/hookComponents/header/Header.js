@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./header.scss";
@@ -7,11 +7,6 @@ import MobileMenu from "../mobileMenu/MobileMenu";
 import DesktopMenu from "../desktopMenu/DesktopMenu";
 
 import { motion } from "framer-motion";
-
-// 18n
-// API
-// UTILS
-// REDUX
 
 // MUI TextField
 import TextField from "@mui/material/TextField";
@@ -24,35 +19,36 @@ import UserMenuNav from '../userMenuNav/UserMenuNav';
 import CartNavMenu from '../cartNavMenu/CartNavMenu';
 import i18n from '../../../assets/translations/i18n';
 
+import { getCategories } from "../../../services/productServices";
 
 function Header() {
   const navigate = useNavigate();
-  const lang = i18n.language.slice(0, 2)
+  const lang = i18n.language.slice(0, 2);
 
   const menu = [
     {
       top: "uomo",
+      path: "men",
       bottom: true,
     },
     {
       top: "donna",
+      path: "woman",
       bottom: true,
     },
     {
       top: "unisex",
+      path: "unisex",
       bottom: true,
     },
     {
       top: "brand",
+      path: "brands",
       bottom: false,
     },
     {
-      top: "offerte",
-      bottom: false,
-    },
-    {
-      top: "nuovi arrivi",
-      path: "nuovi-arrivi",
+      top: "novità",
+      path: "new",
       bottom: false,
     },
   ];
@@ -60,8 +56,30 @@ function Header() {
   const [state, setState] = useState({
     showMobileMenu: false,
     fullWidthInput: false,
-    categories: ["camminata", "trail running", "basket", "sneakers"],
+    categories: [],
   });
+
+  useEffect(() => {
+    fetchCategories();
+  }, [lang])
+
+  async function fetchCategories() {
+    let categories = [];
+    const result = await getCategories("it");
+    for (let i = 0; i < result.data.length; i++) {
+      categories.push({
+        anchor: result.data[i].category.toLowerCase(),
+        path: result.data[i].category.includes(" ") ? result.data[i].category.toLowerCase().split(" ").join("-") : result.data[i].category.toLowerCase(),
+
+      })
+    }
+    setState(
+      {
+        ...state,
+        categories,
+      }
+    )
+  }
 
   function toggleMobileMenu() {
     setState(function (prevState) {
