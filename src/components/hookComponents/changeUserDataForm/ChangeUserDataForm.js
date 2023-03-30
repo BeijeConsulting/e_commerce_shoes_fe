@@ -36,11 +36,11 @@ function ChangeUserDataForm(props) {
   const userInfo = useSelector((state) => state.userDuck)
 
   // Dati inseriti nel defaultValueInput della date
-  const unserInfoDay = userInfo.birthDate.dayOfMonth?.toString()
-    ?.padStart(2, "0")
-  const unserInfoMonth = userInfo.birthDate.monthValue?.toString()
-    ?.padStart(2, "0")
-  const unserInfoYear = userInfo.birthDate.year
+  // const unserInfoDay = userInfo.birthDate.dayOfMonth?.toString()
+  //   ?.padStart(2, "0")
+  // const unserInfoMonth = userInfo.birthDate.monthValue?.toString()
+  //   ?.padStart(2, "0")
+  // const unserInfoYear = userInfo.birthDate.year
 
 
   const onSubmit = async (data) => {
@@ -93,17 +93,14 @@ function ChangeUserDataForm(props) {
 
     // PUT API
     response = await updateUser(newObj)
+    console.log("RESPONSE", response)
 
     if (response.status === 200) {
       dispatch(
         setUserCredentials({
           name: data.firstName,
           surname: data.lastName,
-          birthDate: {
-            dayOfMonth: day,
-            monthValue: month,
-            year: year
-          },
+          birthDate: data.birth_date,
           email: data.email,
           cartItems: userInfo.cartItems,
           adresses: userInfo.adresses,
@@ -190,7 +187,7 @@ function ChangeUserDataForm(props) {
 
         <InputTextField
           inputName="birthDate"
-          defaultValueInput={ `${unserInfoYear}-${unserInfoMonth}-${unserInfoDay}` }
+          defaultValueInput={ userInfo.birthDate }
           inputLabel="DATA DI NASCITA:"
           inputType="date"
           inputPlaceholder="Data di nascita"

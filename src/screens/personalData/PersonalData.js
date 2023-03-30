@@ -41,7 +41,7 @@ function PersonalData() {
         <li>
           { t("personalData.birdthDate") }:
           <span>
-            {/* { userData?.birthDate } */ }
+            { userData?.birthDate }
           </span>
         </li>
       </ul>
