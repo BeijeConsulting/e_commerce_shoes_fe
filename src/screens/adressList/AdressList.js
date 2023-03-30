@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 // Router
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 // Utils
 
 // SCSS
@@ -28,9 +28,9 @@ function AdressList(props) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  // if user is not logged --> go to identityScreen 
+  // if user is not logged --> go to identityScreen
   /* useEffect(() => {
     if (!token) navigate("/identity")
   }, []) */
@@ -122,54 +122,44 @@ function AdressList(props) {
 
   function mapList(data, i) {
     return (
-      <div className='address__container' key={ data.id }>
+      <div className="address__container" key={ data?.id }>
         <Seo
           title="I tuoi indirizzi"
           description="Gestione degli indirizzi personali"
           content="e-commerce"
         />
-        <h3>{ t("addresses.address") } n. { i + 1 }</h3>
+        <h3>
+          { t("addresses.address") } n. { i + 1 }
+        </h3>
         <ul>
           <li>
-            <p className='address__p'>{ t("addresses.country") }:</p>
-            <span>
-              { data?.country }
-            </span>
+            <p className="address__p">{ t("addresses.country") }:</p>
+            <span>{ data?.country ?? "n/d" }</span>
           </li>
           <li>
-            <p className='address__p'>{ t("addresses.zipCode") }:</p>
-            <span>
-              { data?.zipcode }
-            </span>
+            <p className="address__p">{ t("addresses.zipCode") }:</p>
+            <span>{ data?.zipcode ?? "n/d" }</span>
           </li>
           <li>
-            <p className='address__p'>{ t("addresses.nameAndLastName") }:</p>
-            <span>
-              { data?.name_surname }
-            </span>
+            <p className="address__p">{ t("addresses.nameAndLastName") }:</p>
+            <span>{ data?.name_surname ?? "n/d" }</span>
           </li>
           <li>
-            <p className='address__p'>{ t("addresses.address") }:</p>
-            <span>
-              { data?.street_address }
-            </span>
+            <p className="address__p">{ t("addresses.address") }:</p>
+            <span>{ data?.street_address ?? "n/d" }</span>
           </li>
           <li>
-            <p className='address__p'>{ t("addresses.telephone") }:</p>
-            <span>
-              { data?.telephone }
-            </span>
+            <p className="address__p">{ t("addresses.telephone") }:</p>
+            <span>{ data?.telephone ?? "n/d" }</span>
           </li>
           <li>
-            <p className='address__p'>{ t("addresses.deliveryInstructions") }:</p>
-            <span>
-              { data?.instructions }
-            </span>
+            <p className="address__p">{ t("addresses.deliveryInstructions") }:</p>
+            <span>{ data?.instructions ?? "n/d" }</span>
           </li>
           <p onClick={ deleteAddressId(data.id) }>Delete</p>
         </ul>
       </div>
-    )
+    );
   }
 
   return (

@@ -1,10 +1,15 @@
 {
   "translation": {
     "greeting": "Ciao",
+    "header": {
+      "men": "uomo",
+      "woman": "donna",
+      "new": "novità",
+      "newPath": "novita"
+    },
     "footer": {
       "whoWeAre": "Chi Siamo",
       "registration": "Registrati",
-      "preference": "Preferenze cookie",
       "contacts": "Contatti",
       "serviceClient": "Servizio clienti",
       "termAndConditions": "Termini e condizioni",
@@ -13,6 +18,9 @@
     "preFooter": {
       "contacts": "Contatti",
       "help": "Help"
+    },
+    "productsList": {
+      "products": "prodotti"
     },
     "sliderHomepage": {
       "new": "nuovo",

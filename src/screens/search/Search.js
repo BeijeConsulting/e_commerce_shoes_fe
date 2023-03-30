@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./search.scss";
 
 import ProductCard from "../../components/functionalComponents/ProductCard/ProductCard";
-import FilterMenu from "../../components/hookComponents/filterMenu/FilterMenu";
 import ProductGridLayout from "../../components/functionalComponents/productGridLayout/ProductGridLayout";
 
 import { useSearchParams } from "react-router-dom";
@@ -25,11 +24,11 @@ function Search() {
 
     async function fetchProducts() {
         const searchTerm = searchParams.get("q");
-        const products = await getSearchProducts(searchTerm);
+        const products = await getSearchProducts(searchTerm, "0");
         const categories = await getCategories("it");
-        const foundProducts = products.data.length > 0;
+        const foundProducts = products.data.products.length > 0;
         setState({
-            products: products.data,
+            products: products.data.products,
             categories: categories.data,
             foundProducts,
         })
@@ -53,7 +52,6 @@ function Search() {
         <>
             {!!state.foundProducts &&
                 <>
-                    <FilterMenu />
                     <ProductGridLayout>
                         {state.products.map(mapProducts)}
                     </ProductGridLayout>

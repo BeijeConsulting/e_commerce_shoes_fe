@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./header.scss";
@@ -7,11 +7,6 @@ import MobileMenu from "../mobileMenu/MobileMenu";
 import DesktopMenu from "../desktopMenu/DesktopMenu";
 
 import { motion } from "framer-motion";
-
-// 18n
-// API
-// UTILS
-// REDUX
 
 // MUI TextField
 import TextField from "@mui/material/TextField";
@@ -24,38 +19,36 @@ import UserMenuNav from '../userMenuNav/UserMenuNav';
 import CartNavMenu from '../cartNavMenu/CartNavMenu';
 import i18n from '../../../assets/translations/i18n';
 
+import { getCategories } from "../../../services/productServices";
 
 function Header() {
   const navigate = useNavigate();
-
-
-
-  const lang = i18n.language.slice(0, 2)
+  const lang = i18n.language.slice(0, 2);
 
   const menu = [
     {
       top: "uomo",
+      path: "men",
       bottom: true,
     },
     {
       top: "donna",
+      path: "woman",
       bottom: true,
     },
     {
       top: "unisex",
+      path: "unisex",
       bottom: true,
     },
     {
       top: "brand",
+      path: "brands",
       bottom: false,
     },
     {
-      top: "offerte",
-      bottom: false,
-    },
-    {
-      top: "nuovi arrivi",
-      path: "nuovi-arrivi",
+      top: "novità",
+      path: "new",
       bottom: false,
     },
   ];
@@ -63,8 +56,30 @@ function Header() {
   const [state, setState] = useState({
     showMobileMenu: false,
     fullWidthInput: false,
-    categories: ["camminata", "trail running", "basket", "sneakers"],
+    categories: [],
   });
+
+  useEffect(() => {
+    fetchCategories();
+  }, [lang])
+
+  async function fetchCategories() {
+    let categories = [];
+    const result = await getCategories("it");
+    for (let i = 0; i < result.data.length; i++) {
+      categories.push({
+        anchor: result.data[i].category.toLowerCase(),
+        path: result.data[i].category.includes(" ") ? result.data[i].category.toLowerCase().split(" ").join("-") : result.data[i].category.toLowerCase(),
+
+      })
+    }
+    setState(
+      {
+        ...state,
+        categories,
+      }
+    )
+  }
 
   function toggleMobileMenu() {
     setState(function (prevState) {
@@ -94,7 +109,7 @@ function Header() {
     if (!e.target.value) return;
     const term = e.target.value.split(" ").join("-");
     e.target.value = "";
-    navigate(`/search?q=${term}`);
+    navigate(`search?q=${term}`);
   }
 
   return (
@@ -102,37 +117,37 @@ function Header() {
       <nav>
         <div className="main-header__top">
           <div className="main-header__top__left">
-            { !state.showMobileMenu && (
+            {!state.showMobileMenu && (
               <MenuIcon
-                onClick={ toggleMobileMenu }
+                onClick={toggleMobileMenu}
                 className="main-header__hamburger"
-                fontSize={ "large" }
+                fontSize={"large"}
               />
-            ) }
-            { !!state.showMobileMenu && (
+            )}
+            {!!state.showMobileMenu && (
               <ClearIcon
-                onClick={ toggleMobileMenu }
+                onClick={toggleMobileMenu}
                 className="main-header__hamburger"
-                fontSize={ "large" }
+                fontSize={"large"}
               />
-            ) }
-            <a onClick={ goToHome } href="">
+            )}
+            <a onClick={goToHome} href="">
               <img
                 className="main-header__logo"
-                src={ require("../../../assets/images/logo/logo-312.png") }
+                src={require("../../../assets/images/logo/logo-312.png")}
                 alt="logo"
               />
             </a>
           </div>
           <DesktopMenu
-            categories={ state.categories }
-            menu={ menu }
-            fullWidthInput={ state.fullWidthInput }
+            categories={state.categories}
+            menu={menu}
+            fullWidthInput={state.fullWidthInput}
           />
           <motion.div
-            initial={ false }
-            style={ { margin: "0 5rem 0 4rem" } }
-            animate={ state.fullWidthInput ? {
+            initial={false}
+            style={{ margin: "0 5rem 0 4rem" }}
+            animate={state.fullWidthInput ? {
               width: "50%", transition: {
                 duration: 0.3,
               },
@@ -140,24 +155,24 @@ function Header() {
               width: "20%", transition: {
                 duration: 0,
               },
-            } }
+            }}
           >
             <div
               className="main-header__top__input"
-              style={ { width: `${state.width}rem` } }
+              style={{ width: `${state.width}rem` }}
             >
               <TextField
-                onKeyUp={ searchProducts }
-                onBlur={ toggleInput }
-                onFocus={ toggleInput }
+                onKeyUp={searchProducts}
+                onBlur={toggleInput}
+                onFocus={toggleInput}
                 fullWidth
-                InputProps={ {
+                InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <SearchIcon fontSize={ "large" } />
+                      <SearchIcon fontSize={"large"} />
                     </InputAdornment>
                   ),
-                } }
+                }}
                 variant="standard"
               />
             </div>
@@ -165,12 +180,12 @@ function Header() {
           <div className="main-header__user-icons">
             <div >
               <CartNavMenu
-                name={ "Nike Zoom AIr" }
-                brand={ "Nike" }
-                listedPrice={ "199.00" }
-                sellingPrice={ "60.00" }
-                productSize={ "M41" }
-                quantity={ "1" }
+                name={"Nike Zoom AIr"}
+                brand={"Nike"}
+                listedPrice={"199.00"}
+                sellingPrice={"60.00"}
+                productSize={"M41"}
+                quantity={"1"}
               />
             </div>
             <UserMenuNav />
@@ -179,20 +194,20 @@ function Header() {
         <div className="main-header__bottom">
           <TextField
             fullWidth
-            InputProps={ {
+            InputProps={{
               startAdornment: (
-                <InputAdornment position="start" sx={ { cursor: "pointer" } }>
-                  <SearchIcon fontSize={ "large" } />
+                <InputAdornment position="start" sx={{ cursor: "pointer" }}>
+                  <SearchIcon fontSize={"large"} />
                 </InputAdornment>
               ),
-            } }
+            }}
             variant="standard"
           />
         </div>
         <MobileMenu
-          categories={ state.categories }
-          menu={ menu }
-          showMobileMenu={ state.showMobileMenu }
+          categories={state.categories}
+          menu={menu}
+          showMobileMenu={state.showMobileMenu}
         />
       </nav>
     </header >

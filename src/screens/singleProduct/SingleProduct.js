@@ -15,8 +15,10 @@ import {
   getLocalStorage,
 } from "../../utils/localStorageUtils";
 import Seo from "../../components/functionalComponents/Seo";
+import i18n from "../../assets/translations/i18n";
 
 function SingleProduct() {
+  const lang = i18n.language.slice(0, 2)
   const params = useParams();
   const dispatch = useDispatch();
   const cartQuantity = useSelector((state) => state.userDuck.cartItems); //modificato lo state
@@ -33,16 +35,11 @@ function SingleProduct() {
   }, []);
 
   async function fetchProduct() {
-    const product = await axiosGetProduct();
+    const result = await getProduct(params.id, lang);
     setState({
       ...state,
-      product,
+      product: result.data
     });
-  }
-
-  async function axiosGetProduct() {
-    const result = await getProduct(params.id);
-    return await result.data;
   }
 
   function updateCart() {
@@ -168,18 +165,18 @@ function SingleProduct() {
   return (
     <>
       <Seo
-        title={state.product.name}
+        title={state.product?.name}
         description="Gestione del carrello"
         content="e-commerce"
       />
       <div className="single-product">
         <header>
           <div className="header__container">
-            <p className="header__category">{state.product.category}</p>
-            <p className="header__price">€ {state.product.listed_price}</p>
+            <p className="header__category">{state.product?.category}</p>
+            <p className="header__price">€ {state.product?.listed_price}</p>
           </div>
-          <h2 className="header__brand">{state.product.brand}</h2>
-          <p className="header__name">{state.product.name}</p>
+          <h2 className="header__brand">{state.product?.brand}</h2>
+          <p className="header__name">{state.product?.name}</p>
         </header>
 
         <div className="info__container">
@@ -196,7 +193,7 @@ function SingleProduct() {
               <option value={"none"} disabled={state.sizeSelected}>
                 Seleziona taglia
               </option>
-              {state?.product?.productSizes?.map(renderSizesOption)}
+              {state.product?.productSizes?.map(renderSizesOption)}
             </select>
             <InfoProductBox />
 

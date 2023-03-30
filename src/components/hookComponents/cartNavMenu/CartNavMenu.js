@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { getLocalStorage } from "../../../utils/localStorageUtils";
+import {
+  getLocalStorage,
+  setLocalStorage,
+} from "../../../utils/localStorageUtils";
 // Redux
 import { useSelector } from "react-redux";
 // Router
@@ -29,12 +32,22 @@ function CartNavMenu() {
   const navigate = useNavigate();
 
   function getCartStoredList() {
-    // console.log(getLocalStorage("cart-list"));
-    if (!getLocalStorage("cart-list")) return [];
+    const storage = getLocalStorage("cart-list");
 
-    return getLocalStorage("cart-list");
+    if (!storage) {
+      const initCartList = {
+        info: {
+          numberItems: 0,
+          totalPrice: "0.00",
+        },
+        items: [],
+      };
+
+      setLocalStorage("cart-list", initCartList);
+      return structuredClone(initCartList);
+    }
+    return structuredClone(storage);
   }
-
   function handleClose() {
     setState({
       ...state,
@@ -72,42 +85,6 @@ function CartNavMenu() {
       quantity: 1,
     },
   ];
-
-  function mapList(data, i) {
-    return (
-      <div key={i}>
-        <MenuItem>
-          <div className="cartNavMenu__menu">
-            <div className="cartNavMenu__image">
-              <img src={shoe} alt="" />
-            </div>
-            <div className="cartNavMenu__info">
-              <div className="cartNavMenu__info-name-price">
-                <h3>{data.name}</h3>
-                <div className="container__price">
-                  <p className="newPrice">{data.sellingPrice}$</p>
-                  <p className="oldPrice">{data.listedPrice}$</p>
-                </div>
-              </div>
-              <p className="brand">{data.brand}</p>
-              <div className="container__size-cartQuantity">
-                <p className="infoSize">
-                  {t("cartNavMenu.size")}: {data.productSize}
-                </p>
-                <p className="quantity">
-                  {t("cartNavMenu.quantity")}: {data.quantity}
-                </p>
-              </div>
-            </div>
-          </div>
-        </MenuItem>
-      </div>
-    );
-  }
-
-  function goToCart() {
-    navigate("/cart");
-  }
 
   function mapList(item) {
     return (
@@ -174,14 +151,14 @@ function CartNavMenu() {
           </MenuItem>
 
           {/* Qui bisogna fare il map di tutti i prodotti che l'utente aggiunge */}
-          {state?.itemCartList?.items?.map(mapList)}
+          {state.itemCartList && state.itemCartList.items?.map(mapList)}
 
           <Divider />
 
           <MenuItem className="item" onClick={handleClose}>
             <p>
               Totale: ${" "}
-              {Number(state?.itemCartList?.info?.totalPrice).toFixed(2)}
+              {Number(state.itemCartList?.info?.totalPrice ?? 0).toFixed(2)}
             </p>
           </MenuItem>
           <MenuItem className="item" onClick={handleClose}>

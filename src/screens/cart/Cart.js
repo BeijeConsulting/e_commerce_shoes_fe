@@ -61,12 +61,22 @@ function Cart() {
   });
 
   function getCartStoredList() {
-    // console.log(getLocalStorage("cart-list"));
-    if (!getLocalStorage("cart-list")) return [];
+    const storage = getLocalStorage("cart-list");
 
-    return getLocalStorage("cart-list");
+    if (!storage) {
+      const initCartList = {
+        info: {
+          numberItems: 0,
+          totalPrice: "0.00",
+        },
+        items: [],
+      };
+
+      setLocalStorage("cart-list", initCartList);
+      return structuredClone(initCartList);
+    }
+    return structuredClone(storage);
   }
-
 
   function deleteItem(id, size, quantity, price) {
     const itemToDelete = localData.items.find((item) => {
@@ -124,18 +134,18 @@ function Cart() {
 
   function renderCartList(item) {
     return (
-      <li key={ item.id + item.size }>
+      <li key={item.id + item.size}>
         <ProductCartItem
-          handleList={ updateCartList }
-          handleDelete={ deleteItem }
-          id={ item.id }
-          productName={ item.name }
-          brand={ item.brand }
-          price={ Number(item.sellingItemTotalPrice).toFixed(2) }
-          quantity={ item.quantity }
-          color={ item.color }
-          size={ item.size }
-          img={ item.image }
+          handleList={updateCartList}
+          handleDelete={deleteItem}
+          id={item.id}
+          productName={item.name}
+          brand={item.brand}
+          price={Number(item.sellingItemTotalPrice).toFixed(2)}
+          quantity={item.quantity}
+          color={item.color}
+          size={item.size}
+          img={item.image}
         />
       </li>
     );
@@ -153,16 +163,16 @@ function Cart() {
         content="e-commerce"
       />
       <CartHeader
-        quantity={ state.cart.info.numberItems }
-        totalPrice={ Number(state.cart.info.totalPrice).toFixed(2) }
+        quantity={state.cart.info.numberItems}
+        totalPrice={Number(state.cart.info.totalPrice).toFixed(2)}
       />
       <div className="cart__content">
         <div className="cart__content__left">
-          <ul>{ state.cart.items.map(renderCartList) }</ul>
-          <CouponInput handleCoupon={ checkCoupon } />
+          <ul>{state.cart.items.map(renderCartList)}</ul>
+          <CouponInput handleCoupon={checkCoupon} />
         </div>
         <div className="cart__content__right">
-          <RecapCart total={ Number(state.cart.info.totalPrice).toFixed(2) } />
+          <RecapCart total={Number(state.cart.info.totalPrice).toFixed(2)} />
           <CartInfoBox />
         </div>
       </div>

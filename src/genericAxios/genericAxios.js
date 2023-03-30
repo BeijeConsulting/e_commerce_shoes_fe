@@ -48,13 +48,13 @@ axiosInstanceToken.interceptors.response.use(
   },
   //se con errore
   async function (error) {
-    console.log("responseError", error);
+    // console.log("responseError", error);
     const originalRequest = error.config;
     //se l'errore è 401 usa il refresh Token per ricevere il nuovo token
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       const updateToken = await refreshToken();
-      console.log("generic Axios - UPDATETOKEN", updateToken);
+      // console.log("generic Axios - UPDATETOKEN", updateToken);
       if (updateToken.status === 200) {
         const { token, refreshToken } = updateToken.data;
 
