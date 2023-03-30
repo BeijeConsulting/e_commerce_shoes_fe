@@ -39,11 +39,23 @@ function LoginForm() {
     if (response.status === 200) {
       const user = await getUser(response.data.token);
 
+      console.log("USER", user)
+
+
       dispatch(
         setUserCredentials({
           name: user.data.name,
+          surname: user.data.surname,
+          email: user.data.email,
+          adresses: [...user.data.addresses],
+          birthDate: {
+            dayOfMonth: user.data.birthDate.dayOfMonth,
+            monthValue: user.data.birthDate.monthValue,
+            month: user.data.birthDate.month,
+            year: user.data.birthDate.year,
+          },
           cartItems: user.data.cartItems,
-          wishlistItems: user.data.wishlistItems,
+          wishListItems: user.data.wishListItems,
           isLogged: true,
         })
       );
