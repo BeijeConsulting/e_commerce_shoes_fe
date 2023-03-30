@@ -31,36 +31,35 @@ function UserInfo(props) {
   return (
     <div className='userInfo'>
       <Seo
-        title="Account Personale"
-        description="Faq"
+        title={ t("userInfo.title") }
+        description="FAQ"
         content="e-commerce"
       />
-      <h1>IL MIO ACCOUNT</h1>
+      <h1>{ t("userInfo.myAccount") }</h1>
 
-      {/* Form */ }
+      <div className='userInfo__navlink'>
+        <NavLink
+          to={ "address-list" }
+          className={ "customer__list" }
+        >
+          { t("userInfo.addresses") }
+        </NavLink>
 
-      <NavLink
-        to={ "address-list" }
-        className={ "customer__list" }
-      >
-        { t("userInfo.addresses") }
-      </NavLink>
+        <NavLink
+          to={ "" }
+          className={ "customer__list" }
+        >
+          { t("userInfo.personalData") }
+        </NavLink>
 
-      <NavLink
-        to={ "" }
-        className={ "customer__list" }
-      >
-        { t("userInfo.personalData") }
-      </NavLink>
-
-      <NavLink
-        to={ "order-list" }
-        className={ `customer__list ${location.pathname === `user-info/order-list` ? "active" : ""
-          }` }
-      >
-        <p>Lista Ordini</p>
-      </NavLink>
-
+        <NavLink
+          to={ "order-list" }
+          className={ `customer__list ${location.pathname === `user-info/order-list` ? "active" : ""
+            }` }
+        >
+          <p>{ t("userInfo.orderList") }</p>
+        </NavLink>
+      </div>
       <Outlet />
     </div>
   );
