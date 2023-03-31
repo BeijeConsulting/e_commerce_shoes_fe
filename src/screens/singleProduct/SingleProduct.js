@@ -16,10 +16,15 @@ import {
 } from "../../utils/localStorageUtils";
 import Seo from "../../components/functionalComponents/Seo";
 import i18n from "../../assets/translations/i18n";
-import { addWishList } from '../../services/wishListServices';
+import { addWishList, getWishList } from '../../services/wishListServices';
 import { updateWishListQuantity } from '../../redux/ducks/wishListDuck';
 
 function SingleProduct() {
+  const [state, setState] = useState({
+    product: [],
+    sizeSelected: false,
+  });
+  const [stateAdded, setStateAdded] = useState(false)
   const lang = i18n.language.slice(0, 2)
   const params = useParams();
   const dispatch = useDispatch();
@@ -27,18 +32,14 @@ function SingleProduct() {
   const cartQuantity = useSelector((state) => state.userDuck.cartItems); //modificato lo state
 
   const userIsLogged = useSelector((state) => state.userDuck.isLogged)
-
-
-  const [state, setState] = useState({
-    product: [],
-    sizeSelected: false,
-  });
+  const token = useSelector((state) => state.userDuck.token)
 
   let sizeValue = useRef(null);
 
   useEffect(() => {
     fetchProduct();
-  }, []);
+    fetchWishList()
+  }, [stateAdded]);
 
   async function fetchProduct() {
     const result = await getProduct(params.id, lang);
@@ -46,8 +47,48 @@ function SingleProduct() {
       ...state,
       product: result.data
     });
-    console.log("SINGLEPRODUCT", result);
+
   }
+
+  async function fetchWishList() {
+    let toggle = undefined
+    const response = await getWishList(token)
+
+    // check per controllare se è già presente nella wishlist
+    const alreadyAdd = response.data.items.find(item => Number(item.productId) === Number(params.id))
+
+    if (alreadyAdd) {
+      toggle = true
+    } else {
+      toggle = false
+    }
+    setStateAdded(toggle)
+  }
+
+  ////////////////////////////////
+  // funzone per aggiungere prodotto alla wishlist
+
+  async function addToWishlist() {
+    if (!userIsLogged) {
+      navigate(`/${lang}/identity`)
+    }
+
+    const response = await addWishList({
+      productId: params.id,
+    })
+    // una volta aggiunto setto lo stato a true
+    setStateAdded(true)
+
+    // aggiorno la quantità in redux
+    dispatch(
+      updateWishListQuantity({
+        quantity: +1
+      })
+    )
+    console.log("RESPONSE ADD-WISH", response)
+  }
+
+  ////////////////////////////////
 
   function updateCart() {
     let itemFound = undefined;
@@ -142,28 +183,7 @@ function SingleProduct() {
     setLocalStorage("cart-list", localData);
   }
 
-  ////////////////////////////////
-  // funzone per aggiungere prodotto alla wishlist
 
-  async function addToWishlist() {
-    if (!userIsLogged) {
-      navigate(`/${lang}/identity`)
-    }
-
-    const response = await addWishList({
-      productId: params.id,
-    })
-
-    // aggiorno la quantità in redux
-    dispatch(
-      updateWishListQuantity({
-        quantity: +1
-      })
-    )
-    console.log("RESPONSE ADD-WISH", response)
-  }
-
-  ////////////////////////////////
 
   function renderSizesOption(size, key) {
     return (
@@ -233,7 +253,12 @@ function SingleProduct() {
               buttonStyle={ "default-button" }
             />
 
-            <p onClick={ addToWishlist } className='info__wishlist'>Aggiungi alla lista desideri</p>
+            { !stateAdded && <p onClick={ addToWishlist } className='info__wishlist'>
+              Aggiungi alla lista desideri
+            </p> }
+            { stateAdded && <p onClick={ addToWishlist } className='info__wishlist'>
+              Aggiunto
+            </p> }
 
 
             <p className="info__p">Tabella Taglie Link</p>

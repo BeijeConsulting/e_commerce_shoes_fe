@@ -25,6 +25,8 @@ function UserMenuNav(props) {
 
     const token = useSelector((state) => state.tokenDuck.token)
     const refreshToken = useSelector((state) => state.tokenDuck.refreshToken)
+    const userIsLogged = useSelector((state) => state.userDuck.isLogged);
+    const userName = useSelector((state) => state.userDuck.name);
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -41,7 +43,6 @@ function UserMenuNav(props) {
         setAnchorEl(event.currentTarget);
     };
 
-    const userIsLogged = useSelector((state) => state.userDuck.isLogged);
 
     // if user is logged --> screen userInfo
     // if user is not logged --> screen identity
@@ -140,7 +141,8 @@ function UserMenuNav(props) {
                         { userIsLogged ?
                             <p onClick={ conditionalGoTo } className='item'>
                                 <span>
-                                    { t("userMenuNav.profile") }
+                                    {/* { t("userMenuNav.profile") } */ }
+                                    { userName.toUpperCase() }
                                 </span>
                             </p> :
                             <p onClick={ conditionalGoTo }
