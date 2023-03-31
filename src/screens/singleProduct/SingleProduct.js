@@ -28,7 +28,7 @@ function SingleProduct() {
 
   const [state, setState] = useState({
     product: [],
-    sizeSelected: false,
+    selectedSize: false,
   });
 
   let sizeValue = useRef(null);
@@ -36,7 +36,7 @@ function SingleProduct() {
 
   useEffect(() => {
     fetchProduct();
-  }, []);
+  }, [lang]);
 
   async function fetchProduct() {
     const result = await getProduct(params.id, lang);
@@ -50,7 +50,7 @@ function SingleProduct() {
     let itemFound = undefined;
     let localData = getLocalStorage("cart-list");
     // console.log(localData);
-    if (!state.sizeSelected) {
+    if (!state.selectedSize) {
       // console.log("Seleziona una taglia");
       return;
     }
@@ -180,7 +180,7 @@ function SingleProduct() {
         ...state.product,
         listed_price: Number(newSize.selling_price).toFixed(2),
       },
-      sizeSelected: true,
+      selectedSize: true,
     });
   }
 
@@ -195,7 +195,7 @@ function SingleProduct() {
         <header>
           <div className="header__container">
             <p className="header__category">{state.product?.category}</p>
-            <p className="header__price">€ {state.product?.listed_price}</p>
+            <p className="header__price">{state.selectedSize ? `${state.product?.listed_price}€` : `prezzo di listino ${state.product?.listed_price}€`}</p>
           </div>
           <h2 className="header__brand">{state.product?.brand}</h2>
           <p className="header__name">{state.product?.name}</p>
@@ -212,7 +212,7 @@ function SingleProduct() {
               onChange={handleSelect}
               name="sizes"
             >
-              <option value={"none"} disabled={state.sizeSelected}>
+              <option value={"none"} disabled={state.selectedSize}>
                 Seleziona taglia
               </option>
               {state.product?.productSizes?.map(renderSizesOption)}
@@ -224,8 +224,8 @@ function SingleProduct() {
               label={"AGGIUNGI AL CARRELLO"}
               buttonStyle={"default-button"}
             />
-            <p className="info__p">Tabella Taglie Link</p>
-            <AccordionItem />
+            <p className="info__p">Tabella taglie</p>
+            <AccordionItem productDescription={state.product?.description} productBrand={state.product?.brand} />
           </div>
         </div>
       </div>

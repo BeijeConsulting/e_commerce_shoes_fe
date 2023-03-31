@@ -3,19 +3,19 @@ import { getData } from "../genericAxios/genericAxios";
 
 
 export async function getProductsList(page, lang, filter = "") {
-  const response = await getData(`/products/page=${page}/perPage=2/${lang}` + filter);
+  const response = await getData(`/products/page=${page}/perPage=4/${lang}` + filter);
 
   return { status: response.status, data: response.data };
 }
 
 export async function getNewProductsList(page, lang, filter = "") {
-  const response = await getData(`/products/new/page=${page}/perPage=2/${lang}` + filter);
+  const response = await getData(`/products/new/page=${page}/perPage=4/${lang}` + filter);
 
   return { status: response.status, data: response.data };
 }
 
 export async function getSearchProducts(page, lang, term) {
-  const response = await getData(`/products/search/page=${page}/perPage=2/${lang}?q=${term}`);
+  const response = await getData(`/products/search/page=${page}/perPage=4/${lang}?q=${term}`);
 
   return { status: response.status, data: response.data };
 }

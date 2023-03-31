@@ -114,8 +114,7 @@ function ProductsList() {
             category={item.category}
             brand={item.brand}
             name={item.name}
-            initialPrice={item.starting_price}
-            price={item.starting_price + 30}
+            price={item.starting_price}
             idProduct={item.id}
         />
     }
