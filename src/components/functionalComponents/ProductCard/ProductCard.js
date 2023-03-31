@@ -7,7 +7,7 @@ function ProductCard(props) {
   const lang = i18n.language.slice(0, 2)
   const navigate = useNavigate();
   function goTo() {
-    navigate(`/${lang}/product/${props.idProduct}`)
+    navigate(`/${lang}/scarpa/${props.idProduct}`)
   }
 
   return (

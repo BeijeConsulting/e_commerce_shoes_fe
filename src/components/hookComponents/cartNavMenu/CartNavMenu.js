@@ -63,7 +63,7 @@ function CartNavMenu() {
   }
 
   function goToCart() {
-    navigate("cart");
+    navigate("carrello");
   }
 
   const dataProducts = [

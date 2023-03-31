@@ -12,7 +12,7 @@ function ProductsList() {
     const location = useLocation();
     const { pathname } = location;
     const lang = i18n.language.slice(0, 2);
-    const types = ["men", "woman", "unisex"]
+    const types = ["uomo", "donna", "unisex"]
     const pathToArray = pathname.split("/").filter(item => item !== "");
 
     const [state, setState] = useState(
@@ -35,14 +35,15 @@ function ProductsList() {
         let result = null;
         let query = "";
 
+        if (pathToArray[2] === types[0]) type = "m";
+        if (pathToArray[2] === types[1]) type = "w";
+        if (pathToArray[2] === types[2]) type = "u";
 
         if (pathToArray.length === 3) {
-            if (pathToArray[2] !== "new") {
-                type = pathToArray[2].slice(0, 1);
+            if (pathToArray[2] !== "novita") {
                 query = `?type=${type}`;
             }
         } else if (pathToArray.length === 4) {
-            type = pathToArray[2].slice(0, 1);
             category = pathToArray[3].split("-").join("%20");
             query = `?type=${type}&category=${category}`;
         }
@@ -53,11 +54,13 @@ function ProductsList() {
             query = getQuery(obj);
         }
 
-        if (pathToArray[2] === "new") {
+        if (pathToArray[2] === "novita") {
             result = await getNewProductsList(0, lang, query);
         } else {
             result = await getProductsList(0, lang, query);
         }
+
+        console.log(query)
 
         console.log("RESULT", result.data);
 

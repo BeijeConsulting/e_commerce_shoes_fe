@@ -8,14 +8,14 @@ function DesktopMenu(props) {
 
     function mapDesktopMenu(item, key) {
         if (item.bottom === false) {
-            return <li key={`${key}-${Math.random()}`} onClick={() => goTo(`products/${item.path}`)}>
+            return <li key={`${key}-${Math.random()}`} onClick={() => goTo(`scarpe/${item.path}`)}>
                 <div>{item.top}</div>
             </li>
         }
 
         if (item.bottom === true) {
             return <li key={`${key}-${Math.random()}`}>
-                <div onClick={() => goTo(`products/${item.path}`)}>{item.top}</div>
+                <div onClick={() => goTo(`scarpe/${item.path}`)}>{item.top}</div>
                 <div className="main-header__menu__sub">
                     {item.bottom && <ul>{mapDesktopSubMenu(item.path)}</ul>}
                 </div>
@@ -28,7 +28,7 @@ function DesktopMenu(props) {
     function mapDesktopSubMenu(path) {
         return props.categories.map(function (item, key) {
             return (
-                <li key={`${key}-${Math.random()}`} onClick={() => goTo(`products/${path}/${item.path}`)}>
+                <li key={`${key}-${Math.random()}`} onClick={() => goTo(`scarpe/${path}/${item.path}`)}>
                     <div>{item.anchor}</div>
                 </li>
             );

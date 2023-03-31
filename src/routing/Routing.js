@@ -86,50 +86,50 @@ function Routing() {
       <Route path="/:lang" element={<Cms />}>
         {/* Homepage */}
         <Route index element={<Home />} />
-        <Route path="user-info" element={<UserInfo />}>
+        <Route path="area-personale" element={<UserInfo />}>
           <Route index element={<PersonalData />} />
-          <Route path="address-list" element={<AddressList />} />
-          <Route path="order-list" element={<OrderList />} />
+          <Route path="indirizzi" element={<AddressList />} />
+          <Route path="utenti" element={<OrderList />} />
         </Route>
 
         {/* Products list */}
-        <Route path={"products"} element={<ProductsList />}>
-          <Route path=":first" element={<ProductsList />} />
-          <Route path=":first/:second" element={<ProductsList />} />
+        <Route path={"scarpe"} element={<ProductsList />}>
+          <Route path=":uno" element={<ProductsList />} />
+          <Route path=":uno/:due" element={<ProductsList />} />
         </Route>
 
         {/* Search */}
-        <Route path="search" element={<Search />} />
+        <Route path="ricerca" element={<Search />} />
 
         {/* Brands */}
-        <Route path="brands" element={<Cart />} />
-        <Route path="brands/:brand" element={<ProductsList />} />
+        <Route path="brand" element={<Cart />} />
+        <Route path="brand/:brand" element={<ProductsList />} />
 
         {/* Single products */}
-        <Route path="product/:id" element={<SingleProduct />} />
+        <Route path="scarpa/:id" element={<SingleProduct />} />
 
         {/* Cart */}
-        <Route path="cart" element={<Cart />} />
+        <Route path="carrello" element={<Cart />} />
 
         {/* Customer care */}
-        <Route path="customer-care" element={<CustomerCare />}>
-          <Route path="contacts" element={<Contacts />} />
-          <Route path="delivery" element={<Delivery />} />
-          <Route path="returns" element={<ReturnAndRefund />} />
+        <Route path="assistenza" element={<CustomerCare />}>
+          <Route path="contatti" element={<Contacts />} />
+          <Route path="spedizioni" element={<Delivery />} />
+          <Route path="resi" element={<ReturnAndRefund />} />
           <Route path="faq" element={<Faq />} />
-          <Route path="cookie" element={<Cookie />} />
-          <Route path="terms-and-condictions" element={<Terms />} />
-          <Route path="returns" element={<ReturnAndRefund />} />
-          <Route path="privacy" element={<Privacy />} />
+          <Route path="cookie-policy" element={<Cookie />} />
+          <Route path="termini-condizioni" element={<Terms />} />
+          <Route path="resi" element={<ReturnAndRefund />} />
+          <Route path="privacy-policy" element={<Privacy />} />
         </Route>
       </Route>
 
-      <Route path="checkout" element={<Checkout />} />
+      <Route path=":lang/checkout" element={<Checkout />} />
 
       {/* Signin - Signup */}
-      <Route path=":lang/identity" element={<Identity />}>
+      <Route path=":lang/accedi" element={<Identity />}>
         <Route index element={<LoginForm />} />
-        <Route path="signup" element={<SignupForm />} />
+        <Route path="registrati" element={<SignupForm />} />
       </Route>
     </Routes>
   );

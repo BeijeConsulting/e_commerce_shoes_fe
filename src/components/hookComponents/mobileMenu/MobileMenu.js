@@ -29,7 +29,7 @@ function MobileMenu(props) {
         if (item.bottom === false) {
             return <li key={`${key}-${Math.random()}`}>
                 {state.active === null && <div
-                    onClick={() => goTo(`products/${item.path}`)}
+                    onClick={() => goTo(`scarpe/${item.path}`)}
                     className={"mobile-menu__item"}
                 >
                     <div>{item.top}</div>

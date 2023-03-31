@@ -20,6 +20,7 @@ import {
   addListItemToCartList,
   getCartList,
 } from "../../../services/cartServices";
+import i18n from "../../../assets/translations/i18n";
 
 function SignupForm() {
   const [state, setState] = useState({
@@ -33,6 +34,7 @@ function SignupForm() {
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const lang = i18n.language.slice(0, 2);
 
   const emailReg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i;
   const passwordReg =
@@ -116,7 +118,7 @@ function SignupForm() {
           console.log(getLocalStorage("cart-list"));
         }
 
-        return navigate("/");
+        return navigate(`/${lang}`);
       }
 
       if (error.message.toLowerCase() === "email already in use!") {
@@ -162,9 +164,8 @@ function SignupForm() {
           register={register}
           isRequired={true}
           labelStyle="default-label margin-top"
-          inputStyle={`default-input margin-top-small ${
-            state.invalidFirstName ? "default-input--error" : ""
-          }`}
+          inputStyle={`default-input margin-top-small ${state.invalidFirstName ? "default-input--error" : ""
+            }`}
         />
         <InputTextField
           inputName="lastName"
@@ -174,9 +175,8 @@ function SignupForm() {
           register={register}
           isRequired={true}
           labelStyle="default-label margin-top-extra"
-          inputStyle={`default-input margin-top-small ${
-            state.invalidLastName ? "default-input--error" : ""
-          }`}
+          inputStyle={`default-input margin-top-small ${state.invalidLastName ? "default-input--error" : ""
+            }`}
         />
         <InputTextField
           inputName="email"
@@ -187,9 +187,8 @@ function SignupForm() {
           regexValidation={emailReg}
           isRequired={true}
           labelStyle="default-label margin-top-extra"
-          inputStyle={`default-input margin-top-small ${
-            state.invalidEmail ? "default-input--error" : ""
-          }`}
+          inputStyle={`default-input margin-top-small ${state.invalidEmail ? "default-input--error" : ""
+            }`}
         />
 
         {state.invalidEmail && (
@@ -211,9 +210,8 @@ function SignupForm() {
           regexValidation={passwordReg}
           isRequired={true}
           labelStyle="default-label margin-top-extra"
-          inputStyle={`default-input  ${
-            state.invalidPassword ? "default-input--error" : ""
-          }`}
+          inputStyle={`default-input  ${state.invalidPassword ? "default-input--error" : ""
+            }`}
         />
 
         {state.invalidPassword && (
@@ -237,9 +235,8 @@ function SignupForm() {
           register={register}
           isRequired={true}
           labelStyle="default-label margin-top-extra"
-          inputStyle={`default-input margin-top-small ${
-            state.invalidAge ? "default-input--error" : ""
-          }`}
+          inputStyle={`default-input margin-top-small ${state.invalidAge ? "default-input--error" : ""
+            }`}
         />
 
         {state.invalidAge && (

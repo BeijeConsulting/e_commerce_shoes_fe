@@ -19,15 +19,15 @@ function Footer() {
             list: [
                 {
                     anchor: t("footer.whoWeAre"),
-                    path: "customer-care",
+                    path: "assistenza",
                 },
                 {
                     anchor: 'Login',
-                    path: "identity",
+                    path: "accedi",
                 },
                 {
                     anchor: t("footer.registration"),
-                    path: "identity/signup",
+                    path: "accedi/registrati",
                 },
             ]
         },
@@ -36,11 +36,11 @@ function Footer() {
             list: [
                 {
                     anchor: 'Privacy policy',
-                    path: "customer-care/privacy",
+                    path: "assistenza/privacy-policy",
                 },
                 {
                     anchor: 'Cookie policy',
-                    path: "customer-care/cookie",
+                    path: "assistenza/cookie-policy",
                 },
             ]
         },
@@ -49,19 +49,19 @@ function Footer() {
             list: [
                 {
                     anchor: t("footer.serviceClient"),
-                    path: "customer-care",
+                    path: "assistenza",
                 },
                 {
                     anchor: 'FAQ',
-                    path: "customer-care/faq",
+                    path: "assistenza/faq",
                 },
                 {
                     anchor: t("footer.termAndConditions"),
-                    path: "customer-care/terms-and-condictions",
+                    path: "assistenza/termini-condizioni",
                 },
                 {
                     anchor: t("footer.returns"),
-                    path: "customer-care/returns",
+                    path: "assistenza/resi",
                 },
             ]
         }
