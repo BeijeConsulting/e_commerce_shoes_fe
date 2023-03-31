@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./productCartItem.scss";
 import CheckIcon from "@mui/icons-material/Check";
-import { Check } from "@mui/icons-material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useSelector } from "react-redux";
 

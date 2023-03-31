@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./singleProduct.scss";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 import Button from "../../components/functionalComponents/button/Button";
 import SingleProductSlider from "../../components/hookComponents/singleProductSlider/SingleProductSlider";
@@ -16,7 +16,6 @@ import {
 } from "../../utils/localStorageUtils";
 import Seo from "../../components/functionalComponents/Seo";
 import { addItemToCartList, getCartList } from "../../services/cartServices";
-import moment from "moment";
 import i18n from "../../assets/translations/i18n";
 
 function SingleProduct() {
@@ -25,7 +24,7 @@ function SingleProduct() {
   const dispatch = useDispatch();
   const cartQuantity = useSelector((state) => state.userDuck.cartItems); //modificato lo state
   const isLogged = useSelector((state) => state.userDuck.isLogged);
-  const token = useSelector((state) => state.tokenDuck.token);
+  // const token = useSelector((state) => state.tokenDuck.token);
 
   const [state, setState] = useState({
     product: [],
@@ -37,20 +36,6 @@ function SingleProduct() {
 
   useEffect(() => {
     fetchProduct();
-    async function userCartList(token) {
-      const response = await getCartList(token);
-      console.log(response);
-      // const resp = await addItemToCartList({
-      //   id: 2,
-      //   productDetailsId: 4,
-      //   quantity: 1,
-      //   userId: 61,
-      // });
-
-      // console.log(resp);
-    }
-
-    userCartList(token);
   }, []);
 
   async function fetchProduct() {
@@ -159,6 +144,7 @@ function SingleProduct() {
       };
       console.log(obj);
       const addItem = await addItemToCartList(obj);
+      console.log(addItem);
 
       const localDataResponse = await getCartList();
       if (localDataResponse.status === 200) {

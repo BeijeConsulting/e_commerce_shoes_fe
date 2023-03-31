@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -34,7 +34,7 @@ function AdressList(props) {
 
   console.log("USERDATA", userData);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { t } = useTranslation();
@@ -63,12 +63,12 @@ function AdressList(props) {
 
     if (response.status === 200) {
       let newObj = {
-        id: response?.data?.id,
-        country: response?.data?.country,
-        name_surname: response?.data?.name_surname,
-        street_address: response?.data?.street_address,
-        telephone: response?.data?.telephone,
-        zipcode: response?.data?.zipcode,
+        id: response.data?.id,
+        country: response.data?.country,
+        name_surname: response.data?.name_surname,
+        street_address: response.data?.street_address,
+        telephone: response.data?.telephone,
+        zipcode: response.data?.zipcode,
         // userId: 0,
         //instructions: "nothing",
         //label: "string",

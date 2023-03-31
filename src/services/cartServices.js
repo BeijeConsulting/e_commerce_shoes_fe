@@ -2,11 +2,8 @@ import {
   deleteDataAuth,
   getData,
   getDataAuth,
-  postData,
   postDataAuth,
-  putData,
   putDataAuthParams,
-  putDataParams,
 } from "../genericAxios/genericAxios";
 
 export async function getCartList() {
