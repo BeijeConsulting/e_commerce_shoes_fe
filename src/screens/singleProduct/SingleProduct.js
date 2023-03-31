@@ -65,6 +65,7 @@ function SingleProduct() {
 
         items: [
           {
+            item_id: null,
             productId: state.product.id.toString(),
             productDetailsId: productDetailsId.current,
             name: state.product.name,
@@ -83,7 +84,7 @@ function SingleProduct() {
         // console.log("item.size: " + item.size);
         // console.log("sizeValue: " + sizeValue.current);
         return (
-          item.productId?.toString() === state.product.id.toString() &&
+          item.productId.toString() === state.product.id.toString() &&
           item.size.toString() === sizeValue.current.toString()
         );
       });
@@ -93,6 +94,7 @@ function SingleProduct() {
       if (!itemFound) {
         // console.log("item not found");
         localData.items.push({
+          item_id: null,
           productId: state.product.id.toString(),
           productDetailsId: productDetailsId.current,
           name: state.product.name,
@@ -186,7 +188,7 @@ function SingleProduct() {
   }
 
   function goToBrandPage() {
-    navigate(`/${lang}/brand/${state.product?.brand.toLowerCase()}`)
+    navigate(`/${lang}/brand/${state.product?.brand.toLowerCase()}`);
   }
 
   return (
@@ -200,12 +202,14 @@ function SingleProduct() {
         <header>
           <div className="header__container">
             <p className="header__category">{state.product?.category}</p>
-            <p className="header__price">{state.selectedSize ? `${state.product?.listed_price}€` : `prezzo di listino ${state.product?.listed_price}€`}</p>
+            <p className="header__price">
+              {state.selectedSize
+                ? `${state.product?.listed_price}€`
+                : `prezzo di listino ${state.product?.listed_price}€`}
+            </p>
           </div>
           <h2 className="header__brand">
-            <a onClick={goToBrandPage}>
-              {state.product?.brand}
-            </a>
+            <a onClick={goToBrandPage}>{state.product?.brand}</a>
           </h2>
           <p className="header__name">{state.product?.name}</p>
         </header>
@@ -234,7 +238,10 @@ function SingleProduct() {
               buttonStyle={"default-button"}
             />
             <p className="info__p">Tabella taglie</p>
-            <AccordionItem productDescription={state.product?.description} productBrand={state.product?.brand} />
+            <AccordionItem
+              productDescription={state.product?.description}
+              productBrand={state.product?.brand}
+            />
           </div>
         </div>
       </div>
