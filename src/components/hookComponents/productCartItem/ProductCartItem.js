@@ -30,13 +30,6 @@ function ProductCartItem(props) {
     // console.log(Number(inputField.current.value));
     let quantity = isInvalidInput ? props.quantity : inputField.current.value;
 
-    /* 1 - Far gestire la chiamata API dal parent in modo che possa aggiornare 
-        le props che passa ai children
-
-        2 - Fare la chiamata API direttamente dal children e far fare il re-rendering
-        con le props aggiornate da redux
-    */
-
     if (!isInvalidInput) {
       const deltaQuantity = Number(quantity) - Number(props.quantity);
       const deltaPrice = Number(singleProductPrice) * Number(deltaQuantity);

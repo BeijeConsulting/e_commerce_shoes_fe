@@ -7,12 +7,19 @@ import moment from "moment/moment";
 import InputCheckbox from "../../functionalComponents/inputCheckbox/InputCheckbox";
 import InputPasswordField from "../inputPasswordField/InputPasswordField";
 import { signUp } from "../../../services/authServices";
-import { setLocalStorage } from "../../../utils/localStorageUtils";
+import {
+  getLocalStorage,
+  setLocalStorage,
+} from "../../../utils/localStorageUtils";
 import { useDispatch } from "react-redux";
 import { setUserCredentials } from "../../../redux/ducks/userDuck";
 import { useNavigate } from "react-router-dom";
 import Seo from "../../functionalComponents/Seo";
 import { setToken } from "../../../redux/ducks/tokenDuck";
+import {
+  addListItemToCartList,
+  getCartList,
+} from "../../../services/cartServices";
 
 function SignupForm() {
   const [state, setState] = useState({
@@ -47,9 +54,18 @@ function SignupForm() {
       isInvalidAge = true;
     }
 
+    console.log(data);
+
     if (!isInvalidAge) {
       try {
-        response = await signUp(data);
+        response = await signUp({
+          birth_date: data.birthDate,
+          email: data.email,
+          first_name: data.firstName,
+          last_name: data.lastName,
+          password: data.password,
+          surname: data.lastName,
+        });
       } catch (err) {
         error = err.response.data;
       }
@@ -57,6 +73,8 @@ function SignupForm() {
       if (response && response.status === 200) {
         setLocalStorage("token", response.data.token);
         setLocalStorage("refreshToken", response.data.refreshToken);
+
+        console.log(response);
 
         dispatch(
           setToken({
@@ -74,6 +92,29 @@ function SignupForm() {
             isLogged: true,
           })
         );
+
+        const localCart = getLocalStorage("cart-list");
+
+        if (localCart?.items?.length > 0) {
+          const items = localCart.items.map((item) => {
+            return {
+              id: item.id,
+              productDetailsId: item.productDetailsId,
+              quantity: item.quantity,
+            };
+          });
+
+          console.log(items);
+          const listResp = await addListItemToCartList(items);
+          console.log(listResp);
+        }
+
+        const userCart = await getCartList();
+        console.log(userCart.data);
+        if (userCart.status === 200) {
+          setLocalStorage("cart-list", userCart.data);
+          console.log(getLocalStorage("cart-list"));
+        }
 
         return navigate("/");
       }

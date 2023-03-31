@@ -46,21 +46,6 @@ function LoginForm() {
     if (response.status === 200) {
       const user = await getUser(response.data.token);
 
-      setLocalStorage("user-id", response.data.id);
-
-      dispatch(
-        setUserCredentials({
-          name: user.data.first_name,
-          surname: user.data.last_name,
-          email: user.data.email,
-          adresses: [...user.data.addresses],
-          birthDate: user.data.birth_date,
-          cartItems: user.data.cart_items,
-          wishListItems: user.data.wish_list_item,
-          isLogged: true,
-        })
-      );
-
       dispatch(
         setToken({
           token: response.data.token,
@@ -82,7 +67,7 @@ function LoginForm() {
             id: item.id,
             productDetailsId: item.productDetailsId,
             quantity: item.quantity,
-            userId: response.data.id,
+            // userId: response.data.id,
           };
         });
 
@@ -97,6 +82,19 @@ function LoginForm() {
         setLocalStorage("cart-list", userCart.data);
         console.log(getLocalStorage("cart-list"));
       }
+
+      dispatch(
+        setUserCredentials({
+          name: user.data.first_name,
+          surname: user.data.last_name,
+          email: user.data.email,
+          adresses: [...user.data.addresses],
+          birthDate: user.data.birth_date,
+          // cartItems: user.data.cart_items,
+          wishListItems: user.data.wish_list_item,
+          isLogged: true,
+        })
+      );
 
       navigate(`/${lang}`);
     }

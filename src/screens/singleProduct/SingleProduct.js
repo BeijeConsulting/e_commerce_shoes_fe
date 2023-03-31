@@ -23,7 +23,6 @@ function SingleProduct() {
   const dispatch = useDispatch();
   const cartQuantity = useSelector((state) => state.userDuck.cartItems); //modificato lo state
   const isLogged = useSelector((state) => state.userDuck.isLogged);
-  const userId = useSelector((state) => state.userDuck.userId);
   const token = useSelector((state) => state.tokenDuck.token);
 
   const [state, setState] = useState({
@@ -161,7 +160,6 @@ function SingleProduct() {
         id: state.product.id,
         productDetailsId: productDetailsId.current,
         quantity: 1,
-        userId: getLocalStorage("user-id"),
       };
       console.log(obj);
       const addItem = await addItemToCartList(obj);
