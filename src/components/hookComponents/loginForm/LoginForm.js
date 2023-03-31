@@ -20,6 +20,8 @@ import {
   addListItemToCartList,
   getCartList,
 } from "../../../services/cartServices";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function LoginForm() {
   const dispatch = useDispatch();
@@ -37,86 +39,112 @@ function LoginForm() {
   const emailReg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i;
   const passwordReg = /^.{2,}$/;
 
-  const onSubmit = async (data) => {
-    const response = await signin({
-      email: data.email,
-      password: data.password,
+  function notifyLoginSuccess() {
+    toast.success("Login", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 500,
     });
+  }
+  function notifyLoginError() {
+    toast.error("Dati non validi", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 2000,
+    });
+  }
 
-    console.log(response);
+  function notifyLoginCredentialsError() {
+    toast.error("Credenziali Errate", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 2000,
+    });
+  }
 
-    if (response.status === 200) {
-      const user = await getUser(response.data.token);
+  const onSubmit = async (data) => {
+    try {
+      const response = await signin({
+        email: data.email,
+        password: data.password,
+      });
 
-      console.log("USER", user);
+      console.log(response);
 
-      dispatch(
-        setUserCredentials({
-          name: user.data.first_name,
-          surname: user.data.last_name,
-          email: user.data.email,
-          adresses: [...user.data.addresses],
-          birthDate: user.data.birth_date,
-          cartItems: user.data.cart_items,
-          wishListItems: user.data.wish_list_item,
-          isLogged: true,
-        })
-      );
+      if (response.status === 200) {
+        const user = await getUser(response.data.token);
 
-      dispatch(
-        setToken({
-          token: response.data.token,
-          refreshToken: response.data.refreshToken,
-        })
-      );
+        console.log("USER", user);
 
-      setLocalStorage("token", response.data.token);
-      setLocalStorage("refreshToken", response.data.refreshToken);
+        dispatch(
+          setUserCredentials({
+            name: user.data.first_name,
+            surname: user.data.last_name,
+            email: user.data.email,
+            adresses: [...user.data.addresses],
+            birthDate: user.data.birth_date,
+            cartItems: user.data.cart_items,
+            wishListItems: user.data.wish_list_item,
+            isLogged: true,
+          })
+        );
 
-      const localCart = getLocalStorage("cart-list");
+        dispatch(
+          setToken({
+            token: response.data.token,
+            refreshToken: response.data.refreshToken,
+          })
+        );
 
-      const cartFetch = await getCartList();
-      console.log(cartFetch);
+        setLocalStorage("token", response.data.token);
+        setLocalStorage("refreshToken", response.data.refreshToken);
 
-      if (localCart?.items?.length > 0) {
-        const items = localCart.items.map((item) => {
-          return {
-            id: item.id,
-            productDetailsId: item.productDetailsId,
-            quantity: item.quantity,
-            // userId: response.data.id,
-          };
-        });
+        const localCart = getLocalStorage("cart-list");
 
-        console.log(items);
-        const listResp = await addListItemToCartList(items);
-        console.log(listResp);
+        const cartFetch = await getCartList();
+        console.log(cartFetch);
+
+        if (localCart?.items?.length > 0) {
+          const items = localCart.items.map((item) => {
+            return {
+              id: item.id,
+              productDetailsId: item.productDetailsId,
+              quantity: item.quantity,
+              // userId: response.data.id,
+            };
+          });
+
+          console.log(items);
+          const listResp = await addListItemToCartList(items);
+          console.log(listResp);
+        }
+
+        const userCart = await getCartList();
+        console.log(userCart.data);
+        if (userCart.status === 200) {
+          setLocalStorage("cart-list", userCart.data);
+          console.log(getLocalStorage("cart-list"));
+        }
+
+        dispatch(
+          setUserCredentials({
+            name: user.data.first_name,
+            surname: user.data.last_name,
+            email: user.data.email,
+            adresses: [...user.data.addresses],
+            birthDate: user.data.birth_date,
+            // cartItems: user.data.cart_items,
+            wishListItems: user.data.wish_list_item,
+            isLogged: true,
+          })
+        );
+
+        notifyLoginSuccess();
+        setTimeout(() => {
+          navigate(`/${lang}`);
+        }, 1500);
       }
-
-      const userCart = await getCartList();
-      console.log(userCart.data);
-      if (userCart.status === 200) {
-        setLocalStorage("cart-list", userCart.data);
-        console.log(getLocalStorage("cart-list"));
-      }
-
-      dispatch(
-        setUserCredentials({
-          name: user.data.first_name,
-          surname: user.data.last_name,
-          email: user.data.email,
-          adresses: [...user.data.addresses],
-          birthDate: user.data.birth_date,
-          // cartItems: user.data.cart_items,
-          wishListItems: user.data.wish_list_item,
-          isLogged: true,
-        })
-      );
-
-      navigate(`/${lang}`);
+      console.log(response);
+    } catch {
+      notifyLoginCredentialsError();
     }
-
-    console.log(response);
 
     setState({
       ...state,
@@ -126,6 +154,7 @@ function LoginForm() {
   };
 
   const onError = (err) => {
+    notifyLoginError();
     console.log("Fail");
     console.log(err);
 
@@ -170,6 +199,7 @@ function LoginForm() {
         />
       </div>
       <Button label="Login" buttonStyle="submit-button button-margin-top" />
+      <ToastContainer hideProgressBar />
     </form>
   );
 }

@@ -17,6 +17,8 @@ import {
 import Seo from "../../components/functionalComponents/Seo";
 import { addItemToCartList, getCartList } from "../../services/cartServices";
 import i18n from "../../assets/translations/i18n";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function SingleProduct() {
   const lang = i18n.language.slice(0, 2);
@@ -47,12 +49,32 @@ function SingleProduct() {
     });
   }
 
+  function notifyAddToCartSuccess() {
+    toast.success("Aggiunto al carrello", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 1000,
+    });
+  }
+  function notifyAddToCartError() {
+    toast.error("Si è verificato un errore", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 1000,
+    });
+  }
+  function notifyAddToCartSizeError() {
+    toast.error("Devi selezionare una taglia", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 1000,
+    });
+  }
+
   async function updateCart() {
     let itemFound = undefined;
     let localData = getLocalStorage("cart-list");
     // console.log(localData);
     if (!state.selectedSize) {
       // console.log("Seleziona una taglia");
+      notifyAddToCartSizeError();
       return;
     }
 
@@ -140,22 +162,29 @@ function SingleProduct() {
     }
     // console.log(localData);
     if (isLogged) {
-      const obj = {
-        id: state.product.id,
-        productDetailsId: productDetailsId.current,
-        quantity: 1,
-      };
-      console.log(obj);
-      const addItem = await addItemToCartList(obj);
-      console.log(addItem);
+      try {
+        const obj = {
+          id: state.product.id,
+          productDetailsId: productDetailsId.current,
+          quantity: 1,
+        };
+        console.log(obj);
+        const addItem = await addItemToCartList(obj);
+        console.log(addItem);
 
-      const localDataResponse = await getCartList();
-      if (localDataResponse.status === 200) {
-        localData = localDataResponse.data;
+        const localDataResponse = await getCartList();
+        if (localDataResponse.status === 200) {
+          localData = localDataResponse.data;
+        }
+        console.log("aggiunto");
+        notifyAddToCartSuccess();
+      } catch {
+        notifyAddToCartError();
       }
     }
 
     setLocalStorage("cart-list", localData);
+    if (!isLogged) notifyAddToCartSuccess();
   }
 
   function renderSizesOption(size, key) {
@@ -245,6 +274,7 @@ function SingleProduct() {
           </div>
         </div>
       </div>
+      <ToastContainer hideProgressBar />
     </>
   );
 }

@@ -12,7 +12,7 @@ import Seo from "../../components/functionalComponents/Seo";
 import ProductCard from "../../components/functionalComponents/ProductCard/ProductCard";
 // import ProductCard from "../../components/functionalComponents/ProductCard/ProductCard";
 // import productCardImg from "../../assets/images/productCardImg.jpg";
-/*
+
 const sampleData = [
   {
     id: 1,
@@ -95,7 +95,7 @@ const sampleData = [
     image_preview: "",
   },
 ];
-*/
+
 function Home() {
   return (
     <>
@@ -114,7 +114,7 @@ function Home() {
         <ProductSlider />
         <BoxImage image={boxNuoviArriviLifeStyle} />
       </div>
-      {/*sampleData.map((el) => {
+      {sampleData.map((el) => {
         return (
           <ProductCard
             image={el.image_preview}
@@ -125,7 +125,7 @@ function Home() {
             idProduct={el.id}
           />
         );
-      })*/}
+      })}
     </>
   );
 }
