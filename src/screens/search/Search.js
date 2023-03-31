@@ -3,18 +3,21 @@ import "./search.scss";
 
 import ProductCard from "../../components/functionalComponents/ProductCard/ProductCard";
 import ProductGridLayout from "../../components/functionalComponents/productGridLayout/ProductGridLayout";
-
+import Pagination from '@mui/material/Pagination';
 import { useSearchParams } from "react-router-dom";
-import { getSearchProducts, getCategories } from "../../services/productServices";
+import { getSearchProducts } from "../../services/productServices";
+import i18n from "../../assets/translations/i18n";
 
 function Search() {
     const [searchParams] = useSearchParams();
-
+    const searchTerm = searchParams.get("q");
+    const lang = i18n.language.slice(0, 2);
     const [state, setState] = useState(
         {
             products: [],
-            categories: [],
             foundProducts: null,
+            pages: null,
+            currentPage: 1,
         }
     )
 
@@ -23,14 +26,25 @@ function Search() {
     }, [searchParams.get("q")]);
 
     async function fetchProducts() {
-        const searchTerm = searchParams.get("q");
-        const products = await getSearchProducts(searchTerm, "0");
-        const categories = await getCategories("it");
+        const products = await getSearchProducts(0, lang, searchTerm);
         const foundProducts = products.data.products.length > 0;
         setState({
+            ...state,
             products: products.data.products,
-            categories: categories.data,
             foundProducts,
+            pages: products.data.pages,
+        })
+    };
+
+    async function fetchPaginatedProducts(e, p) {
+        const searchTerm = searchParams.get("q");
+        const currentPage = p - 1;
+        const products = await getSearchProducts(currentPage, lang, searchTerm);
+        setState({
+            ...state,
+            products: products.data.products,
+            pages: products.data.pages,
+            currentPage: currentPage + 1,
         })
     };
 
@@ -55,6 +69,11 @@ function Search() {
                     <ProductGridLayout>
                         {state.products.map(mapProducts)}
                     </ProductGridLayout>
+                    {
+                        state.pages > 1 && <div className="pagination">
+                            <Pagination onChange={fetchPaginatedProducts} page={state.currentPage} count={state.pages} size={"large"} />
+                        </div>
+                    }
                 </>
             }
             {state.foundProducts === false &&

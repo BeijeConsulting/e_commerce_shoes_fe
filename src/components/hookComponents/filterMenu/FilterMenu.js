@@ -54,7 +54,6 @@ function FilterMenu(props) {
         if (props.types.includes(pathToArray[2])) showType = false;
 
         for (let i = 0; i < categories.data.length; i++) {
-            console.log(categories.data[i]["category"])
             if (categories.data[i]["category"].toLowerCase().split(" ").join("-") === pathToArray[3]) showCategory = false;
         }
 

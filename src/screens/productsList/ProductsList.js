@@ -5,35 +5,36 @@ import ProductCard from '../../components/functionalComponents/ProductCard/Produ
 import ProductGridLayout from '../../components/functionalComponents/productGridLayout/ProductGridLayout';
 import FilterMenu from "../../components/hookComponents/filterMenu/FilterMenu";
 import { useLocation } from "react-router-dom";
-import { useTranslation } from 'react-i18next';
 import i18n from "../../assets/translations/i18n";
+import Pagination from '@mui/material/Pagination';
 
 function ProductsList() {
     const location = useLocation();
     const { pathname } = location;
     const lang = i18n.language.slice(0, 2);
     const types = ["men", "woman", "unisex"]
-
-    const { t } = useTranslation()
+    const pathToArray = pathname.split("/").filter(item => item !== "");
 
     const [state, setState] = useState(
         {
             products: [],
+            query: "",
+            pages: null,
+            currentPage: 1,
         }
     )
 
     useEffect(() => {
         fetchProducts();
-    }, [pathname, t]);
+    }, [pathname]);
 
 
-    async function fetchProducts(obj = null) {
+    async function fetchProducts(obj = undefined) {
         let type = null;
         let category = null;
         let result = null;
         let query = "";
 
-        const pathToArray = pathname.split("/").filter(item => item !== "");
 
         if (pathToArray.length === 3) {
             if (pathToArray[2] !== "new") {
@@ -52,11 +53,37 @@ function ProductsList() {
             query = getQuery(obj);
         }
 
-        result = await getProductsList(0, query);
+        if (pathToArray[2] === "new") {
+            result = await getNewProductsList(0, lang, query);
+        } else {
+            result = await getProductsList(0, lang, query);
+        }
+
+        console.log("RESULT", result.data);
 
         setState({
             ...state,
             products: result.data.products,
+            pages: result.data.pages,
+            query,
+        })
+    };
+
+    async function fetchPaginatedProducts(e, p) {
+        const currentPage = p - 1;
+        const query = state.query;
+        let result = null;
+
+        if (pathToArray[2] === "new") {
+            result = await getNewProductsList(currentPage, lang, query);
+        } else {
+            result = await getProductsList(currentPage, lang, query);
+        }
+
+        setState({
+            ...state,
+            products: result.data.products,
+            currentPage: currentPage + 1,
         })
     };
 
@@ -99,6 +126,11 @@ function ProductsList() {
             <ProductGridLayout>
                 {state.products?.map(mapProducts)}
             </ProductGridLayout>
+            {
+                state.pages > 1 && <div className="pagination">
+                    <Pagination onChange={fetchPaginatedProducts} page={state.currentPage} count={state.pages} size={"large"} />
+                </div>
+            }
         </div>
     )
 }
