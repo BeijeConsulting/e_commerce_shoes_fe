@@ -17,6 +17,15 @@
         color: $orange;
     }
 
+    &__navlink {
+        display: flex;
+        flex-direction: column;
 
+        a {
+            margin: 2rem 0;
+            text-transform: capitalize;
+            font-size: $medium;
+        }
+    }
 
 }

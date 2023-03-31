@@ -19,15 +19,15 @@ function Footer() {
             list: [
                 {
                     anchor: t("footer.whoWeAre"),
-                    path: `customer-care`,
+                    path: "customer-care",
                 },
                 {
                     anchor: 'Login',
-                    path: '/identity',
+                    path: "identity",
                 },
                 {
                     anchor: t("footer.registration"),
-                    path: '/identity/signup',
+                    path: "identity/signup",
                 },
             ]
         },
@@ -36,15 +36,11 @@ function Footer() {
             list: [
                 {
                     anchor: 'Privacy policy',
-                    path: '/customer-care',
+                    path: "customer-care/privacy",
                 },
                 {
                     anchor: 'Cookie policy',
-                    path: '/',
-                },
-                {
-                    anchor: t("footer.preference"),
-                    path: '/',
+                    path: "customer-care/cookie",
                 },
             ]
         },
@@ -53,19 +49,19 @@ function Footer() {
             list: [
                 {
                     anchor: t("footer.serviceClient"),
-                    path: '/customer-care',
+                    path: "customer-care",
                 },
                 {
                     anchor: 'FAQ',
-                    path: 'customer-care/faq',
+                    path: "customer-care/faq",
                 },
                 {
                     anchor: t("footer.termAndConditions"),
-                    path: '/',
+                    path: "customer-care/terms-and-condictions",
                 },
                 {
                     anchor: t("footer.returns"),
-                    path: 'customer-care/returns',
+                    path: "customer-care/returns",
                 },
             ]
         }
@@ -74,20 +70,20 @@ function Footer() {
     const navigate = useNavigate();
 
     function mapFooterMenu(item, key) {
-        return <div key={ `${key}-${Math.random()}` } className='footer__top__list'>
+        return <div key={`${key}-${Math.random()}`} className='footer__top__list'>
             <header>
-                { item.header }
+                {item.header}
             </header>
             <ul>
-                { item.list.map(mapSubFooterMenu) }
+                {item.list.map(mapSubFooterMenu)}
             </ul>
         </div>;
 
     }
 
     function mapSubFooterMenu(item, key) {
-        return <li key={ `${key}-${Math.random()}` }>
-            <a onClick={ goTo(item.path) }>{ item.anchor }</a>
+        return <li key={`${key}-${Math.random()}`}>
+            <a onClick={goTo(item.path)}>{item.anchor}</a>
         </li>
     }
 
@@ -100,17 +96,17 @@ function Footer() {
         <footer id='footer'>
             <div className='footer__top'>
                 <nav>
-                    { menu.map(mapFooterMenu) }
+                    {menu.map(mapFooterMenu)}
                 </nav>
                 <div className='footer__top__socials'>
                     <a className='footer__top__socials__facebook' href='#'>
-                        <FacebookIcon fontSize={ 'inherit' } />
+                        <FacebookIcon fontSize={'inherit'} />
                     </a>
                     <a className='footer__top__socials__instagram' href='#'>
-                        <InstagramIcon fontSize={ 'inherit' } />
+                        <InstagramIcon fontSize={'inherit'} />
                     </a>
                     <a className='footer__top__socials__youtube' href='#'>
-                        <YouTubeIcon fontSize={ 'inherit' } />
+                        <YouTubeIcon fontSize={'inherit'} />
                     </a>
                 </div>
             </div>

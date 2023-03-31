@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
-import { removeUserCredentials, setUserCredentials } from '../../../redux/ducks/userDuck';
+import { removeUserCredentials } from '../../../redux/ducks/userDuck';
 // Router
 import { useNavigate } from 'react-router-dom';
 // Utils
@@ -50,7 +50,7 @@ function UserMenuNav(props) {
         if (userIsLogged) {
             navigate("user-info");
         } else {
-            navigate("/identity");
+            navigate("identity");
         }
 
         handleClose()
@@ -61,19 +61,19 @@ function UserMenuNav(props) {
         if (userIsLogged) {
             navigate("user-info/order-list");
         } else {
-            navigate("/identity");
+            navigate("identity");
         }
 
         handleClose()
     }
 
-    function goToRegistartion() {
-        navigate("/identity/signup")
+    function goToRegistration() {
+        navigate("identity/signup")
     }
 
     async function userLogOut() {
         const response = await signOut(refreshToken, token)
-        console.log("responeToken", response);
+        console.log("SIGNOUT", response);
 
         dispatch(
             removeUserCredentials()
@@ -83,9 +83,6 @@ function UserMenuNav(props) {
         dispatch(
             removeToken()
         )
-
-
-
 
 
         clearLocalStorage()
@@ -170,7 +167,7 @@ function UserMenuNav(props) {
                                 Logout
                             </p> :
                             <p
-                                onClick={ goToRegistartion }
+                                onClick={ goToRegistration }
                                 className='logOut__p'>
                                 Registrati
                             </p>

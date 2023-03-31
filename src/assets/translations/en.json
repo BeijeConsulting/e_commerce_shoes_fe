@@ -1,10 +1,15 @@
 {
   "translation": {
     "greeting": "Hello",
+    "header": {
+      "men": "men",
+      "woman": "woman",
+      "new": "new arrivals",
+      "newPath": "new"
+    },
     "footer": {
       "whoWeAre": "Who We Are",
       "registration": "Registration",
-      "preference": "Preference cookie",
       "contacts": "Contacts",
       "serviceClient": "Client service",
       "termAndConditions": "Term and conditions",
@@ -13,6 +18,9 @@
     "preFooter": {
       "contacts": "Contacts",
       "help": "Help"
+    },
+    "productsList": {
+      "products": "products"
     },
     "sliderHomepage": {
       "new": "new",
@@ -31,7 +39,11 @@
     },
     "userInfo": {
       "personalData": "personal data",
-      "addresses": "addresses"
+      "addresses": "addresses",
+      "title": "Personal Account",
+      "faq": "FAQ",
+      "myAccount": "MY ACCOUNT",
+      "orderList": "order list"
     },
     "personalData": {
       "personalData": "your personal data",
@@ -65,6 +77,16 @@
       "deliveryInstructions": "Delivery Instructions",
       "yourAddresses": "Your addresses",
       "emptyAddress": "Empty Addresses"
+    },
+    "changeUserDataForm": {
+      "email": "email",
+      "first_name": "first name",
+      "last_name": "last name",
+      "birthDate": "birthdate",
+      "newPassword": "new password"
+    },
+    "button": {
+      "save": "save credentials"
     },
     "lang": "en"
   }

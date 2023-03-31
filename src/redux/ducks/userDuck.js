@@ -26,7 +26,7 @@ const userDuck = createSlice({
     surname: "",
     email: "",
     adresses: [],
-    birthDate: {},
+    birthDate: "",
     cartItems: 0,
     wishlistItems: 0,
     isLogged: false,
@@ -50,7 +50,7 @@ const userDuck = createSlice({
       state.surname = "";
       state.email = "";
       state.adresses = [];
-      state.birthDate = {};
+      state.birthDate = "";
       state.cartItems = 0;
       state.wishlistItems = 0;
     },

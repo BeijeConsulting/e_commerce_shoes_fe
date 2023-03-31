@@ -2,20 +2,26 @@ import { getData } from "../genericAxios/genericAxios";
 
 
 
-export async function getProductList(filter = "") {
-  const response = await getData("/products" + filter);
+export async function getProductsList(page, lang, filter = "") {
+  const response = await getData(`/products/page=${page}/perPage=2/${lang}` + filter);
 
   return { status: response.status, data: response.data };
 }
 
-export async function getSearchProducts(term) {
-  const response = await getData("/products/search/?q=" + term);
+export async function getNewProductsList(page, lang, filter = "") {
+  const response = await getData(`/products/new/page=${page}/perPage=2/${lang}` + filter);
+
+  return { status: response.status, data: response.data };
+}
+
+export async function getSearchProducts(page, lang, term) {
+  const response = await getData(`/products/search/page=${page}/perPage=2/${lang}?q=${term}`);
 
   return { status: response.status, data: response.data };
 }
 
 export async function getProduct(id, lang) {
-  const response = await getData("/products/" + id + "/" + lang);
+  const response = await getData(`/products/${id}/${lang}`);
 
   return { status: response.status, data: response.data };
 }

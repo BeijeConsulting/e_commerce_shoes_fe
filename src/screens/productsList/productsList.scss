@@ -1,29 +1,5 @@
 @import "../../style/common/variables.scss";
-@import "../../style/common/mixin.scss";
 
 .products-list {
   position: relative;
-
-  &__show-filter {
-    margin: 2rem;
-    text-transform: capitalize;
-    display: inline-block;
-    > div {
-      @include flex(flex-start, center);
-      > div {
-        margin-left: 0.5rem;
-        font-size: $x-small;
-      }
-    }
-  }
-}
-
-// Responsive
-
-@media (min-width: 768px) {
-  .products-list {
-    &__show-filter {
-      display: none;
-    }
-  }
 }

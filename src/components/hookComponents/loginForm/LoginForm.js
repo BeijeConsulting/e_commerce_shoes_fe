@@ -43,8 +43,25 @@ function LoginForm() {
       password: data.password,
     });
 
+    console.log(response);
+
     if (response.status === 200) {
       const user = await getUser(response.data.token);
+
+      console.log("USER", user);
+
+      dispatch(
+        setUserCredentials({
+          name: user.data.first_name,
+          surname: user.data.last_name,
+          email: user.data.email,
+          adresses: [...user.data.addresses],
+          birthDate: user.data.birth_date,
+          cartItems: user.data.cart_items,
+          wishListItems: user.data.wish_list_item,
+          isLogged: true,
+        })
+      );
 
       dispatch(
         setToken({

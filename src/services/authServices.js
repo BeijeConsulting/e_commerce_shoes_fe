@@ -1,4 +1,4 @@
-import { getData, getDataAuth, postData, postDataAuth, putData } from "../genericAxios/genericAxios";
+import { getData, getDataAuth, postData, postDataAuth, putData, putDataAuth } from "../genericAxios/genericAxios";
 import { getLocalStorage } from '../utils/localStorageUtils';
 
 export async function authCheck() {
@@ -18,9 +18,10 @@ export async function signUp(obj) {
 
   return { status: response?.status, data: response?.data };
 }
-// Update user
+
+// UPDATE user
 export async function updateUser(obj) {
-  const response = await putData("/user", obj);
+  const response = await putDataAuth("/user", obj);
 
   return { status: response?.status, data: response?.data };
 }

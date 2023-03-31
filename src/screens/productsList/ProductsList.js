@@ -1,72 +1,106 @@
 import React, { useState, useEffect } from "react";
 import "./productsList.scss";
-import { getProductList } from "../../services/productServices";
+import { getProductsList, getNewProductsList } from "../../services/productServices";
 import ProductCard from '../../components/functionalComponents/ProductCard/ProductCard';
 import ProductGridLayout from '../../components/functionalComponents/productGridLayout/ProductGridLayout';
 import FilterMenu from "../../components/hookComponents/filterMenu/FilterMenu";
 import { useLocation } from "react-router-dom";
-import FilterListIcon from '@mui/icons-material/FilterList';
-import { motion, AnimatePresence } from "framer-motion";
-import { useTranslation } from 'react-i18next';
-import Seo from '../../components/functionalComponents/Seo';
+import i18n from "../../assets/translations/i18n";
+import Pagination from '@mui/material/Pagination';
 
 function ProductsList() {
     const location = useLocation();
-
-    const minMax = [20, 200];
-    const { t } = useTranslation()
-
+    const { pathname } = location;
+    const lang = i18n.language.slice(0, 2);
+    const types = ["men", "woman", "unisex"]
+    const pathToArray = pathname.split("/").filter(item => item !== "");
 
     const [state, setState] = useState(
         {
             products: [],
-            showFilter: false,
-            filters: {
-                orderBy: null,
-                price: null,
-                type: null,
-                category: null,
-                brand: null,
-                color: null,
-            }
+            query: "",
+            pages: null,
+            currentPage: 1,
         }
     )
 
     useEffect(() => {
         fetchProducts();
-        // ogni volta che cambia t (la lingua) ho un rerender e chiamata api con la lingua giusta
-    }, [t]);
+    }, [pathname]);
 
 
-    async function fetchProducts() {
-        const { pathname } = location;
+    async function fetchProducts(obj = undefined) {
+        let type = null;
+        let category = null;
+        let result = null;
+        let query = "";
 
-        const products = await getProductList();
+
+        if (pathToArray.length === 3) {
+            if (pathToArray[2] !== "new") {
+                type = pathToArray[2].slice(0, 1);
+                query = `?type=${type}`;
+            }
+        } else if (pathToArray.length === 4) {
+            type = pathToArray[2].slice(0, 1);
+            category = pathToArray[3].split("-").join("%20");
+            query = `?type=${type}&category=${category}`;
+        }
+
+        if (obj) {
+            if (obj.type === null) obj.type = type;
+            if (obj.category === null) obj.category = category;
+            query = getQuery(obj);
+        }
+
+        if (pathToArray[2] === "new") {
+            result = await getNewProductsList(0, lang, query);
+        } else {
+            result = await getProductsList(0, lang, query);
+        }
+
+        console.log("RESULT", result.data);
+
         setState({
             ...state,
-            products: products.data,
+            products: result.data.products,
+            pages: result.data.pages,
+            query,
         })
     };
 
-    async function fetchFilteredProducts(obj) {
-        let params = "?";
+    async function fetchPaginatedProducts(e, p) {
+        const currentPage = p - 1;
+        const query = state.query;
+        let result = null;
 
+        if (pathToArray[2] === "new") {
+            result = await getNewProductsList(currentPage, lang, query);
+        } else {
+            result = await getProductsList(currentPage, lang, query);
+        }
+
+        setState({
+            ...state,
+            products: result.data.products,
+            currentPage: currentPage + 1,
+        })
+    };
+
+    function getQuery(obj) {
+        let query = "?";
         for (let key in obj) {
             if (obj[key] !== null) {
                 if (key === "price") {
-                    params += `minPrice=${obj[key][0]}&maxPrice=${obj[key][1]}&`
+                    query += `minPrice=${obj[key][0]}&maxPrice=${obj[key][1]}&`
                 } else {
-                    params += `${key}=${obj[key]}&`
+                    query += `${key}=${obj[key]}&`
                 }
             };
         }
-
-        if (params.length === 1) params = "";
-
-        if (params) params = params.slice(0, params.length - 1);
-        console.log(params);
-        const result = await getProductList(params);
-        return result.data;
+        if (query.length < 2) query = "";
+        if (query) query = query.slice(0, query.length - 1);
+        return query;
     }
 
     function mapProducts(item, key) {
@@ -83,209 +117,20 @@ function ProductsList() {
         />
     }
 
-    function showFilterMenu() {
-        setState({
-            ...state,
-            showFilter: true,
-        })
-    }
-
-    function hideFilterMenu() {
-        setState({
-            ...state,
-            showFilter: false,
-        })
-    }
-
-    function resetFilters() {
-        setState(
-            {
-                ...state,
-                filters: {
-                    orderBy: null,
-                    price: null,
-                    type: null,
-                    category: null,
-                    brand: null,
-                    color: null,
-                },
-            }
-        )
-    }
-
-    function changePrice(event, value) {
-        setState({
-            ...state,
-            filters: {
-                ...state.filters,
-                price: [...value],
-            }
-        });
-    };
-
-    async function handleOrderByChange(e) {
-        console.log(state.filters)
-        const filters = { ...state.filters };
-        let choice = e.target.value;
-        if (filters.orderBy === choice) choice = null;
-        filters.orderBy = choice;
-
-        const products = await fetchFilteredProducts(filters);
-
-        setState({
-            ...state,
-            filters,
-            products,
-        });
-    };
-
-    async function handlePriceChange(event, value) {
-        const filters = { ...state.filters };
-        filters.price = [...value];
-
-        if (value[0] === minMax[0] && value[1] === minMax[1]) filters.price = null;
-
-        const products = await fetchFilteredProducts(filters);
-
-        setState({
-            ...state,
-            products,
-            filters: {
-                ...state.filters,
-                price: filters.price,
-            }
-        });
-    };
-
-    async function handleTypeChange(e) {
-        const filters = { ...state.filters };
-        console.log(filters)
-        let choice = e.target.value;
-        if (filters.type === choice) choice = null;
-        filters.type = choice;
-        const products = await fetchFilteredProducts(filters);
-
-        setState({
-            ...state,
-            products,
-            filters: {
-                ...state.filters,
-                type: choice,
-            }
-        });
-    };
-
-    async function handleCategoryChange(e) {
-        const filters = { ...state.filters };
-        let choice = e.target.value;
-        if (filters.category === choice) choice = null;
-        filters.category = choice;
-        const products = await fetchFilteredProducts(filters);
-
-        setState({
-            ...state,
-            products,
-            filters: {
-                ...state.filters,
-                category: choice,
-            }
-        });
-    };
-
-    async function handleBrandChange(e) {
-        const filters = { ...state.filters };
-        let choice = e.target.value;
-        if (filters.brand === choice) choice = null;
-        filters.brand = choice;
-        const products = await fetchFilteredProducts(filters);
-
-        setState({
-            ...state,
-            products,
-            filters: {
-                ...state.filters,
-                brand: choice,
-            }
-        });
-    };
-
-    async function handleColorChange(e) {
-        const filters = { ...state.filters };
-        let choice = e.target.value;
-        if (filters.color === choice) choice = null;
-        filters.color = choice;
-        console.log(filters)
-        const products = await fetchFilteredProducts(filters);
-
-        setState({
-            ...state,
-            products,
-            filters: {
-                ...state.filters,
-                color: choice,
-            }
-        });
-    };
-
     return (
         <div className="products-list">
-            <div className="products-list__show-filter">
-                <div onClick={showFilterMenu}>
-                    <FilterListIcon fontSize={'large'} />
-                    <div>filtra/ordina</div>
-                </div>
-            </div>
-            <AnimatePresence>
-                {state.showFilter && (
-                    <motion.div
-                        style={{
-                            position: "absolute",
-                            top: 0,
-                            width: "100%",
-                            zIndex: 2,
-                        }}
-                        initial={{ right: "100%" }}
-                        animate={{ right: "0%" }}
-                        exit={{ right: "100%" }}
-                        transition={{
-                            duration: 0.1,
-                        }}
-                    >
-                        <FilterMenu
-                            screenType={"mobile"}
-                            minMax={minMax}
-                            handleColorChange={handleColorChange}
-                            handleBrandChange={handleBrandChange}
-                            handleCategoryChange={handleCategoryChange}
-                            handleTypeChange={handleTypeChange}
-                            handlePriceChange={handlePriceChange}
-                            handleOrderByChange={handleOrderByChange}
-                            changePrice={changePrice}
-                            resetFilters={resetFilters}
-                            filters={state.filters}
-                            showFilter={state.showFilter}
-                            hideFilterMenu={hideFilterMenu}
-                        />
-                    </motion.div>
-                )}
-            </AnimatePresence>
             <FilterMenu
-                screenType={"desktop"}
-                minMax={minMax}
-                handleColorChange={handleColorChange}
-                handleBrandChange={handleBrandChange}
-                handleCategoryChange={handleCategoryChange}
-                handleTypeChange={handleTypeChange}
-                handlePriceChange={handlePriceChange}
-                handleOrderByChange={handleOrderByChange}
-                changePrice={changePrice}
-                resetFilters={resetFilters}
-                filters={state.filters}
-                hideFilterMenu={hideFilterMenu}
+                types={types}
+                filterFunc={fetchProducts}
             />
             <ProductGridLayout>
                 {state.products?.map(mapProducts)}
             </ProductGridLayout>
+            {
+                state.pages > 1 && <div className="pagination">
+                    <Pagination onChange={fetchPaginatedProducts} page={state.currentPage} count={state.pages} size={"large"} />
+                </div>
+            }
         </div>
     )
 }

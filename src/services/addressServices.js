@@ -3,6 +3,8 @@ import {
   deleteData,
   putData,
   postData,
+  postDataAuth,
+  deleteDataAuth,
 } from "../genericAxios/genericAxios";
 
 export async function getAddressList(SECRET) {
@@ -17,14 +19,14 @@ export async function getAddress(addressId, SECRET) {
   return { status: response.status, data: response.data };
 }
 
-export async function addAddress(dataObj, SECRET) {
-  const response = await postData("/user/address", dataObj, SECRET);
+export async function addAddress(dataObj) {
+  const response = await postDataAuth("/user/address", dataObj);
 
   return { status: response.status, data: response.data };
 }
 
-export async function deleteAddress(addressId, SECRET) {
-  const response = await deleteData("/user/address/" + addressId, SECRET);
+export async function deleteAddress(addressId) {
+  const response = await deleteDataAuth("/user/address/" + addressId);
 
   return { status: response.status, data: response.data };
 }

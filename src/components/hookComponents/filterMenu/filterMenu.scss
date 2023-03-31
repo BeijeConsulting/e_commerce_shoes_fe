@@ -8,13 +8,6 @@
   width: 100%;
   background-color: $white;
 
-  &.mobile {
-  }
-
-  &.desktop {
-    display: none;
-  }
-
   &.active {
     display: block;
   }
@@ -116,14 +109,25 @@
   }
 }
 
+.filter-menu__show-filter {
+  margin: 2rem;
+  text-transform: capitalize;
+  display: inline-block;
+  > div {
+    @include flex(flex-start, center);
+    > div {
+      margin-left: 0.5rem;
+      font-size: $x-small;
+    }
+  }
+}
+
 // Responsive
 
 @media (min-width: 768px) {
   .filter-menu {
-    &.desktop {
-      display: block;
-      position: static;
-    }
+    position: static;
+    display: block;
     .filter-menu__items {
       @include flex(flex-start, center);
       flex-wrap: wrap;

@@ -5,13 +5,16 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import { useNavigate } from "react-router-dom";
+
 
 function MobileMenu(props) {
+    const navigate = useNavigate();
     const [state, setState] = useState({
         active: null,
     });
 
-    function setActive(key) {
+    const setActive = (key) => () => {
         let menuIndex = state.active === null ? key : null;
         setState({
             ...state,
@@ -26,7 +29,7 @@ function MobileMenu(props) {
         if (item.bottom === false) {
             return <li key={`${key}-${Math.random()}`}>
                 {state.active === null && <div
-                    onClick={() => goTo(`/${item.top}`)}
+                    onClick={() => goTo(`products/${item.path}`)}
                     className={"mobile-menu__item"}
                 >
                     <div>{item.top}</div>
@@ -41,7 +44,7 @@ function MobileMenu(props) {
                     {!!showItem && (
                         <>
                             <div
-                                onClick={() => setActive(key)}
+                                onClick={setActive(key)}
                                 className={`mobile-menu__item ${state.active === key ? "active" : ""
                                     }`}
                             >
@@ -52,7 +55,7 @@ function MobileMenu(props) {
                                 )}
                             </div>
                             {state.active === key && (
-                                <ul>{mapMobileSubMenu(item.top)}</ul>
+                                <ul>{mapMobileSubMenu(item.path)}</ul>
                             )}
                         </>
                     )}
@@ -64,8 +67,8 @@ function MobileMenu(props) {
     function mapMobileSubMenu(path) {
         return props.categories.map(function (item, key) {
             return (
-                <li key={`${key}-${Math.random()}`} className="mobile-menu__item" onClick={() => goTo(`/${path}/${item}`)}>
-                    <div>{item}</div>
+                <li key={`${key}-${Math.random()}`} className="mobile-menu__item" onClick={() => goTo(`products/${path}/${item.path}`)}>
+                    <div>{item.anchor}</div>
                     <ArrowForwardIosIcon />
                 </li>
             );
@@ -73,7 +76,7 @@ function MobileMenu(props) {
     }
 
     function goTo(path) {
-        console.log(path);
+        navigate(path);
     }
 
     return (
