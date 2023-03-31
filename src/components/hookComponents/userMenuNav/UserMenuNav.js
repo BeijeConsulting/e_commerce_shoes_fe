@@ -25,6 +25,8 @@ import "./userMenuNav.scss";
 import i18n from "../../../assets/translations/i18n";
 import { useTranslation } from "react-i18next";
 import { removeToken } from "../../../redux/ducks/tokenDuck";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function UserMenuNav(props) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -37,6 +39,20 @@ function UserMenuNav(props) {
 
   const lang = i18n.language.slice(0, 2);
   const { t } = useTranslation();
+
+  function notifyError() {
+    toast.error("Si è verificato un errore", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 2000,
+    });
+  }
+
+  function notifyLogout() {
+    toast.success("Logged", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 400,
+    });
+  }
 
   function handleClose() {
     setAnchorEl(null);
@@ -58,7 +74,7 @@ function UserMenuNav(props) {
       navigate("accedi");
     }
 
-    handleClose()
+    handleClose();
   }
 
   function conditionalGoToCart() {
@@ -80,14 +96,24 @@ function UserMenuNav(props) {
 
   async function userLogOut() {
     const response = await signOut(refreshToken, token);
-    console.log("SIGNOUT", response);
 
-    dispatch(removeUserCredentials());
+    if (response.status === 200) {
+      console.log("SIGNOUT", response);
 
-    dispatch(removeToken());
+      dispatch(removeUserCredentials());
 
-    clearLocalStorage();
-    navigate(`/${lang}/`);
+      dispatch(removeToken());
+
+      clearLocalStorage();
+
+      notifyLogout();
+
+      setTimeout(() => {
+        navigate(`/${lang}/`);
+      }, 1500);
+    } else {
+      notifyError();
+    }
   }
 
   // function goToOrders() {
@@ -160,6 +186,7 @@ function UserMenuNav(props) {
           </MenuItem>
         </Menu>
       </div>
+      <ToastContainer hideProgressBar />
     </div>
   );
 }

@@ -17,6 +17,8 @@ import {
 import Seo from "../../components/functionalComponents/Seo";
 import { addItemToCartList, getCartList } from "../../services/cartServices";
 import i18n from "../../assets/translations/i18n";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function SingleProduct() {
   const lang = i18n.language.slice(0, 2);
@@ -46,12 +48,38 @@ function SingleProduct() {
     });
   }
 
+  function notifyAddToCartSuccess() {
+    toast.success("Aggiunto al carrello", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 1000,
+    });
+  }
+  function notifyAddToCartError() {
+    toast.error("Devi selezionare la taglia", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 1000,
+    });
+  }
+
+  function notifyAddToWhisListSuccess() {
+    toast.success("Aggiunto alla wishlist", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 1000,
+    });
+  }
+  function notifyAddToWhisListError() {
+    toast.error("Si è verificato un errore", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 1000,
+    });
+  }
+
   async function updateCart() {
     let itemFound = undefined;
     let localData = getLocalStorage("cart-list");
     // console.log(localData);
     if (!state.sizeSelected) {
-      // console.log("Seleziona una taglia");
+      notifyAddToCartError();
       return;
     }
 
@@ -153,6 +181,8 @@ function SingleProduct() {
     }
 
     setLocalStorage("cart-list", localData);
+
+    notifyAddToCartSuccess();
   }
 
   function renderSizesOption(size, key) {
@@ -229,6 +259,7 @@ function SingleProduct() {
           </div>
         </div>
       </div>
+      <ToastContainer hideProgressBar />
     </>
   );
 }
