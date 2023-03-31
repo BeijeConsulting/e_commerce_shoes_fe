@@ -9,7 +9,7 @@ import AccordionItem from "../../components/hookComponents/accordionItem/Accordi
 import { useDispatch, useSelector } from "react-redux";
 import { updateCartQuantity } from "../../redux/ducks/productCartDuck";
 import { getProduct } from "../../services/productServices";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   setLocalStorage,
   getLocalStorage,
@@ -26,11 +26,12 @@ function SingleProduct() {
   const dispatch = useDispatch();
   const cartQuantity = useSelector((state) => state.userDuck.cartItems); //modificato lo state
   const isLogged = useSelector((state) => state.userDuck.isLogged);
+  const navigate = useNavigate();
   // const token = useSelector((state) => state.tokenDuck.token);
 
   const [state, setState] = useState({
     product: [],
-    sizeSelected: false,
+    selectedSize: false,
   });
 
   let sizeValue = useRef(null);
@@ -38,7 +39,7 @@ function SingleProduct() {
 
   useEffect(() => {
     fetchProduct();
-  }, []);
+  }, [lang]);
 
   async function fetchProduct() {
     const result = await getProduct(params.id, lang);
@@ -92,6 +93,7 @@ function SingleProduct() {
 
         items: [
           {
+            item_id: null,
             productId: state.product.id.toString(),
             productDetailsId: productDetailsId.current,
             name: state.product.name,
@@ -110,7 +112,7 @@ function SingleProduct() {
         // console.log("item.size: " + item.size);
         // console.log("sizeValue: " + sizeValue.current);
         return (
-          item.productId?.toString() === state.product.id.toString() &&
+          item.productId.toString() === state.product.id.toString() &&
           item.size.toString() === sizeValue.current.toString()
         );
       });
@@ -120,6 +122,7 @@ function SingleProduct() {
       if (!itemFound) {
         // console.log("item not found");
         localData.items.push({
+          item_id: null,
           productId: state.product.id.toString(),
           productDetailsId: productDetailsId.current,
           name: state.product.name,
@@ -210,8 +213,12 @@ function SingleProduct() {
         ...state.product,
         listed_price: Number(newSize.selling_price).toFixed(2),
       },
-      sizeSelected: true,
+      selectedSize: true,
     });
+  }
+
+  function goToBrandPage() {
+    navigate(`/${lang}/brand/${state.product?.brand.toLowerCase()}`);
   }
 
   return (
@@ -225,9 +232,15 @@ function SingleProduct() {
         <header>
           <div className="header__container">
             <p className="header__category">{state.product?.category}</p>
-            <p className="header__price">€ {state.product?.listed_price}</p>
+            <p className="header__price">
+              {state.selectedSize
+                ? `${state.product?.listed_price}€`
+                : `prezzo di listino ${state.product?.listed_price}€`}
+            </p>
           </div>
-          <h2 className="header__brand">{state.product?.brand}</h2>
+          <h2 className="header__brand">
+            <a onClick={goToBrandPage}>{state.product?.brand}</a>
+          </h2>
           <p className="header__name">{state.product?.name}</p>
         </header>
 
@@ -242,7 +255,7 @@ function SingleProduct() {
               onChange={handleSelect}
               name="sizes"
             >
-              <option value={"none"} disabled={state.sizeSelected}>
+              <option value={"none"} disabled={state.selectedSize}>
                 Seleziona taglia
               </option>
               {state.product?.productSizes?.map(renderSizesOption)}
@@ -254,8 +267,11 @@ function SingleProduct() {
               label={"AGGIUNGI AL CARRELLO"}
               buttonStyle={"default-button"}
             />
-            <p className="info__p">Tabella Taglie Link</p>
-            <AccordionItem />
+            <p className="info__p">Tabella taglie</p>
+            <AccordionItem
+              productDescription={state.product?.description}
+              productBrand={state.product?.brand}
+            />
           </div>
         </div>
       </div>

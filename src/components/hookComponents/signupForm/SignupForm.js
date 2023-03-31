@@ -100,7 +100,7 @@ function SignupForm() {
         if (localCart?.items?.length > 0) {
           const items = localCart.items.map((item) => {
             return {
-              id: item.id,
+              id: item.productId,
               productDetailsId: item.productDetailsId,
               quantity: item.quantity,
             };
@@ -164,8 +164,9 @@ function SignupForm() {
           register={register}
           isRequired={true}
           labelStyle="default-label margin-top"
-          inputStyle={`default-input margin-top-small ${state.invalidFirstName ? "default-input--error" : ""
-            }`}
+          inputStyle={`default-input margin-top-small ${
+            state.invalidFirstName ? "default-input--error" : ""
+          }`}
         />
         <InputTextField
           inputName="lastName"
@@ -175,8 +176,9 @@ function SignupForm() {
           register={register}
           isRequired={true}
           labelStyle="default-label margin-top-extra"
-          inputStyle={`default-input margin-top-small ${state.invalidLastName ? "default-input--error" : ""
-            }`}
+          inputStyle={`default-input margin-top-small ${
+            state.invalidLastName ? "default-input--error" : ""
+          }`}
         />
         <InputTextField
           inputName="email"
@@ -187,8 +189,9 @@ function SignupForm() {
           regexValidation={emailReg}
           isRequired={true}
           labelStyle="default-label margin-top-extra"
-          inputStyle={`default-input margin-top-small ${state.invalidEmail ? "default-input--error" : ""
-            }`}
+          inputStyle={`default-input margin-top-small ${
+            state.invalidEmail ? "default-input--error" : ""
+          }`}
         />
 
         {state.invalidEmail && (
@@ -210,8 +213,9 @@ function SignupForm() {
           regexValidation={passwordReg}
           isRequired={true}
           labelStyle="default-label margin-top-extra"
-          inputStyle={`default-input  ${state.invalidPassword ? "default-input--error" : ""
-            }`}
+          inputStyle={`default-input  ${
+            state.invalidPassword ? "default-input--error" : ""
+          }`}
         />
 
         {state.invalidPassword && (
@@ -235,8 +239,9 @@ function SignupForm() {
           register={register}
           isRequired={true}
           labelStyle="default-label margin-top-extra"
-          inputStyle={`default-input margin-top-small ${state.invalidAge ? "default-input--error" : ""
-            }`}
+          inputStyle={`default-input margin-top-small ${
+            state.invalidAge ? "default-input--error" : ""
+          }`}
         />
 
         {state.invalidAge && (

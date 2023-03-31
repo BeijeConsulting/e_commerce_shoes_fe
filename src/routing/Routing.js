@@ -22,6 +22,8 @@ import Cookie from "../screens/cookie/Cookie";
 import Terms from "../screens/terms/Terms";
 import Privacy from "../screens/privacy/Privacy";
 
+import Brands from "../screens/brands/Brands";
+
 import Checkout from "../screens/checkout/Checkout";
 import Faq from "../screens/faq/Faq";
 import { getLocalStorage } from "../utils/localStorageUtils";
@@ -102,7 +104,7 @@ function Routing() {
         <Route path="ricerca" element={<Search />} />
 
         {/* Brands */}
-        <Route path="brand" element={<Cart />} />
+        <Route path="brand" element={<Brands />} />
         <Route path="brand/:brand" element={<ProductsList />} />
 
         {/* Single products */}

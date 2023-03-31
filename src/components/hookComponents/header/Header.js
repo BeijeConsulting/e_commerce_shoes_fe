@@ -45,7 +45,7 @@ function Header() {
     },
     {
       top: t("header.brands"),
-      path: "brand",
+      path: `brand`,
       bottom: false,
     },
     {
@@ -196,6 +196,7 @@ function Header() {
         </div>
         <div className="main-header__bottom">
           <TextField
+            onKeyUp={searchProducts}
             fullWidth
             InputProps={{
               startAdornment: (

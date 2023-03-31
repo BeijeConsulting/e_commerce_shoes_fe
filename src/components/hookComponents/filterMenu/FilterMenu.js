@@ -28,6 +28,7 @@ function FilterMenu(props) {
         colors: [],
         showType: true,
         showCategory: true,
+        showBrand: true,
         filters: {
             orderBy: null,
             price: null,
@@ -47,6 +48,7 @@ function FilterMenu(props) {
 
         let showType = true;
         let showCategory = true;
+        let showBrand = true;
         const categories = await getCategories("it");
         const colors = await getColors("it");
         const brands = await getBrands();
@@ -57,12 +59,17 @@ function FilterMenu(props) {
             if (categories.data[i]["category"].toLowerCase().split(" ").join("-") === pathToArray[3]) showCategory = false;
         }
 
+        for (let i = 0; i < brands.data.length; i++) {
+            if (brands.data[i]["brand"].toLowerCase().split(" ").join("-") === pathToArray[2]) showBrand = false;
+        }
+
         setState({
             ...state,
             categories: categories.data,
             colors: colors.data,
             brands: brands.data,
             showType,
+            showBrand,
             showCategory,
             active: null,
             filters: {
@@ -359,7 +366,7 @@ function FilterMenu(props) {
                                     </div>
                                 </div>}
 
-                                <div className={`item ${state.active === "brand" ? 'active' : ''} `}>
+                                {!!state.showBrand && <div className={`item ${state.active === "brand" ? 'active' : ''} `}>
                                     <header onClick={handleActive} data-filter="brand" className={`${state.filters.brand ? 'checked' : ''} `} >
                                         <div data-filter="brand">brand</div>
                                         {state.active !== "brand" && <KeyboardArrowDownIcon data-filter="brand" fontSize={'large'} />}
@@ -368,7 +375,7 @@ function FilterMenu(props) {
                                     <div className="sub-item">
                                         {state.active === "brand" && state.brands.map(mapBrands)}
                                     </div>
-                                </div>
+                                </div>}
 
                                 <div className={`item ${state.active === "color" ? 'active' : ''} `}>
                                     <header onClick={handleActive} data-filter="color" className={`${state.filters.color ? 'checked' : ''} `} >

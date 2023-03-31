@@ -5,8 +5,13 @@ import { getBrands } from "../../../services/productServices";
 import _ from "lodash";
 import { Link } from "react-router-dom";
 import "./brandList.scss";
+import i18n from "../../../assets/translations/i18n";
+import { useNavigate } from "react-router-dom";
 
 function BrandList(props) {
+  const lang = i18n.language.slice(0, 2);
+  const navigate = useNavigate();
+
   const [state, setState] = useState({
     // letter: null,
     // brands: null,
@@ -22,12 +27,10 @@ function BrandList(props) {
   async function getAllBrands() {
     const allBrands = await getBrands();
     if (allBrands.status === 200) {
-      console.log(allBrands.data);
       const result = _(allBrands.data)
         .groupBy((o) => o.brand[0].toUpperCase())
         .map((brands, letter) => ({ letter, brands }))
         .value();
-      console.log(result);
 
       setState({
         ...state,
@@ -36,9 +39,14 @@ function BrandList(props) {
     }
   }
 
+  const goToBrand = (brand) => () => {
+    const formattedBrand = brand.split(" ").join("-");
+    navigate(`/${lang}/brand/${formattedBrand}`);
+  }
+
   return (
     <div className="brandList">
-      <h1 className="brandList__h1">BrandList</h1>
+      <h1 className="brandList__h1">Tutti i Brand</h1>
 
       <div className="brandList__container">
         <ul className="brandList__grid">
@@ -51,9 +59,9 @@ function BrandList(props) {
                     {el.brands.map((brands, key) => {
                       return (
                         <li key={"0" + key}>
-                          <Link to={`/brands/${brands.brand}`}>
+                          <a onClick={goToBrand(brands.brand.toLowerCase())}>
                             {brands.brand}
-                          </Link>
+                          </a>
                         </li>
                       );
                     })}
@@ -62,8 +70,8 @@ function BrandList(props) {
               );
             })}
         </ul>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 }
 

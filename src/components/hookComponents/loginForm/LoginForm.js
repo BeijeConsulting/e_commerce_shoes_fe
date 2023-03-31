@@ -20,8 +20,6 @@ import {
   addListItemToCartList,
   getCartList,
 } from "../../../services/cartServices";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 function LoginForm() {
   const dispatch = useDispatch();
@@ -38,20 +36,6 @@ function LoginForm() {
 
   const emailReg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i;
   const passwordReg = /^.{2,}$/;
-
-  function notifyError() {
-    toast.error("Si è verificato un errore", {
-      position: toast.POSITION.TOP_CENTER,
-      autoClose: 2000,
-    });
-  }
-
-  function notifyLogin() {
-    toast.success("Logged", {
-      position: toast.POSITION.TOP_CENTER,
-      autoClose: 400,
-    });
-  }
 
   const onSubmit = async (data) => {
     const response = await signin({
@@ -97,7 +81,7 @@ function LoginForm() {
       if (localCart?.items?.length > 0) {
         const items = localCart.items.map((item) => {
           return {
-            id: item.id,
+            id: item.productId,
             productDetailsId: item.productDetailsId,
             quantity: item.quantity,
             // userId: response.data.id,
@@ -129,16 +113,10 @@ function LoginForm() {
         })
       );
 
-      notifyLogin();
-
-      setTimeout(() => {
-        navigate(`/${lang}`);
-      }, 1500);
+      navigate(`/${lang}`);
     }
 
     console.log(response);
-
-    notifyError();
 
     setState({
       ...state,
@@ -148,7 +126,6 @@ function LoginForm() {
   };
 
   const onError = (err) => {
-    notifyError();
     console.log("Fail");
     console.log(err);
 
@@ -193,7 +170,6 @@ function LoginForm() {
         />
       </div>
       <Button label="Login" buttonStyle="submit-button button-margin-top" />
-      <ToastContainer hideProgressBar />
     </form>
   );
 }

@@ -82,21 +82,21 @@ function Cart() {
     return structuredClone(storage);
   }
 
-  async function deleteItem(id, size, quantity, price) {
+  async function deleteItem(id, productId, size, quantity, price) {
     let itemToDelete = null;
 
     if (isLogged) {
       itemToDelete = localData.items.find((item) => {
-        return item.id === id;
+        return item.item_id === id;
       });
     } else {
       itemToDelete = localData.items.find((item) => {
-        return item.productId === id && item.size === size;
+        return item.productId === productId && item.size === size;
       });
     }
 
     if (isLogged) {
-      const updateCartresponse = await deleteCartItem(itemToDelete.id);
+      const updateCartresponse = await deleteCartItem(itemToDelete.item_id);
       if (updateCartresponse.status === 200) {
         const getUpdate = await getCartList();
         if (getUpdate.status === 200) {
@@ -120,20 +120,29 @@ function Cart() {
     });
   }
 
-  async function updateCartList(id, size, deltaQuantity, deltaPrice) {
+  async function updateCartList(
+    id,
+    productId,
+    size,
+    deltaQuantity,
+    deltaPrice
+  ) {
     // console.log(id);
     // console.log(localData);
     let itemChanged = null;
+    console.log(id);
 
     if (isLogged) {
       itemChanged = localData.items.find((item) => {
-        return item.id === id;
+        return item.item_id.toString() === id.toString();
       });
     } else {
       itemChanged = localData.items.find((item) => {
-        return item.productId === id && item.size === size;
+        return item.productId === productId && item.size === size;
       });
     }
+
+    console.log(itemChanged);
 
     // console.log("localData.info.numberItems: " + localData.info.numberItems);
     // console.log("deltaQuantity: " + deltaQuantity);
@@ -155,7 +164,7 @@ function Cart() {
     if (isLogged) {
       console.log("itemChanged", itemChanged.quantity);
       const updateCartresponse = await updateItemToCartList(
-        itemChanged.id,
+        itemChanged.item_id,
         itemChanged.quantity
       );
       if (updateCartresponse.status === 200) {
@@ -175,11 +184,12 @@ function Cart() {
 
   function renderCartList(item) {
     return (
-      <li key={item.id + item.size}>
+      <li key={item.productId + item.size}>
         <ProductCartItem
           handleList={updateCartList}
           handleDelete={deleteItem}
-          id={isLogged ? item.id : item.productId}
+          id={item.item_id}
+          productId={item.productId}
           productName={item.name}
           brand={item.brand}
           price={Number(item.sellingItemTotalPrice).toFixed(2)}

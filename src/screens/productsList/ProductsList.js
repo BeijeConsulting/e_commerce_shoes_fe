@@ -32,6 +32,7 @@ function ProductsList() {
     async function fetchProducts(obj = undefined) {
         let type = null;
         let category = null;
+        let brand = null;
         let result = null;
         let query = "";
 
@@ -43,6 +44,10 @@ function ProductsList() {
             if (pathToArray[2] !== "novita") {
                 query = `?type=${type}`;
             }
+            if (pathToArray[1] === "brand") {
+                brand = pathToArray[2].split("-").join("%20");
+                query = `?brand=${brand}`;
+            }
         } else if (pathToArray.length === 4) {
             category = pathToArray[3].split("-").join("%20");
             query = `?type=${type}&category=${category}`;
@@ -51,13 +56,14 @@ function ProductsList() {
         if (obj) {
             if (obj.type === null) obj.type = type;
             if (obj.category === null) obj.category = category;
+            if (obj.brand === null) obj.brand = brand;
             query = getQuery(obj);
         }
 
         if (pathToArray[2] === "novita") {
-            result = await getNewProductsList(0, lang, query);
+            result = await getNewProductsList(state.currentPage, lang, query);
         } else {
-            result = await getProductsList(0, lang, query);
+            result = await getProductsList(state.currentPage, lang, query);
         }
 
         console.log(query)
@@ -73,20 +79,19 @@ function ProductsList() {
     };
 
     async function fetchPaginatedProducts(e, p) {
-        const currentPage = p - 1;
         const query = state.query;
         let result = null;
 
         if (pathToArray[2] === "new") {
-            result = await getNewProductsList(currentPage, lang, query);
+            result = await getNewProductsList(p, lang, query);
         } else {
-            result = await getProductsList(currentPage, lang, query);
+            result = await getProductsList(p, lang, query);
         }
 
         setState({
             ...state,
             products: result.data.products,
-            currentPage: currentPage + 1,
+            currentPage: p,
         })
     };
 
@@ -114,8 +119,7 @@ function ProductsList() {
             category={item.category}
             brand={item.brand}
             name={item.name}
-            initialPrice={item.starting_price}
-            price={item.starting_price + 30}
+            price={item.starting_price}
             idProduct={item.id}
         />
     }
