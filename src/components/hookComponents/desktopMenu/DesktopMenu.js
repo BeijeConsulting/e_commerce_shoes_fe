@@ -2,13 +2,17 @@ import React from "react";
 import "./desktopMenu.scss";
 
 import { useNavigate } from "react-router-dom";
+import i18n from "../../../assets/translations/i18n";
 
 function DesktopMenu(props) {
     const navigate = useNavigate();
+    const lang = i18n.language.slice(0, 2);
 
     function mapDesktopMenu(item, key) {
+        let path = `scarpe/${item.path}`;
         if (item.bottom === false) {
-            return <li key={`${key}-${Math.random()}`} onClick={() => goTo(`scarpe/${item.path}`)}>
+            if (item.path === "brand") path = `/${lang}/brand`;
+            return <li key={`${key}-${Math.random()}`} onClick={() => goTo(path)}>
                 <div>{item.top}</div>
             </li>
         }

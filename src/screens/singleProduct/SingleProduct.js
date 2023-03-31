@@ -9,7 +9,7 @@ import AccordionItem from "../../components/hookComponents/accordionItem/Accordi
 import { useDispatch, useSelector } from "react-redux";
 import { updateCartQuantity } from "../../redux/ducks/productCartDuck";
 import { getProduct } from "../../services/productServices";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   setLocalStorage,
   getLocalStorage,
@@ -24,6 +24,7 @@ function SingleProduct() {
   const dispatch = useDispatch();
   const cartQuantity = useSelector((state) => state.userDuck.cartItems); //modificato lo state
   const isLogged = useSelector((state) => state.userDuck.isLogged);
+  const navigate = useNavigate();
   // const token = useSelector((state) => state.tokenDuck.token);
 
   const [state, setState] = useState({
@@ -184,6 +185,10 @@ function SingleProduct() {
     });
   }
 
+  function goToBrandPage() {
+    navigate(`/${lang}/brand/${state.product?.brand.toLowerCase()}`)
+  }
+
   return (
     <>
       <Seo
@@ -197,7 +202,11 @@ function SingleProduct() {
             <p className="header__category">{state.product?.category}</p>
             <p className="header__price">{state.selectedSize ? `${state.product?.listed_price}€` : `prezzo di listino ${state.product?.listed_price}€`}</p>
           </div>
-          <h2 className="header__brand">{state.product?.brand}</h2>
+          <h2 className="header__brand">
+            <a onClick={goToBrandPage}>
+              {state.product?.brand}
+            </a>
+          </h2>
           <p className="header__name">{state.product?.name}</p>
         </header>
 

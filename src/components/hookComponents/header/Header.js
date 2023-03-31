@@ -45,7 +45,7 @@ function Header() {
     },
     {
       top: t("header.brands"),
-      path: "brand",
+      path: `brand`,
       bottom: false,
     },
     {

@@ -32,6 +32,7 @@ function ProductsList() {
     async function fetchProducts(obj = undefined) {
         let type = null;
         let category = null;
+        let brand = null;
         let result = null;
         let query = "";
 
@@ -43,6 +44,10 @@ function ProductsList() {
             if (pathToArray[2] !== "novita") {
                 query = `?type=${type}`;
             }
+            if (pathToArray[1] === "brand") {
+                brand = pathToArray[2].split("-").join("%20");
+                query = `?brand=${brand}`;
+            }
         } else if (pathToArray.length === 4) {
             category = pathToArray[3].split("-").join("%20");
             query = `?type=${type}&category=${category}`;
@@ -51,6 +56,7 @@ function ProductsList() {
         if (obj) {
             if (obj.type === null) obj.type = type;
             if (obj.category === null) obj.category = category;
+            if (obj.brand === null) obj.brand = brand;
             query = getQuery(obj);
         }
 
