@@ -3,6 +3,7 @@
 
 .main-header {
   border-bottom: 0;
+  height: 12rem;
 
   .css-l4u8b9-MuiInputBase-root-MuiInput-root {
     border-bottom: 1px solid $black;
@@ -36,9 +37,12 @@
   }
 }
 
-.main-header__top,
-.main-header__bottom {
+.main-header__top {
   padding: 1rem 2rem;
+}
+
+.main-header__bottom {
+  padding: 0 2rem 1rem;
 }
 
 .main-header__top__input {

@@ -61,9 +61,9 @@ function ProductsList() {
         }
 
         if (pathToArray[2] === "novita") {
-            result = await getNewProductsList(0, lang, query);
+            result = await getNewProductsList(state.currentPage, lang, query);
         } else {
-            result = await getProductsList(0, lang, query);
+            result = await getProductsList(state.currentPage, lang, query);
         }
 
         console.log(query)
@@ -79,20 +79,19 @@ function ProductsList() {
     };
 
     async function fetchPaginatedProducts(e, p) {
-        const currentPage = p - 1;
         const query = state.query;
         let result = null;
 
         if (pathToArray[2] === "new") {
-            result = await getNewProductsList(currentPage, lang, query);
+            result = await getNewProductsList(p, lang, query);
         } else {
-            result = await getProductsList(currentPage, lang, query);
+            result = await getProductsList(p, lang, query);
         }
 
         setState({
             ...state,
             products: result.data.products,
-            currentPage: currentPage + 1,
+            currentPage: p,
         })
     };
 
