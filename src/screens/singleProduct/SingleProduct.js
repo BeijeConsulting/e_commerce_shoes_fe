@@ -9,19 +9,25 @@ import AccordionItem from "../../components/hookComponents/accordionItem/Accordi
 import { useDispatch, useSelector } from "react-redux";
 import { updateCartQuantity } from "../../redux/ducks/productCartDuck";
 import { getProduct } from "../../services/productServices";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   setLocalStorage,
   getLocalStorage,
 } from "../../utils/localStorageUtils";
 import Seo from "../../components/functionalComponents/Seo";
 import i18n from "../../assets/translations/i18n";
+import { addWishList } from '../../services/wishListServices';
+import { updateWishListQuantity } from '../../redux/ducks/wishListDuck';
 
 function SingleProduct() {
   const lang = i18n.language.slice(0, 2)
   const params = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const cartQuantity = useSelector((state) => state.userDuck.cartItems); //modificato lo state
+
+  const userIsLogged = useSelector((state) => state.userDuck.isLogged)
+
 
   const [state, setState] = useState({
     product: [],
@@ -40,6 +46,7 @@ function SingleProduct() {
       ...state,
       product: result.data
     });
+    console.log("SINGLEPRODUCT", result);
   }
 
   function updateCart() {
@@ -135,10 +142,33 @@ function SingleProduct() {
     setLocalStorage("cart-list", localData);
   }
 
+  ////////////////////////////////
+  // funzone per aggiungere prodotto alla wishlist
+
+  async function addToWishlist() {
+    if (!userIsLogged) {
+      navigate(`/${lang}/identity`)
+    }
+
+    const response = await addWishList({
+      productId: params.id,
+    })
+
+    // aggiorno la quantità in redux
+    dispatch(
+      updateWishListQuantity({
+        quantity: +1
+      })
+    )
+    console.log("RESPONSE ADD-WISH", response)
+  }
+
+  ////////////////////////////////
+
   function renderSizesOption(size, key) {
     return (
-      <option key={key} value={size.eu}>
-        {size.eu}
+      <option key={ key } value={ size.eu }>
+        { size.eu }
       </option>
     );
   }
@@ -165,43 +195,47 @@ function SingleProduct() {
   return (
     <>
       <Seo
-        title={state.product?.name}
+        title={ state.product?.name }
         description="Gestione del carrello"
         content="e-commerce"
       />
       <div className="single-product">
         <header>
           <div className="header__container">
-            <p className="header__category">{state.product?.category}</p>
-            <p className="header__price">€ {state.product?.listed_price}</p>
+            <p className="header__category">{ state.product?.category }</p>
+            <p className="header__price">€ { state.product?.listed_price }</p>
           </div>
-          <h2 className="header__brand">{state.product?.brand}</h2>
-          <p className="header__name">{state.product?.name}</p>
+          <h2 className="header__brand">{ state.product?.brand }</h2>
+          <p className="header__name">{ state.product?.name }</p>
         </header>
 
         <div className="info__container">
           <SingleProductSlider />
 
           <div className="info">
-            {/* DA SISTEMARE */}
             <p className="info__p">Input Select taglie</p>
             <select
               className="info__select-size"
-              onChange={handleSelect}
+              onChange={ handleSelect }
               name="sizes"
             >
-              <option value={"none"} disabled={state.sizeSelected}>
+              <option value={ "none" } disabled={ state.sizeSelected }>
                 Seleziona taglia
               </option>
-              {state.product?.productSizes?.map(renderSizesOption)}
+              { state.product?.productSizes?.map(renderSizesOption) }
             </select>
             <InfoProductBox />
 
+
             <Button
-              handleClick={updateCart}
-              label={"AGGIUNGI AL CARRELLO"}
-              buttonStyle={"default-button"}
+              handleClick={ updateCart }
+              label={ "AGGIUNGI AL CARRELLO" }
+              buttonStyle={ "default-button" }
             />
+
+            <p onClick={ addToWishlist } className='info__wishlist'>Aggiungi alla lista desideri</p>
+
+
             <p className="info__p">Tabella Taglie Link</p>
             <AccordionItem />
           </div>

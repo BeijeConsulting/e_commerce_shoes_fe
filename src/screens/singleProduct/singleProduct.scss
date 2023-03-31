@@ -37,6 +37,11 @@
   display: flex;
   flex-direction: column;
   margin: 0 3%;
+
+  &__wishlist {
+    margin: 3rem;
+    cursor: pointer;
+  }
 }
 
 .info__container {

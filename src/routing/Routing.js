@@ -31,6 +31,7 @@ import { setUserCredentials } from '../redux/ducks/userDuck';
 import { getUserAuth } from '../services/authServices';
 import i18n from "../assets/translations/i18n";
 import { useTranslation } from "react-i18next";
+import WishList from '../screens/wishList/WishList';
 
 function Routing() {
   const dispatch = useDispatch()
@@ -74,66 +75,65 @@ function Routing() {
   }, []);
 
 
-
-
-  // console.log("TOKEN", isTokenExist)
-
   function RedirectToLanguage() {
-    return <Navigate replace to={lang} />
+    return <Navigate replace to={ lang } />
   }
 
   return (
     <Routes>
 
-      <Route path="" element={<RedirectToLanguage />}></Route>
+      <Route path="" element={ <RedirectToLanguage /> }></Route>
 
-      <Route path="/:lang" element={<Cms />}>
-        {/* Homepage */}
-        <Route index element={<Home />} />
-        <Route path="user-info" element={<UserInfo />}>
-          <Route index element={<PersonalData />} />
-          <Route path="address-list" element={<AddressList />} />
-          <Route path="order-list" element={<OrderList />} />
+      <Route path="/:lang" element={ <Cms /> }>
+        {/* Homepage */ }
+        <Route index element={ <Home /> } />
+        <Route path="user-info" element={ <UserInfo /> }>
+          <Route index element={ <PersonalData /> } />
+          <Route path="address-list" element={ <AddressList /> } />
+          <Route path="order-list" element={ <OrderList /> } />
         </Route>
 
-        {/* Products list */}
-        <Route path={"products"} element={<ProductsList />}>
-          <Route path=":first" element={<ProductsList />} />
-          <Route path=":first/:second" element={<ProductsList />} />
+        {/* WishList */ }
+        <Route path='wishlist' element={ <WishList /> } />
+
+        {/* Products list */ }
+        <Route path={ "products" } element={ <ProductsList /> }>
+          <Route path=":first" element={ <ProductsList /> } />
+          <Route path=":first/:second" element={ <ProductsList /> } />
         </Route>
 
-        {/* Search */}
-        <Route path="search" element={<Search />} />
+        {/* Search */ }
+        <Route path="search" element={ <Search /> } />
 
-        {/* Brands */}
-        <Route path="brands" element={<Cart />} />
-        <Route path="brands/:brand" element={<ProductsList />} />
+        {/* Brands */ }
+        <Route path="brands" element={ <Cart /> } />
+        <Route path="brands/:brand" element={ <ProductsList /> } />
 
-        {/* Single products */}
-        <Route path="product/:id" element={<SingleProduct />} />
+        {/* Single products */ }
+        <Route path="product/:id" element={ <SingleProduct /> } />
 
-        {/* Cart */}
-        <Route path="cart" element={<Cart />} />
+        {/* Cart */ }
+        <Route path="cart" element={ <Cart /> } />
 
-        {/* Customer care */}
-        <Route path="customer-care" element={<CustomerCare />}>
-          <Route path="contacts" element={<Contacts />} />
-          <Route path="delivery" element={<Delivery />} />
-          <Route path="returns" element={<ReturnAndRefund />} />
-          <Route path="faq" element={<Faq />} />
-          <Route path="cookie" element={<Cookie />} />
-          <Route path="terms-and-condictions" element={<Terms />} />
-          <Route path="returns" element={<ReturnAndRefund />} />
-          <Route path="privacy" element={<Privacy />} />
+        {/* Customer care */ }
+        <Route path="customer-care" element={ <CustomerCare /> }>
+          <Route path="contacts" element={ <Contacts /> } />
+          <Route path="delivery" element={ <Delivery /> } />
+          <Route path="returns" element={ <ReturnAndRefund /> } />
+          <Route path="faq" element={ <Faq /> } />
+          <Route path="cookie" element={ <Cookie /> } />
+          <Route path="terms-and-condictions" element={ <Terms /> } />
+          <Route path="returns" element={ <ReturnAndRefund /> } />
+          <Route path="privacy" element={ <Privacy /> } />
         </Route>
       </Route>
 
-      <Route path="checkout" element={<Checkout />} />
+      <Route path="checkout" element={ <Checkout /> } />
 
-      {/* Signin - Signup */}
-      <Route path=":lang/identity" element={<Identity />}>
-        <Route index element={<LoginForm />} />
-        <Route path="signup" element={<SignupForm />} />
+      {/* Signin - Signup */ }
+      <Route path=":lang/identity" element={ <Identity /> }>
+        <Route index element={ <LoginForm /> } />
+        <Route path="signup" element={ <SignupForm /> } />
       </Route>
     </Routes>
   );

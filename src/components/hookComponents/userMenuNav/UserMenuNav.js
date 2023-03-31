@@ -66,6 +66,16 @@ function UserMenuNav(props) {
 
         handleClose()
     }
+    function conditionalGoToWishList() {
+        console.log("islogged", userIsLogged);
+        if (userIsLogged) {
+            navigate("wishlist");
+        } else {
+            navigate("identity");
+        }
+
+        handleClose()
+    }
 
     function goToRegistration() {
         navigate("identity/signup")
@@ -137,7 +147,7 @@ function UserMenuNav(props) {
                                 className='item'>
                                 { t("userMenuNav.logIn") }</p> }
                     </MenuItem>
-                    <MenuItem onClick={ conditionalGoTo }>
+                    <MenuItem onClick={ conditionalGoToWishList }>
                         {
                             <p
                                 className='item'>
