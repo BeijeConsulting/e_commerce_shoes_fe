@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 // Redux
@@ -8,7 +8,8 @@ import { useNavigate } from "react-router-dom";
 // Utils
 
 // SCSS
-import "./adressList.scss";
+import "./addressList.scss";
+
 import { useTranslation } from 'react-i18next';
 import Seo from '../../components/functionalComponents/Seo';
 import InputTextField from '../../components/functionalComponents/inputTextField/InputTextField';
@@ -19,6 +20,14 @@ import { addAddress, deleteAddress } from '../../services/addressServices';
 import { getUserAuth } from '../../services/authServices';
 
 function AdressList(props) {
+  const [state, setState] = useState({
+    invalidAddress: false,
+    invalidCountry: false,
+    invalidZipCode: false,
+    invalidName_Surname: false,
+    invalidTelephone: false,
+  });
+
   const { register, handleSubmit } = useForm();
   const token = useSelector((state) => state.tokenDuck.token)
   const userData = useSelector((state) => state.userDuck);
@@ -78,6 +87,17 @@ function AdressList(props) {
 
       console.log("NEWOBJ", newObj)
       console.log("RESPONSE ADDRESS", response)
+
+
+      setState(
+        {
+          invalidAddress: false,
+          invalidCountry: false,
+          invalidZipCode: false,
+          invalidName_Surname: false,
+          invalidTelephone: false
+        }
+      )
     }
 
 
@@ -90,7 +110,14 @@ function AdressList(props) {
 
   }
   const onError = async (err) => {
-
+    setState({
+      ...state,
+      invalidAddress: err?.address ? true : false,
+      invalidCountry: err?.country ? true : false,
+      invalidZipCode: err?.zipCode ? true : false,
+      invalidName_Surname: err?.name_surname ? true : false,
+      invalidTelephone: err?.telephone ? true : false,
+    });
   }
 
   const deleteAddressId = (id) => async () => {
@@ -122,7 +149,7 @@ function AdressList(props) {
 
   function mapList(data, i) {
     return (
-      <div className="address__container" key={ data?.id }>
+      <div className="address__container__list" key={ data?.id }>
         <Seo
           title="I tuoi indirizzi"
           description="Gestione degli indirizzi personali"
@@ -164,66 +191,78 @@ function AdressList(props) {
 
   return (
     <div className='address'>
-      <form className="login-form" onSubmit={ handleSubmit(onSubmit, onError) }>
-        <InputTextField
-          inputName="address"
-          inputLabel="VIA - PIAZZA:"
-          inputType="text"
-          inputPlaceholder="Es: Via Rossi 14"
-          register={ register }
-          labelStyle="default-label  "
-          inputStyle={ `default-input margin-top-small` }
-        />
-        <InputTextField
-          inputName="country"
-          inputLabel="PAESE:"
-          inputType="text"
-          inputPlaceholder="Es: Italia"
-          register={ register }
-          labelStyle="default-label  "
-          inputStyle={ `default-input margin-top-small` }
-        />
-        <InputTextField
-          inputName="zipCode"
-          inputLabel="CAP:"
-          inputType="text"
-          inputPlaceholder="Es: 13000"
-          register={ register }
-          labelStyle="default-label  "
-          inputStyle={ `default-input margin-top-small` }
-        />
-        <InputTextField
-          inputName="name_surname"
-          inputLabel="NOME E COGNOME:"
-          inputType="text"
-          inputPlaceholder="Es: Mario Rossi"
-          register={ register }
-          labelStyle="default-label  "
-          inputStyle={ `default-input margin-top-small` }
-        />
-        <InputTextField
-          inputName="instructions"
-          inputLabel="ISTRUZIONI:"
-          inputType="text"
-          inputPlaceholder="Es: consegnare in ufficio"
-          register={ register }
-          labelStyle="default-label  "
-          inputStyle={ `default-input margin-top-small` }
-        />
-        <InputTextField
-          inputName="telephone"
-          inputLabel="TELEFONO:"
-          inputType="text"
-          inputPlaceholder="Es: 333 1234567"
-          register={ register }
-          labelStyle="default-label  "
-          inputStyle={ `default-input margin-top-small` }
-        />
-        <Button
-          label="Salva Indirizzo"
-          buttonStyle="submit-button button-margin-top"
-        />
-      </form>
+      <div className='address__container'>
+        <form className="login-form" onSubmit={ handleSubmit(onSubmit, onError) }>
+          <InputTextField
+            inputName="address"
+            inputLabel="VIA - PIAZZA*:"
+            inputType="text"
+            inputPlaceholder="Es: Via Rossi 14"
+            register={ register }
+            isRequired={ true }
+            labelStyle="default-label"
+            inputStyle={ `default-input margin-top-small ${state.invalidAddress ? "default-input--error" : ""
+              }` }
+          />
+          <InputTextField
+            inputName="country"
+            inputLabel="PAESE*:"
+            inputType="text"
+            inputPlaceholder="Es: Italia"
+            register={ register }
+            isRequired={ true }
+            labelStyle="default-label  "
+            inputStyle={ `default-input margin-top-small ${state.invalidCountry ? "default-input--error" : ""
+              }` }
+          />
+          <InputTextField
+            inputName="zipCode"
+            inputLabel="CAP*:"
+            inputType="text"
+            inputPlaceholder="Es: 13000"
+            register={ register }
+            isRequired={ true }
+            labelStyle="default-label  "
+            inputStyle={ `default-input margin-top-small ${state.invalidZipCode ? "default-input--error" : ""
+              }` }
+          />
+          <InputTextField
+            inputName="name_surname"
+            inputLabel="NOME E COGNOME*:"
+            inputType="text"
+            inputPlaceholder="Es: Mario Rossi"
+            register={ register }
+            isRequired={ true }
+            labelStyle="default-label  "
+            inputStyle={ `default-input margin-top-small ${state.invalidName_Surname ? "default-input--error" : ""
+              }` }
+          />
+          <InputTextField
+            inputName="instructions"
+            inputLabel="ISTRUZIONI:"
+            inputType="text"
+            inputPlaceholder="Es: consegnare in ufficio"
+            register={ register }
+            labelStyle="default-label  "
+            inputStyle={ `default-input margin-top-small` }
+          />
+          <InputTextField
+            inputName="telephone"
+            inputLabel="TELEFONO*:"
+            inputType="text"
+            inputPlaceholder="Es: 333 1234567"
+            register={ register }
+            isRequired={ true }
+            labelStyle="default-label  "
+            inputStyle={ `default-input margin-top-small ${state.invalidTelephone ? "default-input--error" : ""
+              }` }
+          />
+          <Button
+            label="Salva Indirizzo"
+            buttonStyle="submit-button button-margin-top"
+          />
+        </form>
+      </div>
       <h2>{ t("addresses.yourAddresses") }</h2>
       { userData.adresses?.map(mapList) }
       {

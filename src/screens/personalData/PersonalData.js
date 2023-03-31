@@ -17,6 +17,7 @@ function PersonalData() {
 
   const userData = useSelector((state) => state.userDuck);
   console.log("USERDATA", userData);
+
   const { t } = useTranslation()
 
 

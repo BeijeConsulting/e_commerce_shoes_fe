@@ -39,7 +39,11 @@
     },
     "userInfo": {
       "personalData": "personal data",
-      "addresses": "addresses"
+      "addresses": "addresses",
+      "title": "Personal Account",
+      "faq": "FAQ",
+      "myAccount": "MY ACCOUNT",
+      "orderList": "order list"
     },
     "personalData": {
       "personalData": "your personal data",
@@ -73,6 +77,16 @@
       "deliveryInstructions": "Delivery Instructions",
       "yourAddresses": "Your addresses",
       "emptyAddress": "Empty Addresses"
+    },
+    "changeUserDataForm": {
+      "email": "email",
+      "first_name": "first name",
+      "last_name": "last name",
+      "birthDate": "birthdate",
+      "newPassword": "new password"
+    },
+    "button": {
+      "save": "save credentials"
     },
     "lang": "en"
   }

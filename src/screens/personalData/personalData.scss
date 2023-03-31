@@ -30,12 +30,13 @@
         }
     }
 
-    &__email {
-        span {
-            text-transform: lowercase;
-        }
+    .personalData__email {
+        text-transform: lowercase;
     }
 }
+
+
+
 
 .container__button {
     display: flex;

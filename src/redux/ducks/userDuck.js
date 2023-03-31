@@ -17,9 +17,6 @@ export const removeUserCredentials = () => (dispatch) => {
   }
 };
 
-
-
-
 // Slice
 const userDuck = createSlice({
   name: "user",
@@ -50,7 +47,7 @@ const userDuck = createSlice({
       state.surname = "";
       state.email = "";
       state.adresses = [];
-      state.birthDate = {};
+      state.birthDate = "";
       state.cartItems = 0;
       state.wishlistItems = 0;
     },
