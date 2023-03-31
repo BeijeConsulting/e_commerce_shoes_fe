@@ -26,7 +26,7 @@ function Search() {
     }, [searchParams.get("q")]);
 
     async function fetchProducts() {
-        const products = await getSearchProducts(0, lang, searchTerm);
+        const products = await getSearchProducts(state.currentPage, lang, searchTerm);
         const foundProducts = products.data.products.length > 0;
         setState({
             ...state,
@@ -38,13 +38,12 @@ function Search() {
 
     async function fetchPaginatedProducts(e, p) {
         const searchTerm = searchParams.get("q");
-        const currentPage = p - 1;
-        const products = await getSearchProducts(currentPage, lang, searchTerm);
+        const products = await getSearchProducts(p, lang, searchTerm);
         setState({
             ...state,
             products: products.data.products,
             pages: products.data.pages,
-            currentPage: currentPage + 1,
+            currentPage: p,
         })
     };
 
