@@ -19,7 +19,8 @@ import {
 // import imageProduct from "../../assets/images/singleProduct/shoe1.jpeg";
 import Seo from "../../components/functionalComponents/Seo";
 import { useSelector } from "react-redux";
-
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // const cartList = {
 //   items: [
 //     {
@@ -65,6 +66,32 @@ function Cart() {
     cart: localData,
   });
 
+  function notifyCartUpdateSuccess() {
+    toast.success("Quantità modificata", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 1000,
+    });
+  }
+  function notifyCartUpdateError() {
+    toast.error("Errore nella modifica quantità", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 1000,
+    });
+  }
+
+  function notifydeleteCartItemSuccess() {
+    toast.success("Prodotto eliminato", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 1000,
+    });
+  }
+  function notifydeleteCartItemError() {
+    toast.error("Errore rimozione prodotto", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 1000,
+    });
+  }
+
   function getCartStoredList() {
     const storage = getLocalStorage("cart-list");
 
@@ -96,12 +123,17 @@ function Cart() {
     }
 
     if (isLogged) {
-      const updateCartresponse = await deleteCartItem(itemToDelete.item_id);
-      if (updateCartresponse.status === 200) {
-        const getUpdate = await getCartList();
-        if (getUpdate.status === 200) {
-          localData = getUpdate.data;
+      try {
+        const updateCartresponse = await deleteCartItem(itemToDelete.item_id);
+        if (updateCartresponse.status === 200) {
+          const getUpdate = await getCartList();
+          if (getUpdate.status === 200) {
+            localData = getUpdate.data;
+          }
         }
+        notifydeleteCartItemSuccess();
+      } catch {
+        notifydeleteCartItemError();
       }
     } else {
       const indexElementToDelete = localData.items.indexOf(itemToDelete);
@@ -110,6 +142,8 @@ function Cart() {
 
       localData.numberItems = Number(localData.numberItems) - quantity;
       localData.totalPrice = Number(localData.totalPrice) - price;
+
+      notifydeleteCartItemSuccess();
     }
 
     setLocalStorage("cart-list", localData);
@@ -162,19 +196,25 @@ function Cart() {
     // console.log("---------------------------");
 
     if (isLogged) {
-      console.log("itemChanged", itemChanged.quantity);
-      const updateCartresponse = await updateItemToCartList(
-        itemChanged.item_id,
-        itemChanged.quantity
-      );
-      if (updateCartresponse.status === 200) {
-        const getUpdate = await getCartList();
-        if (getUpdate.status === 200) {
-          localData = getUpdate.data;
+      try {
+        console.log("itemChanged", itemChanged.quantity);
+        const updateCartresponse = await updateItemToCartList(
+          itemChanged.item_id,
+          itemChanged.quantity
+        );
+        if (updateCartresponse.status === 200) {
+          const getUpdate = await getCartList();
+          if (getUpdate.status === 200) {
+            localData = getUpdate.data;
+          }
         }
+        notifyCartUpdateSuccess();
+      } catch {
+        notifyCartUpdateError();
       }
     }
     setLocalStorage("cart-list", localData);
+    if (!isLogged) notifyCartUpdateSuccess();
 
     setState({
       ...state,
@@ -227,6 +267,7 @@ function Cart() {
           <CartInfoBox />
         </div>
       </div>
+      <ToastContainer hideProgressBar />
     </div>
   );
 }

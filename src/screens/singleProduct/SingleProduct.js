@@ -67,6 +67,18 @@ function SingleProduct() {
       autoClose: 1000,
     });
   }
+  function notifyAddToWishlistSuccess() {
+    toast.success("Aggiunto alla whislist", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 1000,
+    });
+  }
+  function notifyAddToWishlistError() {
+    toast.success("Si è verificato un errore", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 1000,
+    });
+  }
 
   async function updateCart() {
     let itemFound = undefined;

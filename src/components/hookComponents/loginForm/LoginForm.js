@@ -53,7 +53,7 @@ function LoginForm() {
   }
 
   function notifyLoginCredentialsError() {
-    toast.error("Credenziali Errate", {
+    toast.error("Credenziali errate", {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 2000,
     });

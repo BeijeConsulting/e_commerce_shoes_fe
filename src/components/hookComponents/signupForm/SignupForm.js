@@ -21,6 +21,8 @@ import {
   getCartList,
 } from "../../../services/cartServices";
 import i18n from "../../../assets/translations/i18n";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function SignupForm() {
   const [state, setState] = useState({
@@ -39,6 +41,25 @@ function SignupForm() {
   const emailReg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i;
   const passwordReg =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?])(?=.*[^\s]).{8,}$/;
+
+  function notifySignupSuccess() {
+    toast.success("Registrato con successo", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 500,
+    });
+  }
+  function notifySignupError() {
+    toast.error("Dati non validi", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 1000,
+    });
+  }
+  function notifySignupEmailError() {
+    toast.error("Hai inserito una email esistente", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 1000,
+    });
+  }
 
   const onSubmit = async (data) => {
     let emailExist = false;
@@ -118,12 +139,18 @@ function SignupForm() {
           console.log(getLocalStorage("cart-list"));
         }
 
-        return navigate(`/${lang}`);
+        notifySignupSuccess();
+        setTimeout(() => {
+          return navigate(`/${lang}`);
+        }, 1500);
       }
 
       if (error.message.toLowerCase() === "email already in use!") {
         emailExist = true;
+        notifySignupEmailError();
       }
+    } else {
+      notifySignupError();
     }
 
     setState({
@@ -138,6 +165,7 @@ function SignupForm() {
   };
 
   const onError = (err) => {
+    notifySignupError();
     setState({
       ...state,
       invalidEmail: err?.email ? true : false,
@@ -258,6 +286,7 @@ function SignupForm() {
         />
       </div>
       <Button label="Sign Up" buttonStyle="submit-button button-margin-top" />
+      <ToastContainer hideProgressBar />
     </form>
   );
 }
