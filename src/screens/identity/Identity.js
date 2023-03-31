@@ -23,34 +23,30 @@ function Identity() {
       <div className="identity-container">
         <div className="identity-container__options">
           <div
-            className={`identity-container__options__signup ${
-              location.pathname === `/${lang}/identity/signup`
-                ? "identity-container__options__signup--shown underline"
-                : ""
-            }`}
+            className={`identity-container__options__signup ${location.pathname === `/${lang}/accedi/registrati`
+              ? "identity-container__options__signup--shown underline"
+              : ""
+              }`}
           >
             <Link
-              className={`link ${
-                location.pathname === `/${lang}/identity/signup`
-                  ? "link--active"
-                  : ""
-              }`}
-              to={"signup"}
+              className={`link ${location.pathname === `/${lang}/accedi/registrati`
+                ? "link--active"
+                : ""
+                }`}
+              to={"registrati"}
             >
               REGISTRATI
             </Link>
           </div>
           <div
-            className={`identity-container__options__login  ${
-              location.pathname === `/${lang}/identity`
-                ? "identity-container__options__login--shown underline"
-                : ""
-            }`}
+            className={`identity-container__options__login  ${location.pathname === `/${lang}/accedi`
+              ? "identity-container__options__login--shown underline"
+              : ""
+              }`}
           >
             <Link
-              className={`link ${
-                location.pathname === `/${lang}/identity` ? "link--active" : ""
-              }`}
+              className={`link ${location.pathname === `/${lang}/accedi` ? "link--active" : ""
+                }`}
               to={""}
             >
               ACCEDI
