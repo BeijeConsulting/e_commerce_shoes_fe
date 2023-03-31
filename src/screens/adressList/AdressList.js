@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -10,14 +10,14 @@ import { useNavigate } from "react-router-dom";
 // SCSS
 import "./addressList.scss";
 
-import { useTranslation } from 'react-i18next';
-import Seo from '../../components/functionalComponents/Seo';
-import InputTextField from '../../components/functionalComponents/inputTextField/InputTextField';
-import { useForm } from 'react-hook-form';
-import Button from '../../components/functionalComponents/button/Button';
-import { setUserCredentials } from '../../redux/ducks/userDuck';
-import { addAddress, deleteAddress } from '../../services/addressServices';
-import { getUserAuth } from '../../services/authServices';
+import { useTranslation } from "react-i18next";
+import Seo from "../../components/functionalComponents/Seo";
+import InputTextField from "../../components/functionalComponents/inputTextField/InputTextField";
+import { useForm } from "react-hook-form";
+import Button from "../../components/functionalComponents/button/Button";
+import { setUserCredentials } from "../../redux/ducks/userDuck";
+import { addAddress, deleteAddress } from "../../services/addressServices";
+import { getUserAuth } from "../../services/authServices";
 
 function AdressList(props) {
   const [state, setState] = useState({
@@ -29,13 +29,13 @@ function AdressList(props) {
   });
 
   const { register, handleSubmit } = useForm();
-  const token = useSelector((state) => state.tokenDuck.token)
+  const token = useSelector((state) => state.tokenDuck.token);
   const userData = useSelector((state) => state.userDuck);
 
   console.log("USERDATA", userData);
 
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  // const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { t } = useTranslation();
 
@@ -45,70 +45,59 @@ function AdressList(props) {
   }, []) */
 
   const onSubmit = async (data) => {
-    console.log(data)
+    console.log(data);
 
     let newObj = {
       country: data.country,
       name_surname: data.name_surname,
       street_address: data.address,
       telephone: data.telephone,
-      zipcode: data.zipCode
+      zipcode: data.zipCode,
       // userId: 0,
       //instructions: "nothing",
       //label: "string",
-    }
+    };
 
     // POST ADDRESS
-    const response = await addAddress(newObj)
+    const response = await addAddress(newObj);
 
     if (response.status === 200) {
       let newObj = {
-        id: response?.data?.id,
-        country: response?.data?.country,
-        name_surname: response?.data?.name_surname,
-        street_address: response?.data?.street_address,
-        telephone: response?.data?.telephone,
-        zipcode: response?.data?.zipcode
+        id: response.data?.id,
+        country: response.data?.country,
+        name_surname: response.data?.name_surname,
+        street_address: response.data?.street_address,
+        telephone: response.data?.telephone,
+        zipcode: response.data?.zipcode,
         // userId: 0,
         //instructions: "nothing",
         //label: "string",
-      }
+      };
       dispatch(
-        setUserCredentials(
-          {
-            ...userData,
-            adresses: [
-              ...userData.adresses,
-              newObj
-            ]
-          }
-        )
-      )
+        setUserCredentials({
+          ...userData,
+          adresses: [...userData.adresses, newObj],
+        })
+      );
 
-      console.log("NEWOBJ", newObj)
-      console.log("RESPONSE ADDRESS", response)
+      console.log("NEWOBJ", newObj);
+      console.log("RESPONSE ADDRESS", response);
 
-
-      setState(
-        {
-          invalidAddress: false,
-          invalidCountry: false,
-          invalidZipCode: false,
-          invalidName_Surname: false,
-          invalidTelephone: false
-        }
-      )
+      setState({
+        invalidAddress: false,
+        invalidCountry: false,
+        invalidZipCode: false,
+        invalidName_Surname: false,
+        invalidTelephone: false,
+      });
     }
-
-
 
     ////////////////////////////////////////////////////////////////
 
     // IMPLEMENTARE ERRORI E CAMPI OBBLIGATORI
 
     ////////////////////////////////////////////////////////////////
-
-  }
+  };
   const onError = async (err) => {
     setState({
       ...state,
@@ -118,34 +107,27 @@ function AdressList(props) {
       invalidName_Surname: err?.name_surname ? true : false,
       invalidTelephone: err?.telephone ? true : false,
     });
-  }
+  };
 
   const deleteAddressId = (id) => async () => {
-    const response = await deleteAddress(id)
+    const response = await deleteAddress(id);
 
     if (response.status === 200) {
-      console.log("SUCCESS DELETE")
+      console.log("SUCCESS DELETE");
 
-      const response = await getUserAuth(token)
-      console.log("USER IN IF", response)
+      const response = await getUserAuth(token);
+      console.log("USER IN IF", response);
 
       dispatch(
-        setUserCredentials(
-          {
-            ...userData,
-            adresses: [
-              ...response.data.addresses
-            ]
-          }
-        )
-      )
+        setUserCredentials({
+          ...userData,
+          adresses: [...response.data.addresses],
+        })
+      );
     }
-    console.log(id)
-    console.log("RESPONSE", response)
-  }
-
-
-
+    console.log(id);
+    console.log("RESPONSE", response);
+  };
 
   function mapList(data, i) {
     return (
@@ -183,15 +165,15 @@ function AdressList(props) {
             <p className="address__p">{t("addresses.deliveryInstructions")}:</p>
             <span>{data?.instructions ?? "n/d"}</span>
           </li>
-          <p onClick={deleteAddressId(data.id)}>Delete</p>
+          <p onClick={deleteAddressId(data?.id)}>Delete</p>
         </ul>
       </div>
     );
   }
 
   return (
-    <div className='address'>
-      <div className='address__container'>
+    <div className="address">
+      <div className="address__container">
         <form className="login-form" onSubmit={handleSubmit(onSubmit, onError)}>
           <InputTextField
             inputName="address"
@@ -265,13 +247,11 @@ function AdressList(props) {
       </div>
       <h2>{t("addresses.yourAddresses")}</h2>
       {userData.adresses?.map(mapList)}
-      {
-        userData.adresses?.length === 0 &&
+      {userData.adresses?.length === 0 && (
         <div>
           <p>{t("addresses.emptyAddress")}.</p>
         </div>
-      }
-
+      )}
     </div>
   );
 }

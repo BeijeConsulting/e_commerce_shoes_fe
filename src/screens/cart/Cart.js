@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./cart.scss";
 
 import CartHeader from "../../components/functionalComponents/cartHeader/CartHeader";
@@ -9,55 +9,52 @@ import ProductCartItem from "../../components/hookComponents/productCartItem/Pro
 import {
   deleteCartItem,
   getCartList,
-  getCartListDetail,
   updateItemToCartList,
 } from "../../services/cartServices";
 import {
   getLocalStorage,
   setLocalStorage,
 } from "../../utils/localStorageUtils";
-import { getProduct } from "../../services/productServices";
 
-import imageProduct from "../../assets/images/singleProduct/shoe1.jpeg";
+// import imageProduct from "../../assets/images/singleProduct/shoe1.jpeg";
 import Seo from "../../components/functionalComponents/Seo";
-import { useSelect } from "@mui/base";
 import { useSelector } from "react-redux";
 
-const cartList = {
-  items: [
-    {
-      name: "Air Jordan",
-      brand: "Nike",
-      id: "0012",
-      quantity: "2",
-      sellingItemTotalPrice: "200.50",
-      image: imageProduct,
-      size: "42",
-    },
-    {
-      name: "Trainer",
-      brand: "Adidas",
-      id: "0013",
-      quantity: "1",
-      sellingItemTotalPrice: "100",
-      image: imageProduct,
-      size: "43.5",
-    },
-    {
-      name: "Trainer",
-      brand: "Adidas",
-      id: "0014",
-      quantity: "5",
-      sellingItemTotalPrice: "500.0",
-      image: imageProduct,
-      size: "43.5",
-    },
-  ],
-  info: {
-    numberItems: "8",
-    totalPrice: "800.50",
-  },
-};
+// const cartList = {
+//   items: [
+//     {
+//       name: "Air Jordan",
+//       brand: "Nike",
+//       id: "0012",
+//       quantity: "2",
+//       sellingItemTotalPrice: "200.50",
+//       image: imageProduct,
+//       size: "42",
+//     },
+//     {
+//       name: "Trainer",
+//       brand: "Adidas",
+//       id: "0013",
+//       quantity: "1",
+//       sellingItemTotalPrice: "100",
+//       image: imageProduct,
+//       size: "43.5",
+//     },
+//     {
+//       name: "Trainer",
+//       brand: "Adidas",
+//       id: "0014",
+//       quantity: "5",
+//       sellingItemTotalPrice: "500.0",
+//       image: imageProduct,
+//       size: "43.5",
+//     },
+//   ],
+//   info: {
+//     numberItems: "8",
+//     totalPrice: "800.50",
+//   },
+// };
 
 // setLocalStorage("cart-list", cartList);
 

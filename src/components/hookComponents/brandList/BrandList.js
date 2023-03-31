@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+// import PropTypes from "prop-types";
+// import { useNavigate } from "react-router-dom";
 import { getBrands } from "../../../services/productServices";
-import _, { result } from "lodash";
+import _ from "lodash";
 import { Link } from "react-router-dom";
 import "./brandList.scss";
 
@@ -13,7 +13,7 @@ function BrandList(props) {
     resultBrandList: null,
   });
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     getAllBrands();
