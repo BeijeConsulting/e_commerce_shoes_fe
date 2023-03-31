@@ -63,12 +63,12 @@ function ChangeUserDataForm(props) {
     ////////////////////////////////////////////////////////////////////////
 
     // IMPLEMENTARE IL CHECK SULLA DATA
-    // if (
-    //   !moment(data.birthDate, true).isValid() ||
-    //   currentData.diff(data.birthDate, "years") < 16
-    // ) {
-    //   isInvalidAge = true;
-    // }
+    if (
+      !moment(data.birthDate, true).isValid() ||
+      currentData.diff(data.birthDate, "years") < 16
+    ) {
+      isInvalidAge = true;
+    }
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -76,15 +76,22 @@ function ChangeUserDataForm(props) {
     if (data.password === null || data.password === undefined || data.password === "") {
       data.password = userInfo.password
       newObj = {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        birthDate: data.birthDate,
+        first_name: data.firstName,
+        last_name: data.lastName,
+        birth_date: data.birthDate,
         email: data.email,
       }
     }
 
+    // SISTEMARE LA UI DI ERRORE
     // PUT API
-    response = await updateUser(newObj)
+    if (!isInvalidAge) {
+      try {
+        response = await updateUser(newObj)
+      } catch (err) {
+        error = err.response.data;
+      }
+    }
 
     if (response.status === 200) {
       dispatch(
@@ -121,7 +128,6 @@ function ChangeUserDataForm(props) {
       invalidLastName: false,
       invalidAge: isInvalidAge,
     });
-
   };
 
   function onError(err) {
