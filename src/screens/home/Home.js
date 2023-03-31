@@ -113,18 +113,6 @@ function Home() {
         <ProductSlider />
         <BoxImage image={boxNuoviArriviLifeStyle} />
       </div>
-      {sampleData.map((product) => {
-        return (
-          <ProductCard
-            image={productCardImg}
-            brand={product.brand}
-            name={product.name}
-            category={product.category}
-            price={product.starting_price}
-            idProduct={product.id}
-          />
-        );
-      })}
     </>
   );
 }
