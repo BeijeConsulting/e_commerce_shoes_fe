@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import "./wishListProductCard.scss";
-import nikeWhite from "../../../assets/images/wishListCard/nike-white.webp";
-import { ImCancelCircle } from "react-icons/im"
-import { deleteWishList, getWishList } from '../../../services/wishListServices';
-import { Link, useNavigate } from 'react-router-dom';
+
+//Router
+import { Link } from 'react-router-dom';
+// i18n
 import i18n from '../../../assets/translations/i18n';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateWishListQuantity } from '../../../redux/ducks/wishListDuck';
+// imgaes
+import nikeWhite from "../../../assets/images/wishListCard/nike-white.webp";
+// MUI
+import { ImCancelCircle } from "react-icons/im"
+// SCSS
+import "./wishListProductCard.scss";
+
 
 
 function WishListProductCard(props) {
@@ -32,7 +36,6 @@ function WishListProductCard(props) {
 
                                 <div className='card__price'>
                                     <p className='card__sellingPrice'>{ props.listedPrice }$</p>
-                                    <p className='card__brand'>{ props.brand }</p>
                                 </div>
                             </div>
 
@@ -40,6 +43,7 @@ function WishListProductCard(props) {
 
                         <div className='card__info'>
                             <h2>{ props.name }</h2>
+                            <p className='card__brand'>{ props.brand }</p>
 
                             <div className='card__info--detail'>
                                 <p>{ props.color }</p>

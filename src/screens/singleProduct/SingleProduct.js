@@ -18,14 +18,23 @@ import Seo from "../../components/functionalComponents/Seo";
 import i18n from "../../assets/translations/i18n";
 import { addWishList, getWishList } from '../../services/wishListServices';
 import { updateWishListQuantity } from '../../redux/ducks/wishListDuck';
+import { getUserAuth } from '../../services/authServices';
+import { setUserCredentials } from '../../redux/ducks/userDuck';
 
 function SingleProduct() {
   const [state, setState] = useState({
     product: [],
     sizeSelected: false,
   });
+
+  const [stateWishItems, setStateWishItems] = useState({
+    wishListItems: [],
+  });
+
   const [stateAdded, setStateAdded] = useState(false)
+
   const lang = i18n.language.slice(0, 2)
+
   const params = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate()
@@ -33,7 +42,7 @@ function SingleProduct() {
 
   const userIsLogged = useSelector((state) => state.userDuck.isLogged)
   const token = useSelector((state) => state.userDuck.token)
-
+  const wishlistItems = useSelector((state) => state.userDuck.wishlistItems);
   let sizeValue = useRef(null);
 
   useEffect(() => {
@@ -63,6 +72,7 @@ function SingleProduct() {
       toggle = false
     }
     setStateAdded(toggle)
+    setStateWishItems(response.data.items)
   }
 
   ////////////////////////////////
@@ -73,19 +83,27 @@ function SingleProduct() {
       navigate(`/${lang}/identity`)
     }
 
-    const response = await addWishList({
+    await addWishList({
       productId: params.id,
     })
     // una volta aggiunto setto lo stato a true
     setStateAdded(true)
-
     // aggiorno la quantità in redux
+    const responseUser = await getUserAuth(token);
+
     dispatch(
-      updateWishListQuantity({
-        quantity: +1
+      setUserCredentials({
+        isLogged: true,
+        name: responseUser.data.first_name,
+        surname: responseUser.data.last_name,
+        email: responseUser.data.email,
+        adresses: [...responseUser.data.addresses],
+        birthDate: responseUser.data.birth_date,
+        cartItems: responseUser.data.cart_items,
+        wishlistItems: responseUser.data.wish_list_item,
       })
     )
-    console.log("RESPONSE ADD-WISH", response)
+    console.log("responseUser", responseUser)
   }
 
   ////////////////////////////////

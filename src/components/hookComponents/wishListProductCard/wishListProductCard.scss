@@ -43,8 +43,6 @@
         position: absolute;
         top: 0;
         left: 0;
-
-
     }
 
     &__price {
@@ -64,7 +62,6 @@
     }
 
     &__brand {
-        margin-left: 3rem;
         text-transform: uppercase;
         display: flex;
         align-items: center;
@@ -72,6 +69,12 @@
     }
 
     &__info {
+        border: 2px solid red;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+
         h2 {
             font-size: $small;
             line-height: 1.1;
@@ -114,16 +117,19 @@
 @media screen and (min-width: 800px) {
 
     .card__container {
+        // width: 40rem;
 
         img {
-            max-width: 20%;
+            max-width: 40%;
         }
     }
 
     .card {
+        width: 100%;
 
         &__sellingPrice {
             font-size: $large;
+            margin-bottom: 2rem;
         }
 
         &__initialPrice {
@@ -137,8 +143,11 @@
         }
 
         &__info {
+
+            margin-top: 2rem;
+
             h2 {
-                margin: 5rem 0;
+                // margin: 2rem 0;
                 font-size: $large;
             }
 

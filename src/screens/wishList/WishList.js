@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from 'react'
 
+// API
+import { deleteWishList, getWishList } from '../../services/wishListServices'
+// REDUX
+import { useDispatch, useSelector } from 'react-redux'
 // Component
 import WishListProductCard from '../../components/hookComponents/wishListProductCard/WishListProductCard'
 // SCSS
-import "./wishList.scss"
-import { deleteWishList, getWishList } from '../../services/wishListServices'
-import { useSelector } from 'react-redux'
+import "./wishList.scss";
+import { setUserCredentials } from '../../redux/ducks/userDuck';
+import { getUserAuth } from '../../services/authServices';
 
 
 function WishList(props) {
     const [state, setState] = useState([])
     let wistListItems = [] // inizializzo lista items
+    let newWishList = null // inizializzo lista items dopo aver eliminato un item
+    let responseUserData = null // inizializzo lista items
+
+    const dispatch = useDispatch()
     const token = useSelector((state) => state.userDuck.token)
 
     useEffect(() => {
@@ -19,25 +27,41 @@ function WishList(props) {
 
     async function fetchWishList() {
         const response = await getWishList(token)
-        console.log("RESPONSE-WISH", response)
 
         if (response.status === 200) {
             //la lista di prodotti nella wish è un array
             wistListItems = response.data?.items
-            setState(wistListItems)
         }
-
+        setState(wistListItems)
     }
 
     async function deleteItem(param) {
-        const response = await deleteWishList(param)
-        console.log("RESPONSE-DELETE", response)
+        const responseDelete = await deleteWishList(param)
 
-        if (response.status === 200) {
-            const newItem = await getWishList(token)
-            console.log("NEW-ITEM", newItem.data.items)
-            setState(newItem.data.items)
+        if (responseDelete.status === 200) {
+            // se eliminazione andata a buon fine, chiamo lista desideri aggiornata
+            newWishList = await getWishList(token)
+            // se eliminazione andata a buon fine, chiamo dati utente aggiornati
+            responseUserData = await getUserAuth(token)
         }
+        // aggiorno lo stato della lista desideri nello screen
+        setState(newWishList.data.items)
+
+        // aggiorno i dati di userDuck
+        dispatch(
+            setUserCredentials(
+                {
+                    isLogged: true,
+                    name: responseUserData.data.first_name,
+                    surname: responseUserData.data.last_name,
+                    email: responseUserData.data.email,
+                    adresses: [...responseUserData.data.addresses],
+                    birthDate: responseUserData.data.birth_date,
+                    cartItems: responseUserData.data.cart_items,
+                    wishlistItems: responseUserData.data.wish_list_item,
+                }
+            )
+        )
     }
 
 

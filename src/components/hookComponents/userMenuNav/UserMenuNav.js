@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 
@@ -27,9 +27,14 @@ function UserMenuNav(props) {
     const refreshToken = useSelector((state) => state.tokenDuck.refreshToken)
     const userIsLogged = useSelector((state) => state.userDuck.isLogged);
     const userName = useSelector((state) => state.userDuck.name);
+    const wishlistItems = useSelector((state) => state.userDuck.wishlistItems);
+    console.log("wishlistItems", wishlistItems)
+
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
+
 
     const lang = i18n.language.slice(0, 2)
     const { t } = useTranslation();
@@ -154,6 +159,10 @@ function UserMenuNav(props) {
                             <p
                                 className='item'>
                                 WishList
+
+                                { userIsLogged && <span className='item__wishlistItems'>
+                                    { wishlistItems }
+                                </span> }
                             </p>
                         }
                     </MenuItem>
