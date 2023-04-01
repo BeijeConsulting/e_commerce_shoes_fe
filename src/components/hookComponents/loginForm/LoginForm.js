@@ -104,7 +104,7 @@ function LoginForm() {
         if (localCart?.items?.length > 0) {
           const items = localCart.items.map((item) => {
             return {
-              id: item.id,
+              id: item.productId,
               productDetailsId: item.productDetailsId,
               quantity: item.quantity,
               // userId: response.data.id,
@@ -142,7 +142,8 @@ function LoginForm() {
         }, 1500);
       }
       console.log(response);
-    } catch {
+    } catch (err) {
+      console.log(err);
       notifyLoginCredentialsError();
     }
 
