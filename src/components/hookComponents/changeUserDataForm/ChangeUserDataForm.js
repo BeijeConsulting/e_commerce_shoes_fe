@@ -142,7 +142,7 @@ function ChangeUserDataForm(props) {
   }
 
   return (
-    <div className='address__container'>
+    <div className='userData__container'>
       <form className="login-form" onSubmit={ handleSubmit(onSubmit, onError) }>
         <div className="login-form__input-container">
 

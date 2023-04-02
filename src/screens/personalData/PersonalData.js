@@ -24,39 +24,39 @@ function PersonalData() {
   return (
     <div className='personalData'>
       <h1>{ t("personalData.personalData") }</h1>
-      <h2>{ t("personalData.personalDetails") }</h2>
+      <div className='personalData__container'>
 
-      <ul>
-        <li>
-          { t("personalData.name") }:
-          <span>
-            { userData?.name }
-          </span>
-        </li>
-        <li>
-          { t("personalData.lastName") }:
-          <span>
-            { userData?.surname }
-          </span>
-        </li>
-        <li>
-          { t("personalData.birdthDate") }:
-          <span>
-            { userData?.birthDate }
-          </span>
-        </li>
-      </ul>
+        <ul>
+          <h2>{ t("personalData.personalDetails") }</h2>
+          <li>
+            { t("personalData.name") }:
+            <span>
+              { userData?.name }
+            </span>
+          </li>
+          <li>
+            { t("personalData.lastName") }:
+            <span>
+              { userData?.surname }
+            </span>
+          </li>
+          <li>
+            { t("personalData.birdthDate") }:
+            <span>
+              { userData?.birthDate }
+            </span>
+          </li>
+        </ul>
 
-      <h2>{ t("personalData.accountData") }</h2>
-      <ul>
-        <li>{ t("personalData.email") }:
-          <span className='personalData__email'>
-            { userData?.email }
-          </span>
-        </li>
-      </ul>
-
-
+        <ul>
+          <h2>{ t("personalData.accountData") }</h2>
+          <li>{ t("personalData.email") }:
+            <span className='personalData__email'>
+              { userData?.email }
+            </span>
+          </li>
+        </ul>
+      </div>
 
       { state.showForm && <ChangeUserDataForm /> }
       <div className='container__button' >
@@ -66,9 +66,6 @@ function PersonalData() {
           buttonStyle="default-button"
         />
       </div>
-
-
-
 
     </div>
   );
