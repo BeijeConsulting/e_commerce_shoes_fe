@@ -95,11 +95,9 @@ function UserMenuNav(props) {
             removeUserCredentials()
         )
 
-
         dispatch(
             removeToken()
         )
-
 
         clearLocalStorage()
         navigate(`/${lang}/`)
@@ -166,7 +164,7 @@ function UserMenuNav(props) {
                         </p>
                     }
                 </MenuItem>
-                <MenuItem onClick={ conditionalGoToCart }>
+                <MenuItem onClick={ goToOrders }>
                     {
                         <p
                             className='item'>

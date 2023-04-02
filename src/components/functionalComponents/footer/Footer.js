@@ -15,7 +15,7 @@ function Footer() {
 
     const menu = [
         {
-            header: 'Nome Sito',
+            header: 'Belle Scarpe',
             list: [
                 {
                     anchor: t("footer.whoWeAre"),
@@ -70,20 +70,20 @@ function Footer() {
     const navigate = useNavigate();
 
     function mapFooterMenu(item, key) {
-        return <div key={`${key}-${Math.random()}`} className='footer__top__list'>
+        return <div key={ `${key}-${Math.random()}` } className='footer__top__list'>
             <header>
-                {item.header}
+                { item.header }
             </header>
             <ul>
-                {item.list.map(mapSubFooterMenu)}
+                { item.list.map(mapSubFooterMenu) }
             </ul>
         </div>;
 
     }
 
     function mapSubFooterMenu(item, key) {
-        return <li key={`${key}-${Math.random()}`}>
-            <a onClick={goTo(item.path)}>{item.anchor}</a>
+        return <li key={ `${key}-${Math.random()}` }>
+            <a onClick={ goTo(item.path) }>{ item.anchor }</a>
         </li>
     }
 
@@ -96,24 +96,24 @@ function Footer() {
         <footer id='footer'>
             <div className='footer__top'>
                 <nav>
-                    {menu.map(mapFooterMenu)}
+                    { menu.map(mapFooterMenu) }
                 </nav>
                 <div className='footer__top__socials'>
                     <a className='footer__top__socials__facebook' href='#'>
-                        <FacebookIcon fontSize={'inherit'} />
+                        <FacebookIcon fontSize={ 'inherit' } />
                     </a>
                     <a className='footer__top__socials__instagram' href='#'>
-                        <InstagramIcon fontSize={'inherit'} />
+                        <InstagramIcon fontSize={ 'inherit' } />
                     </a>
                     <a className='footer__top__socials__youtube' href='#'>
-                        <YouTubeIcon fontSize={'inherit'} />
+                        <YouTubeIcon fontSize={ 'inherit' } />
                     </a>
                 </div>
             </div>
             <div className='footer__bottom'>
                 <SwitchLanguage />
                 <small>
-                    &copy; 2023 Nome Sito SRL. P.IVA. 05593460162. Le foto dei prodotti presenti sul sito sono puramente esemplificative.
+                    &copy; { t("footer.bottom") }
                 </small>
             </div>
         </footer>

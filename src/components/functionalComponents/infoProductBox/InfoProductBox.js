@@ -1,9 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+
+// Icons
 import { FiTruck } from "react-icons/fi";
 import { BiPackage } from "react-icons/bi"
+// i18n
+import { useTranslation } from 'react-i18next';
+// SCSS
 import "./infoProductBox.scss";
 
 function InfoProductBox() {
+    const { t } = useTranslation()
+
     return (
         <div className='infoBox'>
 
@@ -11,16 +20,24 @@ function InfoProductBox() {
                 <span>
                     <FiTruck />
                 </span>
-                <p>consegna gratuita</p>
+                <p>{ t("infoProductBox.delivery") }</p>
             </div>
             <div className='infoBox__container'>
                 <span>
                     <BiPackage />
                 </span>
-                <p>resi gratuiti</p>
+                <p>{ t("infoProductBox.refund") }</p>
             </div>
         </div>
     )
+}
+
+InfoProductBox.defaultProps = {
+
+}
+
+InfoProductBox.propTypes = {
+
 }
 
 export default InfoProductBox

@@ -3,8 +3,9 @@
 .wishlist {
     h1 {
         text-align: center;
-        margin-top: 6rem;
         font-size: $xx-large;
+        text-transform: capitalize;
+        margin-top: 6rem;
     }
 
     &__empty {

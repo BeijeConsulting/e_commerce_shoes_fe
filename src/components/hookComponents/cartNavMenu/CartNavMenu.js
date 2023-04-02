@@ -106,8 +106,8 @@ function CartNavMenu() {
               </div>
               <p className="brand">{ item.brand }</p>
               <div className="container__size-cartQuantity">
-                <p className="infoSize">Taglia: { item.size }</p>
-                <p className="quantity">Quantità: { item.quantity }</p>
+                <p className="infoSize">{ t("cartNavMenu.size") }: { item.size }</p>
+                <p className="quantity">{ t("cartNavMenu.quantity") }: { item.quantity }</p>
               </div>
             </div>
           </div>
@@ -147,7 +147,7 @@ function CartNavMenu() {
         onClose={ handleClose }
       >
         <MenuItem>
-          <h2>Carrello</h2>
+          <h2>{ t("cartNavMenu.cart") }</h2>
         </MenuItem>
 
         {/* Qui bisogna fare il map di tutti i prodotti che l'utente aggiunge */ }
@@ -157,7 +157,7 @@ function CartNavMenu() {
 
         <MenuItem className="item" onClick={ handleClose }>
           <p>
-            Totale: ${ " " }
+            { t("cartNavMenu.total") }: ${ " " }
             { Number(state.itemCartList?.info?.totalPrice ?? 0).toFixed(2) }
           </p>
         </MenuItem>
@@ -165,7 +165,7 @@ function CartNavMenu() {
           <div className="item__btn">
             <Button
               buttonStyle={ "navCartBtn" }
-              label={ "CARRELLO" }
+              label={ t("cartNavMenu.cart") }
               handleClick={ goToCart }
             />
           </div>

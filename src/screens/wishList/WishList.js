@@ -2,14 +2,17 @@ import React, { useEffect, useState } from 'react'
 
 // API
 import { deleteWishList, getWishList } from '../../services/wishListServices'
+import { getUserAuth } from '../../services/authServices';
 // REDUX
 import { useDispatch, useSelector } from 'react-redux'
+import { setUserCredentials } from '../../redux/ducks/userDuck';
 // Component
+import Seo from "../../components/functionalComponents/Seo"
 import WishListProductCard from '../../components/hookComponents/wishListProductCard/WishListProductCard'
+// i18n
+import { useTranslation } from 'react-i18next';
 // SCSS
 import "./wishList.scss";
-import { setUserCredentials } from '../../redux/ducks/userDuck';
-import { getUserAuth } from '../../services/authServices';
 
 
 function WishList(props) {
@@ -17,6 +20,7 @@ function WishList(props) {
     let wistListItems = [] // inizializzo lista items
     let newWishList = null // inizializzo lista items dopo aver eliminato un item
     let responseUserData = null // inizializzo lista items
+    const { t } = useTranslation()
 
     const dispatch = useDispatch()
     const token = useSelector((state) => state.userDuck.token)
@@ -83,21 +87,29 @@ function WishList(props) {
     }
 
     return (
-        <div className='wishlist'>
-            <h1>Lista Desideri</h1>
+        <>
 
-            <div className='wishlist__container'>
-                { state.map(mapWishList) }
-            </div>
+            <Seo
+                title={ t("wishList.title") }
+                description="La tua Lista desideri"
+                content="e-commerce"
+            />
+            <div className='wishlist'>
+                <h1>{ t("wishList.title") }</h1>
 
-            <div className='wishlist__empty'>
-                { state.length === 0 &&
-                    <p>
-                        La tua lista desideri è vuota.
-                    </p>
-                }
+                <div className='wishlist__container'>
+                    { state.map(mapWishList) }
+                </div>
+
+                <div className='wishlist__empty'>
+                    { state.length === 0 &&
+                        <p>
+                            { t("wishList.empty") }.
+                        </p>
+                    }
+                </div>
             </div>
-        </div>
+        </>
     )
 }
 

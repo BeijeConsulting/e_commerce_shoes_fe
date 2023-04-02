@@ -151,7 +151,7 @@ function AdressList(props) {
     return (
       <div className="address__container__list" key={ data?.id }>
         <Seo
-          title="I tuoi indirizzi"
+          title={ t("addresses.address") }
           description="Gestione degli indirizzi personali"
           content="e-commerce"
         />
@@ -183,7 +183,7 @@ function AdressList(props) {
             <p className="address__p">{ t("addresses.deliveryInstructions") }:</p>
             <span>{ data?.instructions ?? "n/d" }</span>
           </li>
-          <p onClick={ deleteAddressId(data.id) }>Delete</p>
+          <p className='delete' onClick={ deleteAddressId(data.id) }>Delete</p>
         </ul>
       </div>
     );
@@ -195,7 +195,7 @@ function AdressList(props) {
         <form className="login-form" onSubmit={ handleSubmit(onSubmit, onError) }>
           <InputTextField
             inputName="address"
-            inputLabel="VIA - PIAZZA*:"
+            inputLabel={ t("addresses.address") + "*" }
             inputType="text"
             inputPlaceholder="Es: Via Rossi 14"
             register={ register }
@@ -206,7 +206,7 @@ function AdressList(props) {
           />
           <InputTextField
             inputName="country"
-            inputLabel="PAESE*:"
+            inputLabel={ t("addresses.address") + "*" }
             inputType="text"
             inputPlaceholder="Es: Italia"
             register={ register }
@@ -217,7 +217,7 @@ function AdressList(props) {
           />
           <InputTextField
             inputName="zipCode"
-            inputLabel="CAP*:"
+            inputLabel={ t("addresses.zipCode") + "*" }
             inputType="text"
             inputPlaceholder="Es: 13000"
             register={ register }
@@ -228,7 +228,7 @@ function AdressList(props) {
           />
           <InputTextField
             inputName="name_surname"
-            inputLabel="NOME E COGNOME*:"
+            inputLabel={ t("addresses.nameAndLastName") + "*" }
             inputType="text"
             inputPlaceholder="Es: Mario Rossi"
             register={ register }
@@ -239,7 +239,7 @@ function AdressList(props) {
           />
           <InputTextField
             inputName="instructions"
-            inputLabel="ISTRUZIONI:"
+            inputLabel={ t("addresses.deliveryInstructions") }
             inputType="text"
             inputPlaceholder="Es: consegnare in ufficio"
             register={ register }
@@ -248,7 +248,7 @@ function AdressList(props) {
           />
           <InputTextField
             inputName="telephone"
-            inputLabel="TELEFONO*:"
+            inputLabel={ t("addresses.telephone") }
             inputType="text"
             inputPlaceholder="Es: 333 1234567"
             register={ register }
@@ -258,7 +258,7 @@ function AdressList(props) {
               }` }
           />
           <Button
-            label="Salva Indirizzo"
+            label={ t("button.saveAddress") }
             buttonStyle="submit-button button-margin-top"
           />
         </form>

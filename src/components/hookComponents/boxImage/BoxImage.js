@@ -1,10 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
+// Router
 import { useNavigate } from 'react-router-dom';
+// Components
 import Button from '../../functionalComponents/button/Button';
+// i18ns
+import { useTranslation } from 'react-i18next';
+// SCSS
 import "./boxImage.scss"
 
 function BoxImage(props) {
+    const { t } = useTranslation()
 
     const navigate = useNavigate();
 
@@ -17,12 +24,11 @@ function BoxImage(props) {
                 alt="nuovi arrivi"
             />
             <div className="box__container__info">
-                <h2>nuovi arrivi</h2>
-                <h2>lifestyle</h2>
-                <p>Sopri le nuove collezioni</p>
+                <h2>{ t("boxImages.newArrives") }</h2>
+                <p>{ t("boxImages.discover") }</p>
 
                 <Button
-                    label={ "scopri di più" }
+                    label={ t("button.more") }
                     buttonStyle={ "default-button" }
                     handleClick={ goTo }
                 />

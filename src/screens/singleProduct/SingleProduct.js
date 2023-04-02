@@ -24,6 +24,7 @@ import {
 } from "../../utils/localStorageUtils";
 // Library
 import i18n from "../../assets/translations/i18n";
+import { useTranslation } from 'react-i18next';
 // Icons
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai"
 // SCSS
@@ -35,6 +36,7 @@ function SingleProduct() {
     sizeSelected: false,
   });
 
+  const { t } = useTranslation()
 
   const [stateAdded, setStateAdded] = useState(false) // serve per mostrare bottone aggiungi alla wishList o già aggiunto alla wishList
 
@@ -254,14 +256,14 @@ function SingleProduct() {
           <SingleProductSlider />
 
           <div className="info">
-            <p className="info__p">Input Select taglie</p>
+            {/* <p className="info__p">Input Select taglie</p> */ }
             <select
               className="info__select-size"
               onChange={ handleSelect }
               name="sizes"
             >
               <option value={ "none" } disabled={ state.sizeSelected }>
-                Seleziona taglia
+                { t("singleProduct.sizeSelect") }
               </option>
               { state.product?.productSizes?.map(renderSizesOption) }
             </select>
@@ -270,7 +272,7 @@ function SingleProduct() {
 
             <Button
               handleClick={ updateCart }
-              label={ "AGGIUNGI AL CARRELLO" }
+              label={ t("button.addToCart") }
               buttonStyle={ "default-button" }
             />
 
@@ -278,7 +280,7 @@ function SingleProduct() {
               <div className='info__container'>
                 <p onClick={ addToWishlist }
                   className='info__wishlist'>
-                  Aggiungi alla lista desideri
+                  { t("singleProduct.addWishList") }
                   <span>
                     <AiOutlineHeart />
                   </span>
@@ -289,7 +291,7 @@ function SingleProduct() {
               <div className='info__container'>
                 <p onClick={ addToWishlist }
                   className='info__wishlist'>
-                  Aggiunto
+                  { t("singleProduct.added") }
                   <span>
                     <AiFillHeart />
                   </span>
@@ -298,7 +300,7 @@ function SingleProduct() {
             }
 
 
-            <p className="info__p">Tabella Taglie Link</p>
+            <p className="info__p">{ t("singleProduct.sizeTable") }</p>
             <AccordionItem />
           </div>
         </div>

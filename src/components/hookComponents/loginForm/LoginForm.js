@@ -1,23 +1,36 @@
 import React, { useState } from "react";
-import "./loginForm.scss";
-import { useForm } from "react-hook-form";
+
+// API
+import { signin, getUser } from "../../../services/authServices";
+// Redux
+import { setUserCredentials } from "../../../redux/ducks/userDuck";
+import { setToken } from "../../../redux/ducks/tokenDuck";
+import { useDispatch } from "react-redux";
+// Router
+import { useNavigate } from "react-router-dom";
+// Utils
+import { setLocalStorage } from "../../../utils/localStorageUtils";
+// Components
 import Button from "../../functionalComponents/button/Button";
 import InputTextField from "../../functionalComponents/inputTextField/InputTextField";
 import InputPasswordField from "../inputPasswordField/InputPasswordField";
-import { signin, getUser, getUserAuth } from "../../../services/authServices";
-import { useDispatch } from "react-redux";
-import { setUserCredentials } from "../../../redux/ducks/userDuck";
-import { useNavigate } from "react-router-dom";
-import { setLocalStorage } from "../../../utils/localStorageUtils";
-import i18n from "../../../assets/translations/i18n";
 import Seo from "../../functionalComponents/Seo";
-import { setToken } from "../../../redux/ducks/tokenDuck";
+// i18n
+import { useTranslation } from 'react-i18next';
+import i18n from "../../../assets/translations/i18n";
+// Libraries
+import { useForm } from "react-hook-form";
+// SCSS
+import "./loginForm.scss";
+
+
 
 function LoginForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const lang = i18n.language.slice(0, 2);
+  const { t } = useTranslation()
 
   const [state, setState] = useState({
     invalidEmail: false,
@@ -95,7 +108,7 @@ function LoginForm() {
       <div className="login-form__input-container">
         <InputTextField
           inputName="email"
-          inputLabel="INDIRIZZO E-MAIL:"
+          inputLabel={ t("login.email") + ":" }
           inputType="text"
           inputPlaceholder="Email"
           register={ register }
@@ -108,7 +121,7 @@ function LoginForm() {
 
         <InputPasswordField
           inputName="password"
-          inputLabel="PASSWORD:"
+          inputLabel={ t("login.password") + ":" }
           inputType="password"
           inputPlaceholder="Password"
           register={ register }

@@ -7,13 +7,18 @@
       "new": "novità",
       "newPath": "novita"
     },
+    "boxImages": {
+      "newArrives": "nuovi arrivi lifestyle",
+      "discover": "scopri le nuove collezioni"
+    },
     "footer": {
       "whoWeAre": "Chi Siamo",
       "registration": "Registrati",
       "contacts": "Contatti",
       "serviceClient": "Servizio clienti",
       "termAndConditions": "Termini e condizioni",
-      "returns": "Resi"
+      "returns": "Resi",
+      "bottom": "2023 Belle Scarpe SRL. P.IVA. 05593460162. Le foto dei prodotti presenti sul sito sono puramente esemplificative."
     },
     "preFooter": {
       "contacts": "Contatti",
@@ -21,6 +26,21 @@
     },
     "productsList": {
       "products": "prodotti"
+    },
+    "singleProduct": {
+      "sizeSelect": "seleziona taglia",
+      "addWishList": "aggiungi alla lista desideri",
+      "added": "aggiunto",
+      "sizeTable": "tabella delle taglie"
+    },
+    "infoProductBox": {
+      "delivery": "consegna gratutia",
+      "refund": "reso gratuito"
+    },
+    "accordion": {
+      "description": "Descrizione",
+      "brand": "Marca",
+      "details": "Dettagli"
     },
     "sliderHomepage": {
       "new": "nuovo",
@@ -34,8 +54,10 @@
       "orders": "Ordini"
     },
     "cartNavMenu": {
+      "cart": "Carrello",
       "size": "taglia",
-      "quantity": "quantità"
+      "quantity": "quantità",
+      "total": "TOTALE"
     },
     "userInfo": {
       "personalData": "dati personali",
@@ -73,10 +95,26 @@
       "country": "Paese",
       "zipCode": "Cap",
       "nameAndLastName": "Nome e cognome",
+      "firstName": "NOME",
+      "lastName": "COGNOME",
       "telephone": "telefono",
       "deliveryInstructions": "instruzioni per il corriere",
       "yourAddresses": "I tuoi indirizzi",
-      "emptyAddress": "Non hai inserito nessun indirizzo"
+      "emptyAddress": "Non hai inserito nessun indirizzo",
+      "email": "email"
+    },
+    "terms": "Accetta i termini",
+    "emailRule": {
+      "notValid": "L'indirizzo email non è valido",
+      "already": "Esiste già un account con questa email"
+    },
+    "passwordRules": {
+      "rule": "La password deve contenere",
+      "eight": "Almeno 8 caratteri",
+      "lowercase": "Almeno 1 carattere minuscolo",
+      "uppercase": "Almeno 1 carattere maiuscolo",
+      "number": "Almeno 1 numero",
+      "special": "Almeno 1 carattere speciale"
     },
     "changeUserDataForm": {
       "email": "email",
@@ -85,8 +123,29 @@
       "birthDate": "data di nascita",
       "newPassword": "nuova password"
     },
+    "wishList": {
+      "title": "Lista Lesideri",
+      "empty": "La tua lista desideri è vuota"
+    },
+    "orders": {
+      "title": "I Tuoi Ordini"
+    },
+    "cart": {
+      "title": "Carrello"
+    },
+    "login": {
+      "email": "E-MAIL",
+      "password": "PASSWORD",
+      "signup": "REGISTRATI",
+      "signin": "ACCEDI"
+    },
     "button": {
-      "save": "salva credenziali"
+      "save": "salva credenziali",
+      "addToCart": "aggiungi al carrello",
+      "more": "scopri di più",
+      "cancel": "annulla",
+      "editData": "modifica dati",
+      "saveAddress": "salva indirizzo"
     },
     "lang": "it"
   }
