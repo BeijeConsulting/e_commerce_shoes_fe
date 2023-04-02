@@ -38,10 +38,39 @@
   flex-direction: column;
   margin: 0 3%;
 
-  &__wishlist {
-    margin: 3rem;
-    cursor: pointer;
+  .info__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
+
+  p:hover {
+    color: $black;
+  }
+
+  p:hover>span {
+    transform: scale(1.2);
+    transition: all 0.3s;
+  }
+
+
+  &__wishlist {
+    margin: 3rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: $grey-normal;
+    text-transform: uppercase;
+
+    span {
+      font-size: $large;
+      display: inline-flex;
+      margin-left: 1rem;
+      color: $instagram-color;
+    }
+  }
+
 }
 
 .info__container {

@@ -263,11 +263,12 @@ function AdressList(props) {
           />
         </form>
       </div>
+
       <h2>{ t("addresses.yourAddresses") }</h2>
       { userData.adresses?.map(mapList) }
       {
         userData.adresses?.length === 0 &&
-        <div>
+        <div className='address__empty'>
           <p>{ t("addresses.emptyAddress") }.</p>
         </div>
       }

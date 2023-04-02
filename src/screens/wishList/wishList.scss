@@ -1,8 +1,34 @@
 @import "../../style/common/variables.scss";
 
+.wishlist {
+    h1 {
+        text-align: center;
+        margin-top: 6rem;
+        font-size: $xx-large;
+    }
+
+    &__empty {
+        margin-bottom: 6rem;
+
+        p {
+            text-align: center;
+            font-size: $medium;
+            color: $grey-normal;
+        }
+    }
+}
+
+.wishlist__container {
+    // border: 2px solid red;
+    padding: 2%;
+    margin: 6rem auto;
+}
+
 @media screen and (min-width: 700px) {
     .wishlist__container {
-        border: 2px solid red;
+        // border: 2px solid red;
+        padding: 2%;
+        margin: 6rem auto;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         column-gap: 5rem;

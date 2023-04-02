@@ -83,8 +83,20 @@ function WishList(props) {
     }
 
     return (
-        <div className='wishlist__container'>
-            { state.map(mapWishList) }
+        <div className='wishlist'>
+            <h1>Lista Desideri</h1>
+
+            <div className='wishlist__container'>
+                { state.map(mapWishList) }
+            </div>
+
+            <div className='wishlist__empty'>
+                { state.length === 0 &&
+                    <p>
+                        La tua lista desideri è vuota.
+                    </p>
+                }
+            </div>
         </div>
     )
 }

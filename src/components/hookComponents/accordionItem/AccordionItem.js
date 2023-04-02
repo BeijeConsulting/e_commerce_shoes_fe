@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
+// SCSS
 import "./accordionItem.scss";
 
 import Accordion from '@mui/material/Accordion';

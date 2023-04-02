@@ -113,89 +113,89 @@ function UserMenuNav(props) {
 
     return (
         <div className='userMenuNav'>
-            <div>
-                <IconButton
-                    size="large"
-                    aria-label="account of current user"
-                    aria-controls="menu-appbar"
-                    aria-haspopup="true"
-                    onClick={ handleMenu }
-                    color="inherit"
-                >
 
-                    <AccountCircle fontSize='large' />
-                </IconButton>
-                <Menu
-                    className='myMenu'
-                    id="menu-appbar"
-                    anchorEl={ anchorEl }
-                    anchorOrigin={ {
-                        vertical: 'center',
-                        horizontal: 66,
-                    } }
-                    keepMounted
-                    transformOrigin={ {
-                        vertical: -30,
-                        horizontal: "right",
-                    } }
-                    open={ Boolean(anchorEl) }
-                    onClose={ handleClose }
-                >
-                    <MenuItem onClick={ conditionalGoTo } >
-                        <Avatar sx={ { marginRight: 2 } } />
-                        { userIsLogged ?
-                            <p onClick={ conditionalGoTo } className='item'>
-                                <span>
-                                    {/* { t("userMenuNav.profile") } */ }
-                                    { userName.toUpperCase() }
-                                </span>
-                            </p> :
-                            <p onClick={ conditionalGoTo }
-                                className='item'>
-                                { t("userMenuNav.logIn") }</p> }
-                    </MenuItem>
-                    <MenuItem onClick={ conditionalGoToWishList }>
-                        {
-                            <p
-                                className='item'>
-                                WishList
+            <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={ handleMenu }
+                color="inherit"
+            >
 
-                                { userIsLogged && <span className='item__wishlistItems'>
-                                    { wishlistItems }
-                                </span> }
-                            </p>
-                        }
-                    </MenuItem>
-                    <MenuItem onClick={ conditionalGoToCart }>
-                        {
-                            <p
-                                className='item'>
-                                { t("userMenuNav.orders") }
-                            </p>
-                        }
-                    </MenuItem>
+                <AccountCircle fontSize='large' />
+            </IconButton>
+            <Menu
+                className='myMenu'
+                id="menu-appbar"
+                anchorEl={ anchorEl }
+                anchorOrigin={ {
+                    vertical: 'center',
+                    horizontal: 66,
+                } }
+                keepMounted
+                transformOrigin={ {
+                    vertical: -30,
+                    horizontal: "right",
+                } }
+                open={ Boolean(anchorEl) }
+                onClose={ handleClose }
+            >
+                <MenuItem onClick={ conditionalGoTo } >
+                    <Avatar sx={ { marginRight: 2 } } />
+                    { userIsLogged ?
+                        <p onClick={ conditionalGoTo } className='item'>
+                            <span>
+                                {/* { t("userMenuNav.profile") } */ }
+                                { userName.toUpperCase() }
+                            </span>
+                        </p> :
+                        <p onClick={ conditionalGoTo }
+                            className='item'>
+                            { t("userMenuNav.logIn") }</p> }
+                </MenuItem>
+                <MenuItem onClick={ conditionalGoToWishList }>
+                    {
+                        <p
+                            className='item'>
+                            WishList
 
-                    <Divider />
+                            { userIsLogged && <span className='item__wishlistItems'>
+                                { wishlistItems }
+                            </span> }
+                        </p>
+                    }
+                </MenuItem>
+                <MenuItem onClick={ conditionalGoToCart }>
+                    {
+                        <p
+                            className='item'>
+                            { t("userMenuNav.orders") }
+                        </p>
+                    }
+                </MenuItem>
+
+                <Divider />
 
 
-                    <MenuItem onClick={ handleClose }>
-                        <ListItemIcon>
-                            <Logout className='logOut' />
-                        </ListItemIcon>
-                        { userIsLogged ?
-                            <p onClick={ userLogOut }
-                                className='logOut__p'>
-                                Logout
-                            </p> :
-                            <p
-                                onClick={ goToRegistration }
-                                className='logOut__p'>
-                                Registrati
-                            </p>
-                        }
-                    </MenuItem>
-                </Menu>
-            </div>
+                <MenuItem onClick={ handleClose }>
+                    <ListItemIcon>
+                        <Logout className='logOut' />
+                    </ListItemIcon>
+                    { userIsLogged ?
+                        <p onClick={ userLogOut }
+                            className='logOut__p'>
+                            Logout
+                        </p> :
+                        <p
+                            onClick={ goToRegistration }
+                            className='logOut__p'>
+                            Registrati
+                        </p>
+                    }
+                </MenuItem>
+            </Menu>
+
         </div>
     )
 }

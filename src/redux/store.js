@@ -6,12 +6,10 @@ import productCartDuck from "./ducks/productCartDuck";
 import userDuck from "./ducks/userDuck";
 import languageDuck from './ducks/languageDuck';
 import tokenDuck from './ducks/tokenDuck';
-import wishListDuck from './ducks/wishListDuck';
 
 const reducer = combineReducers({
   // here we will be adding reducers
   productCartDuck,
-  wishListDuck,
   userDuck,
   languageDuck,
   tokenDuck

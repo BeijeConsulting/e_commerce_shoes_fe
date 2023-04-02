@@ -1,25 +1,33 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./singleProduct.scss";
 import PropTypes from "prop-types";
 
+// REDUX
+import { useDispatch, useSelector } from "react-redux";
+import { updateCartQuantity } from "../../redux/ducks/productCartDuck";
+import { setUserCredentials } from '../../redux/ducks/userDuck';
+// API
+import { getProduct } from "../../services/productServices";
+import { addWishList, getWishList } from '../../services/wishListServices';
+import { getUserAuth } from '../../services/authServices';
+// ROUTER
+import { useNavigate, useParams } from "react-router-dom";
+// Components
 import Button from "../../components/functionalComponents/button/Button";
 import SingleProductSlider from "../../components/hookComponents/singleProductSlider/SingleProductSlider";
 import InfoProductBox from "../../components/functionalComponents/infoProductBox/InfoProductBox";
 import AccordionItem from "../../components/hookComponents/accordionItem/AccordionItem";
-import { useDispatch, useSelector } from "react-redux";
-import { updateCartQuantity } from "../../redux/ducks/productCartDuck";
-import { getProduct } from "../../services/productServices";
-import { useNavigate, useParams } from "react-router-dom";
+import Seo from "../../components/functionalComponents/Seo";
+// Utils
 import {
   setLocalStorage,
   getLocalStorage,
 } from "../../utils/localStorageUtils";
-import Seo from "../../components/functionalComponents/Seo";
+// Library
 import i18n from "../../assets/translations/i18n";
-import { addWishList, getWishList } from '../../services/wishListServices';
-import { updateWishListQuantity } from '../../redux/ducks/wishListDuck';
-import { getUserAuth } from '../../services/authServices';
-import { setUserCredentials } from '../../redux/ducks/userDuck';
+// Icons
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai"
+// SCSS
+import "./singleProduct.scss";
 
 function SingleProduct() {
   const [state, setState] = useState({
@@ -27,11 +35,8 @@ function SingleProduct() {
     sizeSelected: false,
   });
 
-  const [stateWishItems, setStateWishItems] = useState({
-    wishListItems: [],
-  });
 
-  const [stateAdded, setStateAdded] = useState(false)
+  const [stateAdded, setStateAdded] = useState(false) // serve per mostrare bottone aggiungi alla wishList o già aggiunto alla wishList
 
   const lang = i18n.language.slice(0, 2)
 
@@ -42,7 +47,6 @@ function SingleProduct() {
 
   const userIsLogged = useSelector((state) => state.userDuck.isLogged)
   const token = useSelector((state) => state.userDuck.token)
-  const wishlistItems = useSelector((state) => state.userDuck.wishlistItems);
   let sizeValue = useRef(null);
 
   useEffect(() => {
@@ -72,7 +76,6 @@ function SingleProduct() {
       toggle = false
     }
     setStateAdded(toggle)
-    setStateWishItems(response.data.items)
   }
 
   ////////////////////////////////
@@ -271,12 +274,28 @@ function SingleProduct() {
               buttonStyle={ "default-button" }
             />
 
-            { !stateAdded && <p onClick={ addToWishlist } className='info__wishlist'>
-              Aggiungi alla lista desideri
-            </p> }
-            { stateAdded && <p onClick={ addToWishlist } className='info__wishlist'>
-              Aggiunto
-            </p> }
+            { !stateAdded &&
+              <div className='info__container'>
+                <p onClick={ addToWishlist }
+                  className='info__wishlist'>
+                  Aggiungi alla lista desideri
+                  <span>
+                    <AiOutlineHeart />
+                  </span>
+                </p>
+              </div>
+            }
+            { stateAdded &&
+              <div className='info__container'>
+                <p onClick={ addToWishlist }
+                  className='info__wishlist'>
+                  Aggiunto
+                  <span>
+                    <AiFillHeart />
+                  </span>
+                </p>
+              </div>
+            }
 
 
             <p className="info__p">Tabella Taglie Link</p>
