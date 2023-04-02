@@ -7,6 +7,12 @@
       "new": "new arrivals",
       "newPath": "new"
     },
+    "cartInfoBox": {
+      "delivery": "delivery method",
+      "homeDelivery": "home delivery",
+      "payMethod": "pay method"
+    },
+    "coupon": "coupon and discount codex",
     "boxImages": {
       "newArrives": "new lifestyle arrives",
       "discover": "discover new collections"

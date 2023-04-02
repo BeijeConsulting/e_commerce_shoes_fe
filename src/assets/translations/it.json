@@ -7,6 +7,12 @@
       "new": "novità",
       "newPath": "novita"
     },
+    "cartInfoBox": {
+      "delivery": "metodo di consegna",
+      "homeDelivery": "consegna a domicilio",
+      "payMethod": "metodo di pagamento"
+    },
+    "coupon": "coupon and codice sconto",
     "boxImages": {
       "newArrives": "nuovi arrivi lifestyle",
       "discover": "scopri le nuove collezioni"
