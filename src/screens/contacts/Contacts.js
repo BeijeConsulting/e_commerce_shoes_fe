@@ -3,21 +3,23 @@ import React from "react";
 import "./contacts.scss";
 import { Link } from "react-router-dom";
 import Seo from "../../components/functionalComponents/Seo";
+import { useTranslation } from 'react-i18next';
 
 function Contacts() {
+  const { t } = useTranslation()
+
   return (
     <div className="contacts">
       <Seo
-        title="Contatti"
-        description="Tutti i conttatti di Belle Scarpe"
+        title={ t("customerCare.contacts") }
+        description="Tutti i contatti di Belle Scarpe"
         content="e-commerce"
       />
-      <h1>Contatti</h1>
+      <h1>{ t("customerCare.contacts") }</h1>
       <h3>
-        Se hai difficoltà o dubbi relativi allo shop online, il nostro Servizio
-        Clienti è a tua disposizione. Scopri come contattarci cliccando{" "}
+        { t("contacts.h3") }
         <span>
-          <Link to={"/"}>quì.</Link>
+          <Link to={ "/" }>  { t("contacts.span") }.</Link>
         </span>
       </h3>
     </div>

@@ -12,6 +12,9 @@ import { useTranslation } from 'react-i18next';
 import "./accordionItem.scss";
 
 function AccordionItem(props) {
+
+    const { t } = useTranslation()
+
     return (
         <>
             <div className='accordion'>
@@ -22,7 +25,7 @@ function AccordionItem(props) {
                         id="panel1a-header"
                         className='accordion__summary'
                     >
-                        <h2 className='accordion__title'>Descrizione</h2>
+                        <h2 className='accordion__title'>{ t("accordion.description") }</h2>
                     </AccordionSummary>
                     <AccordionDetails className='accordion__details'>
                         <p className='accordion__answer'>

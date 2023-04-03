@@ -2,10 +2,50 @@
   "translation": {
     "greeting": "Ciao",
     "header": {
-      "men": "uomo",
+      "man": "uomo",
       "woman": "donna",
       "new": "novità",
-      "brands": "brand"
+      "brands": "brand",
+      "sales": "offerte",
+      "organize": "ordina",
+      "price": "prezzo",
+      "genre": "genere",
+      "category": "categoria",
+      "color": "colore"
+    },
+    "privacy": {
+      "h1": "Privacy policy",
+      "p1": "Condividiamo i tuoi dati con le seguenti categorie di aziende quale parte essenziale della nostra capacità di fornirti i servizi richiesti:",
+      "li1": "Società del gruppo BELLE SCARPE, dato che a volte parti diverse del nostro gruppo sono responsabili di attività diverse",
+      "li2": "Società che operano per farti ricevere i tuoi acquisti, come fornitori di servizi di pagamento, magazzini, imballatori e società di trasporto",
+      "li3": "BELLE SCARPE Brand Partners che spediscono i tuoi acquisti direttamente: specificheremo questa informazione qualora ciò dovesse applicarsi al tuo ordine",
+      "li4": "Fornitori di servizi professionali, come agenzie di marketing, partner pubblicitari e host di siti Web, che ci aiutano a gestire la nostra attività",
+      "li5": "Siti affiliati che ci aiutano a raggiungere potenziali nuovi clienti o a promuovere i nostri prodotti sui loro siti web",
+      "li6": "Agenzie di riferimento creditizio, forze dell'ordine e agenzie di prevenzione delle frodi, in modo da poter aiutare a combattere eventuali attività fraudolente",
+      "p2": "Puoi scegliere di usufruire di alcuni dei nostri servizi aggiuntivi, nel qual caso, a seconda delle tue scelte, potremmo condividere i tuoi dati con le seguenti categorie di società per soddisfare i servizi richiesti:",
+      "li7": "Siti di social media (ad esempio se scegli di usare i tuoi account social per effettuare il login su BELLE SCARPE) e altre società da te approvate",
+      "li8": "Consulenti dei prodotti per aiutarti a scegliere gli articoli giusti."
+    },
+    "termAndConditions": {
+      "h1": "Terms and Conditions",
+      "p1": "Le presenti Condizioni Generali di Vendita (di seguito Condizioni Generali) hanno validità esclusivamente tra la società BELLE SCARPE., con sede legale in Via Boccea, 496 - 00166 Roma .F. P.Iva 05352580962, Registro Imprese di Roma n.1156390 e chiunque effettui acquisti online sul sito www.cisalfasport.it. Le presenti Condizioni Generali disciplinano gli acquisti di prodotti effettuati sul Sito, conformemente alle disposizioni della Parte III, Titolo III, Capo I, del Codice del Consumo, D.lgs. n. 206/2005, modificato dal D.Lgs. n. 21/2014 e dal D.Lgs. 70/2003 sul commercio elettronico.",
+      "p2": "I prodotti proposti attraverso il Sito web sono disponibili esclusivamente per la consegna sul territorio italiano, San Marino e Stato della Città del Vaticano.",
+      "p3": "Ai fini delle presenti Condizioni Generali, per consumatore finale si intende qualsiasi persona fisica che agisce per fini estranei all’attività imprenditoriale, commerciale, artigianale o professionale eventualmente svolta.",
+      "p4": "Ai fini delle presenti Condizioni Generali, per consumatore finale si intende qualsiasi persona fisica che agisce per fini estranei all’attività imprenditoriale, commerciale, artigianale o professionale eventualmente svolta.",
+      "p5": "Belle Scarpe si riserva il diritto di rivedere e modificare le presenti Condizioni Generali in qualsiasi momento. Il Cliente sarà soggetto alle Condizioni Generali in vigore al momento dell’ordine."
+    },
+    "cartHeader": {
+      "h1": "Your cart",
+      "products": "prodotti",
+      "instead": "invece di",
+      "payOnly": "paghi solo"
+    },
+    "errorPage": {
+      "h1": "Abbiamo identificato un problema...",
+      "h3": "La pagina non esiste. Prova a pulire la cronologia del tuo browser e premi aggiorna.",
+      "h4": "Nessun risultato?",
+      "p1": "Clicca su",
+      "p2": "per tornare alla Homepage."
     },
     "cartInfoBox": {
       "delivery": "metodo di consegna",
@@ -31,9 +71,10 @@
       "help": "Help"
     },
     "productsList": {
-      "products": "prodotti"
+      "products": "Tutti i prodotti"
     },
     "singleProduct": {
+      "listedPrice": "Prezzo di Listino",
       "sizeSelect": "seleziona taglia",
       "addWishList": "aggiungi alla lista desideri",
       "added": "aggiunto",
@@ -88,13 +129,40 @@
       "returnsAndRefunds": "Resi e Rimborsi",
       "hi": "Ciao",
       "help": "come possiamo aiutarti",
-      "forYou": "Consigliati per te"
+      "forYou": "Consigliati per te",
+      "p": "Nella sezione FAQ puoi trovare più velocemente la risposta alle tue domande. Inoltre, potrai seguire la tua spedizione oppure avere tutte le informazioni necessarie sui resi e rimborsi.",
+      "service": "Servizio Clienti"
+    },
+    "contacts": {
+      "h3": "Se hai difficoltà o dubbi relativi allo shop online, il nostro Servizio Clienti è a tua disposizione. Scopri come contattarci cliccando",
+      "span": "quì"
+    },
+    "delivery": {
+      "h3": "tempi e costi di spedizione",
+      "p1": "La spedizione è gratuita per la maggior parte degli articoli per ordini superiori a 28,90 €.",
+      "p2": "Per quelli il cui importo è inferiore a 28,90 €, il costo di spedizione è di 4,95 €.",
+      "p3": "Gli articoli da lunga distanza non rientrano questa offerta. Gli articoli devono essere spediti da un magazzino più lontano, perciò è previsto un costo di consegna da lunga distanza di 4,95 €.",
+      "p4": "Se il valore dell'ordine è inferiore al valore minimo di 28,90 € e comprende anche un articolo per la consegna a distanza, si dovrà pagare solo la tariffa di consegna standard, non entrambe.",
+      "p5": "In caso di reso o di annullamento dell'ordine, la tariffa di consegna standard e la tariffa di consegna da lunga distanza vengono rimborsate solo in caso di restituzione dell'intero ordine, non in caso di restituzione parziale."
+    },
+    "returnAndRefund": {
+      "h1": "Resi e Rimborsi",
+      "p1": "Se hai effettuato un reso il rimborso avverrà entro 14 giorni dalla data di consegna del pacco al corriere. Non appena il reso sarà ricevuto e controllato ti invieremo un'email di conferma. Nel caso tu abbia pagato le spese per la spedizione standard e decida di rendere l'ordine per intero, queste ti verranno rimborsate.",
+      "h3-1": "Hai Pagato In Contanti Alla Consegna?",
+      "p2": "Durante la procedura di reso online potrai scegliere il metodo di rimborso che preferisci, tra nota di credito o bonifico bancario.",
+      "p3": "Nel caso in cui scegliessi il bonifico, sarà necessario inserire le tue coordinate bancarie (nome completo dell’intestatario del conto, IBAN e BIC).",
+      "h3-2": "Hai pagato con Paypal?",
+      "p4": "Riceverai la cifra relativa agli articoli resi sullo stesso account Paypal."
     },
     "faq": {
       "refunds": "Rimborso",
+      "a1": "Se hai effettuato un reso il rimborso avverrà entro 14 giorni dalla data di consegna del pacco al corriere.Non appena il reso sarà ricevuto e controllato ti invieremo un'email di conferma. Nel caso tu abbia pagato le spese per la spedizione standard e decida di rendere l'ordine per intero, queste ti verranno rimborsate.",
       "payment": "Metodi di pagamento",
+      "a2": "È possibile pagare gli ordini con carta di credito, Postepay, Paypal, in contanti alla consegna oppure con il tuo credito.",
       "payPal": "PayPal",
-      "returnsAndRefunds": "Resi e Rimborsi"
+      "a3": "Se scegli di pagare con questo metodo sarai diretto al sito di PayPal.Se hai già un conto PayPal, identificati con il tuo indirizzo email e password e conferma il pagamento.Se non hai un conto PayPal, puoi procedere con un conto ospite o crearne uno.Il pagamento sarà registrato entro pochi minuti e il tuo ordine sarà immediatamente processato.Prima di procedere al pagamento ti verrà richiesto di accettare la sezione Termini e condizioni di PayPal.",
+      "returnsAndRefunds": "Resi e Rimborsi",
+      "a4": "Puoi effettuare il reso gratuito dei tuoi ordini entro 100 giorni. Potrai prenotare il ritiro direttamente a casa tua oppure consegnarlo in uno dei 12.000 uffici postali abilitati. Potrai anche utilizzare la rete Punto Poste, composta da 10.000 tabaccherie o negozi convenzionati e da 350 locker distribuiti su tutto il territorio nazionale."
     },
     "addresses": {
       "address": "Indirizzo",
@@ -145,13 +213,29 @@
       "signup": "REGISTRATI",
       "signin": "ACCEDI"
     },
+    "recapCart": {
+      "h2": "Riepilogo ordine",
+      "total": "Total"
+    },
+    "search": {
+      "h1": "Nessun risultato di ricerca",
+      "p1": "La ricerca ",
+      "p2": "non ha prodotto alcun risultato. Prova nuovamente la ricerca con questi accorgimenti:",
+      "li1": "Controlla attentamente la parola cercata",
+      "li2": "Limita la ricerca a una o due parole",
+      "li3": "Cerca di usare termini meno specifici e più generici",
+      "h2": "Continua a esplorare il nostro sito web"
+    },
     "button": {
       "save": "salva credenziali",
       "addToCart": "aggiungi al carrello",
       "more": "scopri di più",
       "cancel": "annulla",
+      "cancelFilters": "cancella filtri",
       "editData": "modifica dati",
-      "saveAddress": "salva indirizzo"
+      "saveAddress": "salva indirizzo",
+      "goToCheckout": "procedi al checkout",
+      "seeItems": "visualizza articoli"
     },
     "lang": "it"
   }

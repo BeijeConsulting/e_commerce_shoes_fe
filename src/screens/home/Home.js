@@ -100,7 +100,6 @@ function Home() {
   return (
     <>
       <Seo
-        // lang="it"
         title="Belle Scarpe"
         description="E-commerce di scarpe italiane"
         content="e-commerce"
