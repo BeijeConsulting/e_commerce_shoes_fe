@@ -67,6 +67,7 @@ function LoginForm() {
       });
 
       console.log(response);
+      console.log("try error");
 
       if (response.status === 200) {
         const user = await getUser(response.data.token);
