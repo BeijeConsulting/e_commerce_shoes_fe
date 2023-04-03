@@ -9,7 +9,6 @@ import Button from '../../functionalComponents/button/Button';
 import { useTranslation } from 'react-i18next';
 // SCSS
 import "./boxImage.scss"
-import { useTranslation } from 'react-i18next';
 
 function BoxImage(props) {
     const { t } = useTranslation();
