@@ -7,13 +7,24 @@
       "new": "new arrivals",
       "brands": "brands"
     },
+    "cartInfoBox": {
+      "delivery": "delivery method",
+      "homeDelivery": "home delivery",
+      "payMethod": "pay method"
+    },
+    "coupon": "coupon and discount codex",
+    "boxImages": {
+      "newArrives": "new lifestyle arrives",
+      "discover": "discover new collections"
+    },
     "footer": {
       "whoWeAre": "Who We Are",
       "registration": "Registration",
       "contacts": "Contacts",
       "serviceClient": "Client service",
       "termAndConditions": "Term and conditions",
-      "returns": "Returns"
+      "returns": "Returns",
+      "bottom": "2023 Belle Scarpe SRL. P.IVA. 05593460162. All images about products are examples."
     },
     "preFooter": {
       "contacts": "Contacts",
@@ -24,6 +35,21 @@
     },
     "boxImage": {
       "cta": "Discover all the shoes"
+    },
+    "singleProduct": {
+      "sizeSelect": "size select",
+      "addWishList": "add to wishlist",
+      "added": "already added",
+      "sizeTable": "size table"
+    },
+    "infoProductBox": {
+      "delivery": "free delivery",
+      "refund": "free refund"
+    },
+    "accordion": {
+      "description": "Description",
+      "brand": "Brand",
+      "details": "Details"
     },
     "sliderHomepage": {
       "newArrivals": "new arrivals",
@@ -36,8 +62,10 @@
       "orders": "Orders"
     },
     "cartNavMenu": {
+      "cart": "Cart",
       "size": "size",
-      "quantity": "quantity"
+      "quantity": "quantity",
+      "total": "TOTAL AMOUNT"
     },
     "userInfo": {
       "personalData": "personal data",
@@ -75,10 +103,27 @@
       "country": "Country",
       "zipCode": "Zip Code",
       "nameAndLastName": "Name and Last name",
+      "firstName": "FIRST NAME",
+      "lastName": "LAST NAME",
       "telephone": "Telephone",
       "deliveryInstructions": "Delivery Instructions",
       "yourAddresses": "Your addresses",
-      "emptyAddress": "Empty Addresses"
+      "emptyAddress": "Empty Addresses",
+      "email": "email",
+      "birthDate": "birthdate"
+    },
+    "terms": "Agree terms",
+    "emailRule": {
+      "notValid": "Email address is not valid",
+      "already": "Already Exist"
+    },
+    "passwordRules": {
+      "rule": "Password must have",
+      "eight": "At leat 8 character string",
+      "lowercase": "At least 1 lowercase character string",
+      "uppercase": "At least 1 uppercase character string",
+      "number": "At least 1 number",
+      "special": "At least 1 special character string"
     },
     "changeUserDataForm": {
       "email": "email",
@@ -87,8 +132,29 @@
       "birthDate": "birthdate",
       "newPassword": "new password"
     },
+    "wishList": {
+      "title": "Wishlist",
+      "empty": "Wishlist is empty"
+    },
+    "orders": {
+      "title": "Your Orders"
+    },
+    "cart": {
+      "title": "Cart"
+    },
+    "login": {
+      "email": "E-MAIL",
+      "password": "PASSWORD",
+      "signup": "SIGN UP",
+      "signin": "SIGN IN"
+    },
     "button": {
-      "save": "save credentials"
+      "save": "save credentials",
+      "addToCart": "add to cart",
+      "more": "more",
+      "cancel": "cancel",
+      "editData": "edit data",
+      "saveAddress": "save address"
     },
     "lang": "en"
   }

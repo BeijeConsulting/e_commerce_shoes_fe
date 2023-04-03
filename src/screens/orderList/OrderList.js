@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { getOrderList } from "../../services/orderServices";
-import OrderListAccordion from "../../components/hookComponents/wishListAccordion/OrderListAccordion";
 
+// API
+import { getOrderList } from "../../services/orderServices";
+// Components
+import OrderListAccordion from "../../components/hookComponents/wishListAccordion/OrderListAccordion";
+// Redux
 import { useSelector } from "react-redux";
+// Seo
 import Seo from '../../components/functionalComponents/Seo';
+// i18n
+import { useTranslation } from 'react-i18next';
 
 function OrderList() {
+  const { t } = useTranslation()
   const userFirstName = useSelector((state) => state.userDuck.name);
   const userLastName = useSelector((state) => state.userDuck.surname);
   const token = useSelector((state) => state.tokenDuck.token)
@@ -59,7 +66,7 @@ function OrderList() {
 
   return <div>
     <Seo
-      title="I tuoi Ordini"
+      title={ t("orders.title") }
       description="Gestione degli ordini"
       content="e-commerce"
     />

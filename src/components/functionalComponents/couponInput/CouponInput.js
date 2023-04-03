@@ -1,9 +1,14 @@
 import React, { useRef } from "react";
+
+// MUI
+import EastIcon from "@mui/icons-material/East";
+// i18n
+import { useTranslation } from 'react-i18next';
+// SCSS
 import "./couponInput.scss";
 
-import EastIcon from "@mui/icons-material/East";
-
 function CouponInput(props) {
+  const { t } = useTranslation()
   const ref = useRef(null);
 
   function handleOnKeyPress(e) {
@@ -27,16 +32,16 @@ function CouponInput(props) {
 
   return (
     <div className="coupon-input">
-      <label htmlFor="coupon-input">COUPON E CODICE SCONTO</label>
+      <label htmlFor="coupon-input">{ t("coupon") }</label>
       <div className="__input-container">
         <input
-          ref={ref}
-          type={"text"}
-          name={props.inputName}
-          onKeyUp={handleOnKeyPress}
-          id={"coupon-input"}
+          ref={ ref }
+          type={ "text" }
+          name={ props.inputName }
+          onKeyUp={ handleOnKeyPress }
+          id={ "coupon-input" }
         />
-        <button onClick={handleOnClick}>
+        <button onClick={ handleOnClick }>
           <EastIcon />
         </button>
       </div>

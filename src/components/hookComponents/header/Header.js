@@ -20,10 +20,16 @@ import CartNavMenu from '../cartNavMenu/CartNavMenu';
 import i18n from '../../../assets/translations/i18n';
 
 import { getCategories } from "../../../services/productServices";
+import WishListNav from '../wishListNav/WishListNav';
+import { useSelector } from 'react-redux';
 import { useTranslation } from "react-i18next";
 
 function Header() {
   const navigate = useNavigate();
+  const userIsLogged = useSelector((state) => state.userDuck.isLogged)
+
+
+
   const lang = i18n.language.slice(0, 2);
   const { t } = useTranslation();
 
@@ -75,6 +81,7 @@ function Header() {
 
       })
     }
+    // console.log(categories)
     setState(
       {
         ...state,
@@ -103,7 +110,7 @@ function Header() {
 
   function goToHome(e) {
     e.preventDefault();
-    navigate("");
+    navigate(`/${lang}`);
   }
 
   function searchProducts(e) {
@@ -179,19 +186,20 @@ function Header() {
               />
             </div>
           </motion.div>
+
           <div className="main-header__user-icons">
-            <div >
-              <CartNavMenu
-                name={"Nike Zoom AIr"}
-                brand={"Nike"}
-                listedPrice={"199.00"}
-                sellingPrice={"60.00"}
-                productSize={"M41"}
-                quantity={"1"}
-              />
-            </div>
+            {userIsLogged && <WishListNav />}
+            <CartNavMenu
+              name={"Nike Zoom AIr"}
+              brand={"Nike"}
+              listedPrice={"199.00"}
+              sellingPrice={"60.00"}
+              productSize={"M41"}
+              quantity={"1"}
+            />
             <UserMenuNav />
           </div>
+
         </div>
         <div className="main-header__bottom">
           <TextField

@@ -34,10 +34,18 @@ function SwitchLanguage(props) {
 
 
 
+
     const selectLanguage = (code) => async () => {
         await switchLang(code);
+
         dispatch(setLanguage({ currentLanguage: code }));
-        navigate(`/${code}${pathname.replace(`${lang}/`, "")}`);
+
+        if (pathname === `/${lang}`) {
+            navigate(`${pathname.replace(`${lang}`, "")}`);
+        } else {
+            navigate(`/${code}${pathname.replace(`${lang}/`, "")}`);
+        }
+
     }
 
 

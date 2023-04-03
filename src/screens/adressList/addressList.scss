@@ -30,10 +30,40 @@
         font-size: $small;
         text-transform: uppercase;
     }
+
+    &__empty {
+
+        p {
+            text-align: center;
+            font-size: $medium;
+            color: $grey-normal;
+        }
+    }
+}
+
+.delete {
+    color: $grey-normal;
+    text-transform: uppercase;
+    text-decoration: underline;
+    cursor: pointer;
+    text-align: center;
+}
+
+.delete:hover {
+    color: $orange;
+    transition: all 0.2s;
+    font-weight: 600;
 }
 
 @media screen and (min-width: 600px) {
+    .address__container__list {
+        // border: 2px solid red;
+        max-width: 60rem;
+        margin: 0 auto;
+    }
+
     .address__container {
+
         h3 {
             font-size: $medium;
         }

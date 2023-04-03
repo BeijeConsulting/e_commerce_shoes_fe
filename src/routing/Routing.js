@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import Cms from "../screens/cms/Cms";
 import Identity from "../screens/identity/Identity";
 import SignupForm from "../components/hookComponents/signupForm/SignupForm";
@@ -33,8 +33,11 @@ import { useDispatch } from "react-redux";
 import { setToken } from "../redux/ducks/tokenDuck";
 import i18n from "../assets/translations/i18n";
 import { useTranslation } from "react-i18next";
+import WishList from '../screens/wishList/WishList';
+import ErrorPage from '../screens/errorPage/ErrorPage';
 
 function Routing() {
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const token = getLocalStorage("token");
   const refreshToken = getLocalStorage("refreshToken");
@@ -45,6 +48,8 @@ function Routing() {
   useEffect(() => {
     async function getUserInfo() {
       const response = await getUserAuth(token);
+
+      console.log("ROUTING", response);
 
       if (response.status === 200) {
         dispatch(
@@ -73,65 +78,74 @@ function Routing() {
     }
   }, []);
 
-  // console.log("TOKEN", isTokenExist)
 
   function RedirectToLanguage() {
-    return <Navigate replace to={lang} />;
+    return <Navigate replace to={ lang } />
   }
 
   return (
     <Routes>
-      <Route path="/" element={<RedirectToLanguage />}></Route>
+      {/* <Route path="" element={ <RedirectToLanguage /> }></Route> */ }
 
-      <Route path="" element={<RedirectToLanguage />}></Route>
+      <Route path="" element={ <RedirectToLanguage /> }></Route>
 
-      <Route path="/:lang" element={<Cms />}>
-        {/* Homepage */}
-        <Route index element={<Home />} />
-        <Route path="area-personale" element={<UserInfo />}>
-          <Route index element={<PersonalData />} />
-          <Route path="indirizzi" element={<AddressList />} />
-          <Route path="utenti" element={<OrderList />} />
+      <Route path=":lang" element={ <Cms /> }>
+        {/* Homepage */ }
+        <Route index element={ <Home /> } />
+        <Route path="area-personale" element={ <UserInfo /> }>
+          <Route index element={ <PersonalData /> } />
+          <Route path="indirizzi" element={ <AddressList /> } />
+          <Route path="ordini" element={ <OrderList /> } />
         </Route>
 
-        {/* Products list */}
-        <Route path={"scarpe"} element={<ProductsList />}>
-          <Route path=":uno" element={<ProductsList />} />
-          <Route path=":uno/:due" element={<ProductsList />} />
+
+        <Route path='*' element={ <ErrorPage /> } />
+
+
+
+        {/* Products list */ }
+        <Route path={ "scarpe" } element={ <ProductsList /> }>
+          <Route path=":uno" element={ <ProductsList /> } />
+          <Route path=":uno/:due" element={ <ProductsList /> } />
         </Route>
 
-        {/* Search */}
-        <Route path="ricerca" element={<Search />} />
+        {/* Search */ }
+        <Route path="ricerca" element={ <Search /> } />
 
-        {/* Brands */}
-        <Route path="brand" element={<Brands />} />
-        <Route path="brand/:brand" element={<ProductsList />} />
+        {/* Brands */ }
+        <Route path="brand" element={ <Brands /> } />
+        <Route path="brand/:brand" element={ <ProductsList /> } />
 
-        {/* Single products */}
-        <Route path="scarpa/:id" element={<SingleProduct />} />
+        {/* Single products */ }
+        <Route path="scarpa/:id" element={ <SingleProduct /> } />
 
-        {/* Cart */}
-        <Route path="carrello" element={<Cart />} />
+        {/* Cart */ }
+        <Route path="carrello" element={ <Cart /> } />
 
-        {/* Customer care */}
-        <Route path="assistenza" element={<CustomerCare />}>
-          <Route path="contatti" element={<Contacts />} />
-          <Route path="spedizioni" element={<Delivery />} />
-          <Route path="resi" element={<ReturnAndRefund />} />
-          <Route path="faq" element={<Faq />} />
-          <Route path="cookie-policy" element={<Cookie />} />
-          <Route path="termini-condizioni" element={<Terms />} />
-          <Route path="resi" element={<ReturnAndRefund />} />
-          <Route path="privacy-policy" element={<Privacy />} />
+        {/* WishList */ }
+        <Route path="lista-desideri" element={ <WishList /> } />
+
+        {/* Customer care */ }
+        <Route path="assistenza" element={ <CustomerCare /> }>
+          <Route path="contatti" element={ <Contacts /> } />
+          <Route path="spedizioni" element={ <Delivery /> } />
+          <Route path="resi" element={ <ReturnAndRefund /> } />
+          <Route path="faq" element={ <Faq /> } />
+          <Route path="cookie-policy" element={ <Cookie /> } />
+          <Route path="termini-condizioni" element={ <Terms /> } />
+          <Route path="resi" element={ <ReturnAndRefund /> } />
+          <Route path="privacy-policy" element={ <Privacy /> } />
         </Route>
       </Route>
 
-      <Route path=":lang/checkout" element={<Checkout />} />
 
-      {/* Signin - Signup */}
-      <Route path=":lang/accedi" element={<Identity />}>
-        <Route index element={<LoginForm />} />
-        <Route path="registrati" element={<SignupForm />} />
+
+      <Route path=":lang/checkout" element={ <Checkout /> } />
+
+      {/* Signin - Signup */ }
+      <Route path=":lang/accedi" element={ <Identity /> }>
+        <Route index element={ <LoginForm /> } />
+        <Route path="registrati" element={ <SignupForm /> } />
       </Route>
     </Routes>
   );

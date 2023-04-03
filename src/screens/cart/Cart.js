@@ -21,6 +21,7 @@ import Seo from "../../components/functionalComponents/Seo";
 import { useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useTranslation } from 'react-i18next';
 // const cartList = {
 //   items: [
 //     {
@@ -66,6 +67,7 @@ function Cart() {
     cart: localData,
   });
 
+  const { t } = useTranslation()
   function notifyCartUpdateSuccess() {
     toast.success("Quantità modificata", {
       position: toast.POSITION.TOP_RIGHT,
@@ -222,19 +224,19 @@ function Cart() {
 
   function renderCartList(item) {
     return (
-      <li key={item.productId + item.size}>
+      <li key={ item.productId + item.size }>
         <ProductCartItem
-          handleList={updateCartList}
-          handleDelete={deleteItem}
-          id={item.item_id}
-          productId={item.productId}
-          productName={item.name}
-          brand={item.brand}
-          price={Number(item.sellingItemTotalPrice).toFixed(2)}
-          quantity={item.quantity}
-          color={item.color}
-          size={item.size}
-          img={item.image}
+          handleList={ updateCartList }
+          handleDelete={ deleteItem }
+          id={ item.item_id }
+          productId={ item.productId }
+          productName={ item.name }
+          brand={ item.brand }
+          price={ Number(item.sellingItemTotalPrice).toFixed(2) }
+          quantity={ item.quantity }
+          color={ item.color }
+          size={ item.size }
+          img={ item.image }
         />
       </li>
     );
@@ -247,21 +249,21 @@ function Cart() {
   return (
     <div className="cart">
       <Seo
-        title="Carrello"
+        title={ t("cart.title") }
         description="Gestione del carrello"
         content="e-commerce"
       />
       <CartHeader
-        quantity={state.cart.numberItems}
-        totalPrice={Number(state.cart.totalPrice).toFixed(2)}
+        quantity={ state.cart.numberItems }
+        totalPrice={ Number(state.cart.totalPrice).toFixed(2) }
       />
       <div className="cart__content">
         <div className="cart__content__left">
-          <ul>{state.cart.items.map(renderCartList)}</ul>
-          <CouponInput handleCoupon={checkCoupon} />
+          <ul>{ state.cart.items.map(renderCartList) }</ul>
+          <CouponInput handleCoupon={ checkCoupon } />
         </div>
         <div className="cart__content__right">
-          <RecapCart total={Number(state.cart.totalPrice).toFixed(2)} />
+          <RecapCart total={ Number(state.cart.totalPrice).toFixed(2) } />
           <CartInfoBox />
         </div>
       </div>

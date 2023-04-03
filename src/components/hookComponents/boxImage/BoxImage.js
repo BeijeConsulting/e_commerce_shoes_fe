@@ -1,6 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+// Router
 import { useNavigate } from 'react-router-dom';
+// Components
 import Button from '../../functionalComponents/button/Button';
+// i18ns
+import { useTranslation } from 'react-i18next';
+// SCSS
 import "./boxImage.scss"
 import { useTranslation } from 'react-i18next';
 

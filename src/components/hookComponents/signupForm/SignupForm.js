@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+
+// REDUX
+import { setToken } from "../../../redux/ducks/tokenDuck";
 import "./signupForm.scss";
 import InputTextField from "../../functionalComponents/inputTextField/InputTextField";
 import Button from "../../functionalComponents/button/Button";
@@ -13,9 +16,17 @@ import {
 } from "../../../utils/localStorageUtils";
 import { useDispatch } from "react-redux";
 import { setUserCredentials } from "../../../redux/ducks/userDuck";
+// API
+// Utils
+// Router
 import { useNavigate } from "react-router-dom";
+// Components
 import Seo from "../../functionalComponents/Seo";
-import { setToken } from "../../../redux/ducks/tokenDuck";
+// Libraries
+// i18n
+import { useTranslation } from 'react-i18next';
+// SCSS
+import "./signupForm.scss";
 import {
   addListItemToCartList,
   getCartList,
@@ -32,6 +43,8 @@ function SignupForm() {
     invalidAge: false,
     invalidConditions: false,
   });
+
+  const { t } = useTranslation()
 
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
@@ -173,7 +186,7 @@ function SignupForm() {
   };
 
   return (
-    <form className="login-form" onSubmit={handleSubmit(onSubmit, onError)}>
+    <form className="login-form" onSubmit={ handleSubmit(onSubmit, onError) }>
       <Seo
         title="Registrazione"
         description="Registrazione"
@@ -182,98 +195,98 @@ function SignupForm() {
       <div className="login-form__input-container">
         <InputTextField
           inputName="firstName"
-          inputLabel="NOME:"
+          inputLabel={ t("addresses.firstName") + ":" }
           inputType="text"
           inputPlaceholder="Nome"
-          register={register}
-          isRequired={true}
+          register={ register }
+          isRequired={ true }
           labelStyle="default-label margin-top"
-          inputStyle={`default-input margin-top-small ${state.invalidFirstName ? "default-input--error" : ""
-            }`}
+          inputStyle={ `default-input margin-top-small ${state.invalidFirstName ? "default-input--error" : ""
+            }` }
         />
         <InputTextField
           inputName="lastName"
-          inputLabel="COGNOME:"
+          inputLabel={ t("addresses.lastName") + ":" }
           inputType="text"
           inputPlaceholder="Cognome"
-          register={register}
-          isRequired={true}
+          register={ register }
+          isRequired={ true }
           labelStyle="default-label margin-top-extra"
-          inputStyle={`default-input margin-top-small ${state.invalidLastName ? "default-input--error" : ""
-            }`}
+          inputStyle={ `default-input margin-top-small ${state.invalidLastName ? "default-input--error" : ""
+            }` }
         />
         <InputTextField
           inputName="email"
-          inputLabel="INDIRIZZO E-MAIL:"
+          inputLabel={ t("addresses.email") + ":" }
           inputType="text"
           inputPlaceholder="Email"
-          register={register}
-          regexValidation={emailReg}
-          isRequired={true}
+          register={ register }
+          regexValidation={ emailReg }
+          isRequired={ true }
           labelStyle="default-label margin-top-extra"
-          inputStyle={`default-input margin-top-small ${state.invalidEmail ? "default-input--error" : ""
-            }`}
+          inputStyle={ `default-input margin-top-small ${state.invalidEmail ? "default-input--error" : ""
+            }` }
         />
 
-        {state.invalidEmail && (
-          <span className="error-message">L'indirizzo email non è valido</span>
-        )}
+        { state.invalidEmail && (
+          <span className="error-message">{ t("emailRule.notValid") }</span>
+        ) }
 
-        {state.emailExist && (
+        { state.emailExist && (
           <span className="error-message">
-            Esiste già un account con questa email
+            { t("emailRule.already") }
           </span>
-        )}
+        ) }
 
         <InputPasswordField
           inputName="password"
           inputLabel="PASSWORD:"
           inputType="password"
           inputPlaceholder="Password"
-          register={register}
-          regexValidation={passwordReg}
-          isRequired={true}
+          register={ register }
+          regexValidation={ passwordReg }
+          isRequired={ true }
           labelStyle="default-label margin-top-extra"
-          inputStyle={`default-input  ${state.invalidPassword ? "default-input--error" : ""
-            }`}
+          inputStyle={ `default-input  ${state.invalidPassword ? "default-input--error" : ""
+            }` }
         />
 
-        {state.invalidPassword && (
+        { state.invalidPassword && (
           <span className="error-message">
-            La password deve contenere:
+            { t("passwordRules.rule") }:
             <ul>
-              <li>Almeno 8 caratteri</li>
-              <li>Almeno un carattere minuscolo</li>
-              <li>Almeno un carattere maiuscolo</li>
-              <li>Almeno un numero</li>
-              <li>Almeno un carattere speciale</li>
+              <li>{ t("passwordRules.eight") }</li>
+              <li>{ t("passwordRules.lowercase") }</li>
+              <li>{ t("passwordRules.uppercase") }</li>
+              <li>{ t("passwordRules.number") }</li>
+              <li>{ t("passwordRules.special") }</li>
             </ul>
           </span>
-        )}
+        ) }
 
         <InputTextField
           inputName="birthDate"
-          inputLabel="DATA DI NASCITA:"
+          inputLabel={ t("addresses.birthDate") + ":" }
           inputType="date"
           inputPlaceholder="Data di nascita"
-          register={register}
-          isRequired={true}
+          register={ register }
+          isRequired={ true }
           labelStyle="default-label margin-top-extra"
-          inputStyle={`default-input margin-top-small ${state.invalidAge ? "default-input--error" : ""
-            }`}
+          inputStyle={ `default-input margin-top-small ${state.invalidAge ? "default-input--error" : ""
+            }` }
         />
 
-        {state.invalidAge && (
+        { state.invalidAge && (
           <span className="error-message">
             Data non valida: devi avere almeno 16 anni
           </span>
-        )}
+        ) }
 
         <InputCheckbox
-          inputId={"acceptTerms"}
-          label={"Accetta i termini"}
-          inputClasses={"margin-top-extra"}
-          isRequired={true}
+          inputId={ "acceptTerms" }
+          label={ t("terms") }
+          inputClasses={ "margin-top-extra" }
+          isRequired={ true }
         />
       </div>
       <Button label="Sign Up" buttonStyle="submit-button button-margin-top" />

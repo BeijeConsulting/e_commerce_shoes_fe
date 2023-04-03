@@ -1,20 +1,25 @@
 import React, { useState } from "react";
-import "./loginForm.scss";
-import { useForm } from "react-hook-form";
+
+// API
+import { signin, getUser } from "../../../services/authServices";
+// Redux
+import { setUserCredentials } from "../../../redux/ducks/userDuck";
+import { setToken } from "../../../redux/ducks/tokenDuck";
+import { useDispatch } from "react-redux";
+// Router
+import { useNavigate } from "react-router-dom";
+// Utils
+// Components
 import Button from "../../functionalComponents/button/Button";
 import InputTextField from "../../functionalComponents/inputTextField/InputTextField";
 import InputPasswordField from "../inputPasswordField/InputPasswordField";
-import { signin, getUser } from "../../../services/authServices";
-import { useDispatch } from "react-redux";
-import { setUserCredentials } from "../../../redux/ducks/userDuck";
-import { useNavigate } from "react-router-dom";
+
 import {
   getLocalStorage,
   setLocalStorage,
 } from "../../../utils/localStorageUtils";
 import i18n from "../../../assets/translations/i18n";
 import Seo from "../../functionalComponents/Seo";
-import { setToken } from "../../../redux/ducks/tokenDuck";
 import {
   addItemToCartList,
   addListItemToCartList,
@@ -22,12 +27,15 @@ import {
 } from "../../../services/cartServices";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useTranslation } from 'react-i18next';
+import { useForm } from 'react-hook-form';
 
 function LoginForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const lang = i18n.language.slice(0, 2);
+  const { t } = useTranslation()
 
   const [state, setState] = useState({
     invalidEmail: false,
@@ -81,7 +89,7 @@ function LoginForm() {
           adresses: [...user.data.addresses],
           birthDate: user.data.birth_date,
           cartItems: user.data.cart_items,
-          wishListItems: user.data.wish_list_item,
+          wishlistItems: user.data.wish_list_item,
           isLogged: true,
         })
       );
@@ -131,7 +139,7 @@ function LoginForm() {
           adresses: [...user.data.addresses],
           birthDate: user.data.birth_date,
           // cartItems: user.data.cart_items,
-          wishListItems: user.data.wish_list_item,
+          wishlistItems: user.data.wish_list_item,
           isLogged: true,
         })
       );
@@ -166,36 +174,36 @@ function LoginForm() {
   // console.log(errors);
 
   return (
-    <form className="login-form" onSubmit={handleSubmit(onSubmit, onError)}>
+    <form className="login-form" onSubmit={ handleSubmit(onSubmit, onError) }>
       <Seo title="LogIn" description="LogIn" content="e-commerce" />
       <div className="login-form__input-container">
         <InputTextField
           inputName="email"
-          inputLabel="INDIRIZZO E-MAIL:"
+          inputLabel={ t("login.email") + ":" }
           inputType="text"
           inputPlaceholder="Email"
-          register={register}
-          regexValidation={emailReg}
-          isRequired={true}
+          register={ register }
+          regexValidation={ emailReg }
+          isRequired={ true }
           labelStyle="default-label  "
-          inputStyle={`default-input margin-top-small ${state.invalidEmail ? "default-input--error" : ""
-            }`}
+          inputStyle={ `default-input margin-top-small ${state.invalidEmail ? "default-input--error" : ""
+            }` }
         />
 
         <InputPasswordField
           inputName="password"
-          inputLabel="PASSWORD:"
+          inputLabel={ t("login.password") + ":" }
           inputType="password"
           inputPlaceholder="Password"
-          register={register}
-          regexValidation={passwordReg}
-          isRequired={true}
+          register={ register }
+          regexValidation={ passwordReg }
+          isRequired={ true }
           labelStyle="default-label password-margin-top margin-top-extra"
-          inputStyle={`default-input ${state.invalidPassword ? "default-input--error" : ""
-            }`}
+          inputStyle={ `default-input ${state.invalidPassword ? "default-input--error" : ""
+            }` }
         />
       </div>
-      <Button label="Login" buttonStyle="submit-button button-margin-top" />
+      <Button label="Login" buttonStyle="submit-button" />
       <ToastContainer hideProgressBar />
     </form>
   );

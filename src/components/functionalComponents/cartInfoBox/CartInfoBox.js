@@ -1,20 +1,30 @@
 import React from "react";
+
+// MUI
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+// i18n
+import { useTranslation } from 'react-i18next';
+//SCSS
 import './cartInfoBox.scss';
 
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-
 function CartInfoBox() {
+    const { t } = useTranslation()
+
     return (
         <aside className="cart-info-box">
-            <div className="__title">modalità di consegna</div>
+            <div className="__title">
+                { t("cartInfoBox.delivery") }
+            </div>
             <div className="__shipping">
                 <HomeRoundedIcon className="___home-icon-modifier" />
                 <div>
-                    Consegna a domicilio
+                    { t("cartInfoBox.homeDelivery") }
                 </div>
             </div>
-            <div className="__title">modalità di pagamento</div>
-            <img src={require("../../../assets/images/payments/metodi-pagamento.png")} />
+            <div className="__title">
+                { t("cartInfoBox.payMethod") }
+            </div>
+            <img src={ require("../../../assets/images/payments/metodi-pagamento.png") } />
         </aside>
     )
 }

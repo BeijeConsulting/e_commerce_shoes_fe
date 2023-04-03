@@ -131,41 +131,41 @@ function AdressList(props) {
 
   function mapList(data, i) {
     return (
-      <div className="address__container__list" key={data?.id}>
+      <div className="address__container__list" key={ data?.id }>
         <Seo
-          title="I tuoi indirizzi"
+          title={ t("addresses.address") }
           description="Gestione degli indirizzi personali"
           content="e-commerce"
         />
         <h3>
-          {t("addresses.address")} n. {i + 1}
+          { t("addresses.address") } n. { i + 1 }
         </h3>
         <ul>
           <li>
-            <p className="address__p">{t("addresses.country")}:</p>
-            <span>{data?.country ?? "n/d"}</span>
+            <p className="address__p">{ t("addresses.country") }:</p>
+            <span>{ data?.country ?? "n/d" }</span>
           </li>
           <li>
-            <p className="address__p">{t("addresses.zipCode")}:</p>
-            <span>{data?.zipcode ?? "n/d"}</span>
+            <p className="address__p">{ t("addresses.zipCode") }:</p>
+            <span>{ data?.zipcode ?? "n/d" }</span>
           </li>
           <li>
-            <p className="address__p">{t("addresses.nameAndLastName")}:</p>
-            <span>{data?.name_surname ?? "n/d"}</span>
+            <p className="address__p">{ t("addresses.nameAndLastName") }:</p>
+            <span>{ data?.name_surname ?? "n/d" }</span>
           </li>
           <li>
-            <p className="address__p">{t("addresses.address")}:</p>
-            <span>{data?.street_address ?? "n/d"}</span>
+            <p className="address__p">{ t("addresses.address") }:</p>
+            <span>{ data?.street_address ?? "n/d" }</span>
           </li>
           <li>
-            <p className="address__p">{t("addresses.telephone")}:</p>
-            <span>{data?.telephone ?? "n/d"}</span>
+            <p className="address__p">{ t("addresses.telephone") }:</p>
+            <span>{ data?.telephone ?? "n/d" }</span>
           </li>
           <li>
-            <p className="address__p">{t("addresses.deliveryInstructions")}:</p>
-            <span>{data?.instructions ?? "n/d"}</span>
+            <p className="address__p">{ t("addresses.deliveryInstructions") }:</p>
+            <span>{ data?.instructions ?? "n/d" }</span>
           </li>
-          <p onClick={deleteAddressId(data?.id)}>Delete</p>
+          <p className='delete' onClick={ deleteAddressId(data.id) }>Delete</p>
         </ul>
       </div>
     );
@@ -174,84 +174,84 @@ function AdressList(props) {
   return (
     <div className="address">
       <div className="address__container">
-        <form className="login-form" onSubmit={handleSubmit(onSubmit, onError)}>
+        <form className="login-form" onSubmit={ handleSubmit(onSubmit, onError) }>
           <InputTextField
             inputName="address"
-            inputLabel="VIA - PIAZZA*:"
+            inputLabel={ t("addresses.address") + "*" }
             inputType="text"
             inputPlaceholder="Es: Via Rossi 14"
-            register={register}
-            isRequired={true}
+            register={ register }
+            isRequired={ true }
             labelStyle="default-label"
-            inputStyle={`default-input margin-top-small ${state.invalidAddress ? "default-input--error" : ""
-              }`}
+            inputStyle={ `default-input margin-top-small ${state.invalidAddress ? "default-input--error" : ""
+              }` }
           />
           <InputTextField
             inputName="country"
-            inputLabel="PAESE*:"
+            inputLabel={ t("addresses.address") + "*" }
             inputType="text"
             inputPlaceholder="Es: Italia"
-            register={register}
-            isRequired={true}
+            register={ register }
+            isRequired={ true }
             labelStyle="default-label  "
-            inputStyle={`default-input margin-top-small ${state.invalidCountry ? "default-input--error" : ""
-              }`}
+            inputStyle={ `default-input margin-top-small ${state.invalidCountry ? "default-input--error" : ""
+              }` }
           />
           <InputTextField
             inputName="zipCode"
-            inputLabel="CAP*:"
+            inputLabel={ t("addresses.zipCode") + "*" }
             inputType="text"
             inputPlaceholder="Es: 13000"
-            register={register}
-            isRequired={true}
+            register={ register }
+            isRequired={ true }
             labelStyle="default-label  "
-            inputStyle={`default-input margin-top-small ${state.invalidZipCode ? "default-input--error" : ""
-              }`}
+            inputStyle={ `default-input margin-top-small ${state.invalidZipCode ? "default-input--error" : ""
+              }` }
           />
           <InputTextField
             inputName="name_surname"
-            inputLabel="NOME E COGNOME*:"
+            inputLabel={ t("addresses.nameAndLastName") + "*" }
             inputType="text"
             inputPlaceholder="Es: Mario Rossi"
-            register={register}
-            isRequired={true}
+            register={ register }
+            isRequired={ true }
             labelStyle="default-label  "
-            inputStyle={`default-input margin-top-small ${state.invalidName_Surname ? "default-input--error" : ""
-              }`}
+            inputStyle={ `default-input margin-top-small ${state.invalidName_Surname ? "default-input--error" : ""
+              }` }
           />
           <InputTextField
             inputName="instructions"
-            inputLabel="ISTRUZIONI:"
+            inputLabel={ t("addresses.deliveryInstructions") }
             inputType="text"
             inputPlaceholder="Es: consegnare in ufficio"
-            register={register}
+            register={ register }
             labelStyle="default-label  "
-            inputStyle={`default-input margin-top-small`}
+            inputStyle={ `default-input margin-top-small` }
           />
           <InputTextField
             inputName="telephone"
-            inputLabel="TELEFONO*:"
+            inputLabel={ t("addresses.telephone") }
             inputType="text"
             inputPlaceholder="Es: 333 1234567"
-            register={register}
-            isRequired={true}
+            register={ register }
+            isRequired={ true }
             labelStyle="default-label  "
-            inputStyle={`default-input margin-top-small ${state.invalidTelephone ? "default-input--error" : ""
-              }`}
+            inputStyle={ `default-input margin-top-small ${state.invalidTelephone ? "default-input--error" : ""
+              }` }
           />
           <Button
-            label="Salva Indirizzo"
+            label={ t("button.saveAddress") }
             buttonStyle="submit-button button-margin-top"
           />
         </form>
       </div>
-      <h2>{t("addresses.yourAddresses")}</h2>
-      {userData.adresses?.map(mapList)}
-      {userData.adresses?.length === 0 && (
+      <h2>{ t("addresses.yourAddresses") }</h2>
+      { userData.adresses?.map(mapList) }
+      { userData.adresses?.length === 0 && (
         <div>
-          <p>{t("addresses.emptyAddress")}.</p>
+          <p>{ t("addresses.emptyAddress") }.</p>
         </div>
-      )}
+      ) }
     </div>
   );
 }

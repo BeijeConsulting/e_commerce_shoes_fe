@@ -14,6 +14,7 @@ import { Badge, Divider, IconButton, Menu, MenuItem } from "@mui/material";
 // import shoe from "../../../assets/images/singleProduct/shoe1.jpeg";
 //SCSS
 import "./cartNavMenu.scss";
+import { useTranslation } from 'react-i18next';
 // import { useTranslation } from "react-i18next";
 
 function CartNavMenu() {
@@ -24,7 +25,7 @@ function CartNavMenu() {
 
   const cartQuantity = useSelector((state) => state.userDuck.cartItems);
 
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
 
@@ -84,26 +85,26 @@ function CartNavMenu() {
 
   function mapList(item) {
     return (
-      <div key={"00" + item.productCartId + item.size}>
+      <div key={ "00" + item.productCartId + item.size }>
         <MenuItem>
           <div className="cartNavMenu__menu">
             <div className="cartNavMenu__image">
-              <img src={item.image} alt="product" />
+              <img src={ item.image } alt="product" />
             </div>
             <div className="cartNavMenu__info">
               <div className="cartNavMenu__info-name-price">
-                <h3>{item.name}</h3>
+                <h3>{ item.name }</h3>
                 <div className="container__price">
                   <p className="newPrice">
-                    € {Number(item.sellingItemTotalPrice).toFixed(2)}
+                    € { Number(item.sellingItemTotalPrice).toFixed(2) }
                   </p>
-                  {/* <p className="oldPrice">{data.listedPrice}$</p> */}
+                  {/* <p className="oldPrice">{data.listedPrice}$</p> */ }
                 </div>
               </div>
-              <p className="brand">{item.brand}</p>
+              <p className="brand">{ item.brand }</p>
               <div className="container__size-cartQuantity">
-                <p className="infoSize">Taglia: {item.size}</p>
-                <p className="quantity">Quantità: {item.quantity}</p>
+                <p className="infoSize">{ t("cartNavMenu.size") }: { item.size }</p>
+                <p className="quantity">{ t("cartNavMenu.quantity") }: { item.quantity }</p>
               </div>
             </div>
           </div>
@@ -114,59 +115,60 @@ function CartNavMenu() {
 
   return (
     <div className="cartMenuNav">
-      <div>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="menu-appbar"
-          aria-haspopup="true"
-          onClick={handleMenu}
-          color="inherit"
-        >
-          <Badge badgeContent={cartQuantity} color="primary">
-            <ShoppingCartIcon fontSize="large" />
-          </Badge>
-        </IconButton>
-        <Menu
-          id="menu-appbar"
-          anchorEl={state.anchorEl}
-          anchorOrigin={{
-            vertical: "center",
-            horizontal: 66,
-          }}
-          keepMounted
-          transformOrigin={{
-            vertical: -30,
-            horizontal: "right",
-          }}
-          open={Boolean(state.anchorEl)}
-          onClose={handleClose}
-        >
-          <MenuItem>
-            <h2>Carrello</h2>
-          </MenuItem>
 
-          {/* Qui bisogna fare il map di tutti i prodotti che l'utente aggiunge */}
-          {state.itemCartList && state.itemCartList.items?.map(mapList)}
+      <IconButton
+        size="large"
+        aria-label="account of current user"
+        aria-controls="menu-appbar"
+        aria-haspopup="true"
+        onClick={ handleMenu }
+        color="inherit"
+      >
+        <Badge badgeContent={ cartQuantity } color="primary">
+          <ShoppingCartIcon fontSize="large" />
+        </Badge>
+      </IconButton>
+      <Menu
+        id="menu-appbar"
+        anchorEl={ state.anchorEl }
+        anchorOrigin={ {
+          vertical: "center",
+          horizontal: 66,
+        } }
+        keepMounted
+        transformOrigin={ {
+          vertical: -30,
+          horizontal: "right",
+        } }
+        open={ Boolean(state.anchorEl) }
+        onClose={ handleClose }
+      >
+        <MenuItem>
+          <h2>{ t("cartNavMenu.cart") }</h2>
+        </MenuItem>
 
-          <Divider />
+        {/* Qui bisogna fare il map di tutti i prodotti che l'utente aggiunge */ }
+        { state.itemCartList && state.itemCartList.items?.map(mapList) }
 
-          <MenuItem className="item" onClick={handleClose}>
-            <p>
-              Totale: $ {Number(state.itemCartList?.totalPrice ?? 0).toFixed(2)}
-            </p>
-          </MenuItem>
-          <MenuItem className="item" onClick={handleClose}>
-            <div className="item__btn">
-              <Button
-                buttonStyle={"navCartBtn"}
-                label={"CARRELLO"}
-                handleClick={goToCart}
-              />
-            </div>
-          </MenuItem>
-        </Menu>
-      </div>
+        <Divider />
+
+        <MenuItem className="item" onClick={ handleClose }>
+          <p>
+            { t("cartNavMenu.total") }: ${ " " }
+            { Number(state.itemCartList?.info?.totalPrice ?? 0).toFixed(2) }
+          </p>
+        </MenuItem>
+        <MenuItem className="item" onClick={ handleClose }>
+          <div className="item__btn">
+            <Button
+              buttonStyle={ "navCartBtn" }
+              label={ t("cartNavMenu.cart") }
+              handleClick={ goToCart }
+            />
+          </div>
+        </MenuItem>
+      </Menu>
+
     </div>
   );
 }

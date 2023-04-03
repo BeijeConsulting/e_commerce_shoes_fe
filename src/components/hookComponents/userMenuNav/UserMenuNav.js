@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { removeUserCredentials } from "../../../redux/ducks/userDuck";
+import { removeToken } from "../../../redux/ducks/tokenDuck";
 // Router
 import { useNavigate } from "react-router-dom";
 // Utils
@@ -20,24 +21,30 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
-// SCSS
-import "./userMenuNav.scss";
+// i18n
 import i18n from "../../../assets/translations/i18n";
 import { useTranslation } from "react-i18next";
-import { removeToken } from "../../../redux/ducks/tokenDuck";
+// Library
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+// SCSS
+import "./userMenuNav.scss";
 
 function UserMenuNav(props) {
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const token = useSelector((state) => state.tokenDuck.token);
-  const refreshToken = useSelector((state) => state.tokenDuck.refreshToken);
+  const token = useSelector((state) => state.tokenDuck.token)
+  const refreshToken = useSelector((state) => state.tokenDuck.refreshToken)
+  const userIsLogged = useSelector((state) => state.userDuck.isLogged);
+  const userName = useSelector((state) => state.userDuck.name);
+  const wishlistItems = useSelector((state) => state.userDuck.wishlistItems);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const lang = i18n.language.slice(0, 2);
+
+
+  const lang = i18n.language.slice(0, 2)
   const { t } = useTranslation();
 
   function notifyLogOutSuccess() {
@@ -61,7 +68,6 @@ function UserMenuNav(props) {
     setAnchorEl(event.currentTarget);
   }
 
-  const userIsLogged = useSelector((state) => state.userDuck.isLogged);
 
   // if user is logged --> screen userInfo
   // if user is not logged --> screen identity
@@ -83,9 +89,20 @@ function UserMenuNav(props) {
     } else {
       navigate("accedi");
     }
-
     handleClose();
   }
+
+  function conditionalGoToWishList() {
+    console.log("islogged", userIsLogged);
+    if (userIsLogged) {
+      navigate("lista-desideri");
+    } else {
+      navigate("identity");
+    }
+
+    handleClose()
+  }
+
 
   function goToRegistration() {
     navigate("accedi/registrati");
@@ -103,7 +120,7 @@ function UserMenuNav(props) {
       clearLocalStorage();
       notifyLogOutSuccess();
       setTimeout(() => {
-        navigate(`/${lang}/`);
+        navigate(`/${lang}`);
       }, 1500);
     } else {
       notifyLogOutError();
@@ -122,7 +139,7 @@ function UserMenuNav(props) {
           aria-label="account of current user"
           aria-controls="menu-appbar"
           aria-haspopup="true"
-          onClick={handleMenu}
+          onClick={ handleMenu }
           color="inherit"
         >
           <AccountCircle fontSize="large" />
@@ -130,53 +147,55 @@ function UserMenuNav(props) {
         <Menu
           className="myMenu"
           id="menu-appbar"
-          anchorEl={anchorEl}
-          anchorOrigin={{
+          anchorEl={ anchorEl }
+          anchorOrigin={ {
             vertical: "center",
             horizontal: 66,
-          }}
+          } }
           keepMounted
-          transformOrigin={{
+          transformOrigin={ {
             vertical: -30,
             horizontal: "right",
-          }}
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
+          } }
+          open={ Boolean(anchorEl) }
+          onClose={ handleClose }
         >
-          <MenuItem onClick={conditionalGoTo}>
-            <Avatar sx={{ marginRight: 2 }} />
-            {userIsLogged ? (
-              <p onClick={conditionalGoTo} className="item">
-                <span>{t("userMenuNav.profile")}</span>
+          <MenuItem onClick={ conditionalGoTo }>
+            <Avatar sx={ { marginRight: 2 } } />
+            { userIsLogged ? (
+              <p onClick={ conditionalGoTo } className="item">
+                <span>{ userName.toUpperCase() }</span>
               </p>
             ) : (
-              <p onClick={conditionalGoTo} className="item">
-                {t("userMenuNav.logIn")}
+              <p onClick={ conditionalGoTo } className="item">
+                { t("userMenuNav.logIn") }
               </p>
-            )}
+            ) }
           </MenuItem>
-          <MenuItem onClick={conditionalGoTo}>
-            {<p className="item">WishList</p>}
+          <MenuItem onClick={ conditionalGoToWishList }>
+            <p className="item">WishList</p>
+            { userIsLogged && <p className='item__wishlistItems'>{ wishlistItems }</p> }
+
           </MenuItem>
-          <MenuItem onClick={conditionalGoToCart}>
-            {<p className="item">{t("userMenuNav.orders")}</p>}
+          <MenuItem onClick={ conditionalGoToCart }>
+            { <p className="item">{ t("userMenuNav.orders") }</p> }
           </MenuItem>
 
           <Divider />
 
-          <MenuItem onClick={handleClose}>
+          <MenuItem onClick={ handleClose }>
             <ListItemIcon>
               <Logout className="logOut" />
             </ListItemIcon>
-            {userIsLogged ? (
-              <p onClick={userLogOut} className="logOut__p">
+            { userIsLogged ? (
+              <p onClick={ userLogOut } className="logOut__p">
                 Logout
               </p>
             ) : (
-              <p onClick={goToRegistration} className="logOut__p">
+              <p onClick={ goToRegistration } className="logOut__p">
                 Registrati
               </p>
-            )}
+            ) }
           </MenuItem>
         </Menu>
       </div>

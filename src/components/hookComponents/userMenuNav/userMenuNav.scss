@@ -1,12 +1,13 @@
 @import "../../../style/common/variables.scss";
 
 .userMenuNav {
-    // border: 2px solid red;
+    // border: 2px solid violet;
     z-index: 99;
-    position: relative;
-    display: flex;
+    // position: relative;
+    // display: flex;
     flex-direction: column;
-    padding: 3%;
+    // padding: 3%;
+    margin: 0 auto;
 }
 
 .item {
@@ -15,6 +16,13 @@
     span {
         font-weight: 600;
         color: $orange;
+    }
+
+    &__wishlistItems {
+        margin-left: 1rem;
+        color: $orange;
+        font-size: $small;
+        font-weight: 600;
     }
 }
 
