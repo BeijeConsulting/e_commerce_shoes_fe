@@ -89,19 +89,20 @@ function UserMenuNav(props) {
     } else {
       navigate("accedi");
     }
-    function conditionalGoToWishList() {
-      console.log("islogged", userIsLogged);
-      if (userIsLogged) {
-        navigate("wishlist");
-      } else {
-        navigate("identity");
-      }
-
-      handleClose()
-    }
-
     handleClose();
   }
+
+  function conditionalGoToWishList() {
+    console.log("islogged", userIsLogged);
+    if (userIsLogged) {
+      navigate("lista-desideri");
+    } else {
+      navigate("identity");
+    }
+
+    handleClose()
+  }
+
 
   function goToRegistration() {
     navigate("accedi/registrati");
@@ -174,7 +175,7 @@ function UserMenuNav(props) {
               </p>
             ) }
           </MenuItem>
-          <MenuItem onClick={ conditionalGoTo }>
+          <MenuItem onClick={ conditionalGoToWishList }>
             { <p className="item">WishList</p> }
           </MenuItem>
           <MenuItem onClick={ conditionalGoToCart }>

@@ -113,6 +113,9 @@ function Routing() {
         {/* Cart */ }
         <Route path="carrello" element={ <Cart /> } />
 
+        {/* WishList */ }
+        <Route path="lista-desideri" element={ <WishList /> } />
+
         {/* Customer care */ }
         <Route path="assistenza" element={ <CustomerCare /> }>
           <Route path="contatti" element={ <Contacts /> } />
