@@ -93,27 +93,39 @@ function SingleProduct() {
       navigate(`/${lang}/identity`)
     }
 
-    await addWishList({
-      productId: params.id,
-    })
-    // una volta aggiunto setto lo stato a true
-    setStateAdded(true)
-    // aggiorno la quantità in redux
-    const responseUser = await getUserAuth(token);
-
-    dispatch(
-      setUserCredentials({
-        isLogged: true,
-        name: responseUser.data.first_name,
-        surname: responseUser.data.last_name,
-        email: responseUser.data.email,
-        adresses: [...responseUser.data.addresses],
-        birthDate: responseUser.data.birth_date,
-        cartItems: responseUser.data.cart_items,
-        wishlistItems: responseUser.data.wish_list_item,
+    try {
+      await addWishList({
+        productId: params.id,
       })
-    )
-    console.log("responseUser", responseUser)
+
+      notifyAddToWishlistSuccess()
+
+      // una volta aggiunto setto lo stato a true
+      setStateAdded(true)
+      // aggiorno la quantità in redux
+      const responseUser = await getUserAuth(token);
+
+      dispatch(
+        setUserCredentials({
+          isLogged: true,
+          name: responseUser.data.first_name,
+          surname: responseUser.data.last_name,
+          email: responseUser.data.email,
+          adresses: [...responseUser.data.addresses],
+          birthDate: responseUser.data.birth_date,
+          cartItems: responseUser.data.cart_items,
+          wishlistItems: responseUser.data.wish_list_item,
+        })
+      )
+      console.log("responseUser", responseUser)
+
+    } catch (error) {
+      console.error(error)
+      notifyAddToWishlistError()
+    }
+
+
+
   }
 
   ////////////////////////////////

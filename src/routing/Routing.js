@@ -47,6 +47,8 @@ function Routing() {
     async function getUserInfo() {
       const response = await getUserAuth(token);
 
+      console.log("ROUTING", response);
+
       if (response.status === 200) {
         dispatch(
           setUserCredentials({
@@ -91,7 +93,7 @@ function Routing() {
         <Route path="area-personale" element={ <UserInfo /> }>
           <Route index element={ <PersonalData /> } />
           <Route path="indirizzi" element={ <AddressList /> } />
-          <Route path="utenti" element={ <OrderList /> } />
+          <Route path="ordini" element={ <OrderList /> } />
         </Route>
 
         {/* Products list */ }

@@ -32,10 +32,15 @@ function SwitchLanguage(props) {
     const { lang } = useParams();
     const { pathname } = useLocation();
 
+    // console.log("pathname", pathname)
+
 
 
     const selectLanguage = (code) => async () => {
         await switchLang(code);
+
+        // console.log("COODE", code)
+
         dispatch(setLanguage({ currentLanguage: code }));
         navigate(`/${code}${pathname.replace(`${lang}/`, "")}`);
     }

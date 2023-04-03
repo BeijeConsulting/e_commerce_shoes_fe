@@ -71,11 +71,10 @@ function LoginForm() {
     try {
       const response = await signin({
         email: data.email,
-        password: data.password,
+        password: data.password
       });
 
       console.log(response);
-      console.log("try error");
 
       if (response.status === 200) {
         const user = await getUser(response.data.token);
@@ -90,7 +89,7 @@ function LoginForm() {
             adresses: [...user.data.addresses],
             birthDate: user.data.birth_date,
             cartItems: user.data.cart_items,
-            wishListItems: user.data.wish_list_item,
+            wishlistItems: user.data.wish_list_item,
             isLogged: true,
           })
         );
@@ -120,16 +119,16 @@ function LoginForm() {
             };
           });
 
-          console.log(items);
+          // console.log(items);
           const listResp = await addListItemToCartList(items);
-          console.log(listResp);
+          // console.log(listResp);
         }
 
         const userCart = await getCartList();
-        console.log(userCart.data);
+        // console.log(userCart.data);
         if (userCart.status === 200) {
           setLocalStorage("cart-list", userCart.data);
-          console.log(getLocalStorage("cart-list"));
+          // console.log(getLocalStorage("cart-list"));
         }
 
         dispatch(
@@ -140,7 +139,7 @@ function LoginForm() {
             adresses: [...user.data.addresses],
             birthDate: user.data.birth_date,
             // cartItems: user.data.cart_items,
-            wishListItems: user.data.wish_list_item,
+            wishlistItems: user.data.wish_list_item,
             isLogged: true,
           })
         );
@@ -206,7 +205,7 @@ function LoginForm() {
             }` }
         />
       </div>
-      <Button label="Login" buttonStyle="submit-button button-margin-top" />
+      <Button label="Login" buttonStyle="submit-button" />
       <ToastContainer hideProgressBar />
     </form>
   );

@@ -36,8 +36,6 @@ function UserMenuNav(props) {
   const userIsLogged = useSelector((state) => state.userDuck.isLogged);
   const userName = useSelector((state) => state.userDuck.name);
   const wishlistItems = useSelector((state) => state.userDuck.wishlistItems);
-  console.log("wishlistItems", wishlistItems)
-
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -167,7 +165,7 @@ function UserMenuNav(props) {
             <Avatar sx={ { marginRight: 2 } } />
             { userIsLogged ? (
               <p onClick={ conditionalGoTo } className="item">
-                <span>{ t("userMenuNav.profile") }</span>
+                <span>{ userName.toUpperCase() }</span>
               </p>
             ) : (
               <p onClick={ conditionalGoTo } className="item">
@@ -176,7 +174,9 @@ function UserMenuNav(props) {
             ) }
           </MenuItem>
           <MenuItem onClick={ conditionalGoToWishList }>
-            { <p className="item">WishList</p> }
+            <p className="item">WishList</p>
+            { userIsLogged && <p className='item__wishlistItems'>{ wishlistItems }</p> }
+
           </MenuItem>
           <MenuItem onClick={ conditionalGoToCart }>
             { <p className="item">{ t("userMenuNav.orders") }</p> }

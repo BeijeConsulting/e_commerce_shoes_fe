@@ -15,11 +15,12 @@ function Cms() {
   useEffect(() => {
     const langs = ["it", "en"];
     const isPathLang = langs.some((l) => pathname.includes(l));
+    // console.log("isPathLang CMS", isPathLang)
 
     if (isPathLang) {
-      return;
+      navigate(`/${i18n.language.slice(0, 2)}/`);
     } else {
-      navigate(`/${i18n.language.slice(0, 2)}${pathname}`);
+      navigate(`/${i18n.language.slice(0, 2)}/${pathname}`);
     }
   }, [pathname]);
 

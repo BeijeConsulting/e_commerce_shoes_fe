@@ -1,10 +1,15 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
+
+// Redux
+import { useSelector } from "react-redux";
+// Component
 import ChangeUserDataForm from "../../components/hookComponents/changeUserDataForm/ChangeUserDataForm";
 import Button from "../../components/functionalComponents/button/Button";
-import "./personalData.scss";
+// i18n
 import { useTranslation } from "react-i18next";
+// SCSS
+import "./personalData.scss";
 
 function PersonalData() {
   const [state, setState] = useState({

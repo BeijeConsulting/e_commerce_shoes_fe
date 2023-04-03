@@ -27,6 +27,12 @@ import { useTranslation } from "react-i18next";
 function Header() {
   const navigate = useNavigate();
   const userIsLogged = useSelector((state) => state.userDuck.isLogged)
+
+  const wishListitemQuantity = useSelector((state) => state.userDuck.wishlistItems)
+
+  console.log(" HEADER wishListitemQuantity", wishListitemQuantity)
+
+
   const lang = i18n.language.slice(0, 2);
   const { t } = useTranslation();
 
@@ -78,7 +84,7 @@ function Header() {
 
       })
     }
-    console.log(categories)
+    // console.log(categories)
     setState(
       {
         ...state,
