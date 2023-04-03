@@ -1,8 +1,6 @@
 import {
   getData,
-  deleteData,
   putData,
-  postData,
   postDataAuth,
   deleteDataAuth,
 } from "../genericAxios/genericAxios";

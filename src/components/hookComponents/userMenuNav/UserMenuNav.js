@@ -1,209 +1,211 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 // Redux
-import { useDispatch, useSelector } from 'react-redux';
-import { removeUserCredentials } from '../../../redux/ducks/userDuck';
+import { useDispatch, useSelector } from "react-redux";
+import { removeUserCredentials } from "../../../redux/ducks/userDuck";
 // Router
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 // Utils
-import { clearLocalStorage } from '../../../utils/localStorageUtils';
+import { clearLocalStorage } from "../../../utils/localStorageUtils";
 // API
-import { signOut } from '../../../services/authServices';
+import { signOut } from "../../../services/authServices";
 // MUI
-import { AccountCircle, Logout } from '@mui/icons-material';
-import { Avatar, Divider, IconButton, ListItemIcon, Menu, MenuItem } from '@mui/material';
+import { AccountCircle, Logout } from "@mui/icons-material";
+import {
+  Avatar,
+  Divider,
+  IconButton,
+  ListItemIcon,
+  Menu,
+  MenuItem,
+} from "@mui/material";
 // SCSS
 import "./userMenuNav.scss";
-import i18n from '../../../assets/translations/i18n';
-import { useTranslation } from 'react-i18next';
-import { removeToken } from '../../../redux/ducks/tokenDuck';
+import i18n from "../../../assets/translations/i18n";
+import { useTranslation } from "react-i18next";
+import { removeToken } from "../../../redux/ducks/tokenDuck";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function UserMenuNav(props) {
-    const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
-    const token = useSelector((state) => state.tokenDuck.token)
-    const refreshToken = useSelector((state) => state.tokenDuck.refreshToken)
-    const userIsLogged = useSelector((state) => state.userDuck.isLogged);
-    const userName = useSelector((state) => state.userDuck.name);
-    const wishlistItems = useSelector((state) => state.userDuck.wishlistItems);
-    console.log("wishlistItems", wishlistItems)
-
-
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
+  const token = useSelector((state) => state.tokenDuck.token)
+  const refreshToken = useSelector((state) => state.tokenDuck.refreshToken)
+  const userIsLogged = useSelector((state) => state.userDuck.isLogged);
+  const userName = useSelector((state) => state.userDuck.name);
+  const wishlistItems = useSelector((state) => state.userDuck.wishlistItems);
+  console.log("wishlistItems", wishlistItems)
 
 
-
-    const lang = i18n.language.slice(0, 2)
-    const { t } = useTranslation();
-
-
-    function handleClose() {
-        setAnchorEl(null);
-    };
-
-    function handleMenu(event) {
-        setAnchorEl(event.currentTarget);
-    };
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
 
-    // if user is logged --> screen userInfo
-    // if user is not logged --> screen identity
-    function conditionalGoTo() {
-        console.log("islogged", userIsLogged);
-        if (userIsLogged) {
-            navigate("user-info");
-        } else {
-            navigate("identity");
-        }
 
-        handleClose()
+  const lang = i18n.language.slice(0, 2)
+  const { t } = useTranslation();
+
+  function notifyLogOutSuccess() {
+    toast.success("Logout", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 500,
+    });
+  }
+  function notifyLogOutError() {
+    toast.error("Errore nel Logout", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 2000,
+    });
+  }
+
+  function handleClose() {
+    setAnchorEl(null);
+  }
+
+  function handleMenu(event) {
+    setAnchorEl(event.currentTarget);
+  }
+
+
+  // if user is logged --> screen userInfo
+  // if user is not logged --> screen identity
+  function conditionalGoTo() {
+    console.log("islogged", userIsLogged);
+    if (userIsLogged) {
+      navigate("area-personale");
+    } else {
+      navigate("accedi");
     }
 
-    function conditionalGoToCart() {
-        console.log("islogged", userIsLogged);
-        if (userIsLogged) {
-            navigate("user-info/order-list");
-        } else {
-            navigate("identity");
-        }
+    handleClose();
+  }
 
-        handleClose()
+  function conditionalGoToCart() {
+    console.log("islogged", userIsLogged);
+    if (userIsLogged) {
+      navigate("area-personale/ordini");
+    } else {
+      navigate("accedi");
     }
     function conditionalGoToWishList() {
-        console.log("islogged", userIsLogged);
-        if (userIsLogged) {
-            navigate("wishlist");
-        } else {
-            navigate("identity");
-        }
+      console.log("islogged", userIsLogged);
+      if (userIsLogged) {
+        navigate("wishlist");
+      } else {
+        navigate("identity");
+      }
 
-        handleClose()
+      handleClose()
     }
 
-    function goToRegistration() {
-        navigate("identity/signup")
+    handleClose();
+  }
+
+  function goToRegistration() {
+    navigate("accedi/registrati");
+
+    handleClose();
+  }
+
+  async function userLogOut() {
+    try {
+      const response = await signOut(refreshToken, token);
+      console.log("SIGNOUT", response);
+
+      dispatch(removeUserCredentials());
+
+      dispatch(removeToken());
+
+      clearLocalStorage();
+
+      notifyLogOutSuccess();
+      setTimeout(() => {
+        navigate(`/${lang}/`);
+      }, 1500);
+    } catch {
+      notifyLogOutError();
     }
+  }
 
-    async function userLogOut() {
-        const response = await signOut(refreshToken, token)
-        console.log("SIGNOUT", response);
+  // function goToOrders() {
+  //     navigate("user-info/order-list")
+  // }
 
-        dispatch(
-            removeUserCredentials()
-        )
+  return (
+    <div className="userMenuNav">
+      <div>
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="menu-appbar"
+          aria-haspopup="true"
+          onClick={ handleMenu }
+          color="inherit"
+        >
+          <AccountCircle fontSize="large" />
+        </IconButton>
+        <Menu
+          className="myMenu"
+          id="menu-appbar"
+          anchorEl={ anchorEl }
+          anchorOrigin={ {
+            vertical: "center",
+            horizontal: 66,
+          } }
+          keepMounted
+          transformOrigin={ {
+            vertical: -30,
+            horizontal: "right",
+          } }
+          open={ Boolean(anchorEl) }
+          onClose={ handleClose }
+        >
+          <MenuItem onClick={ conditionalGoTo }>
+            <Avatar sx={ { marginRight: 2 } } />
+            { userIsLogged ? (
+              <p onClick={ conditionalGoTo } className="item">
+                <span>{ t("userMenuNav.profile") }</span>
+              </p>
+            ) : (
+              <p onClick={ conditionalGoTo } className="item">
+                { t("userMenuNav.logIn") }
+              </p>
+            ) }
+          </MenuItem>
+          <MenuItem onClick={ conditionalGoTo }>
+            { <p className="item">WishList</p> }
+          </MenuItem>
+          <MenuItem onClick={ conditionalGoToCart }>
+            { <p className="item">{ t("userMenuNav.orders") }</p> }
+          </MenuItem>
 
-        dispatch(
-            removeToken()
-        )
+          <Divider />
 
-        clearLocalStorage()
-        navigate(`/${lang}/`)
-    }
-
-    function goToOrders() {
-        navigate("user-info/order-list")
-    }
-
-
-
-    return (
-        <div className='userMenuNav'>
-
-            <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={ handleMenu }
-                color="inherit"
-            >
-
-                <AccountCircle fontSize='large' />
-            </IconButton>
-            <Menu
-                className='myMenu'
-                id="menu-appbar"
-                anchorEl={ anchorEl }
-                anchorOrigin={ {
-                    vertical: 'center',
-                    horizontal: 66,
-                } }
-                keepMounted
-                transformOrigin={ {
-                    vertical: -30,
-                    horizontal: "right",
-                } }
-                open={ Boolean(anchorEl) }
-                onClose={ handleClose }
-            >
-                <MenuItem onClick={ conditionalGoTo } >
-                    <Avatar sx={ { marginRight: 2 } } />
-                    { userIsLogged ?
-                        <p onClick={ conditionalGoTo } className='item'>
-                            <span>
-                                {/* { t("userMenuNav.profile") } */ }
-                                { userName.toUpperCase() }
-                            </span>
-                        </p> :
-                        <p onClick={ conditionalGoTo }
-                            className='item'>
-                            { t("userMenuNav.logIn") }</p> }
-                </MenuItem>
-                <MenuItem onClick={ conditionalGoToWishList }>
-                    {
-                        <p
-                            className='item'>
-                            WishList
-
-                            { userIsLogged && <span className='item__wishlistItems'>
-                                { wishlistItems }
-                            </span> }
-                        </p>
-                    }
-                </MenuItem>
-                <MenuItem onClick={ goToOrders }>
-                    {
-                        <p
-                            className='item'>
-                            { t("userMenuNav.orders") }
-                        </p>
-                    }
-                </MenuItem>
-
-                <Divider />
-
-
-                <MenuItem onClick={ handleClose }>
-                    <ListItemIcon>
-                        <Logout className='logOut' />
-                    </ListItemIcon>
-                    { userIsLogged ?
-                        <p onClick={ userLogOut }
-                            className='logOut__p'>
-                            Logout
-                        </p> :
-                        <p
-                            onClick={ goToRegistration }
-                            className='logOut__p'>
-                            Registrati
-                        </p>
-                    }
-                </MenuItem>
-            </Menu>
-
-        </div>
-    )
+          <MenuItem onClick={ handleClose }>
+            <ListItemIcon>
+              <Logout className="logOut" />
+            </ListItemIcon>
+            { userIsLogged ? (
+              <p onClick={ userLogOut } className="logOut__p">
+                Logout
+              </p>
+            ) : (
+              <p onClick={ goToRegistration } className="logOut__p">
+                Registrati
+              </p>
+            ) }
+          </MenuItem>
+        </Menu>
+      </div>
+      <ToastContainer hideProgressBar />
+    </div>
+  );
 }
 
-UserMenuNav.defaultProps = {
+UserMenuNav.defaultProps = {};
 
-}
-
-UserMenuNav.propTypes = {
-
-}
+UserMenuNav.propTypes = {};
 
 export default UserMenuNav;

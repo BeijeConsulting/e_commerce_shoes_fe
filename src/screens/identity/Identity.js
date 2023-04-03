@@ -14,7 +14,7 @@ function Identity() {
   const lang = i18n.language.slice(0, 2)
   const { t } = useTranslation()
   const location = useLocation();
-  console.log(location.pathname === `/${lang}/identity`)
+  console.log(location.pathname === `/${lang}/identity`);
   useEffect(() => {
     document.body.classList.add("background-grey");
 

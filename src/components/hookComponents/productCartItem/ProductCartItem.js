@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./productCartItem.scss";
 import CheckIcon from "@mui/icons-material/Check";
-import { Check } from "@mui/icons-material";
 import CloseIcon from "@mui/icons-material/Close";
+import { useSelector } from "react-redux";
 
 function ProductCartItem(props) {
+  const isLogged = useSelector((state) => state.userDuck.isLogged);
   const [state, setState] = useState({
     quantity: props.quantity,
     showConfirmQuantity: false,
@@ -18,7 +19,13 @@ function ProductCartItem(props) {
   const singleProductPrice = Number(props.price) / Number(props.quantity);
 
   function deleteItem() {
-    props.handleDelete(props.id, props.size, props.quantity, props.price);
+    props.handleDelete(
+      props.id,
+      props.productId,
+      props.size,
+      props.quantity,
+      props.price
+    );
   }
 
   function handleInput() {
@@ -28,19 +35,18 @@ function ProductCartItem(props) {
     // console.log(Number(inputField.current.value));
     let quantity = isInvalidInput ? props.quantity : inputField.current.value;
 
-    /* 1 - Far gestire la chiamata API dal parent in modo che possa aggiornare 
-        le props che passa ai children
-
-        2 - Fare la chiamata API direttamente dal children e far fare il re-rendering
-        con le props aggiornate da redux
-    */
-
     if (!isInvalidInput) {
       const deltaQuantity = Number(quantity) - Number(props.quantity);
       const deltaPrice = Number(singleProductPrice) * Number(deltaQuantity);
       console.log("deltaQuantity ", deltaQuantity);
       console.log("deltaPrice", deltaPrice);
-      props.handleList(props.id, props.size, deltaQuantity, deltaPrice);
+      props.handleList(
+        props.id,
+        props.productId,
+        props.size,
+        deltaQuantity,
+        deltaPrice
+      );
     }
 
     setState({

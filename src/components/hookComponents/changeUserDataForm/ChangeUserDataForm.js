@@ -6,20 +6,33 @@ import InputTextField from "../../functionalComponents/inputTextField/InputTextF
 import InputPasswordField from "../inputPasswordField/InputPasswordField";
 import Button from "../../functionalComponents/button/Button";
 // API
-import { refreshToken, updateUser } from '../../../services/authServices';
+import {
+  refreshToken,
+  signOut,
+  updateUser,
+} from "../../../services/authServices";
 // REDUX
-import { setUserCredentials } from '../../../redux/ducks/userDuck';
-import { useDispatch, useSelector } from 'react-redux';
-import { setToken } from '../../../redux/ducks/tokenDuck';
+import {
+  removeUserCredentials,
+  setUserCredentials,
+} from "../../../redux/ducks/userDuck";
+import { useDispatch, useSelector } from "react-redux";
+import { removeToken, setToken } from "../../../redux/ducks/tokenDuck";
 // i18n
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 // Utils
-import { setLocalStorage } from '../../../utils/localStorageUtils';
+import {
+  clearLocalStorage,
+  setLocalStorage,
+} from "../../../utils/localStorageUtils";
 // Libraries
 import { useForm } from "react-hook-form";
-import moment from 'moment';
+import moment from "moment";
 // SCSS
 import "./changeUserDataForm.scss";
+import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import i18n from "../../../assets/translations/i18n";
 
 function ChangeUserDataForm(props) {
   const [state, setState] = useState({
@@ -30,32 +43,86 @@ function ChangeUserDataForm(props) {
     invalidConditions: false,
   });
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
+  const emailReg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i;
   const passwordReg =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?])(?=.*[^\s]).{8,}$/;
 
-  const dispatch = useDispatch()
-  const userInfo = useSelector((state) => state.userDuck)
+  const token = useSelector((state) => state.tokenDuck.token);
+  const refreshT = useSelector((state) => state.tokenDuck.refreshToken);
+  const dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.userDuck);
+  const lang = i18n.language.slice(0, 2);
 
   console.log("USER INFO", userInfo);
 
-  const onSubmit = async (data) => {
+  function handleForm() {
+    props.toggleForm();
+  }
 
+  function notifyDataError() {
+    toast.error("Dati non validi", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 1000,
+    });
+  }
+  function notifyRefreshTokenError() {
+    toast.warning("Devi effettuare di nuovo il login", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 1000,
+    });
+  }
+  function notifyDataSuccess() {
+    toast.success("Dati modificati", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 500,
+    });
+  }
+
+  function notifyLogOutError() {
+    toast.error("Errore nel Logout", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 2000,
+    });
+  }
+
+  async function userLogOut() {
+    try {
+      const response = await signOut(refreshT, token);
+      console.log("SIGNOUT", response);
+
+      dispatch(removeUserCredentials());
+
+      dispatch(removeToken());
+
+      clearLocalStorage();
+
+      notifyRefreshTokenError();
+
+      setTimeout(() => {
+        navigate(`/${lang}/`);
+      }, 1500);
+    } catch {
+      notifyLogOutError();
+    }
+  }
+
+  const onSubmit = async (data) => {
     // inizializzo l'oggetto che va nella PUT API
     let newObj = {
       firstName: data.firstName,
       lastName: data.lastName,
       birthDate: data.birthDate,
       email: data.email,
-      password: data.password
-    }
+      password: data.password,
+    };
 
     let emailExist = false;
     let response = null;
     let error = null;
-
 
     let currentData = moment();
     let isInvalidAge = false;
@@ -73,50 +140,63 @@ function ChangeUserDataForm(props) {
     ////////////////////////////////////////////////////////////////////////
 
     // Check se l'input password è stato modificato, se non modificato non viene messo nella put
-    if (data.password === null || data.password === undefined || data.password === "") {
-      data.password = userInfo.password
-      newObj = {
-        first_name: data.firstName,
-        last_name: data.lastName,
-        birth_date: data.birthDate,
-        email: data.email,
-      }
-    }
 
-    // SISTEMARE LA UI DI ERRORE
-    // PUT API
     if (!isInvalidAge) {
-      try {
-        response = await updateUser(newObj)
-      } catch (err) {
-        error = err.response.data;
-      }
-    }
-
-    if (response.status === 200) {
-      dispatch(
-        setUserCredentials({
-          ...userInfo,
-          name: data.firstName,
-          surname: data.lastName,
-          birthDate: data.birthDate,
+      if (
+        data.password === null ||
+        data.password === undefined ||
+        data.password === ""
+      ) {
+        data.password = userInfo.password;
+        newObj = {
+          first_name: data.firstName,
+          last_name: data.lastName,
+          birth_date: data.birthDate,
           email: data.email,
-          password: data.password,
-          isLogged: true,
-        })
-      );
-      console.log("RESPONSE PUT", response)
+        };
+      }
 
-      const refresh = await refreshToken()
-      dispatch(
-        setToken({
-          token: refresh.data.token,
-          refreshToken: refresh.data.refreshToken
-        })
-      )
+      try {
+        response = await updateUser(newObj);
+      } catch (err) {
+        // error = err.response.data;
+        notifyDataError();
+      }
 
-      setLocalStorage("token", refresh.data.token)
-      setLocalStorage("refreshToken", refresh.data.refreshToken)
+      if (response.status === 200) {
+        dispatch(
+          setUserCredentials({
+            ...userInfo,
+            name: data.firstName,
+            surname: data.lastName,
+            birthDate: data.birthDate,
+            email: data.email,
+            password: data.password,
+            isLogged: true,
+          })
+        );
+        console.log("RESPONSE PUT", response);
+        notifyDataSuccess();
+        handleForm();
+
+        try {
+          const refresh = await refreshToken();
+          dispatch(
+            setToken({
+              token: refresh.data.token,
+              refreshToken: refresh.data.refreshToken,
+            })
+          );
+
+          setLocalStorage("token", refresh.data.token);
+          setLocalStorage("refreshToken", refresh.data.refreshToken);
+        } catch (err) {
+          console.log(err);
+          userLogOut();
+        }
+      }
+    } else {
+      notifyDataError();
     }
 
     setState({
@@ -131,6 +211,11 @@ function ChangeUserDataForm(props) {
   };
 
   function onError(err) {
+    console.log("error");
+    notifyDataError();
+
+    console.log(err?.password);
+
     setState({
       ...state,
       invalidEmail: err?.email ? true : false,
@@ -142,10 +227,9 @@ function ChangeUserDataForm(props) {
   }
 
   return (
-    <div className='userData__container'>
+    <div className="address__container">
       <form className="login-form" onSubmit={ handleSubmit(onSubmit, onError) }>
         <div className="login-form__input-container">
-
           <InputTextField
             inputName="email"
             defaultValueInput={ userInfo.email }
@@ -153,6 +237,7 @@ function ChangeUserDataForm(props) {
             inputType="text"
             inputPlaceholder="Email"
             register={ register }
+            regexValidation={ emailReg }
             labelStyle="default-label"
             inputStyle={ `default-input margin-top-small` }
           />
@@ -179,7 +264,6 @@ function ChangeUserDataForm(props) {
             inputStyle={ `default-input margin-top-small` }
           />
 
-
           <InputTextField
             inputName="birthDate"
             defaultValueInput={ userInfo.birthDate }
@@ -203,7 +287,7 @@ function ChangeUserDataForm(props) {
             regexValidation={ passwordReg }
             // isRequired={ true }
             labelStyle="default-label password-margin-top margin-top-extra"
-            inputStyle={ `default-input ${state.isInvalidNewPassword ? "default-input--error" : ""
+            inputStyle={ `default-input ${state.invalidPassword ? "default-input--error" : ""
               }` }
           />
         </div>
@@ -213,6 +297,7 @@ function ChangeUserDataForm(props) {
           buttonStyle="submit-button button-margin-top"
         />
       </form>
+      <ToastContainer hideProgressBar />
     </div>
   );
 }

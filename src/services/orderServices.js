@@ -1,9 +1,7 @@
 import { getDataAuth, postData, putData } from "../genericAxios/genericAxios";
 
-
 export async function getOrderList(SECRET) {
-
-  const response = await getDataAuth("/orders/order_list", SECRET);
+  const response = await getDataAuth("/orders/order_list");
 
   return { status: response.status, data: response.data };
 }

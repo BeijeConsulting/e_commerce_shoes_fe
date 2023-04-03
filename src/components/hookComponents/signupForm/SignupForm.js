@@ -2,27 +2,38 @@ import React, { useState } from "react";
 
 // REDUX
 import { setToken } from "../../../redux/ducks/tokenDuck";
+import "./signupForm.scss";
+import InputTextField from "../../functionalComponents/inputTextField/InputTextField";
+import Button from "../../functionalComponents/button/Button";
+import { useForm } from "react-hook-form";
+import moment from "moment/moment";
+import InputCheckbox from "../../functionalComponents/inputCheckbox/InputCheckbox";
+import InputPasswordField from "../inputPasswordField/InputPasswordField";
+import { signUp } from "../../../services/authServices";
+import {
+  getLocalStorage,
+  setLocalStorage,
+} from "../../../utils/localStorageUtils";
 import { useDispatch } from "react-redux";
 import { setUserCredentials } from "../../../redux/ducks/userDuck";
 // API
-import { signUp } from "../../../services/authServices";
 // Utils
-import { setLocalStorage } from "../../../utils/localStorageUtils";
 // Router
 import { useNavigate } from "react-router-dom";
 // Components
-import InputCheckbox from "../../functionalComponents/inputCheckbox/InputCheckbox";
-import InputPasswordField from "../inputPasswordField/InputPasswordField";
-import InputTextField from "../../functionalComponents/inputTextField/InputTextField";
-import Button from "../../functionalComponents/button/Button";
 import Seo from "../../functionalComponents/Seo";
 // Libraries
-import moment from "moment/moment";
-import { useForm } from "react-hook-form";
 // i18n
 import { useTranslation } from 'react-i18next';
 // SCSS
 import "./signupForm.scss";
+import {
+  addListItemToCartList,
+  getCartList,
+} from "../../../services/cartServices";
+import i18n from "../../../assets/translations/i18n";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function SignupForm() {
   const [state, setState] = useState({
@@ -38,10 +49,30 @@ function SignupForm() {
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const lang = i18n.language.slice(0, 2);
 
   const emailReg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i;
   const passwordReg =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?])(?=.*[^\s]).{8,}$/;
+
+  function notifySignupSuccess() {
+    toast.success("Registrato con successo", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 500,
+    });
+  }
+  function notifySignupError() {
+    toast.error("Dati non validi", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 1000,
+    });
+  }
+  function notifySignupEmailError() {
+    toast.error("Hai inserito una email esistente", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 1000,
+    });
+  }
 
   const onSubmit = async (data) => {
     let emailExist = false;
@@ -59,9 +90,18 @@ function SignupForm() {
       isInvalidAge = true;
     }
 
+    console.log(data);
+
     if (!isInvalidAge) {
       try {
-        response = await signUp(data);
+        response = await signUp({
+          birth_date: data.birthDate,
+          email: data.email,
+          first_name: data.firstName,
+          last_name: data.lastName,
+          password: data.password,
+          surname: data.lastName,
+        });
       } catch (err) {
         error = err.response.data;
       }
@@ -69,6 +109,8 @@ function SignupForm() {
       if (response && response.status === 200) {
         setLocalStorage("token", response.data.token);
         setLocalStorage("refreshToken", response.data.refreshToken);
+
+        console.log(response);
 
         dispatch(
           setToken({
@@ -87,12 +129,41 @@ function SignupForm() {
           })
         );
 
-        return navigate("/");
+        const localCart = getLocalStorage("cart-list");
+
+        if (localCart?.items?.length > 0) {
+          const items = localCart.items.map((item) => {
+            return {
+              id: item.productId,
+              productDetailsId: item.productDetailsId,
+              quantity: item.quantity,
+            };
+          });
+
+          console.log(items);
+          const listResp = await addListItemToCartList(items);
+          console.log(listResp);
+        }
+
+        const userCart = await getCartList();
+        console.log(userCart.data);
+        if (userCart.status === 200) {
+          setLocalStorage("cart-list", userCart.data);
+          console.log(getLocalStorage("cart-list"));
+        }
+
+        notifySignupSuccess();
+        setTimeout(() => {
+          return navigate(`/${lang}`);
+        }, 1500);
       }
 
       if (error.message.toLowerCase() === "email already in use!") {
         emailExist = true;
+        notifySignupEmailError();
       }
+    } else {
+      notifySignupError();
     }
 
     setState({
@@ -107,6 +178,7 @@ function SignupForm() {
   };
 
   const onError = (err) => {
+    notifySignupError();
     setState({
       ...state,
       invalidEmail: err?.email ? true : false,
@@ -222,6 +294,7 @@ function SignupForm() {
         />
       </div>
       <Button label="Sign Up" buttonStyle="submit-button button-margin-top" />
+      <ToastContainer hideProgressBar />
     </form>
   );
 }

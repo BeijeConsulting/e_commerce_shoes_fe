@@ -1,5 +1,11 @@
-import { getData, getDataAuth, postData, postDataAuth, putData, putDataAuth } from "../genericAxios/genericAxios";
-import { getLocalStorage } from '../utils/localStorageUtils';
+import {
+  getData,
+  getDataAuth,
+  postData,
+  postDataAuth,
+  putDataAuth,
+} from "../genericAxios/genericAxios";
+import { getLocalStorage } from "../utils/localStorageUtils";
 
 export async function authCheck() {
   const response = await getData("/check");
@@ -27,14 +33,20 @@ export async function updateUser(obj) {
 }
 
 export async function signOut(refreshToken, SECRET) {
-  const response = await postDataAuth("/sign_out", { refreshToken: refreshToken }, SECRET);
+  const response = await postDataAuth(
+    "/sign_out",
+    { refreshToken: refreshToken },
+    SECRET
+  );
 
   return { status: response?.status, data: response?.data };
 }
 
 export async function refreshToken() {
-  const refreshTokenStorage = getLocalStorage("refreshToken")
-  const response = await postData("/refresh_token", { refreshToken: refreshTokenStorage });
+  const refreshTokenStorage = getLocalStorage("refreshToken");
+  const response = await postData("/refresh_token", {
+    refreshToken: refreshTokenStorage,
+  });
 
   return { status: response?.status, data: response?.data };
 }

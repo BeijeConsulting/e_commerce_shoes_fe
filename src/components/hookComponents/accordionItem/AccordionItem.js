@@ -12,30 +12,9 @@ import { useTranslation } from 'react-i18next';
 import "./accordionItem.scss";
 
 function AccordionItem(props) {
-
-    const { t } = useTranslation()
-
-    const dataSingleProduct = [
-        {
-            title: t("accordion.description"),
-            answer: "Nike Court Vision Low è un classico rivisitato con materiali riciclati per almeno il 20% del suo peso, mentre la tomaia e gli strati esterni cuciti mantengono l'essenza dello stile originale. Il morbido collare a taglio basso assicura eleganza e comfort perfetti.",
-            id: 1
-        },
-        {
-            title: t("accordion.brand"),
-            answer: "Nike",
-            id: 2
-        },
-        {
-            title: t("accordion.details"),
-            answer: "Converse Court Vision Low è un classico rivisitato con materiali riciclati per almeno il 20% del suo peso, mentre la tomaia e gli strati esterni cuciti mantengono l'essenza dello stile originale. Il morbido collare a taglio basso assicura eleganza e comfort perfetti.",
-            id: 3
-        },
-    ]
-
-    function mapList(data) {
-        return (
-            <div className='accordion' key={ data.id }>
+    return (
+        <>
+            <div className='accordion'>
                 <Accordion sx={ { boxShadow: "none" } }>
                     <AccordionSummary
                         expandIcon={ <ExpandMoreIcon /> }
@@ -43,21 +22,15 @@ function AccordionItem(props) {
                         id="panel1a-header"
                         className='accordion__summary'
                     >
-                        <h2 className='accordion__title'>{ data.title }</h2>
+                        <h2 className='accordion__title'>Descrizione</h2>
                     </AccordionSummary>
                     <AccordionDetails className='accordion__details'>
                         <p className='accordion__answer'>
-                            { data.answer }
+                            { props.productDescription }
                         </p>
                     </AccordionDetails>
                 </Accordion>
             </div>
-        )
-    }
-
-    return (
-        <>
-            { dataSingleProduct.map(mapList) }
         </>
     )
 }

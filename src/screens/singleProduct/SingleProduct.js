@@ -27,13 +27,16 @@ import i18n from "../../assets/translations/i18n";
 import { useTranslation } from 'react-i18next';
 // Icons
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai"
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // SCSS
 import "./singleProduct.scss";
+import { addItemToCartList, getCartList } from '../../services/cartServices';
 
 function SingleProduct() {
   const [state, setState] = useState({
     product: [],
-    sizeSelected: false,
+    selectedSize: false,
   });
 
   const { t } = useTranslation()
@@ -47,20 +50,22 @@ function SingleProduct() {
   const navigate = useNavigate()
   const cartQuantity = useSelector((state) => state.userDuck.cartItems); //modificato lo state
 
-  const userIsLogged = useSelector((state) => state.userDuck.isLogged)
+  const isLogged = useSelector((state) => state.userDuck.isLogged)
   const token = useSelector((state) => state.userDuck.token)
   let sizeValue = useRef(null);
+  let productDetailsId = useRef(null);
 
   useEffect(() => {
     fetchProduct();
     fetchWishList()
-  }, [stateAdded]);
+  }, [stateAdded, lang]);
+
 
   async function fetchProduct() {
     const result = await getProduct(params.id, lang);
     setState({
       ...state,
-      product: result.data
+      product: result.data,
     });
 
   }
@@ -84,7 +89,7 @@ function SingleProduct() {
   // funzone per aggiungere prodotto alla wishlist
 
   async function addToWishlist() {
-    if (!userIsLogged) {
+    if (!isLogged) {
       navigate(`/${lang}/identity`)
     }
 
@@ -113,12 +118,45 @@ function SingleProduct() {
 
   ////////////////////////////////
 
-  function updateCart() {
+
+  function notifyAddToCartSuccess() {
+    toast.success("Aggiunto al carrello", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 1000,
+    });
+  }
+  function notifyAddToCartError() {
+    toast.error("Si è verificato un errore", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 1000,
+    });
+  }
+  function notifyAddToCartSizeError() {
+    toast.error("Devi selezionare una taglia", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 1000,
+    });
+  }
+  function notifyAddToWishlistSuccess() {
+    toast.success("Aggiunto alla whislist", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 1000,
+    });
+  }
+  function notifyAddToWishlistError() {
+    toast.success("Si è verificato un errore", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 1000,
+    });
+  }
+
+  async function updateCart() {
     let itemFound = undefined;
     let localData = getLocalStorage("cart-list");
     // console.log(localData);
-    if (!state.sizeSelected) {
+    if (!state.selectedSize) {
       // console.log("Seleziona una taglia");
+      notifyAddToCartSizeError();
       return;
     }
 
@@ -126,13 +164,14 @@ function SingleProduct() {
 
     if (!localData) {
       localData = {
-        info: {
-          numberItems: 1,
-          totalPrice: Number(state.product.listed_price).toFixed(2),
-        },
+        numberItems: 1,
+        totalPrice: Number(state.product.listed_price).toFixed(2),
+
         items: [
           {
-            id: state.product.id.toString(),
+            item_id: null,
+            productId: state.product.id.toString(),
+            productDetailsId: productDetailsId.current,
             name: state.product.name,
             brand: state.product.brand,
             quantity: 1,
@@ -149,7 +188,7 @@ function SingleProduct() {
         // console.log("item.size: " + item.size);
         // console.log("sizeValue: " + sizeValue.current);
         return (
-          item.id.toString() === state.product.id.toString() &&
+          item.productId.toString() === state.product.id.toString() &&
           item.size.toString() === sizeValue.current.toString()
         );
       });
@@ -159,7 +198,9 @@ function SingleProduct() {
       if (!itemFound) {
         // console.log("item not found");
         localData.items.push({
-          id: state.product.id.toString(),
+          item_id: null,
+          productId: state.product.id.toString(),
+          productDetailsId: productDetailsId.current,
           name: state.product.name,
           brand: state.product.brand,
           quantity: 1,
@@ -170,9 +211,9 @@ function SingleProduct() {
           ),
         });
 
-        localData.info.numberItems = Number(localData.info.numberItems) + 1;
-        localData.info.totalPrice =
-          Number(Number(localData.info.totalPrice).toFixed(2)) +
+        localData.numberItems = Number(localData.numberItems) + 1;
+        localData.totalPrice =
+          Number(Number(localData.totalPrice).toFixed(2)) +
           Number(Number(state.product.listed_price).toFixed(2));
 
         // console.log("------------------");
@@ -189,9 +230,9 @@ function SingleProduct() {
           Number(Number(itemFound.sellingItemTotalPrice).toFixed(2)) +
           Number(Number(state.product.listed_price).toFixed(2));
 
-        localData.info.numberItems = localData.info.numberItems + 1;
-        localData.info.totalPrice =
-          Number(Number(localData.info.totalPrice).toFixed(2)) +
+        localData.numberItems = localData.numberItems + 1;
+        localData.totalPrice =
+          Number(Number(localData.totalPrice).toFixed(2)) +
           Number(Number(state.product.listed_price).toFixed(2));
 
         // console.log(
@@ -202,8 +243,30 @@ function SingleProduct() {
       }
     }
     // console.log(localData);
+    if (isLogged) {
+      try {
+        const obj = {
+          id: state.product.id,
+          productDetailsId: productDetailsId.current,
+          quantity: 1,
+        };
+        console.log(obj);
+        const addItem = await addItemToCartList(obj);
+        console.log(addItem);
+
+        const localDataResponse = await getCartList();
+        if (localDataResponse.status === 200) {
+          localData = localDataResponse.data;
+        }
+        console.log("aggiunto");
+        notifyAddToCartSuccess();
+      } catch {
+        notifyAddToCartError();
+      }
+    }
 
     setLocalStorage("cart-list", localData);
+    if (!isLogged) notifyAddToCartSuccess();
   }
 
 
@@ -224,6 +287,8 @@ function SingleProduct() {
     const newSize = state.product.productSizes.find((size) => {
       return size.eu === e.target.value;
     });
+
+    productDetailsId.current = newSize.productDetailsId;
     // console.log(newSize.selling_price);
     setState({
       ...state,
@@ -231,8 +296,12 @@ function SingleProduct() {
         ...state.product,
         listed_price: Number(newSize.selling_price).toFixed(2),
       },
-      sizeSelected: true,
+      selectedSize: true,
     });
+  }
+
+  function goToBrandPage() {
+    navigate(`/${lang}/brand/${state.product?.brand.toLowerCase()}`);
   }
 
   return (
@@ -246,9 +315,15 @@ function SingleProduct() {
         <header>
           <div className="header__container">
             <p className="header__category">{ state.product?.category }</p>
-            <p className="header__price">€ { state.product?.listed_price }</p>
+            <p className="header__price">
+              { state.selectedSize
+                ? `${state.product?.listed_price}€`
+                : `prezzo di listino ${state.product?.listed_price}€` }
+            </p>
           </div>
-          <h2 className="header__brand">{ state.product?.brand }</h2>
+          <h2 className="header__brand">
+            <a onClick={ goToBrandPage }>{ state.product?.brand }</a>
+          </h2>
           <p className="header__name">{ state.product?.name }</p>
         </header>
 
@@ -301,12 +376,19 @@ function SingleProduct() {
 
 
             <p className="info__p">{ t("singleProduct.sizeTable") }</p>
-            <AccordionItem />
+
+            {/* <p className="info__p">Tabella taglie</p> */ }
+            <AccordionItem
+              productDescription={ state.product?.description }
+              productBrand={ state.product?.brand }
+            />
           </div>
         </div>
       </div>
+      <ToastContainer hideProgressBar />
     </>
   );
+
 }
 
 SingleProduct.defaultProps = {};

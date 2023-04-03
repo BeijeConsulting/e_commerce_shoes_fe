@@ -22,21 +22,23 @@ import i18n from '../../../assets/translations/i18n';
 import { getCategories } from "../../../services/productServices";
 import WishListNav from '../wishListNav/WishListNav';
 import { useSelector } from 'react-redux';
+import { useTranslation } from "react-i18next";
 
 function Header() {
   const navigate = useNavigate();
   const userIsLogged = useSelector((state) => state.userDuck.isLogged)
   const lang = i18n.language.slice(0, 2);
+  const { t } = useTranslation();
 
   const menu = [
     {
-      top: "uomo",
-      path: "men",
+      top: t("header.men"),
+      path: "uomo",
       bottom: true,
     },
     {
-      top: "donna",
-      path: "woman",
+      top: t("header.woman"),
+      path: "donna",
       bottom: true,
     },
     {
@@ -45,13 +47,13 @@ function Header() {
       bottom: true,
     },
     {
-      top: "brand",
-      path: "brands",
+      top: t("header.brands"),
+      path: `brand`,
       bottom: false,
     },
     {
-      top: "novità",
-      path: "new",
+      top: t("header.new"),
+      path: "novita",
       bottom: false,
     },
   ];
@@ -68,14 +70,15 @@ function Header() {
 
   async function fetchCategories() {
     let categories = [];
-    const result = await getCategories("it");
+    const result = await getCategories(lang);
     for (let i = 0; i < result.data.length; i++) {
       categories.push({
         anchor: result.data[i].category.toLowerCase(),
-        path: result.data[i].category.includes(" ") ? result.data[i].category.toLowerCase().split(" ").join("-") : result.data[i].category.toLowerCase(),
+        path: result.data[i].code.includes(" ") ? result.data[i].code.toLowerCase().split(" ").join("-") : result.data[i].code.toLowerCase(),
 
       })
     }
+    console.log(categories)
     setState(
       {
         ...state,
@@ -104,7 +107,7 @@ function Header() {
 
   function goToHome(e) {
     e.preventDefault();
-    navigate(`/${lang}/`);
+    navigate("");
   }
 
   function searchProducts(e) {
@@ -112,7 +115,7 @@ function Header() {
     if (!e.target.value) return;
     const term = e.target.value.split(" ").join("-");
     e.target.value = "";
-    navigate(`search?q=${term}`);
+    navigate(`ricerca?q=${term}`);
   }
 
   return (
@@ -197,6 +200,7 @@ function Header() {
         </div>
         <div className="main-header__bottom">
           <TextField
+            onKeyUp={ searchProducts }
             fullWidth
             InputProps={ {
               startAdornment: (

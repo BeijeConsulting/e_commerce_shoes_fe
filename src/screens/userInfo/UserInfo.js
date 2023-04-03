@@ -22,7 +22,7 @@ function UserInfo(props) {
 
   // if user is not logged --> go to identityScreen 
   useEffect(() => {
-    if (!tokenStorage) navigate("/identity")
+    if (!tokenStorage) navigate("/accedi")
 
     // console.log("TOKENstorage", tokenStorage)
     // console.log("TOKEN", token)
@@ -31,33 +31,33 @@ function UserInfo(props) {
   return (
     <div className='userInfo'>
       <Seo
-        title={ t("userInfo.title") }
+        title={t("userInfo.title")}
         description="FAQ"
         content="e-commerce"
       />
-      <h1>{ t("userInfo.myAccount") }</h1>
+      <h1>{t("userInfo.myAccount")}</h1>
 
       <div className='userInfo__navlink'>
         <NavLink
-          to={ "address-list" }
-          className={ "customer__list" }
+          to={"address-list"}
+          className={"customer__list"}
         >
-          { t("userInfo.addresses") }
+          {t("userInfo.addresses")}
         </NavLink>
 
         <NavLink
-          to={ "" }
-          className={ "customer__list" }
+          to={""}
+          className={"customer__list"}
         >
-          { t("userInfo.personalData") }
+          {t("userInfo.personalData")}
         </NavLink>
 
         <NavLink
-          to={ "order-list" }
-          className={ `customer__list ${location.pathname === `user-info/order-list` ? "active" : ""
-            }` }
+          to={"order-list"}
+          className={`customer__list ${location.pathname === `user-info/order-list` ? "active" : ""
+            }`}
         >
-          <p>{ t("userInfo.orderList") }</p>
+          <p>{t("userInfo.orderList")}</p>
         </NavLink>
       </div>
       <Outlet />

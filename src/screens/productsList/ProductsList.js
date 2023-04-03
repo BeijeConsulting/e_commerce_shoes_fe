@@ -5,43 +5,50 @@ import ProductCard from '../../components/functionalComponents/ProductCard/Produ
 import ProductGridLayout from '../../components/functionalComponents/productGridLayout/ProductGridLayout';
 import FilterMenu from "../../components/hookComponents/filterMenu/FilterMenu";
 import { useLocation } from "react-router-dom";
-import { useTranslation } from 'react-i18next';
 import i18n from "../../assets/translations/i18n";
+import Pagination from '@mui/material/Pagination';
 
 function ProductsList() {
     const location = useLocation();
     const { pathname } = location;
     const lang = i18n.language.slice(0, 2);
-    const types = ["men", "woman", "unisex"]
-
-    const { t } = useTranslation()
+    const types = ["uomo", "donna", "unisex"]
+    const pathToArray = pathname.split("/").filter(item => item !== "");
 
     const [state, setState] = useState(
         {
             products: [],
+            query: "",
+            pages: null,
+            currentPage: 1,
         }
     )
 
     useEffect(() => {
         fetchProducts();
-    }, [pathname, t]);
+    }, [pathname]);
 
 
-    async function fetchProducts(obj = null) {
+    async function fetchProducts(obj = undefined) {
         let type = null;
         let category = null;
+        let brand = null;
         let result = null;
         let query = "";
 
-        const pathToArray = pathname.split("/").filter(item => item !== "");
+        if (pathToArray[2] === types[0]) type = "m";
+        if (pathToArray[2] === types[1]) type = "w";
+        if (pathToArray[2] === types[2]) type = "u";
 
         if (pathToArray.length === 3) {
-            if (pathToArray[2] !== "new") {
-                type = pathToArray[2].slice(0, 1);
+            if (pathToArray[2] !== "novita") {
                 query = `?type=${type}`;
             }
+            if (pathToArray[1] === "brand") {
+                brand = pathToArray[2].split("-").join("%20");
+                query = `?brand=${brand}`;
+            }
         } else if (pathToArray.length === 4) {
-            type = pathToArray[2].slice(0, 1);
             category = pathToArray[3].split("-").join("%20");
             query = `?type=${type}&category=${category}`;
         }
@@ -49,14 +56,42 @@ function ProductsList() {
         if (obj) {
             if (obj.type === null) obj.type = type;
             if (obj.category === null) obj.category = category;
+            if (obj.brand === null) obj.brand = brand;
             query = getQuery(obj);
         }
 
-        result = await getProductsList(0, query);
+        if (pathToArray[2] === "novita") {
+            result = await getNewProductsList(state.currentPage, lang, query);
+        } else {
+            result = await getProductsList(state.currentPage, lang, query);
+        }
+
+        console.log(query)
+
+        console.log("RESULT", result.data);
 
         setState({
             ...state,
             products: result.data.products,
+            pages: result.data.pages,
+            query,
+        })
+    };
+
+    async function fetchPaginatedProducts(e, p) {
+        const query = state.query;
+        let result = null;
+
+        if (pathToArray[2] === "new") {
+            result = await getNewProductsList(p, lang, query);
+        } else {
+            result = await getProductsList(p, lang, query);
+        }
+
+        setState({
+            ...state,
+            products: result.data.products,
+            currentPage: p,
         })
     };
 
@@ -84,8 +119,7 @@ function ProductsList() {
             category={item.category}
             brand={item.brand}
             name={item.name}
-            initialPrice={item.starting_price}
-            price={item.starting_price + 30}
+            price={item.starting_price}
             idProduct={item.id}
         />
     }
@@ -99,6 +133,11 @@ function ProductsList() {
             <ProductGridLayout>
                 {state.products?.map(mapProducts)}
             </ProductGridLayout>
+            {
+                state.pages > 1 && <div className="pagination">
+                    <Pagination onChange={fetchPaginatedProducts} page={state.currentPage} count={state.pages} size={"large"} />
+                </div>
+            }
         </div>
     )
 }

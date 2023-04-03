@@ -3,12 +3,11 @@ import "./cartHeader.scss";
 import { useNavigate } from "react-router-dom";
 
 import Button from "../button/Button";
-
 function CartHeader(props) {
   const navigate = useNavigate();
 
   function goToCheckout() {
-    navigate("/checkout");
+    navigate("checkout");
   }
 
   return (

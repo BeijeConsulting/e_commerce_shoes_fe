@@ -6,9 +6,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { useNavigate } from "react-router-dom";
+import i18n from "../../../assets/translations/i18n";
 
 
 function MobileMenu(props) {
+    const lang = i18n.language.slice(0, 2);
     const navigate = useNavigate();
     const [state, setState] = useState({
         active: null,
@@ -23,13 +25,15 @@ function MobileMenu(props) {
     }
 
     function mapMobileMenu(item, key) {
+        let path = `scarpe/${item.path}`;
         let showItem = false;
         if (state.active === key || state.active === null) showItem = true;
 
         if (item.bottom === false) {
+            if (item.path === "brand") path = `/${lang}/brand`;
             return <li key={`${key}-${Math.random()}`}>
                 {state.active === null && <div
-                    onClick={() => goTo(`products/${item.path}`)}
+                    onClick={() => goTo(path)}
                     className={"mobile-menu__item"}
                 >
                     <div>{item.top}</div>

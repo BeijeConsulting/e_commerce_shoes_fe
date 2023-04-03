@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
-import {
-  getLocalStorage,
-  setLocalStorage,
-} from "../../../utils/localStorageUtils";
+// import PropTypes from "prop-types";
+import { getLocalStorage } from "../../../utils/localStorageUtils";
 // Redux
 import { useSelector } from "react-redux";
 // Router
@@ -14,10 +11,11 @@ import Button from "../../functionalComponents/button/Button";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Badge, Divider, IconButton, Menu, MenuItem } from "@mui/material";
 // Images
-import shoe from "../../../assets/images/singleProduct/shoe1.jpeg";
+// import shoe from "../../../assets/images/singleProduct/shoe1.jpeg";
 //SCSS
 import "./cartNavMenu.scss";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
+// import { useTranslation } from "react-i18next";
 
 function CartNavMenu() {
   const [state, setState] = useState({
@@ -36,14 +34,13 @@ function CartNavMenu() {
 
     if (!storage) {
       const initCartList = {
-        info: {
-          numberItems: 0,
-          totalPrice: "0.00",
-        },
+        numberItems: 0,
+        totalPrice: "0.00",
+
         items: [],
       };
 
-      setLocalStorage("cart-list", initCartList);
+      // setLocalStorage("cart-list", initCartList);
       return structuredClone(initCartList);
     }
     return structuredClone(storage);
@@ -64,31 +61,31 @@ function CartNavMenu() {
   }
 
   function goToCart() {
-    navigate("cart");
+    navigate("carrello");
   }
 
-  const dataProducts = [
-    {
-      name: "Nike Air Zoom",
-      brand: "Nike",
-      listedPrice: 199.0,
-      sellingPrice: 40.0,
-      productSize: "M41",
-      quantity: 1,
-    },
-    {
-      name: "Nike Air Zoom",
-      brand: "Nike",
-      listedPrice: 199.0,
-      sellingPrice: 40.0,
-      productSize: "M41",
-      quantity: 1,
-    },
-  ];
+  // const dataProducts = [
+  //   {
+  //     name: "Nike Air Zoom",
+  //     brand: "Nike",
+  //     listedPrice: 199.0,
+  //     sellingPrice: 40.0,
+  //     productSize: "M41",
+  //     quantity: 1,
+  //   },
+  //   {
+  //     name: "Nike Air Zoom",
+  //     brand: "Nike",
+  //     listedPrice: 199.0,
+  //     sellingPrice: 40.0,
+  //     productSize: "M41",
+  //     quantity: 1,
+  //   },
+  // ];
 
   function mapList(item) {
     return (
-      <div key={ "00" + item.id + item.size }>
+      <div key={ "00" + item.productCartId + item.size }>
         <MenuItem>
           <div className="cartNavMenu__menu">
             <div className="cartNavMenu__image">
