@@ -23,6 +23,7 @@ function CartNavMenu() {
   });
 
   const cartQuantity = useSelector((state) => state.userDuck.cartItems);
+  console.log("CARTQUANTITY" + cartQuantity);
 
   // const { t } = useTranslation();
 

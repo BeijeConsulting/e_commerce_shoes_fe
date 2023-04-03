@@ -7,7 +7,7 @@ import SingleProductSlider from "../../components/hookComponents/singleProductSl
 import InfoProductBox from "../../components/functionalComponents/infoProductBox/InfoProductBox";
 import AccordionItem from "../../components/hookComponents/accordionItem/AccordionItem";
 import { useDispatch, useSelector } from "react-redux";
-import { updateCartQuantity } from "../../redux/ducks/productCartDuck";
+import { updateCartQuantity } from "../../redux/ducks/userDuck";
 import { getProduct } from "../../services/productServices";
 import { useParams, useNavigate } from "react-router-dom";
 import {
@@ -89,8 +89,6 @@ function SingleProduct() {
       notifyAddToCartSizeError();
       return;
     }
-
-    dispatch(updateCartQuantity({ quantity: cartQuantity + 1 }));
 
     if (!localData) {
       localData = {
@@ -189,6 +187,10 @@ function SingleProduct() {
           localData = localDataResponse.data;
         }
         console.log("aggiunto");
+
+        console.log("UPDATE");
+        dispatch(updateCartQuantity(cartQuantity + 1));
+
         notifyAddToCartSuccess();
       } catch {
         notifyAddToCartError();

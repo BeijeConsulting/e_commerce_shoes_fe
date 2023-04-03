@@ -106,15 +106,15 @@ function SignupForm() {
           })
         );
 
-        dispatch(
-          setUserCredentials({
-            name: response.data.user.name,
-            birthDate,
-            email: response.data.user.email,
-            surname: response.data.user.surname,
-            isLogged: true,
-          })
-        );
+        // dispatch(
+        //   setUserCredentials({
+        //     name: response.data.user.name,
+        //     birthDate,
+        //     email: response.data.user.email,
+        //     surname: response.data.user.surname,
+        //     isLogged: true,
+        //   })
+        // );
 
         const localCart = getLocalStorage("cart-list");
 
@@ -138,6 +138,17 @@ function SignupForm() {
           setLocalStorage("cart-list", userCart.data);
           console.log(getLocalStorage("cart-list"));
         }
+
+        dispatch(
+          setUserCredentials({
+            name: response.data.user.name,
+            surname: response.data.user.surname,
+            email: response.data.user.email,
+            birthDate,
+            cartItems: userCart.data.numberItems,
+            isLogged: true,
+          })
+        );
 
         notifySignupSuccess();
         setTimeout(() => {

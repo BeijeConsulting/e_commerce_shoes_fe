@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import "./checkout.scss";
 
 import RecapCart from "../../components/functionalComponents/recapCart/RecapCart";
@@ -7,14 +7,20 @@ import Button from "../../components/functionalComponents/button/Button";
 import CheckoutProduct from "../../components/functionalComponents/checkoutProduct/CheckoutProduct";
 import Seo from "../../components/functionalComponents/Seo";
 import { useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import { Link } from "react-router-dom";
+import i18n from "../../assets/translations/i18n";
 
 function Checkout() {
-  // const location = useLocation();
   const [state, setState] = useState({
     address_id: null,
+    paymentMethod: null,
     payment_status: "string",
     status: "string",
   });
+
+  const lang = i18n.language;
+  const navigate = useNavigate();
 
   useEffect(() => console.log(state));
 
@@ -24,7 +30,27 @@ function Checkout() {
 
   console.log(orderData);
 
-  const setDeliveriAddress = (addressId) => () => {
+  function notifyAddressError() {
+    toast.warning("Devi selezionare un indirizzo di spedizione", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 2000,
+    });
+  }
+  function notifyPaymentError() {
+    toast.warning("Devi selezionare un metodo di pagamento", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 2000,
+    });
+  }
+
+  function notifyOrderSuccess() {
+    toast.success("Ordine effettuato", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 1000,
+    });
+  }
+
+  const setDeliveryAddress = (addressId) => () => {
     setState({
       ...state,
       address_id: addressId,
@@ -66,14 +92,35 @@ function Checkout() {
           type={"radio"}
           name="delivery-address"
           id={`delivery-address-${key}`}
-          onChange={setDeliveriAddress(address.id)}
+          onChange={setDeliveryAddress(address.id)}
         />
       </li>
     );
   }
 
+  const handlePaymentMethod = (method) => () => {
+    setState({
+      ...state,
+      paymentMethod: method,
+    });
+  };
+
   function submitOrder() {
     console.log("ordine confermato", state.order);
+    if (state.address_id === null) {
+      notifyAddressError();
+      return;
+    }
+
+    if (state.paymentMethod === null) {
+      notifyPaymentError();
+      return;
+    }
+
+    notifyOrderSuccess();
+    setTimeout(() => {
+      navigate(`/${lang}`);
+    }, 1500);
   }
 
   return (
@@ -118,7 +165,12 @@ function Checkout() {
                 />
               </li> */}
             </ul>
-            <a className="__add-address">Aggiungi un nuovo indirizzo</a>
+            <Link
+              to={`/${lang}/area-personale/indirizzi`}
+              className="__add-address"
+            >
+              Aggiungi un nuovo indirizzo
+            </Link>
           </div>
           <div className="__container">
             <h2>opzioni di pagamento</h2>
@@ -128,6 +180,7 @@ function Checkout() {
                   type={"radio"}
                   name="payment-methods"
                   id="payment-methods-1"
+                  onChange={handlePaymentMethod("Credit-card")}
                 />
                 <label htmlFor="payment-methods-1">
                   <img
@@ -142,6 +195,7 @@ function Checkout() {
                   type={"radio"}
                   name="payment-methods"
                   id="payment-methods-2"
+                  onChange={handlePaymentMethod("PayPal")}
                 />
                 <label htmlFor="payment-methods-2">
                   <img
@@ -156,6 +210,7 @@ function Checkout() {
                   type={"radio"}
                   name="payment-methods"
                   id="payment-methods-3"
+                  onChange={handlePaymentMethod("Klarna")}
                 />
                 <label htmlFor="payment-methods-3">
                   <img
@@ -205,6 +260,7 @@ function Checkout() {
           />
         </div>
       </div>
+      <ToastContainer hideProgressBar />
     </div>
   );
 }

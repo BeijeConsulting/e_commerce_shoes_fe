@@ -73,19 +73,20 @@ function LoginForm() {
         const user = await getUser(response.data.token);
 
         console.log("USER", user);
+        console.log(user.data.cart_items);
 
-        dispatch(
-          setUserCredentials({
-            name: user.data.first_name,
-            surname: user.data.last_name,
-            email: user.data.email,
-            adresses: [...user.data.addresses],
-            birthDate: user.data.birth_date,
-            cartItems: user.data.cart_items,
-            wishListItems: user.data.wish_list_item,
-            isLogged: true,
-          })
-        );
+        // dispatch(
+        //   setUserCredentials({
+        //     name: user.data.first_name,
+        //     surname: user.data.last_name,
+        //     email: user.data.email,
+        //     adresses: [...user.data.addresses],
+        //     birthDate: user.data.birth_date,
+        //     cartItems: user.data.cart_items,
+        //     wishListItems: user.data.wish_list_item,
+        //     isLogged: true,
+        //   })
+        // );
 
         dispatch(
           setToken({
@@ -131,7 +132,7 @@ function LoginForm() {
             email: user.data.email,
             adresses: [...user.data.addresses],
             birthDate: user.data.birth_date,
-            // cartItems: user.data.cart_items,
+            cartItems: user.data.cart_items,
             wishListItems: user.data.wish_list_item,
             isLogged: true,
           })

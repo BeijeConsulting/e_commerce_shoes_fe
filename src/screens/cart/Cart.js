@@ -18,12 +18,13 @@ import {
 
 // import imageProduct from "../../assets/images/singleProduct/shoe1.jpeg";
 import Seo from "../../components/functionalComponents/Seo";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getCoupon } from "../../services/orderServices";
 import { useNavigate } from "react-router";
 import i18n from "../../assets/translations/i18n";
+import { updateCartQuantity } from "../../redux/ducks/userDuck";
 // const cartList = {
 //   items: [
 //     {
@@ -65,6 +66,7 @@ import i18n from "../../assets/translations/i18n";
 function Cart() {
   let localData = getCartStoredList();
   const isLogged = useSelector((state) => state.userDuck.isLogged);
+  const cartItemsNumber = useSelector((state) => state.userDuck.cartItems);
   const [state, setState] = useState({
     cart: localData,
     couponValue: 0,
@@ -72,6 +74,7 @@ function Cart() {
   });
   const navigate = useNavigate();
   const lang = i18n.language;
+  const dispatch = useDispatch();
 
   function notifyCartUpdateSuccess() {
     toast.success("Quantità modificata", {
@@ -173,6 +176,7 @@ function Cart() {
             localData = getUpdate.data;
           }
         }
+        dispatch(updateCartQuantity(cartItemsNumber - quantity));
         notifydeleteCartItemSuccess();
       } catch {
         notifydeleteCartItemError();
@@ -250,6 +254,7 @@ function Cart() {
             localData = getUpdate.data;
           }
         }
+        dispatch(updateCartQuantity(cartItemsNumber + deltaQuantity));
         notifyCartUpdateSuccess();
       } catch {
         notifyCartUpdateError();
