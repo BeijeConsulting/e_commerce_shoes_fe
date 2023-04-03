@@ -90,10 +90,8 @@ function ChangeUserDataForm(props) {
   }
 
   async function userLogOut() {
-    try {
-      const response = await signOut(refreshT, token);
-      console.log("SIGNOUT", response);
-
+    const response = await signOut(refreshT, token);
+    if (response.status < 300) {
       dispatch(removeUserCredentials());
 
       dispatch(removeToken());
@@ -105,7 +103,7 @@ function ChangeUserDataForm(props) {
       setTimeout(() => {
         navigate(`/${lang}/`);
       }, 1500);
-    } catch {
+    } else {
       notifyLogOutError();
     }
   }
@@ -121,8 +119,6 @@ function ChangeUserDataForm(props) {
     };
 
     let emailExist = false;
-    let response = null;
-    let error = null;
 
     let currentData = moment();
     let isInvalidAge = false;
@@ -156,12 +152,7 @@ function ChangeUserDataForm(props) {
         };
       }
 
-      try {
-        response = await updateUser(newObj);
-      } catch (err) {
-        // error = err.response.data;
-        notifyDataError();
-      }
+      const response = await updateUser(newObj);
 
       if (response.status === 200) {
         dispatch(
@@ -179,8 +170,8 @@ function ChangeUserDataForm(props) {
         notifyDataSuccess();
         handleForm();
 
-        try {
-          const refresh = await refreshToken();
+        const refresh = await refreshToken();
+        if (refresh.status < 300) {
           dispatch(
             setToken({
               token: refresh.data.token,
@@ -190,8 +181,8 @@ function ChangeUserDataForm(props) {
 
           setLocalStorage("token", refresh.data.token);
           setLocalStorage("refreshToken", refresh.data.refreshToken);
-        } catch (err) {
-          console.log(err);
+        } else {
+          console.log(refresh);
           userLogOut();
         }
       }
@@ -273,9 +264,8 @@ function ChangeUserDataForm(props) {
             register={register}
             isRequired={true}
             labelStyle="default-label margin-top-extra"
-            inputStyle={`default-input margin-top-small ${
-              state.invalidAge ? "default-input--error" : ""
-            }`}
+            inputStyle={`default-input margin-top-small ${state.invalidAge ? "default-input--error" : ""
+              }`}
           />
 
           <InputPasswordField
@@ -288,9 +278,8 @@ function ChangeUserDataForm(props) {
             regexValidation={passwordReg}
             // isRequired={ true }
             labelStyle="default-label password-margin-top margin-top-extra"
-            inputStyle={`default-input ${
-              state.invalidPassword ? "default-input--error" : ""
-            }`}
+            inputStyle={`default-input ${state.invalidPassword ? "default-input--error" : ""
+              }`}
           />
         </div>
 

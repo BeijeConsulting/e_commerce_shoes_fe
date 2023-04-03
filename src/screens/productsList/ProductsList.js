@@ -66,13 +66,11 @@ function ProductsList() {
             result = await getProductsList(state.currentPage, lang, query);
         }
 
-        console.log(query)
-
-        console.log("RESULT", result.data);
+        console.log("RISULTATO OTTENUTO", result);
 
         setState({
             ...state,
-            products: result.data.products,
+            products: result.data?.products,
             pages: result.data.pages,
             query,
         })
@@ -82,7 +80,7 @@ function ProductsList() {
         const query = state.query;
         let result = null;
 
-        if (pathToArray[2] === "new") {
+        if (pathToArray[2] === "novita") {
             result = await getNewProductsList(p, lang, query);
         } else {
             result = await getProductsList(p, lang, query);
