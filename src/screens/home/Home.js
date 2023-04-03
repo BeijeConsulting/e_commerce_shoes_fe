@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import "./home.scss";
 
 // Components
 import SliderHomepage from "../../components/hookComponents/sliderHomepage/SliderHomepage";
@@ -7,98 +8,43 @@ import ProductSlider from "../../components/hookComponents/productSlider/Product
 
 // Images
 import boxNuoviArrivi from "../../assets/images/box/boxNuoviArrivi.jpeg";
+import CategoryCard from "../../components/hookComponents/categoryCard/CategoryCard";
 import boxNuoviArriviLifeStyle from "../../assets/images/box/boxNuoviArriviLifestyle.jpeg";
 import Seo from "../../components/functionalComponents/Seo";
-import ProductCard from "../../components/functionalComponents/ProductCard/ProductCard";
-// import ProductCard from "../../components/functionalComponents/ProductCard/ProductCard";
-// import productCardImg from "../../assets/images/productCardImg.jpg";
-
-const sampleData = [
-  {
-    id: 1,
-    name: "Zoom Rush",
-    category: "Corsa",
-    brand: "Nike",
-    starting_price: 67.0,
-    image_preview: "test",
-  },
-  {
-    id: 2,
-    name: "All Star",
-    category: "Sneakers",
-    brand: "Converse",
-    starting_price: 31.0,
-    image_preview: "",
-  },
-  {
-    id: 3,
-    name: "King Pro",
-    category: "Calcio",
-    brand: "Puma",
-    starting_price: 46.0,
-    image_preview: "",
-  },
-  {
-    id: 4,
-    name: "Ultra Boost",
-    category: "Corsa",
-    brand: "Adidas",
-    starting_price: 52.0,
-    image_preview: "/blablabla",
-  },
-  {
-    id: 5,
-    name: "Old Skool Pro",
-    category: "Skate",
-    brand: "Vans",
-    starting_price: 70.0,
-    image_preview: "/boh",
-  },
-  {
-    id: 6,
-    name: "Disruptor Lite",
-    category: "Fitness",
-    brand: "Fila",
-    starting_price: 44.0,
-    image_preview: "",
-  },
-  {
-    id: 7,
-    name: "Nano X",
-    category: "Cross training",
-    brand: "Reebok",
-    starting_price: 78.0,
-    image_preview: "",
-  },
-  {
-    id: 8,
-    name: "Fresh Foam Arishi",
-    category: "Camminata",
-    brand: "New Balance",
-    starting_price: 80.0,
-    image_preview: "",
-  },
-  {
-    id: 9,
-    name: "Gel Sonoma",
-    category: "Trail running",
-    brand: "Asics",
-    starting_price: 100.0,
-    image_preview: "",
-  },
-  {
-    id: 10,
-    name: "Curry Flow 9",
-    category: "Basketball",
-    brand: "Under Armour",
-    starting_price: 110.0,
-    image_preview: "",
-  },
-];
+import { getProductsList } from "../../services/productServices";
+import i18n from "../../assets/translations/i18n";
+import { useTranslation } from 'react-i18next';
 
 function Home() {
+  const lang = i18n.language.slice(0, 2);
+  const { t } = useTranslation();
+  const [state, setState] = useState(
+    {
+      men: [],
+      woman: [],
+      unisex: [],
+    }
+  );
+
+  useEffect(() => {
+    fetchProducts();
+  }, [])
+
+  async function fetchProducts() {
+    const men = await getProductsList(1, lang, "?type=m&orderBy=date", 8);
+    const woman = await getProductsList(1, lang, "?type=w&orderBy=date", 8);
+    const unisex = await getProductsList(1, lang, "?type=m&orderBy=date", 8);
+    console.log(men.data)
+    setState({
+      ...state,
+      men: men?.data?.products,
+      woman: woman?.data?.products,
+      unisex: unisex?.data?.products,
+    });
+  }
+
   return (
-    <>
+    <div className="homepage">
       <Seo
         // lang="it"
         title="Belle Scarpe"
@@ -106,27 +52,26 @@ function Home() {
         content="e-commerce"
       />
       <SliderHomepage pagination={true} navigation={true} autoplay={true} />
-      <div className="container__boxSlider">
-        <BoxImage image={boxNuoviArrivi} />
-        <ProductSlider />
+      <div className="homepage__category-cards">
+        <CategoryCard typology={t("header.men")} goTo={"scarpe/uomo"} image={"https://www.cisalfasport.it/on/demandware.static/-/Library-Sites-CisalfaSharedLibrary/default/dw293de7bc/1-HP/febbraio-marzo-aprile-23/3boxes/3boxes-2023-btm-mobile-uomo-640x360px.jpg"} />
+        <CategoryCard typology={t("header.woman")} goTo={"scarpe/donna"} image={"https://www.cisalfasport.it/on/demandware.static/-/Library-Sites-CisalfaSharedLibrary/default/dw429bc565/1-HP/febbraio-marzo-aprile-23/3boxes/3boxes-2023-btm-mobile-donna-640x360px.jpg"} />
+        <CategoryCard typology={"unisex"} goTo={"scarpe/unisex"} image={"https://www.cisalfasport.it/on/demandware.static/-/Library-Sites-CisalfaSharedLibrary/default/dw51336d7f/1-HP/febbraio-marzo-aprile-23/3boxes/3boxes-2023-btm-mobile-bimbo-640x360px.jpg"} />
       </div>
-      <div className="container__boxSlider">
-        <ProductSlider />
-        <BoxImage image={boxNuoviArriviLifeStyle} />
+      <div className="homepage__category-sliders">
+        <div className="homepage__category-sliders__slider">
+          <BoxImage goTo={"scarpe/uomo"} boxTitle={t("header.men")} image={boxNuoviArrivi} />
+          <ProductSlider products={state.men} sliderTitle={t("sliderHomepage.newArrivals")} />
+        </div>
+        <div className="homepage__category-sliders__slider">
+          <BoxImage goTo={"scarpe/donna"} boxTitle={t("header.woman")} image={boxNuoviArriviLifeStyle} />
+          <ProductSlider products={state.woman} sliderTitle={t("sliderHomepage.newArrivals")} />
+        </div>
+        <div className="homepage__category-sliders__slider">
+          <BoxImage goTo={"scarpe/unisex"} boxTitle={"unisex"} image={boxNuoviArriviLifeStyle} />
+          <ProductSlider products={state.unisex} sliderTitle={t("sliderHomepage.newArrivals")} />
+        </div>
       </div>
-      {sampleData.map((el) => {
-        return (
-          <ProductCard
-            image={el.image_preview}
-            brand={el.brand}
-            name={el.name}
-            category={el.category}
-            price={el.starting_price}
-            idProduct={el.id}
-          />
-        );
-      })}
-    </>
+    </div>
   );
 }
 

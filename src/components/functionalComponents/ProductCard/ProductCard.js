@@ -34,10 +34,10 @@ function ProductCard(props) {
             {props.name.toUpperCase()}
           </h3>
         </div>
-        <div className="product-card__info__second-col">{/* 
-          {props.initialPrice && (
+        <div className="product-card__info__second-col">
+          {/* {props.initialPrice && (
             <div className="product-card__info__second-col__full-price">
-              da {props.initialPrice}
+              {props.initialPrice}
             </div>
           )} */}
           <div className="product-card__info__second-col__price">

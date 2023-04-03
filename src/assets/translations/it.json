@@ -4,7 +4,7 @@
     "header": {
       "men": "uomo",
       "woman": "donna",
-      "new": "novità",
+      "new": "novita",
       "brands": "brand"
     },
     "footer": {
@@ -22,11 +22,13 @@
     "productsList": {
       "products": "prodotti"
     },
+    "boxImage": {
+      "cta": "Scopri tutte le scarpe"
+    },
     "sliderHomepage": {
-      "new": "nuovo",
-      "arrives": "arrivi",
+      "newArrivals": "nuovi arrivi",
       "lookNow": "scopri ora",
-      "theBest": "le migliori"
+      "theBest": "migliori sneaker unisex"
     },
     "userMenuNav": {
       "profile": "Profilo",

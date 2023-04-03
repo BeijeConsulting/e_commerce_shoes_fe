@@ -22,11 +22,13 @@
     "productsList": {
       "products": "products"
     },
+    "boxImage": {
+      "cta": "Discover all the shoes"
+    },
     "sliderHomepage": {
-      "new": "new",
-      "arrives": "arrives",
+      "newArrivals": "new arrivals",
       "lookNow": "look now",
-      "theBest": "the best"
+      "theBest": "best unisex sneakers"
     },
     "userMenuNav": {
       "profile": "Profile",

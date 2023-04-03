@@ -75,7 +75,6 @@ function Header() {
 
       })
     }
-    console.log(categories)
     setState(
       {
         ...state,
