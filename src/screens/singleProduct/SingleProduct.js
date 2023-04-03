@@ -263,14 +263,14 @@ function SingleProduct() {
       };
 
       const addItem = await addItemToCartList(obj);
-      console.log(addItem);
+      // console.log(addItem);
 
       if (addItem.status < 300) {
         const localDataResponse = await getCartList();
         if (localDataResponse.status === 200) {
           localData = localDataResponse.data;
         }
-        console.log("aggiunto");
+        // console.log("aggiunto");
         notifyAddToCartSuccess();
       } else {
         notifyAddToCartError();

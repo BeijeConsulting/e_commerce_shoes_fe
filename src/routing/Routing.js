@@ -34,6 +34,7 @@ import { setToken } from "../redux/ducks/tokenDuck";
 import i18n from "../assets/translations/i18n";
 import { useTranslation } from "react-i18next";
 import WishList from '../screens/wishList/WishList';
+import ErrorPage from '../screens/errorPage/ErrorPage';
 
 function Routing() {
   const navigate = useNavigate()
@@ -97,6 +98,11 @@ function Routing() {
           <Route path="ordini" element={ <OrderList /> } />
         </Route>
 
+
+        <Route path='*' element={ <ErrorPage /> } />
+
+
+
         {/* Products list */ }
         <Route path={ "scarpe" } element={ <ProductsList /> }>
           <Route path=":uno" element={ <ProductsList /> } />
@@ -131,6 +137,8 @@ function Routing() {
           <Route path="privacy-policy" element={ <Privacy /> } />
         </Route>
       </Route>
+
+
 
       <Route path=":lang/checkout" element={ <Checkout /> } />
 

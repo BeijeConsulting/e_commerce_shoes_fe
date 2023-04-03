@@ -89,7 +89,7 @@ function LoginForm() {
           adresses: [...user.data.addresses],
           birthDate: user.data.birth_date,
           cartItems: user.data.cart_items,
-          wishListItems: user.data.wish_list_item,
+          wishlistItems: user.data.wish_list_item,
           isLogged: true,
         })
       );
@@ -139,7 +139,7 @@ function LoginForm() {
           adresses: [...user.data.addresses],
           birthDate: user.data.birth_date,
           // cartItems: user.data.cart_items,
-          wishListItems: user.data.wish_list_item,
+          wishlistItems: user.data.wish_list_item,
           isLogged: true,
         })
       );

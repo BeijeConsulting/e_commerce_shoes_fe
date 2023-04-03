@@ -15,6 +15,7 @@ function Cms() {
     const langs = ["it", "en"];
     const isPathLang = langs.some((l) => pathname.includes(l));
 
+
     if (isPathLang) {
       return
     } else {
