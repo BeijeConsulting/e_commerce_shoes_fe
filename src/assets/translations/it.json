@@ -73,6 +73,9 @@
     "productsList": {
       "products": "Tutti i prodotti"
     },
+    "boxImage": {
+      "cta": "Scopri tutte le scarpe"
+    },
     "singleProduct": {
       "listedPrice": "Prezzo di Listino",
       "sizeSelect": "seleziona taglia",
@@ -90,10 +93,9 @@
       "details": "Dettagli"
     },
     "sliderHomepage": {
-      "new": "nuovo",
-      "arrives": "arrivi",
+      "newArrivals": "nuovi arrivi",
       "lookNow": "scopri ora",
-      "theBest": "le migliori"
+      "theBest": "migliori sneaker unisex"
     },
     "userMenuNav": {
       "profile": "Profilo",

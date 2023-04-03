@@ -73,6 +73,9 @@
     "productsList": {
       "products": "All Products"
     },
+    "boxImage": {
+      "cta": "Discover all the shoes"
+    },
     "singleProduct": {
       "listedPrice": "Listed Price",
       "sizeSelect": "size select",
@@ -90,10 +93,9 @@
       "details": "Details"
     },
     "sliderHomepage": {
-      "new": "new",
-      "arrives": "arrives",
+      "newArrivals": "new arrivals",
       "lookNow": "look now",
-      "theBest": "the best"
+      "theBest": "best unisex sneakers"
     },
     "userMenuNav": {
       "profile": "Profile",

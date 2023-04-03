@@ -1,23 +1,23 @@
 import { getData } from "../genericAxios/genericAxios";
 
-export async function getProductsList(page, lang, filter = "") {
-  const response = await getData(`/products/page=${page}/perPage=4/${lang}` + filter);
+export async function getProductsList(page, lang, filter = "", perPage = 12) {
+  const response = await getData(`/products/page=${page}/perPage=${perPage}/${lang}` + filter);
   if (response.status < 300) {
     return { status: response.status, data: response.data };
   }
   return { status: response.status, message: response.data.message };
 }
 
-export async function getNewProductsList(page, lang, filter = "") {
-  const response = await getData(`/products/new/page=${page}/perPage=4/${lang}` + filter);
+export async function getNewProductsList(page, lang, filter = "", perPage = 12) {
+  const response = await getData(`/products/new/page=${page}/perPage=${perPage}/${lang}` + filter);
   if (response.status < 300) {
     return { status: response.status, data: response.data };
   }
   return { status: response.status, message: response.data.message };
 }
 
-export async function getSearchProducts(page, lang, term) {
-  const response = await getData(`/products/search/page=${page}/perPage=4/${lang}?q=${term}`);
+export async function getSearchProducts(page, lang, term, perPage = 12) {
+  const response = await getData(`/products/search/page=${page}/perPage=${perPage}/${lang}?q=${term}`);
   if (response.status < 300) {
     return { status: response.status, data: response.data };
   }

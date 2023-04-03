@@ -19,10 +19,23 @@ function ProductSlider(props) {
   const swiperNavNextRef = useRef(null);
   const swiperNavPrevRef = useRef(null);
 
+  function mapProducts(item, key) {
+    return <SwiperSlide key={`${key}-${Math.random()}`} className="productSlider__slide">
+      <ProductCard
+        image={productCardImg}
+        brand={item.brand}
+        name={item.name}
+        category={item.category}
+        price={item.starting_price}
+        idProduct={item.id}
+      />
+    </SwiperSlide>
+  }
+
   return (
     <div className="container__slide">
       <div className="container__slide--h2">
-        <h2>Titolo</h2>
+        <h2>{props.sliderTitle}</h2>
       </div>
 
       <Swiper
@@ -58,53 +71,7 @@ function ProductSlider(props) {
         }}
         className="slider"
       >
-        <SwiperSlide className="productSlider__slide">
-          <ProductCard
-            image={productCardImg}
-            brand={"Nike"}
-            name={"Nike Zoom"}
-            category={"sneakers"}
-            initialPrice={"199.00"}
-            price={"99.90"}
-            idProduct={"1"}
-          />
-        </SwiperSlide>
-
-        <SwiperSlide className="productSlider__slide">
-          <ProductCard
-            image={productCardImg}
-            brand={"Nike"}
-            name={"Nike Zoom"}
-            category={"sneakers"}
-            initialPrice={"199.00"}
-            price={"99.90"}
-            idProduct={"1"}
-          />
-        </SwiperSlide>
-
-        <SwiperSlide className="productSlider__slide">
-          <ProductCard
-            image={productCardImg}
-            brand={"Nike"}
-            name={"Nike Zoom"}
-            category={"sneakers"}
-            initialPrice={"199.00"}
-            price={"99.90"}
-            idProduct={"1"}
-          />
-        </SwiperSlide>
-
-        <SwiperSlide className="productSlider__slide">
-          <ProductCard
-            image={productCardImg}
-            brand={"Nike"}
-            name={"Nike Zoom"}
-            category={"sneakers"}
-            initialPrice={"199.00"}
-            price={"99.90"}
-            idProduct={"1"}
-          />
-        </SwiperSlide>
+        {props.products.map(mapProducts)}
 
         <div className="swiperNavNext" ref={swiperNavPrevRef}>
           <BsFillArrowLeftCircleFill />

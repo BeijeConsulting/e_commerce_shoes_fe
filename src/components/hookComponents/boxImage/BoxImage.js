@@ -11,26 +11,26 @@ import { useTranslation } from 'react-i18next';
 import "./boxImage.scss"
 
 function BoxImage(props) {
-    const { t } = useTranslation()
-
+    const { t } = useTranslation();
     const navigate = useNavigate();
 
-    const goTo = function () {
+    function goTo() {
         navigate(props.goTo);
     };
+
     return (
         <div className='box__container'>
-            <img src={ props.image }
+            <img src={props.image}
                 alt="nuovi arrivi"
             />
             <div className="box__container__info">
-                <h2>{ t("boxImages.newArrives") }</h2>
-                <p>{ t("boxImages.discover") }</p>
+                <h2>{props.boxTitle}</h2>
+                <p>{t("boxImage.cta")}</p>
 
                 <Button
-                    label={ t("button.more") }
-                    buttonStyle={ "default-button" }
-                    handleClick={ goTo }
+                    label={t("sliderHomepage.lookNow")}
+                    buttonStyle={"default-button"}
+                    handleClick={goTo}
                 />
             </div>
         </div>
