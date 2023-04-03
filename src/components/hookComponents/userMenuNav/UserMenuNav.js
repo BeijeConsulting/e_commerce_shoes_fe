@@ -111,21 +111,18 @@ function UserMenuNav(props) {
   }
 
   async function userLogOut() {
-    try {
-      const response = await signOut(refreshToken, token);
+    const response = await signOut(refreshToken, token);
+
+    if (response.status < 300) {
       console.log("SIGNOUT", response);
-
       dispatch(removeUserCredentials());
-
       dispatch(removeToken());
-
       clearLocalStorage();
-
       notifyLogOutSuccess();
       setTimeout(() => {
         navigate(`/${lang}`);
       }, 1500);
-    } catch {
+    } else {
       notifyLogOutError();
     }
   }

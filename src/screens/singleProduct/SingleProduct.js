@@ -256,23 +256,23 @@ function SingleProduct() {
     }
     // console.log(localData);
     if (isLogged) {
-      try {
-        const obj = {
-          id: state.product.id,
-          productDetailsId: productDetailsId.current,
-          quantity: 1,
-        };
-        console.log(obj);
-        const addItem = await addItemToCartList(obj);
-        console.log(addItem);
+      const obj = {
+        id: state.product.id,
+        productDetailsId: productDetailsId.current,
+        quantity: 1,
+      };
 
+      const addItem = await addItemToCartList(obj);
+      console.log(addItem);
+
+      if (addItem.status < 300) {
         const localDataResponse = await getCartList();
         if (localDataResponse.status === 200) {
           localData = localDataResponse.data;
         }
         console.log("aggiunto");
         notifyAddToCartSuccess();
-      } catch {
+      } else {
         notifyAddToCartError();
       }
     }

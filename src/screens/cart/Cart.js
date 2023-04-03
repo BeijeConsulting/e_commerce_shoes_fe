@@ -125,18 +125,18 @@ function Cart() {
     }
 
     if (isLogged) {
-      try {
-        const updateCartresponse = await deleteCartItem(itemToDelete.item_id);
-        if (updateCartresponse.status === 200) {
-          const getUpdate = await getCartList();
-          if (getUpdate.status === 200) {
-            localData = getUpdate.data;
-          }
+      const updateCartresponse = await deleteCartItem(itemToDelete.item_id);
+
+      if (updateCartresponse.status < 300) {
+        const getUpdate = await getCartList();
+        if (getUpdate.status < 300) {
+          localData = getUpdate.data;
         }
         notifydeleteCartItemSuccess();
-      } catch {
+      } else {
         notifydeleteCartItemError();
       }
+
     } else {
       const indexElementToDelete = localData.items.indexOf(itemToDelete);
       localData.items.splice(indexElementToDelete, 1);
@@ -198,20 +198,18 @@ function Cart() {
     // console.log("---------------------------");
 
     if (isLogged) {
-      try {
-        console.log("itemChanged", itemChanged.quantity);
-        const updateCartresponse = await updateItemToCartList(
-          itemChanged.item_id,
-          itemChanged.quantity
-        );
-        if (updateCartresponse.status === 200) {
-          const getUpdate = await getCartList();
-          if (getUpdate.status === 200) {
-            localData = getUpdate.data;
-          }
+      console.log("itemChanged", itemChanged.quantity);
+      const updateCartresponse = await updateItemToCartList(
+        itemChanged.item_id,
+        itemChanged.quantity
+      );
+      if (updateCartresponse.status < 300) {
+        const getUpdate = await getCartList();
+        if (getUpdate.status < 300) {
+          localData = getUpdate.data;
         }
         notifyCartUpdateSuccess();
-      } catch {
+      } else {
         notifyCartUpdateError();
       }
     }
