@@ -21,6 +21,9 @@ import Seo from "../../components/functionalComponents/Seo";
 import { useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getCoupon } from "../../services/orderServices";
+import { useNavigate } from "react-router";
+import i18n from "../../assets/translations/i18n";
 // const cartList = {
 //   items: [
 //     {
@@ -64,7 +67,11 @@ function Cart() {
   const isLogged = useSelector((state) => state.userDuck.isLogged);
   const [state, setState] = useState({
     cart: localData,
+    couponValue: 0,
+    couponId: null,
   });
+  const navigate = useNavigate();
+  const lang = i18n.language;
 
   function notifyCartUpdateSuccess() {
     toast.success("Quantità modificata", {
@@ -87,6 +94,41 @@ function Cart() {
   }
   function notifydeleteCartItemError() {
     toast.error("Errore rimozione prodotto", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 1000,
+    });
+  }
+
+  function notifyCouponCheckSuccess() {
+    toast.success("Sconto applicato", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 1000,
+    });
+  }
+
+  function notifyCouponInvalidFieldError() {
+    toast.warning("Devi inserire un coupon", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 1000,
+    });
+  }
+
+  function notifyCouponCheckError() {
+    toast.error("Coupon non valido", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 1000,
+    });
+  }
+
+  function notifyNoProductError() {
+    toast.error("Non sono presenti prodotti nel carrello", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 1000,
+    });
+  }
+
+  function notifyNoLogged() {
+    toast.warning("Devi effettuare il login", {
       position: toast.POSITION.TOP_RIGHT,
       autoClose: 1000,
     });
@@ -242,8 +284,57 @@ function Cart() {
     );
   }
 
-  function checkCoupon() {
-    console.log("check coupon");
+  function handleCheckout() {
+    const dataCart = getLocalStorage("cart-list");
+
+    if (!dataCart || dataCart?.items?.length === 0) {
+      console.log("No products");
+      notifyNoProductError();
+      return;
+    }
+
+    if (isLogged) {
+      navigate(`/${lang}/checkout`, {
+        state: {
+          dataCart,
+          couponValue: state.couponValue,
+          couponId: state.couponId,
+        },
+      });
+    } else {
+      notifyNoLogged();
+      setTimeout(() => {
+        navigate(`/${lang}/accedi`);
+      }, 1500);
+    }
+  }
+
+  async function handleCoupon(id) {
+    if (id === null || id === undefined || id === "") {
+      notifyCouponInvalidFieldError();
+      return;
+    }
+
+    const response = await getCoupon(id);
+    let couponValue = 0;
+    let couponId = null;
+
+    if (response.status === 200) {
+      notifyCouponCheckSuccess();
+
+      couponValue = response.data.value;
+      couponId = response.data.id;
+      console.log(couponValue);
+    } else {
+      notifyCouponCheckError();
+    }
+    console.log(response);
+
+    setState({
+      ...state,
+      couponValue: couponValue,
+      couponId: couponId,
+    });
   }
 
   return (
@@ -255,15 +346,25 @@ function Cart() {
       />
       <CartHeader
         quantity={state.cart.numberItems}
-        totalPrice={Number(state.cart.totalPrice).toFixed(2)}
+        initialPrice={Number(state.cart.totalPrice).toFixed(2)}
+        totalPrice={
+          Number(state.cart.totalPrice).toFixed(2) -
+          Number(state.couponValue).toFixed(2)
+        }
+        handleCheckout={handleCheckout}
       />
       <div className="cart__content">
         <div className="cart__content__left">
           <ul>{state.cart.items.map(renderCartList)}</ul>
-          <CouponInput handleCoupon={checkCoupon} />
+          <CouponInput handleCoupon={handleCoupon} />
         </div>
         <div className="cart__content__right">
-          <RecapCart total={Number(state.cart.totalPrice).toFixed(2)} />
+          <RecapCart
+            total={
+              Number(state.cart.totalPrice).toFixed(2) -
+              Number(state.couponValue).toFixed(2)
+            }
+          />
           <CartInfoBox />
         </div>
       </div>

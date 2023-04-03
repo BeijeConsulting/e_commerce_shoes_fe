@@ -1,27 +1,76 @@
-import React, { useState } from "react";
-import { useLocation } from "react-router";
+import React, { useEffect, useState } from "react";
+import { useLocation, useParams } from "react-router";
 import "./checkout.scss";
 
 import RecapCart from "../../components/functionalComponents/recapCart/RecapCart";
 import Button from "../../components/functionalComponents/button/Button";
 import CheckoutProduct from "../../components/functionalComponents/checkoutProduct/CheckoutProduct";
 import Seo from "../../components/functionalComponents/Seo";
+import { useSelector } from "react-redux";
 
 function Checkout() {
   // const location = useLocation();
   const [state, setState] = useState({
-    order: {
-      address_id: 0,
-      coupon_id: 0,
-      id: 0,
-      payment_status: "string",
-      products: [0],
-      status: "string",
-      transaction: "string",
-      transaction_date: "2023-03-24T13:21:14.592Z",
-      user_id: 0,
-    },
+    address_id: null,
+    payment_status: "string",
+    status: "string",
   });
+
+  useEffect(() => console.log(state));
+
+  const location = useLocation();
+  const orderData = location.state;
+  const userAddresses = useSelector((state) => state.userDuck.adresses);
+
+  console.log(orderData);
+
+  const setDeliveriAddress = (addressId) => () => {
+    setState({
+      ...state,
+      address_id: addressId,
+    });
+  };
+
+  function renderProductsList(item) {
+    return (
+      <CheckoutProduct
+        key={item.item_id}
+        productSrc={item.image}
+        productAlt={item.name}
+        productPrice={item.sellingItemTotalPrice}
+        productName={item.name}
+        productColor={item.brand} //FIX PROP
+        productSize={item.size}
+        productQuantity={item.quantity}
+      />
+    );
+  }
+
+  function renderAddressList(address, key) {
+    return (
+      <li key={address.id} className="__delivery-address">
+        <label htmlFor={`delivery-address-${key}`}>
+          <address>
+            <p>
+              <strong className="__name">casa</strong>
+              <br />
+            </p>
+            <p>{address.name_surname}</p>
+            <p>{address.country}</p>
+            <p>{address.zipcode} - Mettere city</p>
+            <p>{address.street_address}</p>
+            {address.instructions && <p>{address.instructions}</p>}
+          </address>
+        </label>
+        <input
+          type={"radio"}
+          name="delivery-address"
+          id={`delivery-address-${key}`}
+          onChange={setDeliveriAddress(address.id)}
+        />
+      </li>
+    );
+  }
 
   function submitOrder() {
     console.log("ordine confermato", state.order);
@@ -47,7 +96,8 @@ function Checkout() {
           <div className="__container">
             <h2>indirizzo di spedizione</h2>
             <ul>
-              <li className="__delivery-address">
+              {userAddresses.map(renderAddressList)}
+              {/* <li className="__delivery-address">
                 <label htmlFor="delivery-address-1">
                   <address>
                     <p>
@@ -66,7 +116,7 @@ function Checkout() {
                   name="delivery-address"
                   id="delivery-address-1"
                 />
-              </li>
+              </li> */}
             </ul>
             <a className="__add-address">Aggiungi un nuovo indirizzo</a>
           </div>
@@ -125,8 +175,8 @@ function Checkout() {
         </div>
         <div className="__right">
           <div className="__container">
-            <h2>10 prodotti</h2>
-            <CheckoutProduct
+            <h2>{orderData.dataCart.numberItems} prodotti</h2>
+            {/* <CheckoutProduct
               productSrc={
                 "https://images.asos-media.com/products/asos-design-occhiali-da-sole-neri-retro-con-lenti-fume/8064078-1-black?$s$"
               }
@@ -138,9 +188,16 @@ function Checkout() {
               productColor={"Nero"}
               productSize={"EU 38"}
               productQuantity={2}
-            />
+            /> */}
+
+            {orderData.dataCart.items.map(renderProductsList)}
           </div>
-          <RecapCart />
+          <RecapCart
+            total={
+              Number(orderData.dataCart.totalPrice).toFixed(2) -
+              Number(orderData.couponValue).toFixed(2)
+            }
+          />
           <Button
             handleClick={submitOrder}
             label={"ACQUISTA ORA"}

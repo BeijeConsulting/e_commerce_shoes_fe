@@ -3,11 +3,14 @@ import "./cartHeader.scss";
 import { useNavigate } from "react-router-dom";
 
 import Button from "../button/Button";
-function CartHeader(props) {
-  const navigate = useNavigate();
+import i18n from "../../../assets/translations/i18n";
+import { useSelector } from "react-redux";
+import { getLocalStorage } from "../../../utils/localStorageUtils";
+import { ToastContainer, toast } from "react-toastify";
 
-  function goToCheckout() {
-    navigate("checkout");
+function CartHeader(props) {
+  function handleCheckout() {
+    props.handleCheckout();
   }
 
   return (
@@ -17,27 +20,32 @@ function CartHeader(props) {
         <div className="__quantity">{props.quantity} prodotti</div>
       </div>
       <div className="__prices">
-        <div className="__before">
-          <div className="__text">invece di</div>
-          <div className="__price">390,87€</div>
-        </div>
+        {props.initialPrice > props.totalPrice && (
+          <div className="__before">
+            <div className="__text">invece di</div>
+            <div className="__price">{props.initialPrice} €</div>
+          </div>
+        )}
+
         <div className="__after">
           <div className="__text">paghi solo</div>
-          <div className="__price">$ {props.totalPrice}</div>
+          <div className="__price">€{props.totalPrice.toFixed(2)}</div>
         </div>
         <div className="__actions">
           <Button
             label={"PROCEDI AL CHECKOUT"}
-            handleClick={goToCheckout}
+            handleClick={handleCheckout}
             buttonStyle={"filter-button"}
           />
           <Button buttonStyle={"filter-button paypal"}>
             <img
               src={require("../../../assets/images/paypal/PayPal.svg.png")}
+              alt="paypal"
             />
           </Button>
         </div>
       </div>
+      <ToastContainer hideProgressBar />
     </header>
   );
 }
