@@ -15,7 +15,6 @@ function WishListNav(props) {
     const wishListitemQuantity = useSelector((state) => state.userDuck.wishlistItems)
 
 
-    console.log("wishListitemQuantity", wishListitemQuantity)
 
     return (
         <Link to={ "lista-desideri" }>

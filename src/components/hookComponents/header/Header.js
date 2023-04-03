@@ -28,9 +28,6 @@ function Header() {
   const navigate = useNavigate();
   const userIsLogged = useSelector((state) => state.userDuck.isLogged)
 
-  const wishListitemQuantity = useSelector((state) => state.userDuck.wishlistItems)
-
-  console.log(" HEADER wishListitemQuantity", wishListitemQuantity)
 
 
   const lang = i18n.language.slice(0, 2);
@@ -113,7 +110,7 @@ function Header() {
 
   function goToHome(e) {
     e.preventDefault();
-    navigate("");
+    navigate(`/${lang}`);
   }
 
   function searchProducts(e) {

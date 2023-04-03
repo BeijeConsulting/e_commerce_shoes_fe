@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { removeUserCredentials } from "../../../redux/ducks/userDuck";
+import { removeToken } from "../../../redux/ducks/tokenDuck";
 // Router
 import { useNavigate } from "react-router-dom";
 // Utils
@@ -20,13 +21,14 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
-// SCSS
-import "./userMenuNav.scss";
+// i18n
 import i18n from "../../../assets/translations/i18n";
 import { useTranslation } from "react-i18next";
-import { removeToken } from "../../../redux/ducks/tokenDuck";
+// Library
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+// SCSS
+import "./userMenuNav.scss";
 
 function UserMenuNav(props) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -121,7 +123,7 @@ function UserMenuNav(props) {
 
       notifyLogOutSuccess();
       setTimeout(() => {
-        navigate(`/${lang}/`);
+        navigate(`/${lang}`);
       }, 1500);
     } catch {
       notifyLogOutError();

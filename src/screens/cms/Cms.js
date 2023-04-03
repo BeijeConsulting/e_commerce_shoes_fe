@@ -10,17 +10,15 @@ import i18n from "../../assets/translations/i18n";
 function Cms() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  // console.log("PATHNAME CMS", pathname)
 
   useEffect(() => {
     const langs = ["it", "en"];
     const isPathLang = langs.some((l) => pathname.includes(l));
-    // console.log("isPathLang CMS", isPathLang)
 
     if (isPathLang) {
-      navigate(`/${i18n.language.slice(0, 2)}/`);
+      return
     } else {
-      navigate(`/${i18n.language.slice(0, 2)}/${pathname}`);
+      navigate(`${i18n.language.slice(0, 2)}${pathname}`);
     }
   }, [pathname]);
 

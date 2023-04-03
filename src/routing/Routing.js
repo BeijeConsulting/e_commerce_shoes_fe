@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import Cms from "../screens/cms/Cms";
 import Identity from "../screens/identity/Identity";
 import SignupForm from "../components/hookComponents/signupForm/SignupForm";
@@ -36,6 +36,7 @@ import { useTranslation } from "react-i18next";
 import WishList from '../screens/wishList/WishList';
 
 function Routing() {
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const token = getLocalStorage("token");
   const refreshToken = getLocalStorage("refreshToken");
@@ -83,11 +84,11 @@ function Routing() {
 
   return (
     <Routes>
-      <Route path="/" element={ <RedirectToLanguage /> }></Route>
+      {/* <Route path="" element={ <RedirectToLanguage /> }></Route> */ }
 
       <Route path="" element={ <RedirectToLanguage /> }></Route>
 
-      <Route path="/:lang" element={ <Cms /> }>
+      <Route path=":lang" element={ <Cms /> }>
         {/* Homepage */ }
         <Route index element={ <Home /> } />
         <Route path="area-personale" element={ <UserInfo /> }>
