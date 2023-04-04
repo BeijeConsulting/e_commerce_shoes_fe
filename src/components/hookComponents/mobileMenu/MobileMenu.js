@@ -2,16 +2,29 @@ import React, { useState } from "react";
 import "./mobileMenu.scss";
 
 import { motion, AnimatePresence } from "framer-motion";
-
+import LogoutIcon from '@mui/icons-material/Logout';
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { useNavigate } from "react-router-dom";
 import i18n from "../../../assets/translations/i18n";
-
+import Button from "../../functionalComponents/button/Button";
+import { useSelector, useDispatch } from "react-redux";
+import Avatar from '@mui/material/Avatar';
+import { signOut } from "../../../services/authServices";
+import { removeUserCredentials } from "../../../redux/ducks/userDuck";
+import { removeToken } from "../../../redux/ducks/tokenDuck";
+import { clearLocalStorage } from "../../../utils/localStorageUtils";
+import { ToastContainer, toast } from "react-toastify";
 
 function MobileMenu(props) {
     const lang = i18n.language.slice(0, 2);
     const navigate = useNavigate();
+    const user = useSelector((state) => state.userDuck);
+    const initials = user.name.slice(0, 1) + user.surname.slice(0, 1);
+    const token = useSelector((state) => state.tokenDuck.token);
+    const refreshT = useSelector((state) => state.tokenDuck.refreshToken);
+    const dispatch = useDispatch();
+
     const [state, setState] = useState({
         active: null,
     });
@@ -81,7 +94,49 @@ function MobileMenu(props) {
 
     function goTo(path) {
         props.hideMenuFunc();
-        navigate(path);
+        navigate(path); props.hideMenuFunc();
+    }
+
+    function goToSignup() {
+        props.hideMenuFunc();
+        navigate("accedi/registrati");
+    }
+
+    function goToSignin() {
+        props.hideMenuFunc();
+        navigate("accedi");
+    }
+
+    function goToAccount() {
+        props.hideMenuFunc();
+        navigate("area-personale");
+    }
+
+    function notifyLogOutError() {
+        toast.error("Errore nel Logout", {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000,
+        });
+    }
+
+    function notifyLogOutSuccess() {
+        toast.success("Logout", {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 500,
+        });
+    }
+
+    async function userLogOut() {
+        const response = await signOut(refreshT, token);
+        if (response.status < 300) {
+            props.hideMenuFunc();
+            dispatch(removeUserCredentials());
+            dispatch(removeToken());
+            clearLocalStorage();
+            notifyLogOutSuccess();
+        } else {
+            notifyLogOutError();
+        }
     }
 
     return (
@@ -106,11 +161,30 @@ function MobileMenu(props) {
                     >
                         <ul>{props.menu.map(mapMobileMenu)}</ul>
                         <div className="main-header__mobile-menu__bottom">
-                            <button>ACCEDI</button>
-                            <p className="main-header__mobile-menu__bottom__text">
-                                Non hai un account? REGISTRATI QUI
-                            </p>
+                            {!!user.isLogged ?
+                                <>
+                                    <div className="main-header__mobile-menu__bottom__user-info">
+                                        <Avatar sx={{ bgcolor: "#4f4f4f" }} onClick={goToAccount}>{initials}</Avatar>
+                                        <div className="main-header__mobile-menu__bottom__user-info__info" onClick={goToAccount}>
+                                            <div>{user.name + " " + user.surname}</div>
+                                            <div>vai al profilo</div>
+                                        </div>
+                                    </div>
+                                    <div className="main-header__mobile-menu__bottom__text logged">
+                                        <LogoutIcon fontSize={"large"} onClick={userLogOut} />
+                                        <div onClick={userLogOut}>logout</div>
+                                    </div>
+                                </>
+                                :
+                                <>
+                                    <Button label={"accedi"} buttonStyle={"default-button full-width"} handleClick={goToSignin} />
+                                    <p className="main-header__mobile-menu__bottom__text" onClick={goToSignup}>
+                                        Non hai un account? REGISTRATI QUI
+                                    </p>
+                                </>
+                            }
                         </div>
+                        <ToastContainer hideProgressBar />
                     </div>
                 </motion.div>
             )}

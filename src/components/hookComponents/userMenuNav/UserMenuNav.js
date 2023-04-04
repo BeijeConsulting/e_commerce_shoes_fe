@@ -53,6 +53,7 @@ function UserMenuNav(props) {
       autoClose: 500,
     });
   }
+
   function notifyLogOutError() {
     toast.error("Errore nel Logout", {
       position: toast.POSITION.TOP_CENTER,
@@ -117,17 +118,10 @@ function UserMenuNav(props) {
       dispatch(removeToken());
       clearLocalStorage();
       notifyLogOutSuccess();
-      setTimeout(() => {
-        navigate(`/${lang}`);
-      }, 1500);
     } else {
       notifyLogOutError();
     }
   }
-
-  // function goToOrders() {
-  //     navigate("user-info/order-list")
-  // }
 
   return (
     <div className="userMenuNav">

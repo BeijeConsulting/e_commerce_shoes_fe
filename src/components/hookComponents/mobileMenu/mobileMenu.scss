@@ -25,10 +25,36 @@
     background-color: #ebebeb;
     padding: 3rem 2rem;
 
+    &__user-info {
+      text-transform: uppercase;
+      @include flex(flex-start, center);
+      gap: 2rem;
+      &__info {
+        div {
+          &:first-child {
+            font-size: $x-small;
+          }
+          &:last-child {
+            font-size: $xx-small;
+            text-decoration: underline;
+            text-underline-offset: 0.3rem;
+            padding-top: 0.5rem;
+          }
+        }
+      }
+    }
+
     .main-header__mobile-menu__bottom__text {
       font-size: $x-small;
       color: $grey-normal;
       margin-top: 2rem;
+
+      &.logged {
+        padding-top: 1rem;
+        text-transform: uppercase;
+        @include flex(flex-start, center);
+        gap: 0.7rem;
+      }
     }
   }
 }

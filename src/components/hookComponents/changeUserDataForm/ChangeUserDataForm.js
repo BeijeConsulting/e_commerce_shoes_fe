@@ -50,7 +50,6 @@ function ChangeUserDataForm(props) {
   const emailReg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i;
   const passwordReg =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?])(?=.*[^\s]).{8,}$/;
-
   const token = useSelector((state) => state.tokenDuck.token);
   const refreshT = useSelector((state) => state.tokenDuck.refreshToken);
   const dispatch = useDispatch();
@@ -101,7 +100,7 @@ function ChangeUserDataForm(props) {
       notifyRefreshTokenError();
 
       setTimeout(() => {
-        navigate(`/${lang}/`);
+        navigate(`${lang}`);
       }, 1500);
     } else {
       notifyLogOutError();
@@ -182,7 +181,6 @@ function ChangeUserDataForm(props) {
           setLocalStorage("token", refresh.data.token);
           setLocalStorage("refreshToken", refresh.data.refreshToken);
         } else {
-          console.log(refresh);
           userLogOut();
         }
       }
@@ -219,72 +217,72 @@ function ChangeUserDataForm(props) {
 
   return (
     <div className="address__container">
-      <form className="login-form" onSubmit={ handleSubmit(onSubmit, onError) }>
+      <form className="login-form" onSubmit={handleSubmit(onSubmit, onError)}>
         <div className="login-form__input-container">
           <InputTextField
             inputName="email"
-            defaultValueInput={ userInfo.email }
-            inputLabel={ t("changeUserDataForm.email") }
+            defaultValueInput={userInfo.email}
+            inputLabel={t("changeUserDataForm.email")}
             inputType="text"
             inputPlaceholder="Email"
-            register={ register }
-            regexValidation={ emailReg }
+            register={register}
+            regexValidation={emailReg}
             labelStyle="default-label"
-            inputStyle={ `default-input margin-top-small` }
+            inputStyle={`default-input margin-top-small`}
           />
 
           <InputTextField
             inputName="firstName"
-            defaultValueInput={ userInfo.name }
-            inputLabel={ t("changeUserDataForm.first_name") }
+            defaultValueInput={userInfo.name}
+            inputLabel={t("changeUserDataForm.first_name")}
             inputType="text"
             inputPlaceholder="Nome"
-            register={ register }
+            register={register}
             labelStyle="default-label"
-            inputStyle={ `default-input margin-top-small` }
+            inputStyle={`default-input margin-top-small`}
           />
 
           <InputTextField
             inputName="lastName"
-            defaultValueInput={ userInfo.surname }
-            inputLabel={ t("changeUserDataForm.last_name") }
+            defaultValueInput={userInfo.surname}
+            inputLabel={t("changeUserDataForm.last_name")}
             inputType="text"
             inputPlaceholder="Cognome"
-            register={ register }
+            register={register}
             labelStyle="default-label  "
-            inputStyle={ `default-input margin-top-small` }
+            inputStyle={`default-input margin-top-small`}
           />
 
           <InputTextField
             inputName="birthDate"
-            defaultValueInput={ userInfo.birthDate }
-            inputLabel={ t("changeUserDataForm.birthDate") }
+            defaultValueInput={userInfo.birthDate}
+            inputLabel={t("changeUserDataForm.birthDate")}
             inputType="date"
             inputPlaceholder="Data di nascita"
-            register={ register }
-            isRequired={ true }
+            register={register}
+            isRequired={true}
             labelStyle="default-label margin-top-extra"
-            inputStyle={ `default-input margin-top-small ${state.invalidAge ? "default-input--error" : ""
-              }` }
+            inputStyle={`default-input margin-top-small ${state.invalidAge ? "default-input--error" : ""
+              }`}
           />
 
           <InputPasswordField
             inputName="password"
-            defaultValueInput={ userInfo.password }
-            inputLabel={ t("changeUserDataForm.newPassword") }
+            defaultValueInput={userInfo.password}
+            inputLabel={t("changeUserDataForm.newPassword")}
             inputType="password"
             inputPlaceholder="Password"
-            register={ register }
-            regexValidation={ passwordReg }
+            register={register}
+            regexValidation={passwordReg}
             // isRequired={ true }
             labelStyle="default-label password-margin-top margin-top-extra"
-            inputStyle={ `default-input ${state.invalidPassword ? "default-input--error" : ""
-              }` }
+            inputStyle={`default-input ${state.invalidPassword ? "default-input--error" : ""
+              }`}
           />
         </div>
 
         <Button
-          label={ t("button.save") }
+          label={t("button.save")}
           buttonStyle="submit-button button-margin-top"
         />
       </form>
