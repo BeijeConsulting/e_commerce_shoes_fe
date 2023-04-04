@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./productsList.scss";
-import { getProductsList, getNewProductsList } from "../../services/productServices";
+import { getProductsList, getNewProductsList, getCategories } from "../../services/productServices";
 import ProductCard from '../../components/functionalComponents/ProductCard/ProductCard';
 import ProductGridLayout from '../../components/functionalComponents/productGridLayout/ProductGridLayout';
 import FilterMenu from "../../components/hookComponents/filterMenu/FilterMenu";
@@ -24,6 +24,7 @@ function ProductsList() {
             query: "",
             pages: null,
             currentPage: 1,
+            title: "",
         }
     )
 
@@ -33,17 +34,20 @@ function ProductsList() {
 
 
     async function fetchProducts(obj = undefined) {
+        const categories = await getCategories(lang);
         let type = null;
         let category = null;
         let brand = null;
         let result = null;
         let query = "";
+        let title = "";
 
         if (pathToArray[2] === types[0]) type = "m";
         if (pathToArray[2] === types[1]) type = "w";
-        if (pathToArray[2] === types[2]) type = "u";
+        if (pathToArray[2] === types[2]) type = "unisex";
 
         if (pathToArray.length === 3) {
+            title = getTitle();
             if (pathToArray[2] !== "novita") {
                 query = `?type=${type}`;
             }
@@ -53,6 +57,12 @@ function ProductsList() {
             }
         } else if (pathToArray.length === 4) {
             category = pathToArray[3].split("-").join("%20");
+            for (let i = 0; i < categories.data.length; i++) {
+                console.log(categories.data[i].category.toLowerCase(), category.toLowerCase())
+                if (categories.data[i].code.toLowerCase() === category.toLowerCase()) {
+                    title = getTitle(categories.data[i].category);
+                }
+            }
             query = `?type=${type}&category=${category}`;
         }
 
@@ -69,13 +79,12 @@ function ProductsList() {
             result = await getProductsList(state.currentPage, lang, query);
         }
 
-        console.log("RISULTATO OTTENUTO", result);
-
         setState({
             ...state,
             products: result.data?.products,
             pages: result.data.pages,
             query,
+            title,
         })
     };
 
@@ -114,36 +123,56 @@ function ProductsList() {
 
     function mapProducts(item, key) {
         return <ProductCard
-            key={ `${key}-${Math.random()}` }
-            image={ "https://www.cisalfasport.it/dw/image/v2/BBVV_PRD/on/demandware.static/-/Sites-cisalfa-master/default/dwdc711253/cisalfa/files/S5544515-18/image/S5544515_18.jpg?sw=444&sh=555" }
-            imageAlt={ item.title }
-            category={ item.category }
-            brand={ item.brand }
-            name={ item.name }
-            price={ item.starting_price }
-            idProduct={ item.id }
+            key={`${key}-${Math.random()}`}
+            image={"https://www.cisalfasport.it/dw/image/v2/BBVV_PRD/on/demandware.static/-/Sites-cisalfa-master/default/dwdc711253/cisalfa/files/S5544515-18/image/S5544515_18.jpg?sw=444&sh=555"}
+            imageAlt={item.title}
+            category={item.category}
+            brand={item.brand}
+            name={item.name}
+            price={item.starting_price}
+            idProduct={item.id}
         />
+    }
+
+    function getTitle(category = null) {
+        let title = "Scarpe";
+
+        if (pathToArray[2] === "novita") {
+            title = t("productsList.newShoes");
+        } else if (pathToArray[2] === "uomo") {
+            title = t("productsList.manShoes");
+        } else if (pathToArray[2] === "donna") {
+            title = t("productsList.womanShoes");
+        } else if (pathToArray[2] === "unisex") {
+            title = t("productsList.unisexShoes");
+        } else if (pathToArray[1] === "brand") {
+            title = pathToArray[2];
+        }
+
+        if (category) title += ": " + category;
+        return title;
     }
 
     return (
         <>
             <Seo
-                title={ t("productsList.products") }
+                title={t("productsList.products")}
                 description="E-commerce di scarpe italiane"
                 content="e-commerce"
             />
 
             <div className="products-list">
+                <h1>{state.title}</h1>
                 <FilterMenu
-                    types={ types }
-                    filterFunc={ fetchProducts }
+                    types={types}
+                    filterFunc={fetchProducts}
                 />
                 <ProductGridLayout>
-                    { state.products?.map(mapProducts) }
+                    {state.products?.map(mapProducts)}
                 </ProductGridLayout>
                 {
                     state.pages > 1 && <div className="pagination">
-                        <Pagination onChange={ fetchPaginatedProducts } page={ state.currentPage } count={ state.pages } size={ "large" } />
+                        <Pagination onChange={fetchPaginatedProducts} page={state.currentPage} count={state.pages} size={"large"} />
                     </div>
                 }
             </div>

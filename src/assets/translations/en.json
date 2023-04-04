@@ -94,7 +94,12 @@
       "help": "Help"
     },
     "productsList": {
-      "products": "All Products"
+      "products": "All Products",
+      "manShoes": "Man shoes",
+      "womanShoes": "Woman shoes",
+      "unisexShoes": "Unisex shoes",
+      "newShoes": "New arrivals",
+      "shoes": "Shoes"
     },
     "boxImage": {
       "cta": "Discover all the shoes"
@@ -244,7 +249,8 @@
       "total": "Total"
     },
     "search": {
-      "h1": "No search results",
+      "hasResults": "Search results for:",
+      "noResults": "No search results",
       "p1": "Your search ",
       "p2": " has returned no results. Try to search again with these tricks:",
       "li1": "Check the search word carefully",

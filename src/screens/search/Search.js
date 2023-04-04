@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 function Search() {
     const [searchParams] = useSearchParams();
     const searchTerm = searchParams.get("q");
+    const term = searchParams.get("q") ? searchParams.get("q")?.split("-").join(" ") : "";
     const lang = i18n.language.slice(0, 2);
     const { t } = useTranslation()
     const [state, setState] = useState(
@@ -52,58 +53,62 @@ function Search() {
 
     function mapProducts(item, key) {
         return <ProductCard
-            key={ `${key}-${Math.random()}` }
-            image={ "https://www.cisalfasport.it/dw/image/v2/BBVV_PRD/on/demandware.static/-/Sites-cisalfa-master/default/dwdc711253/cisalfa/files/S5544515-18/image/S5544515_18.jpg?sw=444&sh=555" }
-            imageAlt={ item.title }
-            category={ item.category }
-            brand={ item.brand }
-            name={ item.name }
-            initialPrice={ item.starting_price }
-            price={ item.starting_price + 30 }
-            idProduct={ item.id }
+            key={`${key}-${Math.random()}`}
+            image={"https://www.cisalfasport.it/dw/image/v2/BBVV_PRD/on/demandware.static/-/Sites-cisalfa-master/default/dwdc711253/cisalfa/files/S5544515-18/image/S5544515_18.jpg?sw=444&sh=555"}
+            imageAlt={item.title}
+            category={item.category}
+            brand={item.brand}
+            name={item.name}
+            initialPrice={item.starting_price}
+            price={item.starting_price + 30}
+            idProduct={item.id}
         />
     }
 
     return (
-        <>
-            { !!state.foundProducts &&
+        <div className="search">
+            {!!state.foundProducts &&
                 <>
+                    <h1>
+                        <div>{t("search.hasResults")}</div>
+                        <div className="search__term">"{term}"</div>
+                    </h1>
                     <ProductGridLayout>
-                        { state.products.map(mapProducts) }
+                        {state.products.map(mapProducts)}
                     </ProductGridLayout>
                     {
                         state.pages > 1 && <div className="pagination">
-                            <Pagination onChange={ fetchPaginatedProducts } page={ state.currentPage } count={ state.pages } size={ "large" } />
+                            <Pagination onChange={fetchPaginatedProducts} page={state.currentPage} count={state.pages} size={"large"} />
                         </div>
                     }
                 </>
             }
-            { state.foundProducts === false &&
+            {state.foundProducts === false &&
                 <div className="search-no-products">
-                    <img src={ require("../../assets/images/no-products.png") } alt="no products found" />
+                    <img src={require("../../assets/images/no-products.png")} alt="no products found" />
                     <div>
-                        <h1>{ t("search.h1") }</h1>
-                        <p>{ t("search.p1") } <strong>{ searchParams.get("q").split("-").join(" ") }</strong> { t("search.p2") }</p>
+                        <h1>{t("search.noResults")}</h1>
+                        <p>{t("search.p1")} <strong>{term}</strong> {t("search.p2")}</p>
                         <ol>
-                            <li>{ t("search.li1") }</li>
-                            <li>{ t("search.li2") }</li>
-                            <li>{ t("search.li3") }</li>
+                            <li>{t("search.li1")}</li>
+                            <li>{t("search.li2")}</li>
+                            <li>{t("search.li3")}</li>
                         </ol>
-                        <h2>{ t("search.h2") }</h2>
+                        <h2>{t("search.h2")}</h2>
                         <nav>
                             <ul>
-                                <li><a href="">{ t("header.man") }</a></li>
-                                <li><a href="">{ t("header.woman") }</a></li>
+                                <li><a href="">{t("header.man")}</a></li>
+                                <li><a href="">{t("header.woman")}</a></li>
                                 <li><a href="">unisex</a></li>
-                                <li><a href="">{ t("header.brands") }</a></li>
-                                <li><a href="">{ t("header.sales") }</a></li>
-                                <li><a href="">{ t("header.new") }</a></li>
+                                <li><a href="">{t("header.brands")}</a></li>
+                                <li><a href="">{t("header.sales")}</a></li>
+                                <li><a href="">{t("header.new")}</a></li>
                             </ul>
                         </nav>
                     </div>
                 </div>
             }
-        </>
+        </div>
     )
 }
 

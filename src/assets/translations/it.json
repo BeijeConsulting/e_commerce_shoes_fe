@@ -12,7 +12,7 @@
       "genre": "genere",
       "category": "categoria",
       "color": "colore",
-      "allBrands": "Tutti i Brand"
+      "allBrands": "Tutti i brand"
     },
     "productCartItem": {
       "quantity": "Quantità"
@@ -94,7 +94,12 @@
       "help": "Help"
     },
     "productsList": {
-      "products": "Tutti i prodotti"
+      "products": "Tutti i prodotti",
+      "manShoes": "Scarpe da uomo",
+      "womanShoes": "Scarpe da donna",
+      "unisexShoes": "Scarpe unisex",
+      "newShoes": "Novità",
+      "shoes": "Scarpe"
     },
     "boxImage": {
       "cta": "Scopri tutte le scarpe"
@@ -243,7 +248,8 @@
       "total": "Total"
     },
     "search": {
-      "h1": "Nessun risultato di ricerca",
+      "hasResults": "Risultati della ricerca per:",
+      "noResults": "Nessun risultato di ricerca",
       "p1": "La ricerca ",
       "p2": "non ha prodotto alcun risultato. Prova nuovamente la ricerca con questi accorgimenti:",
       "li1": "Controlla attentamente la parola cercata",
