@@ -4,13 +4,14 @@ import "./search.scss";
 import ProductCard from "../../components/functionalComponents/ProductCard/ProductCard";
 import ProductGridLayout from "../../components/functionalComponents/productGridLayout/ProductGridLayout";
 import Pagination from '@mui/material/Pagination';
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { getSearchProducts } from "../../services/productServices";
 import i18n from "../../assets/translations/i18n";
 import { useTranslation } from 'react-i18next';
 
 function Search() {
     const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
     const searchTerm = searchParams.get("q");
     const term = searchParams.get("q") ? searchParams.get("q")?.split("-").join(" ") : "";
     const lang = i18n.language.slice(0, 2);
@@ -65,6 +66,26 @@ function Search() {
         />
     }
 
+    function goToMan() {
+        navigate(`/${lang}/scarpe/uomo`)
+    }
+
+    function goToWoman() {
+        navigate(`/${lang}/scarpe/donna`)
+    }
+
+    function goToUnisex() {
+        navigate(`/${lang}/scarpe/unisex`)
+    }
+
+    function goToBrands() {
+        navigate(`/${lang}/brand`)
+    }
+
+    function goToNewArrivals() {
+        navigate(`/${lang}/scarpe/novita`)
+    }
+
     return (
         <div className="search">
             {!!state.foundProducts &&
@@ -97,12 +118,11 @@ function Search() {
                         <h2>{t("search.h2")}</h2>
                         <nav>
                             <ul>
-                                <li><a href="">{t("header.man")}</a></li>
-                                <li><a href="">{t("header.woman")}</a></li>
-                                <li><a href="">unisex</a></li>
-                                <li><a href="">{t("header.brands")}</a></li>
-                                <li><a href="">{t("header.sales")}</a></li>
-                                <li><a href="">{t("header.new")}</a></li>
+                                <li><a onClick={goToMan}>{t("header.man")}</a></li>
+                                <li><a onClick={goToWoman}>{t("header.woman")}</a></li>
+                                <li><a onClick={goToUnisex}>unisex</a></li>
+                                <li><a onClick={goToBrands}>{t("header.brands")}</a></li>
+                                <li><a onClick={goToNewArrivals}>{t("header.new")}</a></li>
                             </ul>
                         </nav>
                     </div>

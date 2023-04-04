@@ -4,9 +4,12 @@
 .search {
   padding: 4.5rem 2rem;
   h1 {
+    margin-bottom: 3rem;
     text-align: center;
+    font-size: $large;
     div {
-      :first-child {
+      &:first-child {
+        font-size: $x-small;
       }
     }
   }
@@ -24,7 +27,7 @@
 
     h1,
     h2 {
-      font-size: $large;
+      text-align: start;
       margin-bottom: 1rem;
     }
 

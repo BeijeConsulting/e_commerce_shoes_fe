@@ -136,6 +136,13 @@
       > .item {
         margin: 0 2rem;
         flex-basis: calc(25% - 4rem);
+        padding: 1rem 2rem;
+        border-bottom: 0;
+        header {
+          padding: 1rem 2rem;
+          border-top: 1px solid #e5e5e5;
+          border-bottom: 1px solid #e5e5e5;
+        }
         &:nth-child(4) {
           margin-right: 0;
           flex-basis: calc(25% - 4rem);

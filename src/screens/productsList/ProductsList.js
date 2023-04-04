@@ -39,6 +39,7 @@ function ProductsList() {
         let category = null;
         let brand = null;
         let result = null;
+        let response = null;
         let query = "";
         let title = "";
 
@@ -74,14 +75,16 @@ function ProductsList() {
         }
 
         if (pathToArray[2] === "novita") {
-            result = await getNewProductsList(state.currentPage, lang, query);
+            response = await getNewProductsList(state.currentPage, lang, query);
         } else {
-            result = await getProductsList(state.currentPage, lang, query);
+            response = await getProductsList(state.currentPage, lang, query);
         }
+
+        response.data.products = [] ? result = null : result = response.data.products;
 
         setState({
             ...state,
-            products: result.data?.products,
+            products: result,
             pages: result.data.pages,
             query,
             title,
@@ -167,9 +170,15 @@ function ProductsList() {
                     types={types}
                     filterFunc={fetchProducts}
                 />
-                <ProductGridLayout>
-                    {state.products?.map(mapProducts)}
-                </ProductGridLayout>
+                {state.products !== null ?
+                    <ProductGridLayout>
+                        {state.products?.map(mapProducts)}
+                    </ProductGridLayout>
+                    :
+                    <>
+                        no risultati
+                    </>
+                }
                 {
                     state.pages > 1 && <div className="pagination">
                         <Pagination onChange={fetchPaginatedProducts} page={state.currentPage} count={state.pages} size={"large"} />
