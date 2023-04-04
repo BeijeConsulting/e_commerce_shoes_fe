@@ -97,11 +97,15 @@ function SliderHomepage(props) {
 }
 
 SliderHomepage.defaultProps = {
-
+    pagination: true,
+    navigation: false,
+    autoplay: true
 }
 
 SliderHomepage.propTypes = {
-
+    pagination: PropTypes.bool,
+    navigation: PropTypes.bool,
+    autoplay: PropTypes.bool
 }
 
 export default SliderHomepage;

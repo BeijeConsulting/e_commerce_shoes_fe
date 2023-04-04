@@ -20,7 +20,7 @@ function Home() {
   const { t } = useTranslation();
   const [state, setState] = useState(
     {
-      men: [],
+      man: [],
       woman: [],
       unisex: [],
     }
@@ -59,7 +59,7 @@ function Home() {
       <div className="homepage__category-sliders">
         <div className="homepage__category-sliders__slider">
           <BoxImage goTo={ "scarpe/uomo" } boxTitle={ t("header.man") } image={ boxNuoviArrivi } />
-          <ProductSlider products={ state.men } sliderTitle={ t("sliderHomepage.newArrivals") } />
+          <ProductSlider products={ state.man } sliderTitle={ t("sliderHomepage.newArrivals") } />
         </div>
         <div className="homepage__category-sliders__slider">
           <BoxImage goTo={ "scarpe/donna" } boxTitle={ t("header.woman") } image={ require("../../assets/images/box/boxNuoviArriviLifestyle.jpeg") } />

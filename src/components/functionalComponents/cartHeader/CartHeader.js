@@ -1,10 +1,16 @@
 import React from "react";
-import "./cartHeader.scss";
+import PropTypes from 'prop-types';
+
+
+// Router
 import { useNavigate } from "react-router-dom";
 
+// Components
 import Button from "../button/Button";
+// i18n
 import { useTranslation } from 'react-i18next';
-
+// SCSS
+import "./cartHeader.scss";
 
 function CartHeader(props) {
   const navigate = useNavigate();
