@@ -98,7 +98,7 @@ function UserMenuNav(props) {
     if (userIsLogged) {
       navigate("lista-desideri");
     } else {
-      navigate("identity");
+      navigate("accedi");
     }
   }
 
