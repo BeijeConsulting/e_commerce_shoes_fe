@@ -19,6 +19,16 @@
       font-weight: 700;
       background-color: #f3f3f3;
     }
+
+    &--clicked {
+      @include flex(flex-start, center);
+      &__all {
+        margin-right: 1.5rem;
+        font-size: $x-small;
+        text-decoration: underline;
+        text-underline-offset: 0.25rem;
+      }
+    }
   }
 
   .main-header__mobile-menu__bottom {
@@ -37,7 +47,7 @@
           &:last-child {
             font-size: $xx-small;
             text-decoration: underline;
-            text-underline-offset: 0.3rem;
+            text-underline-offset: 0.25rem;
             padding-top: 0.5rem;
           }
         }

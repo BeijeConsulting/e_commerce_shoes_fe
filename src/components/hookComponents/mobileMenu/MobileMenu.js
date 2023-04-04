@@ -29,24 +29,33 @@ function MobileMenu(props) {
         active: null,
     });
 
-    const setActive = (key) => () => {
-        let menuIndex = state.active === null ? key : null;
+    function setActive(e) {
+        if (state.active !== null) return;
+        const selected = e.target.getAttribute('data-menu-path');
+        let active = state.active === null ? selected : null;
         setState({
             ...state,
-            active: menuIndex,
+            active,
+        });
+    }
+
+    function resetActive() {
+        setState({
+            ...state,
+            active: null,
         });
     }
 
     function mapMobileMenu(item, key) {
         let path = `scarpe/${item.path}`;
         let showItem = false;
-        if (state.active === key || state.active === null) showItem = true;
+        if (state.active === item.path || state.active === null) showItem = true;
 
         if (item.bottom === false) {
             if (item.path === "brand") path = `/${lang}/brand`;
             return <li key={`${key}-${Math.random()}`}>
                 {state.active === null && <div
-                    onClick={() => goTo(path)}
+                    onClick={goTo(path)}
                     className={"mobile-menu__item"}
                 >
                     <div>{item.top}</div>
@@ -58,24 +67,29 @@ function MobileMenu(props) {
         if (item.bottom === true) {
             return (
                 <li key={`${key}-${Math.random()}`}>
-                    {!!showItem && (
+                    {!!showItem &&
                         <>
                             <div
-                                onClick={setActive(key)}
-                                className={`mobile-menu__item ${state.active === key ? "active" : ""
+                                onClick={setActive}
+                                data-menu-path={item.path}
+                                className={`mobile-menu__item ${state.active === item.path ? "active" : ""
                                     }`}
                             >
-                                <div>{item.top}</div>
+
+                                <div onClick={setActive} data-menu-path={item.path}>{item.top}</div>
                                 {state.active === null && <ArrowForwardIosIcon />}
-                                {state.active === key && (
-                                    <KeyboardBackspaceIcon fontSize={"large"} />
-                                )}
+                                {state.active === item.path &&
+                                    <div className="mobile-menu__item--clicked">
+                                        <div className="mobile-menu__item--clicked__all" onClick={goTo(`${path}`)}>TUTTE</div>
+                                        <KeyboardBackspaceIcon onClick={resetActive} fontSize={"large"} />
+                                    </div>
+                                }
                             </div>
-                            {state.active === key && (
+                            {state.active === item.path && (
                                 <ul>{mapMobileSubMenu(item.path)}</ul>
                             )}
                         </>
-                    )}
+                    }
                 </li>
             );
         }
@@ -84,7 +98,7 @@ function MobileMenu(props) {
     function mapMobileSubMenu(path) {
         return props.categories.map(function (item, key) {
             return (
-                <li key={`${key}-${Math.random()}`} className="mobile-menu__item" onClick={() => goTo(`products/${path}/${item.path}`)}>
+                <li key={`${key}-${Math.random()}`} className="mobile-menu__item" onClick={goTo(`scarpe/${path}/${item.path}`)}>
                     <div>{item.anchor}</div>
                     <ArrowForwardIosIcon />
                 </li>
@@ -92,9 +106,9 @@ function MobileMenu(props) {
         })
     }
 
-    function goTo(path) {
+    const goTo = (path) => () => {
         props.hideMenuFunc();
-        navigate(path); props.hideMenuFunc();
+        navigate(path);
     }
 
     function goToSignup() {

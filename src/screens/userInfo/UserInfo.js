@@ -12,28 +12,19 @@ import { useSelector } from 'react-redux';
 import { getLocalStorage } from '../../utils/localStorageUtils';
 import i18n from "../../assets/translations/i18n";
 
-function UserInfo(props) {
+function UserInfo() {
   const navigate = useNavigate();
   const location = useLocation();
   const lang = i18n.language.slice(0, 2);
-  let timeout = undefined;
 
   const token = useSelector((state) => state.tokenDuck.token);
   const tokenStorage = getLocalStorage("token")
 
   const { t } = useTranslation()
 
-  // if user is not logged --> go to identityScreen 
+  // if user is not logged --> go to homepage
   useEffect(() => {
-    if (!tokenStorage) {
-      timeout = setTimeout(() => {
-        navigate(`/${lang}/accedi`);
-      }, 1500);
-    }
-
-    // console.log("TOKENstorage", tokenStorage)
-    // console.log("TOKEN", token)
-    return () => clearTimeout(timeout);
+    if (!tokenStorage) navigate(`/${lang}`);
   }, [tokenStorage])
 
   return (
