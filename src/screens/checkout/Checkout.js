@@ -6,11 +6,14 @@ import RecapCart from "../../components/functionalComponents/recapCart/RecapCart
 import Button from "../../components/functionalComponents/button/Button";
 import CheckoutProduct from "../../components/functionalComponents/checkoutProduct/CheckoutProduct";
 import Seo from "../../components/functionalComponents/Seo";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import i18n from "../../assets/translations/i18n";
 import { addOrder } from "../../services/orderServices";
+import { deleteCartItem } from "../../services/cartServices";
+import { setLocalStorage } from "../../utils/localStorageUtils";
+import { updateCartQuantity } from "../../redux/ducks/userDuck";
 
 function Checkout() {
   const [state, setState] = useState({
@@ -22,6 +25,8 @@ function Checkout() {
 
   const lang = i18n.language;
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   useEffect(() => console.log(state));
 
@@ -149,6 +154,19 @@ function Checkout() {
 
     if (response.status === 200) {
       notifyOrderSuccess();
+      ////////////////////////////
+      console.log("DATACART", orderData.dataCart);
+      orderData.dataCart.items.forEach((item) => {
+        deleteCartItem(item.item_id);
+      });
+
+      setLocalStorage("cart-list", {
+        items: [],
+        totalPrice: 0,
+        numberItems: 0,
+      });
+
+      dispatch(updateCartQuantity(0));
 
       setTimeout(() => {
         navigate(`/${lang}`);

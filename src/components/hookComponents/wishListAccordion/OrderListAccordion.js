@@ -24,6 +24,10 @@ function OrderListAccordion(props) {
           <p>Quantitá: {product.quantity}</p>
         </div> */}
 
+        <div className="accordion__details">
+          <p>Misura: {product.size}</p>
+        </div>
+
         <div className="accordion__details--price">
           <p>$ {Number(product.paidItemTotalPrice).toFixed(2)}</p>
         </div>

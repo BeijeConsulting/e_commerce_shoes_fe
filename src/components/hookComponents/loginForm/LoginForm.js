@@ -107,8 +107,8 @@ function LoginForm() {
 
       const localCart = getLocalStorage("cart-list");
 
-      const cartFetch = await getCartList();
-      console.log(cartFetch);
+      // const cartFetch = await getCartList();
+      // console.log(cartFetch);
 
       if (localCart?.items?.length > 0) {
         const items = localCart.items.map((item) => {
@@ -123,31 +123,6 @@ function LoginForm() {
         console.log(items);
         const listResp = await addListItemToCartList(items);
         console.log(listResp);
-
-        const userCart = await getCartList();
-        console.log(userCart.data);
-        if (userCart.status === 200) {
-          setLocalStorage("cart-list", userCart.data);
-          console.log(getLocalStorage("cart-list"));
-        }
-
-        dispatch(
-          setUserCredentials({
-            name: user.data.first_name,
-            surname: user.data.last_name,
-            email: user.data.email,
-            adresses: [...user.data.addresses],
-            birthDate: user.data.birth_date,
-            cartItems: user.data.cart_items,
-            wishListItems: user.data.wish_list_item,
-            isLogged: true,
-          })
-        );
-
-        notifyLoginSuccess();
-        setTimeout(() => {
-          navigate(`/${lang}`);
-        }, 1500);
       }
 
       const userCart = await getCartList();
@@ -164,13 +139,14 @@ function LoginForm() {
           email: user.data.email,
           adresses: [...user.data.addresses],
           birthDate: user.data.birth_date,
-          // cartItems: user.data.cart_items,
+          cartItems: userCart.data.numberItems,
           wishlistItems: user.data.wish_list_item,
           isLogged: true,
         })
       );
 
       notifyLoginSuccess();
+
       setTimeout(() => {
         navigate(`/${lang}`);
       }, 1500);

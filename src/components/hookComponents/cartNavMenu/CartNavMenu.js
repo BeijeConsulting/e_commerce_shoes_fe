@@ -14,7 +14,7 @@ import { Badge, Divider, IconButton, Menu, MenuItem } from "@mui/material";
 // import shoe from "../../../assets/images/singleProduct/shoe1.jpeg";
 //SCSS
 import "./cartNavMenu.scss";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 // import { useTranslation } from "react-i18next";
 
 function CartNavMenu(props) {
@@ -87,7 +87,7 @@ function CartNavMenu(props) {
 
   function mapList(item) {
     return (
-      <div key={"00" + item.productCartId + item.size}>
+      <div key={"00" + item.productId + item.size}>
         <MenuItem>
           <div className="cartNavMenu__menu">
             <div className="cartNavMenu__image">
@@ -105,8 +105,12 @@ function CartNavMenu(props) {
               </div>
               <p className="brand">{item.brand}</p>
               <div className="container__size-cartQuantity">
-                <p className="infoSize">{t("cartNavMenu.size")}: {item.size}</p>
-                <p className="quantity">{t("cartNavMenu.quantity")}: {item.quantity}</p>
+                <p className="infoSize">
+                  {t("cartNavMenu.size")}: {item.size}
+                </p>
+                <p className="quantity">
+                  {t("cartNavMenu.quantity")}: {item.quantity}
+                </p>
               </div>
             </div>
           </div>
@@ -117,7 +121,6 @@ function CartNavMenu(props) {
 
   return (
     <div className="cartMenuNav">
-
       <IconButton
         size="large"
         aria-label="account of current user"
@@ -157,7 +160,7 @@ function CartNavMenu(props) {
         <MenuItem className="item" onClick={handleClose}>
           <p>
             {t("cartNavMenu.total")}: ${" "}
-            {Number(state.itemCartList?.info?.totalPrice ?? 0).toFixed(2)}
+            {Number(state.itemCartList?.totalPrice ?? 0).toFixed(2)}
           </p>
         </MenuItem>
         <MenuItem className="item" onClick={handleClose}>
@@ -170,7 +173,6 @@ function CartNavMenu(props) {
           </div>
         </MenuItem>
       </Menu>
-
     </div>
   );
 }

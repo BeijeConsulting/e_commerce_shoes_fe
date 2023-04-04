@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 // REDUX
 import { useDispatch, useSelector } from "react-redux";
-import { updateCartQuantity } from "../../redux/ducks/productCartDuck";
+import { updateCartQuantity } from "../../redux/ducks/userDuck";
 import { setUserCredentials } from "../../redux/ducks/userDuck";
 // API
 import { getProduct } from "../../services/productServices";
