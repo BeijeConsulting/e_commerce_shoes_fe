@@ -285,8 +285,8 @@ function SingleProduct() {
 
   function renderSizesOption(size, key) {
     return (
-      <option key={ key } value={ size.eu }>
-        { size.eu }
+      <option key={key} value={size.eu}>
+        {size.eu}
       </option>
     );
   }
@@ -319,66 +319,65 @@ function SingleProduct() {
   return (
     <>
       <Seo
-        title={ state.product?.name }
+        title={state.product?.name}
         description="Gestione del carrello"
         content="e-commerce"
       />
       <div className="single-product">
         <header>
           <div className="header__container">
-            <p className="header__category">{ state.product?.category }</p>
+            <p className="header__category">{state.product?.category}</p>
             <p className="header__price">
-              { state.selectedSize
+              {state.selectedSize
                 ? `${state.product?.listed_price}€`
-                : `${t("singleProduct.listedPrice")} ${state.product?.listed_price}€` }
+                : `${t("singleProduct.listedPrice")} ${state.product?.listed_price}€`}
             </p>
           </div>
           <h2 className="header__brand">
-            <a onClick={ goToBrandPage }>{ state.product?.brand }</a>
+            <a onClick={goToBrandPage}>{state.product?.brand}</a>
           </h2>
-          <p className="header__name">{ state.product?.name }</p>
+          <p className="header__name">{state.product?.name}</p>
         </header>
 
         <div className="info__container">
           <SingleProductSlider />
 
           <div className="info">
-            {/* <p className="info__p">Input Select taglie</p> */ }
             <select
               className="info__select-size"
-              onChange={ handleSelect }
+              onChange={handleSelect}
               name="sizes"
             >
-              <option value={ "none" } disabled={ state.sizeSelected }>
-                { t("singleProduct.sizeSelect") }
+              <option value={"none"} disabled={state.sizeSelected}>
+                {t("singleProduct.sizeSelect")}
               </option>
-              { state.product?.productSizes?.map(renderSizesOption) }
+              {state.product?.productSizes?.map(renderSizesOption)}
             </select>
             <InfoProductBox />
 
 
             <Button
-              handleClick={ updateCart }
-              label={ t("button.addToCart") }
-              buttonStyle={ "default-button" }
+              handleClick={updateCart}
+              label={t("button.addToCart")}
+              buttonStyle={"default-button"}
             />
 
-            { !stateAdded &&
+            {!stateAdded &&
               <div className='info__container'>
-                <p onClick={ addToWishlist }
+                <p onClick={addToWishlist}
                   className='info__wishlist'>
-                  { t("singleProduct.addWishList") }
+                  {t("singleProduct.addWishList")}
                   <span>
                     <AiOutlineHeart />
                   </span>
                 </p>
               </div>
             }
-            { stateAdded &&
+            {stateAdded &&
               <div className='info__container'>
-                <p onClick={ addToWishlist }
+                <p onClick={addToWishlist}
                   className='info__wishlist'>
-                  { t("singleProduct.added") }
+                  {t("singleProduct.added")}
                   <span>
                     <AiFillHeart />
                   </span>
@@ -386,13 +385,9 @@ function SingleProduct() {
               </div>
             }
 
-
-            <p className="info__p">{ t("singleProduct.sizeTable") }</p>
-
-            {/* <p className="info__p">Tabella taglie</p> */ }
             <AccordionItem
-              productDescription={ state.product?.description }
-              productBrand={ state.product?.brand }
+              productDescription={state.product?.description}
+              productBrand={state.product?.brand}
             />
           </div>
         </div>
