@@ -37,7 +37,7 @@ function Identity() {
             <Link
               className={ `link ${location.pathname === `/${lang}/identity/signup` ? "link--active" : ""
                 }` }
-              to={ "signup" }
+              to={ "registrati" }
             >
               { t("login.signup") }
             </Link>

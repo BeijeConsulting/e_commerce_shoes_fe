@@ -11,8 +11,10 @@
   border-radius: 0.5rem;
   padding: 4rem;
   background-color: $grey-dark;
+
   &__header {
     font-size: $large;
+    text-transform: uppercase;
 
     @media screen and (max-width: 600px) {
       font-size: $medium;
@@ -24,6 +26,7 @@
     position: relative;
 
     font-size: $medium;
+    text-transform: uppercase;
     margin-top: 4rem;
     width: 100%;
     @include flex(space-around);

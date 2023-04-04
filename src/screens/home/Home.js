@@ -46,29 +46,28 @@ function Home() {
   return (
     <div className="homepage">
       <Seo
-        // lang="it"
         title="Belle Scarpe"
         description="E-commerce di scarpe italiane"
         content="e-commerce"
       />
-      <SliderHomepage pagination={true} navigation={true} autoplay={true} />
+      <SliderHomepage pagination={ true } navigation={ true } autoplay={ true } />
       <div className="homepage__category-cards">
-        <CategoryCard typology={t("header.men")} goTo={"scarpe/uomo"} image={"https://www.cisalfasport.it/on/demandware.static/-/Library-Sites-CisalfaSharedLibrary/default/dw293de7bc/1-HP/febbraio-marzo-aprile-23/3boxes/3boxes-2023-btm-mobile-uomo-640x360px.jpg"} />
-        <CategoryCard typology={t("header.woman")} goTo={"scarpe/donna"} image={"https://www.cisalfasport.it/on/demandware.static/-/Library-Sites-CisalfaSharedLibrary/default/dw429bc565/1-HP/febbraio-marzo-aprile-23/3boxes/3boxes-2023-btm-mobile-donna-640x360px.jpg"} />
-        <CategoryCard typology={"unisex"} goTo={"scarpe/unisex"} image={"https://www.cisalfasport.it/on/demandware.static/-/Library-Sites-CisalfaSharedLibrary/default/dw51336d7f/1-HP/febbraio-marzo-aprile-23/3boxes/3boxes-2023-btm-mobile-bimbo-640x360px.jpg"} />
+        <CategoryCard typology={ t("header.man") } goTo={ "scarpe/uomo" } image={ "https://www.cisalfasport.it/on/demandware.static/-/Library-Sites-CisalfaSharedLibrary/default/dw293de7bc/1-HP/febbraio-marzo-aprile-23/3boxes/3boxes-2023-btm-mobile-uomo-640x360px.jpg" } />
+        <CategoryCard typology={ t("header.woman") } goTo={ "scarpe/donna" } image={ "https://www.cisalfasport.it/on/demandware.static/-/Library-Sites-CisalfaSharedLibrary/default/dw429bc565/1-HP/febbraio-marzo-aprile-23/3boxes/3boxes-2023-btm-mobile-donna-640x360px.jpg" } />
+        <CategoryCard typology={ "unisex" } goTo={ "scarpe/unisex" } image={ "https://www.cisalfasport.it/on/demandware.static/-/Library-Sites-CisalfaSharedLibrary/default/dw51336d7f/1-HP/febbraio-marzo-aprile-23/3boxes/3boxes-2023-btm-mobile-bimbo-640x360px.jpg" } />
       </div>
       <div className="homepage__category-sliders">
         <div className="homepage__category-sliders__slider">
-          <BoxImage goTo={"scarpe/uomo"} boxTitle={t("header.men")} image={boxNuoviArrivi} />
-          <ProductSlider products={state.men} sliderTitle={t("sliderHomepage.newArrivals")} />
+          <BoxImage goTo={ "scarpe/uomo" } boxTitle={ t("header.man") } image={ boxNuoviArrivi } />
+          <ProductSlider products={ state.men } sliderTitle={ t("sliderHomepage.newArrivals") } />
         </div>
         <div className="homepage__category-sliders__slider">
-          <BoxImage goTo={"scarpe/donna"} boxTitle={t("header.woman")} image={boxNuoviArriviLifeStyle} />
-          <ProductSlider products={state.woman} sliderTitle={t("sliderHomepage.newArrivals")} />
+          <BoxImage goTo={ "scarpe/donna" } boxTitle={ t("header.woman") } image={ require("../../assets/images/box/boxNuoviArriviLifestyle.jpeg") } />
+          <ProductSlider products={ state.woman } sliderTitle={ t("sliderHomepage.newArrivals") } />
         </div>
         <div className="homepage__category-sliders__slider">
-          <BoxImage goTo={"scarpe/unisex"} boxTitle={"unisex"} image={boxNuoviArriviLifeStyle} />
-          <ProductSlider products={state.unisex} sliderTitle={t("sliderHomepage.newArrivals")} />
+          <BoxImage goTo={ "scarpe/unisex" } boxTitle={ "unisex" } image={ require("../../assets/images/box/boxNuoviArriviLifestyle.jpeg") } />
+          <ProductSlider products={ state.unisex } sliderTitle={ t("sliderHomepage.newArrivals") } />
         </div>
       </div>
     </div>

@@ -330,7 +330,7 @@ function SingleProduct() {
             <p className="header__price">
               { state.selectedSize
                 ? `${state.product?.listed_price}€`
-                : `prezzo di listino ${state.product?.listed_price}€` }
+                : `${t("singleProduct.listedPrice")} ${state.product?.listed_price}€` }
             </p>
           </div>
           <h2 className="header__brand">

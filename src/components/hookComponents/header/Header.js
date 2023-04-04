@@ -32,7 +32,7 @@ function Header() {
 
   const menu = [
     {
-      top: t("header.men"),
+      top: t("header.man"),
       path: "uomo",
       bottom: true,
     },

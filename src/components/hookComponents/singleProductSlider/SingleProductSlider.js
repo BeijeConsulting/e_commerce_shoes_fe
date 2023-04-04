@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import "./singleProductSlider.scss"
 
 import shoe1 from "../../../assets/images/singleProduct/shoe1.jpeg"
 import shoe2 from "../../../assets/images/singleProduct/shoe2.jpeg"
@@ -13,8 +12,10 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
+// SCSS
+import "./singleProductSlider.scss"
 
-function SingleProductSlider() {
+function SingleProductSlider(props) {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
 
@@ -33,13 +34,13 @@ function SingleProductSlider() {
             >
 
                 <SwiperSlide>
-                    <img src={ shoe1 } alt="" />
+                    <img src={ require("../../../assets/images/singleProduct/shoe1.jpeg") } alt="" />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={ shoe2 } alt="" />
+                    <img src={ require("../../../assets/images/singleProduct/shoe2.jpeg") } alt="" />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={ shoe3 } alt="" />
+                    <img src={ require("../../../assets/images/singleProduct/shoe3.jpeg") } alt="" />
                 </SwiperSlide>
             </Swiper>
 
@@ -53,13 +54,13 @@ function SingleProductSlider() {
                 className="mySwiper2"
             >
                 <SwiperSlide>
-                    <img src={ shoe1 } alt="" />
+                    <img src={ require("../../../assets/images/singleProduct/shoe1.jpeg") } alt="" />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={ shoe2 } alt="" />
+                    <img src={ require("../../../assets/images/singleProduct/shoe2.jpeg") } alt="" />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={ shoe3 } alt="" />
+                    <img src={ require("../../../assets/images/singleProduct/shoe3.jpeg") } alt="" />
                 </SwiperSlide>
             </Swiper>
         </div>

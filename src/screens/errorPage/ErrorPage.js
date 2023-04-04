@@ -6,11 +6,15 @@ import { Link } from 'react-router-dom';
 import Seo from '../../components/functionalComponents/Seo';
 // Libraries
 import { Player, Controls } from '@lottiefiles/react-lottie-player';
-
+// i18n
+import { useTranslation } from 'react-i18next';
 // SCSS
 import "./errorPage.scss"
 
 function ErrorPage() {
+
+    const { t } = useTranslation()
+
     return (
         <>
             <Seo
@@ -27,15 +31,15 @@ function ErrorPage() {
                 {/* <Controls visible={ true } buttons={ ['play', 'repeat', 'frame', 'debug'] } /> */ }
             </Player>
             <div className='error'>
-                <h1>Abbiamo identificato un problema...</h1>
-                <h3>La pagina non esiste. Prova a pulire la cronologia del tuo browser e premi aggiorna.</h3>
-                <h4>Nessun risultato?</h4>
+                <h1>{ t("errorPage.h1") }</h1>
+                <h3>{ t("errorPage.h3") }</h3>
+                <h4>{ t("errorPage.h4") }</h4>
                 <p>
-                    Clicca su
+                    { t("errorPage.p1") }
 
                     <Link to={ "" } className='link'>Home</Link>
 
-                    per tornare alla homepage.
+                    { t("errorPage.p2") }
                 </p>
             </div>
 

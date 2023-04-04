@@ -27,7 +27,7 @@ function WishListProductCard(props) {
             <Link to={ `/${lang}/product/${props.productId}` }>
                 <div className='card__container'>
 
-                    <img src={ nikeWhite } alt={ props.name } />
+                    <img src={ require("../../../assets/images/wishListCard/nike-white.webp") } alt={ props.name } />
 
                     <div className='card__absolute'>
 

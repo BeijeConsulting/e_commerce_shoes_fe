@@ -53,7 +53,7 @@ function PersonalData() {
       { state.showForm && <ChangeUserDataForm toggleForm={ toggleForm } /> }
       <div className="container__button">
         <Button
-          label={ state.showForm ? "ANNULLA" : "MODIFICA DATI" }
+          label={ state.showForm ? t("button.cancel") : t("button.editData") }
           handleClick={ toggleForm }
           buttonStyle="default-button"
         />
