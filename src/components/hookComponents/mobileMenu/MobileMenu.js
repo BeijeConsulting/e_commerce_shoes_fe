@@ -80,6 +80,7 @@ function MobileMenu(props) {
     }
 
     function goTo(path) {
+        props.hideMenuFunc();
         navigate(path);
     }
 
@@ -91,7 +92,7 @@ function MobileMenu(props) {
                         position: "absolute",
                         top: "100%",
                         width: "100%",
-                        zIndex: 2,
+                        zIndex: 100,
                     }}
                     initial={{ right: "100%" }}
                     animate={{ right: "0%" }}

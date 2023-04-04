@@ -2,12 +2,14 @@
 @import "../../../style/common/variables.scss";
 
 .main-header__mobile-menu {
-  height: 100%;
-  background-color: $white;
+  height: calc(100vh - 13rem);
+  background-color: #ebebeb;
+  overflow-y: auto;
 
   .mobile-menu__item {
     @include flex(space-between, center);
     text-transform: uppercase;
+    background-color: $white;
     padding: 2rem 2rem 2rem 7rem;
     color: $grey-normal;
     font-size: $small;

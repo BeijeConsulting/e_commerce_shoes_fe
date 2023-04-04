@@ -242,6 +242,7 @@ function FilterMenu(props) {
     }
 
     function showFilterMenu() {
+        document.body.style.overflow = "hidden";
         setState({
             ...state,
             showFilter: true,
@@ -249,6 +250,7 @@ function FilterMenu(props) {
     }
 
     function hideFilterMenu() {
+        document.body.style.removeProperty('overflow');
         setState({
             ...state,
             showFilter: false,
@@ -294,14 +296,6 @@ function FilterMenu(props) {
                                             <input type={'checkbox'} id="order1" value={'date'} onChange={handleOrderByChange} checked={state.filters.orderBy === 'date' ? true : false} />
                                             <label className="label" htmlFor="order1">novità</label>
                                         </div>
-                                        {/* <div className="item">
-                                            <input type={'checkbox'} id="order2" value={'price.desc'} onChange={handleOrderByChange} checked={state.filters.orderBy === 'price.desc' ? true : false} />
-                                            <label className="label" htmlFor="order2">prezzo: alto-basso</label>
-                                        </div>
-                                        <div className="item">
-                                            <input type={'checkbox'} id="order3" value={'price.asc'} onChange={handleOrderByChange} checked={state.filters.orderBy === 'price.asc' ? true : false} />
-                                            <label className="label" htmlFor="order3">prezzo: basso-alto</label>
-                                        </div> */}
                                     </div>
                                 </div>
 

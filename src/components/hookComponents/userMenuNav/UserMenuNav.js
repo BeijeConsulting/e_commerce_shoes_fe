@@ -72,42 +72,40 @@ function UserMenuNav(props) {
   // if user is logged --> screen userInfo
   // if user is not logged --> screen identity
   function conditionalGoTo() {
-    console.log("islogged", userIsLogged);
+    props.hideMenuFunc();
+    handleClose();
     if (userIsLogged) {
       navigate("area-personale");
     } else {
       navigate("accedi");
     }
-
-    handleClose();
   }
 
   function conditionalGoToCart() {
-    console.log("islogged", userIsLogged);
+    props.hideMenuFunc();
+    handleClose();
     if (userIsLogged) {
       navigate("area-personale/ordini");
     } else {
       navigate("accedi");
     }
-    handleClose();
   }
 
   function conditionalGoToWishList() {
-    console.log("islogged", userIsLogged);
+    props.hideMenuFunc();
+    handleClose()
     if (userIsLogged) {
       navigate("lista-desideri");
     } else {
       navigate("identity");
     }
-
-    handleClose()
   }
 
 
   function goToRegistration() {
-    navigate("accedi/registrati");
-
+    props.hideMenuFunc();
     handleClose();
+    navigate("accedi/registrati");
   }
 
   async function userLogOut() {
@@ -139,7 +137,7 @@ function UserMenuNav(props) {
           aria-label="account of current user"
           aria-controls="menu-appbar"
           aria-haspopup="true"
-          onClick={ handleMenu }
+          onClick={handleMenu}
           color="inherit"
         >
           <AccountCircle fontSize="large" />
@@ -147,55 +145,55 @@ function UserMenuNav(props) {
         <Menu
           className="myMenu"
           id="menu-appbar"
-          anchorEl={ anchorEl }
-          anchorOrigin={ {
+          anchorEl={anchorEl}
+          anchorOrigin={{
             vertical: "center",
             horizontal: 66,
-          } }
+          }}
           keepMounted
-          transformOrigin={ {
+          transformOrigin={{
             vertical: -30,
             horizontal: "right",
-          } }
-          open={ Boolean(anchorEl) }
-          onClose={ handleClose }
+          }}
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
         >
-          <MenuItem onClick={ conditionalGoTo }>
-            <Avatar sx={ { marginRight: 2 } } />
-            { userIsLogged ? (
-              <p onClick={ conditionalGoTo } className="item">
-                <span>{ userName.toUpperCase() }</span>
+          <MenuItem onClick={conditionalGoTo}>
+            <Avatar sx={{ marginRight: 2 }} />
+            {userIsLogged ? (
+              <p onClick={conditionalGoTo} className="item">
+                <span>{userName.toUpperCase()}</span>
               </p>
             ) : (
-              <p onClick={ conditionalGoTo } className="item">
-                { t("userMenuNav.logIn") }
+              <p onClick={conditionalGoTo} className="item">
+                {t("userMenuNav.logIn")}
               </p>
-            ) }
+            )}
           </MenuItem>
-          <MenuItem onClick={ conditionalGoToWishList }>
+          <MenuItem onClick={conditionalGoToWishList}>
             <p className="item">WishList</p>
-            { userIsLogged && <p className='item__wishlistItems'>{ wishlistItems }</p> }
+            {userIsLogged && <p className='item__wishlistItems'>{wishlistItems}</p>}
 
           </MenuItem>
-          <MenuItem onClick={ conditionalGoToCart }>
-            { <p className="item">{ t("userMenuNav.orders") }</p> }
+          <MenuItem onClick={conditionalGoToCart}>
+            {<p className="item">{t("userMenuNav.orders")}</p>}
           </MenuItem>
 
           <Divider />
 
-          <MenuItem onClick={ handleClose }>
+          <MenuItem onClick={handleClose}>
             <ListItemIcon>
               <Logout className="logOut" />
             </ListItemIcon>
-            { userIsLogged ? (
-              <p onClick={ userLogOut } className="logOut__p">
+            {userIsLogged ? (
+              <p onClick={userLogOut} className="logOut__p">
                 Logout
               </p>
             ) : (
-              <p onClick={ goToRegistration } className="logOut__p">
+              <p onClick={goToRegistration} className="logOut__p">
                 Registrati
               </p>
-            ) }
+            )}
           </MenuItem>
         </Menu>
       </div>
