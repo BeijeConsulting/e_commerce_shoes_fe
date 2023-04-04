@@ -29,31 +29,31 @@ function Identity() {
       <div className="identity-container">
         <div className="identity-container__options">
           <div
-            className={ `identity-container__options__signup ${location.pathname === `/${lang}/identity/signup`
+            className={`identity-container__options__signup ${location.pathname === `/${lang}/accedi/registrati`
               ? "identity-container__options__signup--shown underline"
               : ""
-              }` }
+              }`}
           >
             <Link
-              className={ `link ${location.pathname === `/${lang}/identity/signup` ? "link--active" : ""
-                }` }
-              to={ "registrati" }
+              className={`link ${location.pathname === `/${lang}/accedi/registrati` ? "link--active" : ""
+                }`}
+              to={"registrati"}
             >
-              { t("login.signup") }
+              {t("login.signup")}
             </Link>
           </div>
           <div
-            className={ `identity-container__options__login  ${location.pathname === `/${lang}/identity`
+            className={`identity-container__options__login  ${location.pathname === `/${lang}/accedi`
               ? "identity-container__options__login--shown underline"
               : ""
-              }` }
+              }`}
           >
             <Link
-              className={ `link ${location.pathname === `/${lang}/identity` ? "link--active" : ""
-                }` }
-              to={ "" }
+              className={`link ${location.pathname === `/${lang}/accedi` ? "link--active" : ""
+                }`}
+              to={""}
             >
-              { t("login.signin") }
+              {t("login.signin")}
             </Link>
           </div>
         </div>
