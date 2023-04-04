@@ -95,6 +95,7 @@
     },
     "productsList": {
       "products": "Tutti i prodotti",
+      "noProducts": "non sono presenti prodotti",
       "manShoes": "Scarpe da uomo",
       "womanShoes": "Scarpe da donna",
       "unisexShoes": "Scarpe unisex",

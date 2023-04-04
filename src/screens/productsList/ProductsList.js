@@ -173,9 +173,9 @@ function ProductsList() {
                     </ProductGridLayout>
                 }
                 {state.products !== null && state.products.length === 0 &&
-                    <>
-                        no risultati
-                    </>
+                    <h2 className="products-list__no-products">
+                        {t("productsList.noProducts")}
+                    </h2>
                 }
                 {
                     state.pages > 1 && <div className="pagination">

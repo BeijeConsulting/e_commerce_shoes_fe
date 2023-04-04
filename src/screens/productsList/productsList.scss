@@ -7,6 +7,13 @@
     text-align: center;
     margin-bottom: 3rem;
   }
+
+  &__no-products {
+    text-align: center;
+    text-transform: uppercase;
+    padding-top: 5rem;
+    padding-bottom: 0;
+  }
 }
 
 @media screen and (min-width: 650px) {

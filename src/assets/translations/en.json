@@ -95,6 +95,7 @@
     },
     "productsList": {
       "products": "All Products",
+      "noProducts": "no products found",
       "manShoes": "Man shoes",
       "womanShoes": "Woman shoes",
       "unisexShoes": "Unisex shoes",
