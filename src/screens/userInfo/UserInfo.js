@@ -18,14 +18,14 @@ function UserInfo() {
   const lang = i18n.language.slice(0, 2);
 
   const token = useSelector((state) => state.tokenDuck.token);
-  const tokenStorage = getLocalStorage("token")
+  // const tokenStorage = getLocalStorage("token")
 
   const { t } = useTranslation()
 
   // if user is not logged --> go to homepage
   useEffect(() => {
-    if (!tokenStorage) navigate(`/${lang}`);
-  }, [tokenStorage])
+    if (!token) navigate(`/${lang}`);
+  }, [token])
 
   return (
     <div className='userInfo'>

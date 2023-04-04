@@ -24,7 +24,8 @@ const axiosInstanceToken = axios.create({
 //intercetta le richieste con autenticazione, controlla nello storage se esiste il token e lo inserisce nell'header
 axiosInstanceToken.interceptors.request.use(
   (config) => {
-    const token = getLocalStorage("token");
+    let token = store.getState().tokenDuck.token;
+    if (!token) token = getLocalStorage("token");
     if (token) {
       config.headers = {
         Authorization: `Bearer ${token}`,
