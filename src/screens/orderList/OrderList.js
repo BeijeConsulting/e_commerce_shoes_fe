@@ -13,6 +13,7 @@ function OrderList() {
   const [state, setState] = useState({
     orderList: [],
     totalQuantity: [],
+    productList: [],
   });
 
   useEffect(() => {
@@ -35,10 +36,14 @@ function OrderList() {
   function calcTotalQuantity(orders) {
     let totalQuantity = Array(orders.length).fill(0);
     console.log(orders);
+    // orders.forEach((order, i) => {
+    //   order.productList.forEach((product) => {
+    //     totalQuantity[i] += product.quantity;
+    //   });
+    // });
+
     orders.forEach((order, i) => {
-      order.productList.forEach((product) => {
-        totalQuantity[i] += product.quantity;
-      });
+      totalQuantity[i] += order.productList.length;
     });
 
     return totalQuantity;
