@@ -31,13 +31,13 @@ function Home() {
   }, [])
 
   async function fetchProducts() {
-    const men = await getProductsList(1, lang, "?type=m&orderBy=date", 8);
+    const man = await getProductsList(1, lang, "?type=m&orderBy=date", 8);
     const woman = await getProductsList(1, lang, "?type=w&orderBy=date", 8);
     const unisex = await getProductsList(1, lang, "?type=m&orderBy=date", 8);
-    console.log(men.data)
+    console.log(man.data)
     setState({
       ...state,
-      men: men?.data?.products,
+      man: man?.data?.products,
       woman: woman?.data?.products,
       unisex: unisex?.data?.products,
     });
