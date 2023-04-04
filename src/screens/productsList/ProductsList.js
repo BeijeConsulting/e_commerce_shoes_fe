@@ -20,7 +20,7 @@ function ProductsList() {
 
     const [state, setState] = useState(
         {
-            products: [],
+            products: null,
             query: "",
             pages: null,
             currentPage: 1,
@@ -38,7 +38,6 @@ function ProductsList() {
         let type = null;
         let category = null;
         let brand = null;
-        let result = null;
         let response = null;
         let query = "";
         let title = "";
@@ -80,12 +79,10 @@ function ProductsList() {
             response = await getProductsList(state.currentPage, lang, query);
         }
 
-        response.data.products = [] ? result = null : result = response.data.products;
-
         setState({
             ...state,
-            products: result,
-            pages: result.data.pages,
+            products: response?.data?.products,
+            pages: response?.data?.pages,
             query,
             title,
         })
@@ -170,11 +167,12 @@ function ProductsList() {
                     types={types}
                     filterFunc={fetchProducts}
                 />
-                {state.products !== null ?
+                {state.products && state.products.length > 0 &&
                     <ProductGridLayout>
                         {state.products?.map(mapProducts)}
                     </ProductGridLayout>
-                    :
+                }
+                {state.products !== null && state.products.length === 0 &&
                     <>
                         no risultati
                     </>
