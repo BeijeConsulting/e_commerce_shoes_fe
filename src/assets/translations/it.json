@@ -13,6 +13,25 @@
       "category": "categoria",
       "color": "colore"
     },
+    "cookie": {
+      "h1": " Cookie policy",
+      "p1": "Utilizziamo cookie e altre tecnologie simili per offrire esperienze di acquisto e pubblicità personalizzate oltre che per analizzare il traffico sul nostro sito.",
+      "h2": "Cosa sono i cookie?",
+      "p2": "I cookie sono file di dati che possono contenere piccole quantità di informazioni e vengono memorizzati sul tuo dispositivo (computer, smartphone, ecc.) quando visiti un sito web per la prima volta. Utilizziamo i cookie quando visiti il nostro sito, ma puoi scegliere di bloccarne alcuni. Ma non dimenticare che il blocco di alcuni cookie potrebbe influire sulla tua esperienza sul nostro sito e sui servizi che possiamo offrire.",
+      "h2-2": "Come li usiamo?",
+      "p3": "Utilizziamo i cookie per:",
+      "li1": "svolgere operazioni essenziali, come la navigazione del sito",
+      "li2": "Permetterti Di Aggiungere Articoli Al Carrello O All'elenco Di Prodotti Salvati",
+      "li3": "Analizzare I Numeri E I Comportamenti Dei Visitatori, Ad Esempio Quali Pagine Vengono Visitate Di Frequente",
+      "li4": "Valutare Il Successo Di Campagne Pubblicitarie, Offerte E Comunicazioni",
+      "li5": "Indirizzare Messaggi Pubblicitari Adeguati",
+      "li6": "Capire Quali Affiliati Ci Hanno Aiutato A Raggiungere Nuovi Clienti O Hanno Promosso I Nostri Prodotti Sui Loro Siti Web",
+      "h2-3": "Quali tipi di cookie utilizziamo?",
+      "h3": "Elenco dei cookie:",
+      "p4": "Un cookie è una piccola porzione di dati (file di testo) che un sito Web, se visitato da un utente, chiede al browser di memorizzarlo sul dispositivo per ricordare le sue informazioni, quali la lingua preferita o i dati di accesso. Questi cookie sono da noi impostati e denominati cookie di prima parte. Utilizziamo inoltre cookie di terza parte - ovvero i cookie di un dominio diverso da quello del sito Web che si sta visitando - per i nostri tentativi pubblicitari e di marketing. In particolare, utilizziamo i cookie e altre tecnologie di tracciamento per i seguenti scopi:",
+      "h3-2": "Cookie Essenziali",
+      "p5": "Questi cookie sono essenziali per il corretto funzionamento del sito e consentono di navigare e utilizzare le nostre funzionalità, come 'Aggiungi al carrello' e 'Salva per dopo'. Questi cookie ci consentono anche di misurare e analizzare il modo in cui i nostri clienti utilizzano il sito, per migliorare sia le funzionalità che l'esperienza di acquisto."
+    },
     "privacy": {
       "h1": "Privacy policy",
       "p1": "Condividiamo i tuoi dati con le seguenti categorie di aziende quale parte essenziale della nostra capacità di fornirti i servizi richiesti:",

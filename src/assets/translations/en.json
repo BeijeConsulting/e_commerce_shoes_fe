@@ -13,6 +13,25 @@
       "category": "category",
       "color": "color"
     },
+    "cookie": {
+      "h1": " Cookie policy",
+      "p1": "We use cookies and other similar technologies to provide personalized shopping experiences and advertising, as well as to analyze traffic on our site.",
+      "h2": "What are Cookies?",
+      "p2": "Cookies are data files that may contain small amounts of information and are stored on your device (computer, smartphone, etc.) when you visit a website for the first time. We use cookies when you visit our site, but you can choose to block some of them. But don't forget that blocking some cookies may affect your experience on our site and the services we can offer.",
+      "h2-2": "How do we use them?",
+      "p3": "We use cookies to:",
+      "li1": "perform essential operations, such as site navigation",
+      "li2": "Allow you to add items to your shopping cart or saved products list",
+      "li3": "Analyze visitor numbers and behaviors, such as which pages are visited frequently",
+      "li4": "Evaluate the success of advertising campaigns, offers and communications",
+      "li5": "Target Appropriate Advertising Messages",
+      "li6": "Understanding Which Affiliates Have Helped Us Reach New Customers Or Promoted Our Products On Their Websites",
+      "h2-3": "What types of cookies do we use?",
+      "h3": "List of cookies:",
+      "p4": "A cookie is a small piece of data (text file) that a website, if visited by a user, asks the browser to store on the device to remember information such as the preferred language or access data. These cookies are set by us and called first party cookies. We also use third-party cookies - i.e. cookies from a different domain than the website you are visiting - for our advertising and marketing efforts. In particular, we use cookies and other tracking technologies for the following purposes:",
+      "h3-2": "Essentials Cookie",
+      "p5": "These cookies are essential for the site to function properly and allow you to navigate and use our features, such as 'Add to basket' and 'Save for later'. These cookies also allow us to measure and analyze how our customers use the site, to improve both functionality and the shopping experience."
+    },
     "privacy": {
       "h1": "Privacy policy",
       "p1": "We share your data with the following categories of companies as an essential part of our ability to provide you with the services you request:",
