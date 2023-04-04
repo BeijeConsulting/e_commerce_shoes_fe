@@ -14,6 +14,9 @@
       "color": "color",
       "allBrands": "All brands"
     },
+    "productCartItem": {
+      "quantity": "Quantity"
+    },
     "cookie": {
       "h1": " Cookie policy",
       "p1": "We use cookies and other similar technologies to provide personalized shopping experiences and advertising, as well as to analyze traffic on our site.",
