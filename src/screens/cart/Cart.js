@@ -25,6 +25,7 @@ import { getCoupon } from "../../services/orderServices";
 import { useNavigate } from "react-router";
 import i18n from "../../assets/translations/i18n";
 import { updateCartQuantity } from "../../redux/ducks/userDuck";
+import { useTranslation } from "react-i18next";
 // const cartList = {
 //   items: [
 //     {
@@ -76,6 +77,7 @@ function Cart() {
   const lang = i18n.language;
   const dispatch = useDispatch();
 
+  const { t } = useTranslation();
   function notifyCartUpdateSuccess() {
     toast.success("Quantità modificata", {
       position: toast.POSITION.TOP_RIGHT,
@@ -175,17 +177,16 @@ function Cart() {
     }
 
     if (isLogged) {
-      try {
-        const updateCartresponse = await deleteCartItem(itemToDelete.item_id);
-        if (updateCartresponse.status === 200) {
-          const getUpdate = await getCartList();
-          if (getUpdate.status === 200) {
-            localData = getUpdate.data;
-          }
+      const updateCartresponse = await deleteCartItem(itemToDelete.item_id);
+
+      if (updateCartresponse.status < 300) {
+        const getUpdate = await getCartList();
+        if (getUpdate.status < 300) {
+          localData = getUpdate.data;
         }
         dispatch(updateCartQuantity(cartItemsNumber - quantity));
         notifydeleteCartItemSuccess();
-      } catch {
+      } else {
         notifydeleteCartItemError();
       }
     } else {
@@ -249,21 +250,19 @@ function Cart() {
     // console.log("---------------------------");
 
     if (isLogged) {
-      try {
-        console.log("itemChanged", itemChanged.quantity);
-        const updateCartresponse = await updateItemToCartList(
-          itemChanged.item_id,
-          itemChanged.quantity
-        );
-        if (updateCartresponse.status === 200) {
-          const getUpdate = await getCartList();
-          if (getUpdate.status === 200) {
-            localData = getUpdate.data;
-          }
+      console.log("itemChanged", itemChanged.quantity);
+      const updateCartresponse = await updateItemToCartList(
+        itemChanged.item_id,
+        itemChanged.quantity
+      );
+      if (updateCartresponse.status < 300) {
+        const getUpdate = await getCartList();
+        if (getUpdate.status < 300) {
+          localData = getUpdate.data;
         }
         dispatch(updateCartQuantity(cartItemsNumber + deltaQuantity));
         notifyCartUpdateSuccess();
-      } catch {
+      } else {
         notifyCartUpdateError();
       }
     }
@@ -357,7 +356,7 @@ function Cart() {
   return (
     <div className="cart">
       <Seo
-        title="Carrello"
+        title={t("cart.title")}
         description="Gestione del carrello"
         content="e-commerce"
       />

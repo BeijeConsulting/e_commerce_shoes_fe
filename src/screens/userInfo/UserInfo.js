@@ -10,22 +10,21 @@ import { useTranslation } from 'react-i18next';
 import Seo from '../../components/functionalComponents/Seo';
 import { useSelector } from 'react-redux';
 import { getLocalStorage } from '../../utils/localStorageUtils';
+import i18n from "../../assets/translations/i18n";
 
-function UserInfo(props) {
+function UserInfo() {
   const navigate = useNavigate();
   const location = useLocation();
+  const lang = i18n.language.slice(0, 2);
 
   const token = useSelector((state) => state.tokenDuck.token);
   const tokenStorage = getLocalStorage("token")
 
   const { t } = useTranslation()
 
-  // if user is not logged --> go to identityScreen 
+  // if user is not logged --> go to homepage
   useEffect(() => {
-    if (!tokenStorage) navigate("/accedi")
-
-    // console.log("TOKENstorage", tokenStorage)
-    // console.log("TOKEN", token)
+    if (!tokenStorage) navigate(`/${lang}`);
   }, [tokenStorage])
 
   return (
@@ -39,7 +38,7 @@ function UserInfo(props) {
 
       <div className='userInfo__navlink'>
         <NavLink
-          to={"address-list"}
+          to={"indirizzi"}
           className={"customer__list"}
         >
           {t("userInfo.addresses")}
@@ -53,7 +52,7 @@ function UserInfo(props) {
         </NavLink>
 
         <NavLink
-          to={"order-list"}
+          to={"ordini"}
           className={`customer__list ${location.pathname === `user-info/order-list` ? "active" : ""
             }`}
         >

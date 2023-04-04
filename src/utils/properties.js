@@ -1,4 +1,4 @@
 export const PROPERTIES = {
-  BASE_URL: "http://shoesshop.eu-south-1.elasticbeanstalk.com",
+  BASE_URL: "https://shoes-api.beije.it",
   TIMEOUT: 5000,
 };

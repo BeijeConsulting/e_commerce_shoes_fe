@@ -18,15 +18,15 @@ function CustomerCare() {
     const data = [
         {
             title: t("customerCare.contacts"),
-            link: "contacts",
+            link: "contatti",
         },
         {
             title: t("customerCare.delivery"),
-            link: "delivery",
+            link: "spedizioni",
         },
         {
             title: t("customerCare.returnsAndRefunds"),
-            link: "returns"
+            link: "resi"
         },
         {
             title: "FAQ",
@@ -54,14 +54,14 @@ function CustomerCare() {
                 content="e-commerce"
             />
             <header>
-                <h2>Ciao,<br />come possiamo aiutarti?
+                <h2>{ t("customerCare.hi") }<br />{ t("customerCare.help") }
                 </h2>
-                <p>Nella sezione FAQ puoi trovare più velocemente la risposta alle tue domande. Inoltre, potrai seguire la tua spedizione oppure avere tutte le informazioni necessarie sui resi e rimborsi.</p>
+                <p>{ t("customerCare.p") }</p>
             </header>
 
             <div className='customer__content'>
                 <div className='customer__advice'>
-                    <h2>Servizio Clienti</h2>
+                    <h2>{ t("customerCare.service") }</h2>
                     <ul>
                         { data.map(mapList) }
                     </ul>

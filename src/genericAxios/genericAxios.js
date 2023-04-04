@@ -77,76 +77,145 @@ axiosInstanceToken.interceptors.response.use(
 );
 
 export async function postData(resource, obj, header = null) {
-  const response = await axiosInstance.post(resource, obj, {
-    headers: header !== null ? { Authorization: `Bearer ${header}` } : null,
-  });
+  const response = await axiosInstance
+    .post(resource, obj, {
+      headers: header !== null ? { Authorization: `Bearer ${header}` } : null,
+    })
+    .then(function (res) {
+      return res;
+    })
+    .catch(function (err) {
+      return err.response;
+    });
 
   return response;
 }
 // POST with Authentication
 export async function postDataAuth(resource, obj) {
-  console.log(resource, obj);
-  const response = await axiosInstanceToken.post(resource, obj);
+  const response = await axiosInstanceToken
+    .post(resource, obj)
+    .then(function (res) {
+      return res;
+    })
+    .catch(function (err) {
+      return err.response;
+    });
 
   return response;
 }
 
 export async function getData(resource, header = null) {
-  const response = await axiosInstance.get(resource, {
-    headers: header !== null ? { Authorization: `Bearer ${header}` } : null,
-  });
+  const response = await axiosInstance
+    .get(resource, {
+      headers: header !== null ? { Authorization: `Bearer ${header}` } : null,
+    })
+    .then(function (res) {
+      return res;
+    })
+    .catch(function (err) {
+      return err.response;
+    });
 
   return response;
 }
 // GET with Authentication
 export async function getDataAuth(resource) {
-  const response = await axiosInstanceToken.get(resource);
+  const response = await axiosInstanceToken
+    .get(resource)
+    .then(function (res) {
+      return res;
+    })
+    .catch(function (err) {
+      return err.response;
+    });
 
   return response;
 }
 
 export async function putData(resource, obj, header = null) {
-  const response = await axiosInstance.put(resource, obj, {
-    headers: header !== null ? { Authorization: `Bearer ${header}` } : null,
-  });
+  const response = await axiosInstance
+    .put(resource, obj, {
+      headers: header !== null ? { Authorization: `Bearer ${header}` } : null,
+    })
+    .then(function (res) {
+      return res;
+    })
+    .catch(function (err) {
+      return err.response;
+    });
 
   return response;
 }
 
 export async function putDataParams(resource, header = null) {
-  const response = await axiosInstance.put(resource, {
-    headers: header !== null ? { Authorization: `Bearer ${header}` } : null,
-  });
+  const response = await axiosInstance
+    .put(resource, {
+      headers: header !== null ? { Authorization: `Bearer ${header}` } : null,
+    })
+    .then(function (res) {
+      return res;
+    })
+    .catch(function (err) {
+      return err.response;
+    });
 
   return response;
 }
 // PUT with Authentication
 export async function putDataAuth(resource, obj, header = null) {
-  const response = await axiosInstanceToken.put(resource, obj, {
-    headers: header !== null ? { Authorization: `Bearer ${header}` } : null,
-  });
+  const response = await axiosInstanceToken
+    .put(resource, obj, {
+      headers: header !== null ? { Authorization: `Bearer ${header}` } : null,
+    })
+    .then(function (res) {
+      return res;
+    })
+    .catch(function (err) {
+      return err.response;
+    });
 
   return response;
 }
 
 export async function putDataAuthParams(resource, header = null) {
-  const response = await axiosInstanceToken.put(resource, {
-    headers: header !== null ? { Authorization: `Bearer ${header}` } : null,
-  });
+  const response = await axiosInstanceToken
+    .put(resource, {
+      headers: header !== null ? { Authorization: `Bearer ${header}` } : null,
+    })
+    .then(function (res) {
+      return res;
+    })
+    .catch(function (err) {
+      return err.response;
+    });
 
   return response;
 }
 
 export async function deleteData(resource, header = null) {
-  const response = await axiosInstance.delete(resource, {
-    headers: header !== null ? { Authorization: `Bearer ${header}` } : null,
-  });
+  const response = await axiosInstance
+    .delete(resource, {
+      headers: header !== null ? { Authorization: `Bearer ${header}` } : null,
+    })
+    .then(function (res) {
+      return res;
+    })
+    .catch(function (err) {
+      return err.response;
+    });
 
   return response;
 }
 // DELETE with Authentication
 export async function deleteDataAuth(resource) {
-  const response = await axiosInstanceToken.delete(resource);
+  const response = await axiosInstanceToken
+    .delete(resource)
+    .then(function (res) {
+      return res;
+    })
+    .catch(function (err) {
+      return err.response;
+    });
 
   return response;
 }

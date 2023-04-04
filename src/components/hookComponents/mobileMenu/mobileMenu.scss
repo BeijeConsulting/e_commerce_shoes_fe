@@ -2,12 +2,14 @@
 @import "../../../style/common/variables.scss";
 
 .main-header__mobile-menu {
-  height: 100%;
-  background-color: $white;
+  height: calc(100vh - 13rem);
+  background-color: #ebebeb;
+  overflow-y: auto;
 
   .mobile-menu__item {
     @include flex(space-between, center);
     text-transform: uppercase;
+    background-color: $white;
     padding: 2rem 2rem 2rem 7rem;
     color: $grey-normal;
     font-size: $small;
@@ -17,16 +19,52 @@
       font-weight: 700;
       background-color: #f3f3f3;
     }
+
+    &--clicked {
+      @include flex(flex-start, center);
+      &__all {
+        margin-right: 1.5rem;
+        font-size: $x-small;
+        text-decoration: underline;
+        text-underline-offset: 0.25rem;
+      }
+    }
   }
 
   .main-header__mobile-menu__bottom {
     background-color: #ebebeb;
     padding: 3rem 2rem;
 
+    &__user-info {
+      text-transform: uppercase;
+      @include flex(flex-start, center);
+      gap: 2rem;
+      &__info {
+        div {
+          &:first-child {
+            font-size: $x-small;
+          }
+          &:last-child {
+            font-size: $xx-small;
+            text-decoration: underline;
+            text-underline-offset: 0.25rem;
+            padding-top: 0.5rem;
+          }
+        }
+      }
+    }
+
     .main-header__mobile-menu__bottom__text {
       font-size: $x-small;
       color: $grey-normal;
       margin-top: 2rem;
+
+      &.logged {
+        padding-top: 1rem;
+        text-transform: uppercase;
+        @include flex(flex-start, center);
+        gap: 0.7rem;
+      }
     }
   }
 }

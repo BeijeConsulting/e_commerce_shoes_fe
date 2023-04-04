@@ -1,0 +1,26 @@
+@import "../../../style/common/variables.scss";
+
+.icon__container {
+    // border: 2px solid rgb(21, 255, 0);
+    padding: 3% !important;
+    display: flex;
+}
+
+.icon {
+    font-size: 2.8rem !important;
+    color: $instagram-color !important;
+}
+
+
+
+.MuiBadge-badge {
+    width: 2rem !important;
+    height: 2rem !important;
+    border-radius: 50% !important;
+    font-size: 1.3rem !important;
+}
+
+.icon__container:hover {
+    transform: scale(1.2);
+    transition: all 0.3s;
+}

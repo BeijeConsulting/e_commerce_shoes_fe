@@ -1,20 +1,38 @@
 @import "../../style/common/variables.scss";
 
 .personalData {
+    display: flex;
+    flex-direction: column;
 
-    // padding: 2% 4%;
+    &__container {
+        padding: 2% 3%;
+        box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin: 0 auto;
+        max-width: 50rem;
+    }
+
     h1 {
         text-align: center;
         text-transform: uppercase;
-        font-size: $large;
+        font-size: $x-large;
     }
+
 
     h2 {
         margin-top: 3rem;
+        margin-bottom: 2rem;
+        text-transform: uppercase;
+        text-align: left;
     }
 
     ul {
         margin-top: 2.5rem;
+        text-align: left;
+        width: 100%;
+        margin: 0 3%;
     }
 
     li {
@@ -22,6 +40,7 @@
         color: $grey-normal;
         font-size: $medium;
         text-transform: uppercase;
+        text-align: left;
 
         span {
             color: $black;
@@ -36,8 +55,6 @@
 }
 
 
-
-
 .container__button {
     display: flex;
     justify-content: center;
@@ -47,9 +64,23 @@
 }
 
 @media screen and (min-width: 850px) {
-    // .personalData {
-    //     margin: 0 10%;
-    // }
+    .personalData {
+
+        &__container {
+            flex-direction: row;
+            align-items: start;
+            justify-content: space-between;
+
+
+            ul {
+                h2 {
+                    margin-bottom: 2rem;
+                    text-transform: uppercase;
+                }
+            }
+        }
+
+    }
 
     .container__button {
         width: 40%;

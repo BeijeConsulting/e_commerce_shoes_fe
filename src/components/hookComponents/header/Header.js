@@ -20,16 +20,19 @@ import CartNavMenu from '../cartNavMenu/CartNavMenu';
 import i18n from '../../../assets/translations/i18n';
 
 import { getCategories } from "../../../services/productServices";
+import WishListNav from '../wishListNav/WishListNav';
+import { useSelector } from 'react-redux';
 import { useTranslation } from "react-i18next";
 
 function Header() {
   const navigate = useNavigate();
+  const userIsLogged = useSelector((state) => state.userDuck.isLogged);
   const lang = i18n.language.slice(0, 2);
   const { t } = useTranslation();
 
   const menu = [
     {
-      top: t("header.men"),
+      top: t("header.man"),
       path: "uomo",
       bottom: true,
     },
@@ -75,7 +78,6 @@ function Header() {
 
       })
     }
-    console.log(categories)
     setState(
       {
         ...state,
@@ -84,12 +86,19 @@ function Header() {
     )
   }
 
-  function toggleMobileMenu() {
-    setState(function (prevState) {
-      return {
-        ...state,
-        showMobileMenu: !prevState.showMobileMenu,
-      }
+  function showMobileMenu() {
+    document.body.style.overflow = "hidden";
+    setState({
+      ...state,
+      showMobileMenu: true,
+    });
+  }
+
+  function hideMobileMenu() {
+    document.body.style.removeProperty('overflow');
+    setState({
+      ...state,
+      showMobileMenu: false,
     });
   }
 
@@ -104,7 +113,8 @@ function Header() {
 
   function goToHome(e) {
     e.preventDefault();
-    navigate("");
+    if (!!state.showMobileMenu) hideMobileMenu();
+    navigate(`/${lang}`);
   }
 
   function searchProducts(e) {
@@ -112,6 +122,7 @@ function Header() {
     if (!e.target.value) return;
     const term = e.target.value.split(" ").join("-");
     e.target.value = "";
+    hideMobileMenu();
     navigate(`ricerca?q=${term}`);
   }
 
@@ -122,14 +133,14 @@ function Header() {
           <div className="main-header__top__left">
             {!state.showMobileMenu && (
               <MenuIcon
-                onClick={toggleMobileMenu}
+                onClick={showMobileMenu}
                 className="main-header__hamburger"
                 fontSize={"large"}
               />
             )}
             {!!state.showMobileMenu && (
               <ClearIcon
-                onClick={toggleMobileMenu}
+                onClick={hideMobileMenu}
                 className="main-header__hamburger"
                 fontSize={"large"}
               />
@@ -180,19 +191,13 @@ function Header() {
               />
             </div>
           </motion.div>
+
           <div className="main-header__user-icons">
-            <div >
-              <CartNavMenu
-                name={"Nike Zoom AIr"}
-                brand={"Nike"}
-                listedPrice={"199.00"}
-                sellingPrice={"60.00"}
-                productSize={"M41"}
-                quantity={"1"}
-              />
-            </div>
-            <UserMenuNav />
+            {userIsLogged && <WishListNav />}
+            <CartNavMenu hideMenuFunc={hideMobileMenu} />
+            <UserMenuNav hideMenuFunc={hideMobileMenu} />
           </div>
+
         </div>
         <div className="main-header__bottom">
           <TextField
@@ -209,6 +214,7 @@ function Header() {
           />
         </div>
         <MobileMenu
+          hideMenuFunc={hideMobileMenu}
           categories={state.categories}
           menu={menu}
           showMobileMenu={state.showMobileMenu}

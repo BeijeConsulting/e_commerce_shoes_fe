@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { removeUserCredentials } from "../../../redux/ducks/userDuck";
+import { removeToken } from "../../../redux/ducks/tokenDuck";
 // Router
 import { useNavigate } from "react-router-dom";
 // Utils
@@ -20,24 +21,30 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
-// SCSS
-import "./userMenuNav.scss";
+// i18n
 import i18n from "../../../assets/translations/i18n";
 import { useTranslation } from "react-i18next";
-import { removeToken } from "../../../redux/ducks/tokenDuck";
+// Library
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+// SCSS
+import "./userMenuNav.scss";
 
 function UserMenuNav(props) {
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const token = useSelector((state) => state.tokenDuck.token);
-  const refreshToken = useSelector((state) => state.tokenDuck.refreshToken);
+  const token = useSelector((state) => state.tokenDuck.token)
+  const refreshToken = useSelector((state) => state.tokenDuck.refreshToken)
+  const userIsLogged = useSelector((state) => state.userDuck.isLogged);
+  const userName = useSelector((state) => state.userDuck.name);
+  const wishlistItems = useSelector((state) => state.userDuck.wishlistItems);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const lang = i18n.language.slice(0, 2);
+
+
+  const lang = i18n.language.slice(0, 2)
   const { t } = useTranslation();
 
   function notifyLogOutSuccess() {
@@ -46,6 +53,7 @@ function UserMenuNav(props) {
       autoClose: 500,
     });
   }
+
   function notifyLogOutError() {
     toast.error("Errore nel Logout", {
       position: toast.POSITION.TOP_CENTER,
@@ -61,61 +69,59 @@ function UserMenuNav(props) {
     setAnchorEl(event.currentTarget);
   }
 
-  const userIsLogged = useSelector((state) => state.userDuck.isLogged);
 
   // if user is logged --> screen userInfo
   // if user is not logged --> screen identity
   function conditionalGoTo() {
-    console.log("islogged", userIsLogged);
+    props.hideMenuFunc();
+    handleClose();
     if (userIsLogged) {
       navigate("area-personale");
     } else {
       navigate("accedi");
     }
-
-    handleClose();
   }
 
   function conditionalGoToCart() {
-    console.log("islogged", userIsLogged);
+    props.hideMenuFunc();
+    handleClose();
     if (userIsLogged) {
       navigate("area-personale/ordini");
     } else {
       navigate("accedi");
     }
-
-    handleClose();
   }
 
-  function goToRegistration() {
-    navigate("accedi/registrati");
-
-    handleClose();
-  }
-
-  async function userLogOut() {
-    try {
-      const response = await signOut(refreshToken, token);
-      console.log("SIGNOUT", response);
-
-      dispatch(removeUserCredentials());
-
-      dispatch(removeToken());
-
-      clearLocalStorage();
-
-      notifyLogOutSuccess();
-      setTimeout(() => {
-        navigate(`/${lang}/`);
-      }, 1500);
-    } catch {
-      notifyLogOutError();
+  function conditionalGoToWishList() {
+    props.hideMenuFunc();
+    handleClose()
+    if (userIsLogged) {
+      navigate("lista-desideri");
+    } else {
+      navigate("identity");
     }
   }
 
-  // function goToOrders() {
-  //     navigate("user-info/order-list")
-  // }
+
+  function goToRegistration() {
+    props.hideMenuFunc();
+    handleClose();
+    navigate("accedi/registrati");
+  }
+
+  async function userLogOut() {
+    const response = await signOut(refreshToken, token);
+
+    if (response.status < 300) {
+      console.log("SIGNOUT", response);
+      dispatch(removeUserCredentials());
+      dispatch(removeToken());
+      clearLocalStorage();
+      notifyLogOutSuccess();
+    } else {
+      notifyLogOutError();
+    }
+  }
 
   return (
     <div className="userMenuNav">
@@ -150,7 +156,7 @@ function UserMenuNav(props) {
             <Avatar sx={{ marginRight: 2 }} />
             {userIsLogged ? (
               <p onClick={conditionalGoTo} className="item">
-                <span>{t("userMenuNav.profile")}</span>
+                <span>{userName.toUpperCase()}</span>
               </p>
             ) : (
               <p onClick={conditionalGoTo} className="item">
@@ -158,8 +164,10 @@ function UserMenuNav(props) {
               </p>
             )}
           </MenuItem>
-          <MenuItem onClick={conditionalGoTo}>
-            {<p className="item">WishList</p>}
+          <MenuItem onClick={conditionalGoToWishList}>
+            <p className="item">WishList</p>
+            {userIsLogged && <p className='item__wishlistItems'>{wishlistItems}</p>}
+
           </MenuItem>
           <MenuItem onClick={conditionalGoToCart}>
             {<p className="item">{t("userMenuNav.orders")}</p>}

@@ -7,17 +7,27 @@ import i18n from "../../../assets/translations/i18n";
 import { useSelector } from "react-redux";
 import { getLocalStorage } from "../../../utils/localStorageUtils";
 import { ToastContainer, toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 function CartHeader(props) {
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+
   function handleCheckout() {
     props.handleCheckout();
+  }
+
+  function goToCheckout() {
+    navigate("checkout");
   }
 
   return (
     <header className="cart-header">
       <div className="__recap">
-        <h1>il tuo carrello</h1>
-        <div className="__quantity">{props.quantity} prodotti</div>
+        <h1>{t("cartHeader.h1")}</h1>
+        <div className="__quantity">
+          {props.quantity} {t("cartHeader.products")}
+        </div>
       </div>
       <div className="__prices">
         {props.initialPrice > props.totalPrice && (

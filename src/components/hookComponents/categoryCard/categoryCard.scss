@@ -2,6 +2,7 @@
 
 .category-card {
   position: relative;
+  text-transform: uppercase;
 
   &__content-wrapper {
     position: absolute;
@@ -9,18 +10,8 @@
     left: 10%;
 
     &__header {
-      font-size: $xxx-large;
-      font-weight: 900;
-
-      @media screen and (max-width: 600px) {
-        font-size: $xx-large;
-      }
-
-      @media screen and (max-width: 360px) {
-        font-size: $x-large;
-      }
-
       &__link {
+
         &:link,
         &:visited {
           color: $white;
@@ -37,6 +28,8 @@
   }
 
   &__image {
+    object-fit: cover;
+    display: block;
     width: 100%;
     height: auto;
 

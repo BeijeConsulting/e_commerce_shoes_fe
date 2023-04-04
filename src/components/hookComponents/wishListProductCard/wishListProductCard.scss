@@ -1,9 +1,10 @@
 @import "../../../style/common/variables.scss";
 
 .card {
-    margin: 2%;
+    margin-bottom: 8rem;
     padding: 1%;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    position: relative;
 
     &__absolute {
         position: relative;
@@ -42,19 +43,6 @@
         position: absolute;
         top: 0;
         left: 0;
-
-        span {
-            display: flex;
-            font-size: $medium;
-            color: $grey-footer;
-            cursor: pointer;
-            transition: all .3s;
-        }
-
-        span:hover {
-            color: $orange;
-            transform: scale(1.1);
-        }
     }
 
     &__price {
@@ -64,7 +52,7 @@
 
     &__sellingPrice {
         color: $orange;
-        font-size: $small;
+        font-size: $medium;
     }
 
     &__initialPrice {
@@ -73,9 +61,21 @@
         font-size: $x-small;
     }
 
+    &__brand {
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        color: $grey-normal;
+    }
+
     &__info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+
         h2 {
-            font-size: $small;
+            font-size: $medium;
             line-height: 1.1;
             margin: 1rem 0;
         }
@@ -93,19 +93,41 @@
     }
 }
 
+.card__icon {
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+
+    span {
+        padding: 1rem;
+        display: flex;
+        font-size: $medium;
+        color: $grey-footer;
+        cursor: pointer;
+        transition: all .3s;
+    }
+
+    span:hover {
+        color: $orange;
+        transform: scale(1.1);
+    }
+}
+
 @media screen and (min-width: 800px) {
 
     .card__container {
 
         img {
-            max-width: 17%;
+            max-width: 40%;
         }
     }
 
     .card {
+        margin-bottom: 3rem;
 
         &__sellingPrice {
             font-size: $large;
+            margin-bottom: 2rem;
         }
 
         &__initialPrice {
@@ -119,7 +141,11 @@
         }
 
         &__info {
+
+            margin-top: 2rem;
+
             h2 {
+                // margin: 2rem 0;
                 font-size: $large;
             }
 
