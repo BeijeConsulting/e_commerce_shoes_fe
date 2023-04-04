@@ -13,8 +13,11 @@ import { useMediaQuery } from "@mui/material";
 import { getCategories, getColors, getBrands } from "../../../services/productServices";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import i18n from '../../../assets/translations/i18n';
 
 function FilterMenu(props) {
+    const lang = i18n.language.slice(0, 2)
+
     const { t } = useTranslation()
     const minMax = [20, 200];
     const location = useLocation();
@@ -43,7 +46,7 @@ function FilterMenu(props) {
 
     useEffect(() => {
         fetchFilterParams();
-    }, [pathname]);
+    }, [pathname, lang]);
 
     async function fetchFilterParams() {
         const pathToArray = pathname.split("/").filter(item => item !== "");
@@ -51,8 +54,8 @@ function FilterMenu(props) {
         let showType = true;
         let showCategory = true;
         let showBrand = true;
-        const categories = await getCategories("it");
-        const colors = await getColors("it");
+        const categories = await getCategories(lang);
+        const colors = await getColors(lang);
         const brands = await getBrands();
 
         if (props.types.includes(pathToArray[2])) showType = false;

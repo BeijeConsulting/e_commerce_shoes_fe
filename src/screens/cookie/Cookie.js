@@ -1,12 +1,18 @@
 import React from "react";
 
 import { useTranslation } from 'react-i18next';
+import Seo from '../../components/functionalComponents/Seo';
 
 function Cookie() {
     const { t } = useTranslation()
 
     return (
         <>
+            <Seo
+                title={ t("cookie.h1") }
+                description="Gestione delle cookie"
+                content="e-commerce"
+            />
             <h1>{ t("cookie.h1") }</h1>
             <p>{ t("cookie.p1") }</p>
             <h2>{ t("cookie.h2") }</h2>

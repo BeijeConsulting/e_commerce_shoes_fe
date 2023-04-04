@@ -11,7 +11,8 @@
       "price": "price",
       "genre": "genre",
       "category": "category",
-      "color": "color"
+      "color": "color",
+      "allBrands": "All brands"
     },
     "cookie": {
       "h1": " Cookie policy",
