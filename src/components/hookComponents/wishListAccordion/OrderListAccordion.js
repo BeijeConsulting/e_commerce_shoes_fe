@@ -19,6 +19,7 @@ function OrderListAccordion(props) {
         <div className="accordion__details">
           <p>{product.brand}</p>
         </div>
+
         <div className="accordion__details">
           <p>Quantitá: {product.quantity}</p>
         </div>

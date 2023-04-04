@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import i18n from "../../assets/translations/i18n";
+import { addOrder } from "../../services/orderServices";
 
 function Checkout() {
   const [state, setState] = useState({
@@ -28,7 +29,7 @@ function Checkout() {
   const orderData = location.state;
   const userAddresses = useSelector((state) => state.userDuck.adresses);
 
-  console.log(orderData);
+  console.log("ORDERDATA: ", orderData);
 
   function notifyAddressError() {
     toast.warning("Devi selezionare un indirizzo di spedizione", {
@@ -45,6 +46,13 @@ function Checkout() {
 
   function notifyOrderSuccess() {
     toast.success("Ordine effettuato", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 1000,
+    });
+  }
+
+  function notifyOrderError() {
+    toast.error("Ops, qualcosa è andato storto", {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 1000,
     });
@@ -105,8 +113,8 @@ function Checkout() {
     });
   };
 
-  function submitOrder() {
-    console.log("ordine confermato", state.order);
+  async function submitOrder() {
+    console.log("state", state);
     if (state.address_id === null) {
       notifyAddressError();
       return;
@@ -117,10 +125,37 @@ function Checkout() {
       return;
     }
 
-    notifyOrderSuccess();
-    setTimeout(() => {
-      navigate(`/${lang}`);
-    }, 1500);
+    const productOrderList = [];
+
+    orderData.dataCart.items.forEach((item) => {
+      for (let i = 0; i < item.quantity; i++) {
+        productOrderList.push(item.productDetailsId);
+      }
+    });
+
+    const obj = {
+      address_id: state.address_id,
+      coupon_id: orderData.couponId,
+      products: productOrderList,
+      payment_status: "paid",
+      status: "completed",
+      transaction: "00" + (Math.random() * 1000).toString(),
+    };
+
+    console.log("RIEPILOGO OGGETTO DA MANDARE", obj);
+
+    const response = await addOrder(obj);
+    console.log(response);
+
+    if (response.status === 200) {
+      notifyOrderSuccess();
+
+      setTimeout(() => {
+        navigate(`/${lang}`);
+      }, 1500);
+    } else {
+      notifyOrderError();
+    }
   }
 
   return (

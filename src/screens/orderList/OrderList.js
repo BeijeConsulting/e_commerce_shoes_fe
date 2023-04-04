@@ -3,12 +3,12 @@ import { getOrderList } from "../../services/orderServices";
 import OrderListAccordion from "../../components/hookComponents/wishListAccordion/OrderListAccordion";
 
 import { useSelector } from "react-redux";
-import Seo from '../../components/functionalComponents/Seo';
+import Seo from "../../components/functionalComponents/Seo";
 
 function OrderList() {
   const userFirstName = useSelector((state) => state.userDuck.name);
   const userLastName = useSelector((state) => state.userDuck.surname);
-  const token = useSelector((state) => state.tokenDuck.token)
+  const token = useSelector((state) => state.tokenDuck.token);
 
   const [state, setState] = useState({
     orderList: [],
@@ -17,16 +17,16 @@ function OrderList() {
 
   useEffect(() => {
     async function fetchData() {
+      const response = await getOrderList();
+      console.log("ORDERLIST:", response.data);
 
-      const response = await getOrderList(token);
+      if (response.status !== 200) return;
 
-      if (response.status === 200) {
-        setState({
-          ...state,
-          orderList: response.data.orders,
-          totalQuantity: calcTotalQuantity(response.data.orders),
-        });
-      }
+      setState({
+        ...state,
+        orderList: response.data.orders,
+        totalQuantity: calcTotalQuantity(response.data.orders),
+      });
     }
 
     fetchData();
@@ -46,25 +46,27 @@ function OrderList() {
 
   function renderOrderList(order, i) {
     return (
-      <li key={ order.orderId }>
+      <li key={order.orderId}>
         <OrderListAccordion
-          recipient={ { firstName: userFirstName, lastName: userLastName } }
-          totalQuantity={ state.totalQuantity[i] }
-          totalPrice={ Number(order.paidTotalPrice).toFixed(2) }
-          products={ order.productList }
+          recipient={{ firstName: userFirstName, lastName: userLastName }}
+          totalQuantity={state.totalQuantity[i]}
+          totalPrice={Number(order.paidTotalPrice).toFixed(2)}
+          products={order.productList}
         />
       </li>
     );
   }
 
-  return <div>
-    <Seo
-      title="I tuoi Ordini"
-      description="Gestione degli ordini"
-      content="e-commerce"
-    />
-    { <ul>{ state.orderList.map(renderOrderList) }</ul> }
-  </div>;
+  return (
+    <div>
+      <Seo
+        title="I tuoi Ordini"
+        description="Gestione degli ordini"
+        content="e-commerce"
+      />
+      {<ul>{state.orderList.map(renderOrderList)}</ul>}
+    </div>
+  );
 }
 
 export default OrderList;

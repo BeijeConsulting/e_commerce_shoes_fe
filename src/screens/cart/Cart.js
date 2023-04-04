@@ -123,6 +123,13 @@ function Cart() {
     });
   }
 
+  function notifyCouponValueError() {
+    toast.error("Totale troppo basso per applicare il coupon", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 1000,
+    });
+  }
+
   function notifyNoProductError() {
     toast.error("Non sono presenti prodotti nel carrello", {
       position: toast.POSITION.TOP_RIGHT,
@@ -314,21 +321,26 @@ function Cart() {
     }
   }
 
-  async function handleCoupon(id) {
-    if (id === null || id === undefined || id === "") {
+  async function handleCoupon(code) {
+    if (code === null || code === undefined || code === "") {
       notifyCouponInvalidFieldError();
       return;
     }
 
-    const response = await getCoupon(id);
+    const response = await getCoupon(code);
     let couponValue = 0;
     let couponId = null;
 
     if (response.status === 200) {
-      notifyCouponCheckSuccess();
-
       couponValue = response.data.value;
       couponId = response.data.id;
+
+      if (couponValue >= state.cart.totalPrice) {
+        notifyCouponValueError();
+      } else {
+        notifyCouponCheckSuccess();
+      }
+
       console.log(couponValue);
     } else {
       notifyCouponCheckError();

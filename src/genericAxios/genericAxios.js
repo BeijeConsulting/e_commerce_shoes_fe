@@ -85,6 +85,7 @@ export async function postData(resource, obj, header = null) {
 }
 // POST with Authentication
 export async function postDataAuth(resource, obj) {
+  console.log(resource, obj);
   const response = await axiosInstanceToken.post(resource, obj);
 
   return response;

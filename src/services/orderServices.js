@@ -1,4 +1,9 @@
-import { getDataAuth, postData, putData } from "../genericAxios/genericAxios";
+import {
+  getDataAuth,
+  postData,
+  postDataAuth,
+  putData,
+} from "../genericAxios/genericAxios";
 
 export async function getOrderList() {
   const response = await getDataAuth("/orders/order_list");
@@ -24,10 +29,20 @@ export async function modifyOrder(orderData, SECRET) {
   return { status: response.status, data: response.data };
 }
 
-export async function getCoupon(id) {
-  const response = await getDataAuth("/coupons/search/id=" + id)
+export async function getCoupon(code) {
+  const response = await getDataAuth("/coupons/search/code=" + code)
     .then((response) => response)
     .catch((response) => response);
+
+  return { status: response.status, data: response.data };
+}
+
+export async function addOrder(orderData) {
+  const response = await postDataAuth("/orders/add_order", orderData)
+    .then((response) => response)
+    .catch((response) => response);
+
+  console.log(response);
 
   return { status: response.status, data: response.data };
 }
