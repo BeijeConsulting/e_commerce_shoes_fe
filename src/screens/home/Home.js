@@ -62,11 +62,11 @@ function Home() {
           <ProductSlider products={ state.men } sliderTitle={ t("sliderHomepage.newArrivals") } />
         </div>
         <div className="homepage__category-sliders__slider">
-          <BoxImage goTo={ "scarpe/donna" } boxTitle={ t("header.woman") } image={ boxNuoviArriviLifeStyle } />
+          <BoxImage goTo={ "scarpe/donna" } boxTitle={ t("header.woman") } image={ require("../../assets/images/box/boxNuoviArriviLifestyle.jpeg") } />
           <ProductSlider products={ state.woman } sliderTitle={ t("sliderHomepage.newArrivals") } />
         </div>
         <div className="homepage__category-sliders__slider">
-          <BoxImage goTo={ "scarpe/unisex" } boxTitle={ "unisex" } image={ boxNuoviArriviLifeStyle } />
+          <BoxImage goTo={ "scarpe/unisex" } boxTitle={ "unisex" } image={ require("../../assets/images/box/boxNuoviArriviLifestyle.jpeg") } />
           <ProductSlider products={ state.unisex } sliderTitle={ t("sliderHomepage.newArrivals") } />
         </div>
       </div>

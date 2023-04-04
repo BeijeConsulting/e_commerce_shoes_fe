@@ -11,6 +11,7 @@
 
     &__header {
       &__link {
+
         &:link,
         &:visited {
           color: $white;
@@ -27,8 +28,9 @@
   }
 
   &__image {
+    object-fit: cover;
     display: block;
-    max-width: 100%;
+    width: 100%;
     height: auto;
 
     z-index: -1;
