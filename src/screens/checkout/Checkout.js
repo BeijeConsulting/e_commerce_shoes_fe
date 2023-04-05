@@ -1,30 +1,179 @@
-import React, { useState } from "react";
-import { useLocation } from "react-router";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router";
 import "./checkout.scss";
 
 import RecapCart from "../../components/functionalComponents/recapCart/RecapCart";
 import Button from "../../components/functionalComponents/button/Button";
 import CheckoutProduct from "../../components/functionalComponents/checkoutProduct/CheckoutProduct";
 import Seo from "../../components/functionalComponents/Seo";
+import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import { Link } from "react-router-dom";
+import i18n from "../../assets/translations/i18n";
+import { addOrder } from "../../services/orderServices";
+import { deleteCartItem } from "../../services/cartServices";
+import { setLocalStorage } from "../../utils/localStorageUtils";
+import { updateCartQuantity } from "../../redux/ducks/userDuck";
 
 function Checkout() {
-  // const location = useLocation();
   const [state, setState] = useState({
-    order: {
-      address_id: 0,
-      coupon_id: 0,
-      id: 0,
-      payment_status: "string",
-      products: [0],
-      status: "string",
-      transaction: "string",
-      transaction_date: "2023-03-24T13:21:14.592Z",
-      user_id: 0,
-    },
+    address_id: null,
+    paymentMethod: null,
+    payment_status: "string",
+    status: "string",
   });
 
-  function submitOrder() {
-    console.log("ordine confermato", state.order);
+  const lang = i18n.language;
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  useEffect(() => console.log(state));
+
+  const location = useLocation();
+  const orderData = location.state;
+  const userAddresses = useSelector((state) => state.userDuck.adresses);
+
+  console.log("ORDERDATA: ", orderData);
+
+  function notifyAddressError() {
+    toast.warning("Devi selezionare un indirizzo di spedizione", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 2000,
+    });
+  }
+  function notifyPaymentError() {
+    toast.warning("Devi selezionare un metodo di pagamento", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 2000,
+    });
+  }
+
+  function notifyOrderSuccess() {
+    toast.success("Ordine effettuato", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 1000,
+    });
+  }
+
+  function notifyOrderError() {
+    toast.error("Ops, qualcosa è andato storto", {
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 1000,
+    });
+  }
+
+  const setDeliveryAddress = (addressId) => () => {
+    setState({
+      ...state,
+      address_id: addressId,
+    });
+  };
+
+  function renderProductsList(item) {
+    return (
+      <CheckoutProduct
+        key={item.item_id}
+        productSrc={item.image}
+        productAlt={item.name}
+        productPrice={item.sellingItemTotalPrice}
+        productName={item.name}
+        productColor={item.brand} //FIX PROP
+        productSize={item.size}
+        productQuantity={item.quantity}
+      />
+    );
+  }
+
+  function renderAddressList(address, key) {
+    return (
+      <li key={address.id} className="__delivery-address">
+        <label htmlFor={`delivery-address-${key}`}>
+          <address>
+            <p>
+              <strong className="__name">casa</strong>
+              <br />
+            </p>
+            <p>{address.name_surname}</p>
+            <p>{address.country}</p>
+            <p>{address.zipcode} - Mettere city</p>
+            <p>{address.street_address}</p>
+            {address.instructions && <p>{address.instructions}</p>}
+          </address>
+        </label>
+        <input
+          type={"radio"}
+          name="delivery-address"
+          id={`delivery-address-${key}`}
+          onChange={setDeliveryAddress(address.id)}
+        />
+      </li>
+    );
+  }
+
+  const handlePaymentMethod = (method) => () => {
+    setState({
+      ...state,
+      paymentMethod: method,
+    });
+  };
+
+  async function submitOrder() {
+    console.log("state", state);
+    if (state.address_id === null) {
+      notifyAddressError();
+      return;
+    }
+
+    if (state.paymentMethod === null) {
+      notifyPaymentError();
+      return;
+    }
+
+    const productOrderList = [];
+
+    orderData.dataCart.items.forEach((item) => {
+      for (let i = 0; i < item.quantity; i++) {
+        productOrderList.push(item.productDetailsId);
+      }
+    });
+
+    const obj = {
+      address_id: state.address_id,
+      coupon_id: orderData.couponId,
+      products: productOrderList,
+      payment_status: "paid",
+      status: "completed",
+      transaction: "00" + (Math.random() * 1000).toString(),
+    };
+
+    console.log("RIEPILOGO OGGETTO DA MANDARE", obj);
+
+    const response = await addOrder(obj);
+    console.log(response);
+
+    if (response.status === 200) {
+      notifyOrderSuccess();
+      ////////////////////////////
+      console.log("DATACART", orderData.dataCart);
+      orderData.dataCart.items.forEach((item) => {
+        deleteCartItem(item.item_id);
+      });
+
+      setLocalStorage("cart-list", {
+        items: [],
+        totalPrice: 0,
+        numberItems: 0,
+      });
+
+      dispatch(updateCartQuantity(0));
+
+      setTimeout(() => {
+        navigate(`/${lang}`);
+      }, 1500);
+    } else {
+      notifyOrderError();
+    }
   }
 
   return (
@@ -47,7 +196,8 @@ function Checkout() {
           <div className="__container">
             <h2>indirizzo di spedizione</h2>
             <ul>
-              <li className="__delivery-address">
+              {userAddresses.map(renderAddressList)}
+              {/* <li className="__delivery-address">
                 <label htmlFor="delivery-address-1">
                   <address>
                     <p>
@@ -66,9 +216,14 @@ function Checkout() {
                   name="delivery-address"
                   id="delivery-address-1"
                 />
-              </li>
+              </li> */}
             </ul>
-            <a className="__add-address">Aggiungi un nuovo indirizzo</a>
+            <Link
+              to={`/${lang}/area-personale/indirizzi`}
+              className="__add-address"
+            >
+              Aggiungi un nuovo indirizzo
+            </Link>
           </div>
           <div className="__container">
             <h2>opzioni di pagamento</h2>
@@ -78,6 +233,7 @@ function Checkout() {
                   type={"radio"}
                   name="payment-methods"
                   id="payment-methods-1"
+                  onChange={handlePaymentMethod("Credit-card")}
                 />
                 <label htmlFor="payment-methods-1">
                   <img
@@ -92,6 +248,7 @@ function Checkout() {
                   type={"radio"}
                   name="payment-methods"
                   id="payment-methods-2"
+                  onChange={handlePaymentMethod("PayPal")}
                 />
                 <label htmlFor="payment-methods-2">
                   <img
@@ -106,6 +263,7 @@ function Checkout() {
                   type={"radio"}
                   name="payment-methods"
                   id="payment-methods-3"
+                  onChange={handlePaymentMethod("Klarna")}
                 />
                 <label htmlFor="payment-methods-3">
                   <img
@@ -125,8 +283,8 @@ function Checkout() {
         </div>
         <div className="__right">
           <div className="__container">
-            <h2>10 prodotti</h2>
-            <CheckoutProduct
+            <h2>{orderData.dataCart.numberItems} prodotti</h2>
+            {/* <CheckoutProduct
               productSrc={
                 "https://images.asos-media.com/products/asos-design-occhiali-da-sole-neri-retro-con-lenti-fume/8064078-1-black?$s$"
               }
@@ -138,9 +296,16 @@ function Checkout() {
               productColor={"Nero"}
               productSize={"EU 38"}
               productQuantity={2}
-            />
+            /> */}
+
+            {orderData.dataCart.items.map(renderProductsList)}
           </div>
-          <RecapCart />
+          <RecapCart
+            total={
+              Number(orderData.dataCart.totalPrice).toFixed(2) -
+              Number(orderData.couponValue).toFixed(2)
+            }
+          />
           <Button
             handleClick={submitOrder}
             label={"ACQUISTA ORA"}
@@ -148,6 +313,7 @@ function Checkout() {
           />
         </div>
       </div>
+      <ToastContainer hideProgressBar />
     </div>
   );
 }

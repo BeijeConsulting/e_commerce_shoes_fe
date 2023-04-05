@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 
 // REDUX
 import { useDispatch, useSelector } from "react-redux";
-import { updateCartQuantity } from "../../redux/ducks/productCartDuck";
-import { setUserCredentials } from '../../redux/ducks/userDuck';
+import { updateCartQuantity } from "../../redux/ducks/userDuck";
+import { setUserCredentials } from "../../redux/ducks/userDuck";
 // API
 import { getProduct } from "../../services/productServices";
-import { addWishList, getWishList } from '../../services/wishListServices';
-import { getUserAuth } from '../../services/authServices';
+import { addWishList, getWishList } from "../../services/wishListServices";
+import { getUserAuth } from "../../services/authServices";
 // ROUTER
 import { useNavigate, useParams } from "react-router-dom";
 // Components
@@ -24,14 +24,14 @@ import {
 } from "../../utils/localStorageUtils";
 // Library
 import i18n from "../../assets/translations/i18n";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 // Icons
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai"
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // SCSS
 import "./singleProduct.scss";
-import { addItemToCartList, getCartList } from '../../services/cartServices';
+import { addItemToCartList, getCartList } from "../../services/cartServices";
 
 function SingleProduct() {
   const [state, setState] = useState({
@@ -39,27 +39,26 @@ function SingleProduct() {
     selectedSize: false,
   });
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const [stateAdded, setStateAdded] = useState(false) // serve per mostrare bottone aggiungi alla wishList o già aggiunto alla wishList
+  const [stateAdded, setStateAdded] = useState(false); // serve per mostrare bottone aggiungi alla wishList o già aggiunto alla wishList
 
-  const lang = i18n.language.slice(0, 2)
+  const lang = i18n.language.slice(0, 2);
 
   const params = useParams();
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const cartQuantity = useSelector((state) => state.userDuck.cartItems); //modificato lo state
 
-  const isLogged = useSelector((state) => state.userDuck.isLogged)
-  const token = useSelector((state) => state.userDuck.token)
+  const isLogged = useSelector((state) => state.userDuck.isLogged);
+  const token = useSelector((state) => state.userDuck.token);
   let sizeValue = useRef(null);
   let productDetailsId = useRef(null);
 
   useEffect(() => {
     fetchProduct();
-    fetchWishList()
+    fetchWishList();
   }, [stateAdded, lang]);
-
 
   async function fetchProduct() {
     const result = await getProduct(params.id, lang);
@@ -67,22 +66,23 @@ function SingleProduct() {
       ...state,
       product: result.data,
     });
-
   }
 
   async function fetchWishList() {
-    let toggle = undefined
-    const response = await getWishList(token)
+    let toggle = undefined;
+    const response = await getWishList(token);
 
     // check per controllare se è già presente nella wishlist
-    const alreadyAdd = response.data.items.find(item => Number(item.productId) === Number(params.id))
+    const alreadyAdd = response.data.items.find(
+      (item) => Number(item.productId) === Number(params.id)
+    );
 
     if (alreadyAdd) {
-      toggle = true
+      toggle = true;
     } else {
-      toggle = false
+      toggle = false;
     }
-    setStateAdded(toggle)
+    setStateAdded(toggle);
   }
 
   ////////////////////////////////
@@ -90,20 +90,21 @@ function SingleProduct() {
 
   async function addToWishlist() {
     if (!isLogged) {
-      navigate(`/${lang}/identity`)
+      navigate(`/${lang}/accedi`);
+      return;
     }
 
-    try {
-      await addWishList({
-        productId: params.id,
-      })
+    const wishlistResp = await addWishList({
+      productId: params.id,
+    });
 
-      notifyAddToWishlistSuccess()
+    if (wishlistResp.status < 300) {
+      notifyAddToWishlistSuccess();
 
       // una volta aggiunto setto lo stato a true
-      setStateAdded(true)
+      setStateAdded(true);
       // aggiorno la quantità in redux
-      const responseUser = await getUserAuth(token);
+      const responseUser = await getUserAuth();
 
       dispatch(
         setUserCredentials({
@@ -116,20 +117,13 @@ function SingleProduct() {
           cartItems: responseUser.data.cart_items,
           wishlistItems: responseUser.data.wish_list_item,
         })
-      )
-      console.log("responseUser", responseUser)
-
-    } catch (error) {
-      console.error(error)
-      notifyAddToWishlistError()
+      );
+    } else {
+      notifyAddToWishlistError();
     }
-
-
-
   }
 
   ////////////////////////////////
-
 
   function notifyAddToCartSuccess() {
     toast.success("Aggiunto al carrello", {
@@ -156,7 +150,7 @@ function SingleProduct() {
     });
   }
   function notifyAddToWishlistError() {
-    toast.success("Si è verificato un errore", {
+    toast.error("Si è verificato un errore", {
       position: toast.POSITION.TOP_RIGHT,
       autoClose: 1000,
     });
@@ -171,8 +165,6 @@ function SingleProduct() {
       notifyAddToCartSizeError();
       return;
     }
-
-    dispatch(updateCartQuantity({ quantity: cartQuantity + 1 }));
 
     if (!localData) {
       localData = {
@@ -270,7 +262,11 @@ function SingleProduct() {
         if (localDataResponse.status === 200) {
           localData = localDataResponse.data;
         }
-        // console.log("aggiunto");
+        console.log("aggiunto");
+
+        console.log("UPDATE");
+        dispatch(updateCartQuantity(cartQuantity + 1));
+
         notifyAddToCartSuccess();
       } else {
         notifyAddToCartError();
@@ -280,8 +276,6 @@ function SingleProduct() {
     setLocalStorage("cart-list", localData);
     if (!isLogged) notifyAddToCartSuccess();
   }
-
-
 
   function renderSizesOption(size, key) {
     return (
@@ -355,7 +349,6 @@ function SingleProduct() {
             </select>
             <InfoProductBox />
 
-
             <Button
               handleClick={updateCart}
               label={t("button.addToCart")}
@@ -395,7 +388,6 @@ function SingleProduct() {
       <ToastContainer hideProgressBar />
     </>
   );
-
 }
 
 SingleProduct.defaultProps = {};

@@ -27,15 +27,15 @@ import {
 } from "../../../services/cartServices";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useTranslation } from 'react-i18next';
-import { useForm } from 'react-hook-form';
+import { useTranslation } from "react-i18next";
+import { useForm } from "react-hook-form";
 
 function LoginForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const lang = i18n.language.slice(0, 2);
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const [state, setState] = useState({
     invalidEmail: false,
@@ -80,19 +80,20 @@ function LoginForm() {
       const user = await getUser(response.data.token);
 
       console.log("USER", user);
+      console.log(user.data.cart_items);
 
-      dispatch(
-        setUserCredentials({
-          name: user.data.first_name,
-          surname: user.data.last_name,
-          email: user.data.email,
-          adresses: [...user.data.addresses],
-          birthDate: user.data.birth_date,
-          cartItems: user.data.cart_items,
-          wishlistItems: user.data.wish_list_item,
-          isLogged: true,
-        })
-      );
+      // dispatch(
+      //   setUserCredentials({
+      //     name: user.data.first_name,
+      //     surname: user.data.last_name,
+      //     email: user.data.email,
+      //     adresses: [...user.data.addresses],
+      //     birthDate: user.data.birth_date,
+      //     cartItems: user.data.cart_items,
+      //     wishListItems: user.data.wish_list_item,
+      //     isLogged: true,
+      //   })
+      // );
 
       dispatch(
         setToken({
@@ -106,8 +107,8 @@ function LoginForm() {
 
       const localCart = getLocalStorage("cart-list");
 
-      const cartFetch = await getCartList();
-      console.log(cartFetch);
+      // const cartFetch = await getCartList();
+      // console.log(cartFetch);
 
       if (localCart?.items?.length > 0) {
         const items = localCart.items.map((item) => {
@@ -138,13 +139,14 @@ function LoginForm() {
           email: user.data.email,
           adresses: [...user.data.addresses],
           birthDate: user.data.birth_date,
-          // cartItems: user.data.cart_items,
+          cartItems: userCart.data.numberItems,
           wishlistItems: user.data.wish_list_item,
           isLogged: true,
         })
       );
 
       notifyLoginSuccess();
+
       setTimeout(() => {
         navigate(`/${lang}`);
       }, 1500);
@@ -174,33 +176,35 @@ function LoginForm() {
   // console.log(errors);
 
   return (
-    <form className="login-form" onSubmit={ handleSubmit(onSubmit, onError) }>
+    <form className="login-form" onSubmit={handleSubmit(onSubmit, onError)}>
       <Seo title="LogIn" description="LogIn" content="e-commerce" />
       <div className="login-form__input-container">
         <InputTextField
           inputName="email"
-          inputLabel={ t("login.email") + ":" }
+          inputLabel={t("login.email") + ":"}
           inputType="text"
           inputPlaceholder="Email"
-          register={ register }
-          regexValidation={ emailReg }
-          isRequired={ true }
+          register={register}
+          regexValidation={emailReg}
+          isRequired={true}
           labelStyle="default-label  "
-          inputStyle={ `default-input margin-top-small ${state.invalidEmail ? "default-input--error" : ""
-            }` }
+          inputStyle={`default-input margin-top-small ${
+            state.invalidEmail ? "default-input--error" : ""
+          }`}
         />
 
         <InputPasswordField
           inputName="password"
-          inputLabel={ t("login.password") + ":" }
+          inputLabel={t("login.password") + ":"}
           inputType="password"
           inputPlaceholder="Password"
-          register={ register }
-          regexValidation={ passwordReg }
-          isRequired={ true }
+          register={register}
+          regexValidation={passwordReg}
+          isRequired={true}
           labelStyle="default-label password-margin-top margin-top-extra"
-          inputStyle={ `default-input ${state.invalidPassword ? "default-input--error" : ""
-            }` }
+          inputStyle={`default-input ${
+            state.invalidPassword ? "default-input--error" : ""
+          }`}
         />
       </div>
       <Button label="Login" buttonStyle="submit-button" />

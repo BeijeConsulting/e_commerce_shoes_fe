@@ -6,13 +6,13 @@ import { Outlet } from "react-router";
 import { Link } from "react-router-dom";
 // i18n
 import i18n from "../../assets/translations/i18n";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 // SCSS
 import "./identity.scss";
 
 function Identity() {
-  const lang = i18n.language.slice(0, 2)
-  const { t } = useTranslation()
+  const lang = i18n.language.slice(0, 2);
+  const { t } = useTranslation();
   const location = useLocation();
   console.log(location.pathname === `/${lang}/identity`);
   useEffect(() => {

@@ -17,6 +17,14 @@ export const removeUserCredentials = () => (dispatch) => {
   }
 };
 
+export const updateCartQuantity = (newQuantity) => (dispatch) => {
+  try {
+    return dispatch(updateCartQuantityAction(newQuantity));
+  } catch (err) {
+    return console.log(err);
+  }
+};
+
 // Slice
 const userDuck = createSlice({
   name: "user",
@@ -54,11 +62,18 @@ const userDuck = createSlice({
       state.cartItems = 0;
       state.wishlistItems = 0;
     },
+    updateCartQuantityAction: (state, action) => {
+      console.log(action);
+      state.cartItems = action.payload;
+    },
   },
 });
 
 export default userDuck.reducer;
 
 // Actions
-const { setUserCredentialsAction, removeUserCredentialsAction } =
-  userDuck.actions;
+const {
+  setUserCredentialsAction,
+  removeUserCredentialsAction,
+  updateCartQuantityAction,
+} = userDuck.actions;

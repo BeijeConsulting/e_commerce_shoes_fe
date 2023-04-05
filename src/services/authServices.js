@@ -72,8 +72,8 @@ export async function getUser(SECRET) {
 }
 
 // GET user data with Authentication
-export async function getUserAuth(SECRET) {
-  const response = await getDataAuth("/user", SECRET);
+export async function getUserAuth() {
+  const response = await getDataAuth("/user");
   if (response.status < 300) {
     return { status: response.status, data: response.data };
   }

@@ -19,8 +19,13 @@ function OrderListAccordion(props) {
         <div className="accordion__details">
           <p>{product.brand}</p>
         </div>
-        <div className="accordion__details">
+
+        {/* <div className="accordion__details">
           <p>Quantitá: {product.quantity}</p>
+        </div> */}
+
+        <div className="accordion__details">
+          <p>Misura: {product.size}</p>
         </div>
 
         <div className="accordion__details--price">
@@ -45,7 +50,7 @@ function OrderListAccordion(props) {
               <p>{props.orderId} </p>
             </div>
             <div className="accordion__info">
-              <h3>Destinatario: </h3>
+              <h3>Intestatario: </h3>
               <p>
                 {props.recipient.firstName} {props.recipient.lastName}{" "}
               </p>

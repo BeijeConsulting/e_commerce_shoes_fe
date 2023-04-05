@@ -23,11 +23,10 @@ function CouponInput(props) {
 
   function handleOnClick() {
     const input = ref.current.value.toLowerCase();
-    if (input === "") return;
     if (props.handleCoupon && typeof props.handleCoupon === "function") {
       props.handleCoupon(input);
     }
-    ref.current.value = "";
+    // ref.current.value = "";
   }
 
   return (
