@@ -24,17 +24,20 @@ function CartHeader(props) {
         {props.initialPrice > props.totalPrice && (
           <div className="__before">
             <div className="__text">{t("cartHeader.instead")}</div>
-            <div className="__price">{props.initialPrice} €</div>
+            <div className="__price">
+              {" "}
+              € {Number(props.initialPrice).toFixed(2)}
+            </div>
           </div>
         )}
 
         <div className="__after">
           <div className="__text">{t("cartHeader.payOnly")}</div>
-          <div className="__price">€{props.totalPrice.toFixed(2)}</div>
+          <div className="__price">€ {Number(props.totalPrice).toFixed(2)}</div>
         </div>
         <div className="__actions">
           <Button
-            label={"PROCEDI AL CHECKOUT"}
+            label={t("button.goToCheckout")}
             handleClick={handleCheckout}
             buttonStyle={"filter-button"}
           />

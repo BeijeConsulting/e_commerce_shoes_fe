@@ -14,7 +14,7 @@ function Identity() {
   const lang = i18n.language.slice(0, 2);
   const { t } = useTranslation();
   const location = useLocation();
-  console.log(location.pathname === `/${lang}/identity`);
+  // console.log(location.pathname === `/${lang}/identity`);
   useEffect(() => {
     document.body.classList.add("background-grey");
 
@@ -29,28 +29,34 @@ function Identity() {
       <div className="identity-container">
         <div className="identity-container__options">
           <div
-            className={`identity-container__options__signup ${location.pathname === `/${lang}/accedi/registrati`
-              ? "identity-container__options__signup--shown underline"
-              : ""
-              }`}
+            className={`identity-container__options__signup ${
+              location.pathname === `/${lang}/accedi/registrati`
+                ? "identity-container__options__signup--shown underline"
+                : ""
+            }`}
           >
             <Link
-              className={`link ${location.pathname === `/${lang}/accedi/registrati` ? "link--active" : ""
-                }`}
+              className={`link ${
+                location.pathname === `/${lang}/accedi/registrati`
+                  ? "link--active"
+                  : ""
+              }`}
               to={"registrati"}
             >
               {t("login.signup")}
             </Link>
           </div>
           <div
-            className={`identity-container__options__login  ${location.pathname === `/${lang}/accedi`
-              ? "identity-container__options__login--shown underline"
-              : ""
-              }`}
+            className={`identity-container__options__login  ${
+              location.pathname === `/${lang}/accedi`
+                ? "identity-container__options__login--shown underline"
+                : ""
+            }`}
           >
             <Link
-              className={`link ${location.pathname === `/${lang}/accedi` ? "link--active" : ""
-                }`}
+              className={`link ${
+                location.pathname === `/${lang}/accedi` ? "link--active" : ""
+              }`}
               to={""}
             >
               {t("login.signin")}

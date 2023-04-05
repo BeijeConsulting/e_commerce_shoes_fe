@@ -63,7 +63,6 @@ const userDuck = createSlice({
       state.wishlistItems = 0;
     },
     updateCartQuantityAction: (state, action) => {
-      console.log(action);
       state.cartItems = action.payload;
     },
   },

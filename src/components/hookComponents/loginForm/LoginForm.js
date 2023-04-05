@@ -48,20 +48,20 @@ function LoginForm() {
   const passwordReg = /^.{2,}$/;
 
   function notifyLoginSuccess() {
-    toast.success("Login", {
+    toast.success(t("toastify.loginForm.loginSuccess"), {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 500,
     });
   }
   function notifyLoginError() {
-    toast.error("Dati non validi", {
+    toast.error(t("toastify.loginForm.loginError"), {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 2000,
     });
   }
 
   function notifyLoginCredentialsError() {
-    toast.error("Credenziali errate", {
+    toast.error(t("toastify.loginForm.credentialsError"), {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 2000,
     });
@@ -73,14 +73,14 @@ function LoginForm() {
       password: data.password,
     });
 
-    console.log(response);
-    console.log("try error");
+    // console.log(response);
+    // console.log("try error");
 
     if (response.status < 300) {
       const user = await getUser(response.data.token);
 
-      console.log("USER", user);
-      console.log(user.data.cart_items);
+      // console.log("USER", user);
+      // console.log(user.data.cart_items);
 
       // dispatch(
       //   setUserCredentials({
@@ -120,16 +120,16 @@ function LoginForm() {
           };
         });
 
-        console.log(items);
+        // console.log(items);
         const listResp = await addListItemToCartList(items);
-        console.log(listResp);
+        // console.log(listResp);
       }
 
       const userCart = await getCartList();
-      console.log(userCart.data);
+      // console.log(userCart.data);
       if (userCart.status === 200) {
         setLocalStorage("cart-list", userCart.data);
-        console.log(getLocalStorage("cart-list"));
+        // console.log(getLocalStorage("cart-list"));
       }
 
       dispatch(
@@ -151,7 +151,7 @@ function LoginForm() {
         navigate(`/${lang}`);
       }, 1500);
     } else {
-      console.log(response);
+      // console.log(response);
       notifyLoginCredentialsError();
     }
 
@@ -164,8 +164,8 @@ function LoginForm() {
 
   const onError = (err) => {
     notifyLoginError();
-    console.log("Fail");
-    console.log(err);
+    // console.log("Fail");
+    // console.log(err);
 
     setState({
       ...state,

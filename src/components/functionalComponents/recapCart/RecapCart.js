@@ -10,7 +10,7 @@ function RecapCart(props) {
       <h2 className="recap-container__header">{t("recapCart.h2")}</h2>
       <div className="recap-container__total">
         <span>{t("recapCart.total")}</span>{" "}
-        <span className="price">$ {Number(props.total).toFixed(2)}</span>
+        <span className="price"> € {Number(props.total).toFixed(2)}</span>
         <span className="underline"></span>
       </div>
     </div>

@@ -26,7 +26,7 @@ function OrderList() {
   useEffect(() => {
     async function fetchData() {
       const response = await getOrderList();
-      console.log("ORDERLIST:", response.data);
+      // console.log("ORDERLIST:", response.data);
 
       if (response.status !== 200) return;
 
@@ -42,7 +42,7 @@ function OrderList() {
 
   function calcTotalQuantity(orders) {
     let totalQuantity = Array(orders.length).fill(0);
-    console.log(orders);
+    // console.log(orders);
     // orders.forEach((order, i) => {
     //   order.productList.forEach((product) => {
     //     totalQuantity[i] += product.quantity;

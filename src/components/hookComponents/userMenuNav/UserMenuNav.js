@@ -33,8 +33,8 @@ import "./userMenuNav.scss";
 function UserMenuNav(props) {
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const token = useSelector((state) => state.tokenDuck.token)
-  const refreshToken = useSelector((state) => state.tokenDuck.refreshToken)
+  const token = useSelector((state) => state.tokenDuck.token);
+  const refreshToken = useSelector((state) => state.tokenDuck.refreshToken);
   const userIsLogged = useSelector((state) => state.userDuck.isLogged);
   const userName = useSelector((state) => state.userDuck.name);
   const wishlistItems = useSelector((state) => state.userDuck.wishlistItems);
@@ -42,20 +42,18 @@ function UserMenuNav(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-
-
-  const lang = i18n.language.slice(0, 2)
+  const lang = i18n.language.slice(0, 2);
   const { t } = useTranslation();
 
   function notifyLogOutSuccess() {
-    toast.success("Logout", {
+    toast.success(t("toastify.userMenuNav.logoutSuccess"), {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 500,
     });
   }
 
   function notifyLogOutError() {
-    toast.error("Errore nel Logout", {
+    toast.error(t("toastify.userMenuNav.logoutError"), {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 2000,
     });
@@ -68,7 +66,6 @@ function UserMenuNav(props) {
   function handleMenu(event) {
     setAnchorEl(event.currentTarget);
   }
-
 
   // if user is logged --> screen userInfo
   // if user is not logged --> screen identity
@@ -94,14 +91,13 @@ function UserMenuNav(props) {
 
   function conditionalGoToWishList() {
     props.hideMenuFunc();
-    handleClose()
+    handleClose();
     if (userIsLogged) {
       navigate("lista-desideri");
     } else {
       navigate("accedi");
     }
   }
-
 
   function goToRegistration() {
     props.hideMenuFunc();
@@ -113,7 +109,7 @@ function UserMenuNav(props) {
     const response = await signOut(refreshToken, token);
 
     if (response.status < 300) {
-      console.log("SIGNOUT", response);
+      // console.log("SIGNOUT", response);
       dispatch(removeUserCredentials());
       dispatch(removeToken());
       clearLocalStorage();
@@ -166,8 +162,9 @@ function UserMenuNav(props) {
           </MenuItem>
           <MenuItem onClick={conditionalGoToWishList}>
             <p className="item">WishList</p>
-            {userIsLogged && <p className='item__wishlistItems'>{wishlistItems}</p>}
-
+            {userIsLogged && (
+              <p className="item__wishlistItems">{wishlistItems}</p>
+            )}
           </MenuItem>
           <MenuItem onClick={conditionalGoToCart}>
             {<p className="item">{t("userMenuNav.orders")}</p>}

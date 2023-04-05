@@ -56,19 +56,19 @@ function SignupForm() {
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?])(?=.*[^\s]).{8,}$/;
 
   function notifySignupSuccess() {
-    toast.success("Registrato con successo", {
+    toast.success(t("toastify.signupForm.signupSuccess"), {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 500,
     });
   }
   function notifySignupError() {
-    toast.error("Dati non validi", {
+    toast.error(t("toastify.signupForm.signupError"), {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 1000,
     });
   }
   function notifySignupEmailError() {
-    toast.error("Hai inserito una email esistente", {
+    toast.error(t("toastify.signupForm.signupEmailError"), {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 1000,
     });
@@ -88,7 +88,7 @@ function SignupForm() {
       isInvalidAge = true;
     }
 
-    console.log(data);
+    // console.log(data);
 
     if (!isInvalidAge) {
       const response = await signUp({
@@ -100,13 +100,13 @@ function SignupForm() {
         surname: data.lastName,
       });
 
-      console.log(response);
+      // console.log(response);
 
       if (response.status === 200) {
         setLocalStorage("token", response.data.token);
         setLocalStorage("refreshToken", response.data.refreshToken);
 
-        console.log(response);
+        // console.log(response);
 
         dispatch(
           setToken({
@@ -136,16 +136,16 @@ function SignupForm() {
             };
           });
 
-          console.log(items);
+          // console.log(items);
           const listResp = await addListItemToCartList(items);
           console.log(listResp);
         }
 
         const userCart = await getCartList();
-        console.log(userCart.data);
+        // console.log(userCart.data);
         if (userCart.status === 200) {
           setLocalStorage("cart-list", userCart.data);
-          console.log(getLocalStorage("cart-list"));
+          // console.log(getLocalStorage("cart-list"));
         }
 
         dispatch(

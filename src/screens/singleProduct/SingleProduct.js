@@ -126,31 +126,31 @@ function SingleProduct() {
   ////////////////////////////////
 
   function notifyAddToCartSuccess() {
-    toast.success("Aggiunto al carrello", {
+    toast.success(t("toastify.singleProduct.addCartSuccess"), {
       position: toast.POSITION.TOP_RIGHT,
       autoClose: 1000,
     });
   }
   function notifyAddToCartError() {
-    toast.error("Si è verificato un errore", {
+    toast.error(t("toastify.singleProduct.addCartError"), {
       position: toast.POSITION.TOP_RIGHT,
       autoClose: 1000,
     });
   }
   function notifyAddToCartSizeError() {
-    toast.error("Devi selezionare una taglia", {
+    toast.error(t("toastify.singleProduct.addCartSizeError"), {
       position: toast.POSITION.TOP_RIGHT,
       autoClose: 1000,
     });
   }
   function notifyAddToWishlistSuccess() {
-    toast.success("Aggiunto alla whislist", {
+    toast.success(t("toastify.singleProduct.addWishlistSuccess"), {
       position: toast.POSITION.TOP_RIGHT,
       autoClose: 1000,
     });
   }
   function notifyAddToWishlistError() {
-    toast.error("Si è verificato un errore", {
+    toast.error(t("toastify.singleProduct.addWishlistError"), {
       position: toast.POSITION.TOP_RIGHT,
       autoClose: 1000,
     });
@@ -262,9 +262,9 @@ function SingleProduct() {
         if (localDataResponse.status === 200) {
           localData = localDataResponse.data;
         }
-        console.log("aggiunto");
+        // console.log("aggiunto");
 
-        console.log("UPDATE");
+        // console.log("UPDATE");
         dispatch(updateCartQuantity(cartQuantity + 1));
 
         notifyAddToCartSuccess();
@@ -324,7 +324,9 @@ function SingleProduct() {
             <p className="header__price">
               {state.selectedSize
                 ? `${state.product?.listed_price}€`
-                : `${t("singleProduct.listedPrice")} ${state.product?.listed_price}€`}
+                : `${t("singleProduct.listedPrice")} ${
+                    state.product?.listed_price
+                  }€`}
             </p>
           </div>
           <h2 className="header__brand">
@@ -355,28 +357,26 @@ function SingleProduct() {
               buttonStyle={"default-button"}
             />
 
-            {!stateAdded &&
-              <div className='info__container'>
-                <p onClick={addToWishlist}
-                  className='info__wishlist'>
+            {!stateAdded && (
+              <div className="info__container">
+                <p onClick={addToWishlist} className="info__wishlist">
                   {t("singleProduct.addWishList")}
                   <span>
                     <AiOutlineHeart />
                   </span>
                 </p>
               </div>
-            }
-            {stateAdded &&
-              <div className='info__container'>
-                <p onClick={addToWishlist}
-                  className='info__wishlist'>
+            )}
+            {stateAdded && (
+              <div className="info__container">
+                <p onClick={addToWishlist} className="info__wishlist">
                   {t("singleProduct.added")}
                   <span>
                     <AiFillHeart />
                   </span>
                 </p>
               </div>
-            }
+            )}
 
             <AccordionItem
               productDescription={state.product?.description}

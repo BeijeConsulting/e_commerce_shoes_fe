@@ -58,7 +58,7 @@
       "p5": "Belle Scarpe si riserva il diritto di rivedere e modificare le presenti Condizioni Generali in qualsiasi momento. Il Cliente sarà soggetto alle Condizioni Generali in vigore al momento dell’ordine."
     },
     "cartHeader": {
-      "h1": "Your cart",
+      "h1": "Il tuo carrello",
       "products": "prodotti",
       "instead": "invece di",
       "payOnly": "paghi solo"
@@ -253,7 +253,7 @@
     },
     "recapCart": {
       "h2": "Riepilogo ordine",
-      "total": "Total"
+      "total": "Totale"
     },
     "search": {
       "hasResults": "Risultati della ricerca per:",
@@ -275,6 +275,68 @@
       "saveAddress": "salva indirizzo",
       "goToCheckout": "procedi al checkout",
       "seeItems": "visualizza articoli"
+    },
+    "checkout": {
+      "deliveryAddress": "Indirizzo Di Spedizione",
+      "products": "Prodotti",
+      "home": "Casa",
+      "paymentOptions": "Opzioni Di Pagamento",
+      "creditCard": "Carta di credito",
+      "klarna": "Paga in 3 rate con Klarna",
+      "buy": "Acquista Ora",
+      "newAddress": "Aggiungi un nuovo indirizzo",
+      "quantity": "Qtà"
+    },
+    "toastify": {
+      "changeUserData": {
+        "dataError": "Dati non validi",
+        "refreshTokenError": "Devi effettuare di nuovo il login",
+        "dataSuccess": "Dati modificati",
+        "logoutError": "Errore nel Logout"
+      },
+      "loginForm": {
+        "loginSuccess": "Login",
+        "loginError": "Dati non validi",
+        "credentialsError": "Credentiali non valide"
+      },
+      "mobileMenu": {
+        "logoutError": "Errore nel Logout",
+        "logoutSuccess": "Logout"
+      },
+      "signupForm": {
+        "signupSuccess": "Registrazione effettuata",
+        "signupError": "Qualcosa è andato storto",
+        "signupEmailError": "Email esistente"
+      },
+      "userMenuNav": {
+        "logoutError": "Errore nel Logout",
+        "logoutSuccess": "Logout"
+      },
+      "cart": {
+        "cartUpdateSuccess": "Quantità modificata",
+        "cartUpdateError": "Errore nella modifica della quantità",
+        "cartDeleteSuccess": "Prodotto eliminato",
+        "cartDeleteError": "Errore nella eliminazione del prodotto",
+        "couponCheckSuccess": "Coupon applicato",
+        "couponCheckError": "Coupon non valido",
+        "couponInvalidField": "Devi inserire un coupon",
+        "couponValueError": "Totale troppo basso per applicare il coupon",
+        "couponNoProductError": "Non sono presenti prodotti nel carrello",
+        "noLoggedError": "Devi effettuare il login"
+      },
+      "checkout": {
+        "addressError": "Devi selezionare un undirizzo di consegna",
+        "paymentError": "Devi selezionare un metodo di pagamento",
+        "orderSuccess": "Ordine effettuato",
+        "orderError": "Ops, qualcosa è andato storto"
+      },
+      "singleProduct": {
+        "addCartSuccess": "Aggiunto al carrello",
+        "addCartError": "Qualcosa è andato storto nell'aggiunta al carrello",
+        "addCartSizeError": "Devi selezionare una taglia",
+        "addWishlistSuccess": "Aggiunto alla wishlist",
+        "addWishlistError": "Qualcosa è andato storto nell'aggiunta alla wishlist"
+      }
     },
     "lang": "it"
   }

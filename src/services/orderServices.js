@@ -50,7 +50,7 @@ export async function addOrder(orderData) {
     .then((response) => response)
     .catch((response) => response);
 
-  console.log(response);
+  // console.log(response);
 
   return { status: response.status, data: response.data };
 }

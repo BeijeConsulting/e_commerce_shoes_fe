@@ -276,6 +276,68 @@
       "goToCheckout": "go to checkout",
       "seeItems": "see items"
     },
+    "checkout": {
+      "deliveryAddress": "Delivery Address",
+      "products": "Products",
+      "home": "Home",
+      "paymentOptions": "Payment Options",
+      "creditCard": "Credit Card",
+      "klarna": "Pay in 3 installments with Klarna",
+      "buy": "Buy Now",
+      "newAddress": "Add a new Address",
+      "quantity": "Qty"
+    },
+    "toastify": {
+      "changeUserData": {
+        "dataError": "Data not valid",
+        "refreshTokenError": "You must login again",
+        "dataSuccess": "Data modified",
+        "logoutError": "Logout Error"
+      },
+      "loginForm": {
+        "loginSuccess": "Login",
+        "loginError": "Data not valid",
+        "credentialsError": "Credentials not valid"
+      },
+      "mobileMenu": {
+        "logoutError": "Logout Error",
+        "logoutSuccess": "Logout"
+      },
+      "signupForm": {
+        "signupSuccess": "Signup succeded",
+        "signupError": "Signup error",
+        "signupEmailError": "Email already used"
+      },
+      "userMenuNav": {
+        "logoutError": "Logout Error",
+        "logoutSuccess": "Logout"
+      },
+      "cart": {
+        "cartUpdateSuccess": "Modified quantity",
+        "cartUpdateError": "Error updating quantity",
+        "cartDeleteSuccess": "Product deleted",
+        "cartDeleteError": "Error deleting product",
+        "couponCheckSuccess": "Coupon applied",
+        "couponCheckError": "Invalid coupon",
+        "couponInvalidField": "Must insert a coupon",
+        "couponValueError": "Total too low for apply coupon",
+        "couponNoProductError": "There are no present products in the cart",
+        "noLoggedError": "Must login"
+      },
+      "checkout": {
+        "addressError": "Must select a delivery address",
+        "paymentError": "Must select a payment method",
+        "orderSuccess": "Order done",
+        "orderError": "Ops, something went wrong"
+      },
+      "singleProduct": {
+        "addCartSuccess": "Added to cart",
+        "addCartError": "Something went wrong adding to cart",
+        "addCartSizeError": "Must select a size",
+        "addWishlistSuccess": "Added to wishlist",
+        "addWishlistError": "Somenting went wrong adding to wishlist"
+      }
+    },
     "lang": "en"
   }
 }

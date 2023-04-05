@@ -56,33 +56,33 @@ function ChangeUserDataForm(props) {
   const userInfo = useSelector((state) => state.userDuck);
   const lang = i18n.language.slice(0, 2);
 
-  console.log("USER INFO", userInfo);
+  // console.log("USER INFO", userInfo);
 
   function handleForm() {
     props.toggleForm();
   }
 
   function notifyDataError() {
-    toast.error("Dati non validi", {
+    toast.error(t("toastify.changeUserData.dataError"), {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 1000,
     });
   }
   function notifyRefreshTokenError() {
-    toast.warning("Devi effettuare di nuovo il login", {
+    toast.warning(t("toastify.changeUserData.refreshTokenError"), {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 1000,
     });
   }
   function notifyDataSuccess() {
-    toast.success("Dati modificati", {
+    toast.success(t("toastify.changeUserData.dataSuccess"), {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 500,
     });
   }
 
   function notifyLogOutError() {
-    toast.error("Errore nel Logout", {
+    toast.error(t("toastify.changeUserData.logoutError"), {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 2000,
     });
@@ -165,7 +165,7 @@ function ChangeUserDataForm(props) {
             isLogged: true,
           })
         );
-        console.log("RESPONSE PUT", response);
+        // console.log("RESPONSE PUT", response);
         notifyDataSuccess();
         handleForm();
 
@@ -200,10 +200,10 @@ function ChangeUserDataForm(props) {
   };
 
   function onError(err) {
-    console.log("error");
+    // console.log("error");
     notifyDataError();
 
-    console.log(err?.password);
+    // console.log(err?.password);
 
     setState({
       ...state,
@@ -262,8 +262,9 @@ function ChangeUserDataForm(props) {
             register={register}
             isRequired={true}
             labelStyle="default-label margin-top-extra"
-            inputStyle={`default-input margin-top-small ${state.invalidAge ? "default-input--error" : ""
-              }`}
+            inputStyle={`default-input margin-top-small ${
+              state.invalidAge ? "default-input--error" : ""
+            }`}
           />
 
           <InputPasswordField
@@ -276,8 +277,9 @@ function ChangeUserDataForm(props) {
             regexValidation={passwordReg}
             // isRequired={ true }
             labelStyle="default-label password-margin-top margin-top-extra"
-            inputStyle={`default-input ${state.invalidPassword ? "default-input--error" : ""
-              }`}
+            inputStyle={`default-input ${
+              state.invalidPassword ? "default-input--error" : ""
+            }`}
           />
         </div>
 

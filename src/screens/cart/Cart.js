@@ -78,69 +78,70 @@ function Cart() {
   const dispatch = useDispatch();
 
   const { t } = useTranslation();
+
   function notifyCartUpdateSuccess() {
-    toast.success("Quantità modificata", {
+    toast.success(t("toastify.cart.cartUpdateSuccess"), {
       position: toast.POSITION.TOP_RIGHT,
       autoClose: 1000,
     });
   }
   function notifyCartUpdateError() {
-    toast.error("Errore nella modifica quantità", {
+    toast.error(t("toastify.cart.cartUpdateError"), {
       position: toast.POSITION.TOP_RIGHT,
       autoClose: 1000,
     });
   }
 
   function notifydeleteCartItemSuccess() {
-    toast.success("Prodotto eliminato", {
+    toast.success(t("toastify.cart.cartDeleteSuccess"), {
       position: toast.POSITION.TOP_RIGHT,
       autoClose: 1000,
     });
   }
   function notifydeleteCartItemError() {
-    toast.error("Errore rimozione prodotto", {
+    toast.error(t("toastify.cart.cartDeleteError"), {
       position: toast.POSITION.TOP_RIGHT,
       autoClose: 1000,
     });
   }
 
   function notifyCouponCheckSuccess() {
-    toast.success("Sconto applicato", {
+    toast.success(t("toastify.cart.couponCheckSuccess"), {
       position: toast.POSITION.TOP_RIGHT,
       autoClose: 1000,
     });
   }
 
   function notifyCouponInvalidFieldError() {
-    toast.warning("Devi inserire un coupon", {
+    toast.warning(t("toastify.cart.couponInvalidField"), {
       position: toast.POSITION.TOP_RIGHT,
       autoClose: 1000,
     });
   }
 
   function notifyCouponCheckError() {
-    toast.error("Coupon non valido", {
+    toast.error(t("toastify.cart.couponCheckError"), {
       position: toast.POSITION.TOP_RIGHT,
       autoClose: 1000,
     });
   }
 
   function notifyCouponValueError() {
-    toast.error("Totale troppo basso per applicare il coupon", {
+    toast.error(t("toastify.cart.couponValueError"), {
       position: toast.POSITION.TOP_RIGHT,
       autoClose: 1000,
     });
   }
 
   function notifyNoProductError() {
-    toast.error("Non sono presenti prodotti nel carrello", {
+    toast.error(t("toastify.cart.couponNoProductError"), {
       position: toast.POSITION.TOP_RIGHT,
       autoClose: 1000,
     });
   }
 
   function notifyNoLogged() {
-    toast.warning("Devi effettuare il login", {
+    toast.warning(t("toastify.cart.noLoggedError"), {
       position: toast.POSITION.TOP_RIGHT,
       autoClose: 1000,
     });
@@ -250,7 +251,7 @@ function Cart() {
     // console.log("---------------------------");
 
     if (isLogged) {
-      console.log("itemChanged", itemChanged.quantity);
+      // console.log("itemChanged", itemChanged.quantity);
       const updateCartresponse = await updateItemToCartList(
         itemChanged.item_id,
         itemChanged.quantity
@@ -299,7 +300,7 @@ function Cart() {
     const dataCart = getLocalStorage("cart-list");
 
     if (!dataCart || dataCart?.items?.length === 0) {
-      console.log("No products");
+      // console.log("No products");
       notifyNoProductError();
       return;
     }
@@ -340,11 +341,11 @@ function Cart() {
         notifyCouponCheckSuccess();
       }
 
-      console.log(couponValue);
+      // console.log(couponValue);
     } else {
       notifyCouponCheckError();
     }
-    console.log(response);
+    // console.log(response);
 
     setState({
       ...state,

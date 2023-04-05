@@ -24,7 +24,7 @@ function CartNavMenu(props) {
   });
 
   const cartQuantity = useSelector((state) => state.userDuck.cartItems);
-  console.log("CARTQUANTITY" + cartQuantity);
+  // console.log("CARTQUANTITY" + cartQuantity);
 
   const { t } = useTranslation();
 
@@ -159,7 +159,7 @@ function CartNavMenu(props) {
 
         <MenuItem className="item" onClick={handleClose}>
           <p>
-            {t("cartNavMenu.total")}: ${" "}
+            {t("cartNavMenu.total")}: €{" "}
             {Number(state.itemCartList?.totalPrice ?? 0).toFixed(2)}
           </p>
         </MenuItem>

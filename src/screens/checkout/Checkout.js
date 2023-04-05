@@ -14,6 +14,7 @@ import { addOrder } from "../../services/orderServices";
 import { deleteCartItem } from "../../services/cartServices";
 import { setLocalStorage } from "../../utils/localStorageUtils";
 import { updateCartQuantity } from "../../redux/ducks/userDuck";
+import { useTranslation } from "react-i18next";
 
 function Checkout() {
   const [state, setState] = useState({
@@ -24,40 +25,41 @@ function Checkout() {
   });
 
   const lang = i18n.language;
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
-  useEffect(() => console.log(state));
+  // useEffect(() => console.log(state));
 
   const location = useLocation();
   const orderData = location.state;
   const userAddresses = useSelector((state) => state.userDuck.adresses);
 
-  console.log("ORDERDATA: ", orderData);
+  // console.log("ORDERDATA: ", orderData);
 
   function notifyAddressError() {
-    toast.warning("Devi selezionare un indirizzo di spedizione", {
+    toast.warning(t("toastify.checkout.addressError"), {
       position: toast.POSITION.TOP_RIGHT,
       autoClose: 2000,
     });
   }
   function notifyPaymentError() {
-    toast.warning("Devi selezionare un metodo di pagamento", {
+    toast.warning(t("toastify.checkout.paymentError"), {
       position: toast.POSITION.TOP_RIGHT,
       autoClose: 2000,
     });
   }
 
   function notifyOrderSuccess() {
-    toast.success("Ordine effettuato", {
+    toast.success(t("toastify.checkout.orderSuccess"), {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 1000,
     });
   }
 
   function notifyOrderError() {
-    toast.error("Ops, qualcosa è andato storto", {
+    toast.error(t("toastify.checkout.orderError"), {
       position: toast.POSITION.TOP_CENTER,
       autoClose: 1000,
     });
@@ -91,12 +93,12 @@ function Checkout() {
         <label htmlFor={`delivery-address-${key}`}>
           <address>
             <p>
-              <strong className="__name">casa</strong>
+              <strong className="__name">{t("checkout.home")}</strong>
               <br />
             </p>
             <p>{address.name_surname}</p>
             <p>{address.country}</p>
-            <p>{address.zipcode} - Mettere city</p>
+            <p>{address.zipcode}</p>
             <p>{address.street_address}</p>
             {address.instructions && <p>{address.instructions}</p>}
           </address>
@@ -119,7 +121,7 @@ function Checkout() {
   };
 
   async function submitOrder() {
-    console.log("state", state);
+    // console.log("state", state);
     if (state.address_id === null) {
       notifyAddressError();
       return;
@@ -147,15 +149,15 @@ function Checkout() {
       transaction: "00" + (Math.random() * 1000).toString(),
     };
 
-    console.log("RIEPILOGO OGGETTO DA MANDARE", obj);
+    // console.log("RIEPILOGO OGGETTO DA MANDARE", obj);
 
     const response = await addOrder(obj);
-    console.log(response);
+    // console.log(response);
 
     if (response.status === 200) {
       notifyOrderSuccess();
       ////////////////////////////
-      console.log("DATACART", orderData.dataCart);
+      // console.log("DATACART", orderData.dataCart);
       orderData.dataCart.items.forEach((item) => {
         deleteCartItem(item.item_id);
       });
@@ -194,7 +196,7 @@ function Checkout() {
       <div className="__checkout-content">
         <div className="__left">
           <div className="__container">
-            <h2>indirizzo di spedizione</h2>
+            <h2>{t("checkout.deliveryAddress")}</h2>
             <ul>
               {userAddresses.map(renderAddressList)}
               {/* <li className="__delivery-address">
@@ -222,11 +224,11 @@ function Checkout() {
               to={`/${lang}/area-personale/indirizzi`}
               className="__add-address"
             >
-              Aggiungi un nuovo indirizzo
+              {t("checkout.newAddress")}
             </Link>
           </div>
           <div className="__container">
-            <h2>opzioni di pagamento</h2>
+            <h2>{t("checkout.paymentOptions")}</h2>
             <ul>
               <li className="__payment-method">
                 <input
@@ -240,7 +242,7 @@ function Checkout() {
                     src={require("../../assets/images/payments/mastercard.png")}
                     alt={"mastercard logo"}
                   />
-                  <p>Carta di credito **** 1234</p>
+                  <p>{t("checkout.creditCard")} **** 1234</p>
                 </label>
               </li>
               <li className="__payment-method">
@@ -270,20 +272,22 @@ function Checkout() {
                     src={require("../../assets/images/payments/klarnainstalments.png")}
                     alt={"klarna logo"}
                   />
-                  <p>Paga in 3 rate con Klarna</p>
+                  <p>{t("checkout.klarna")}</p>
                 </label>
               </li>
             </ul>
           </div>
           <Button
             handleClick={submitOrder}
-            label={"ACQUISTA ORA"}
+            label={t("checkout.buy")}
             buttonStyle={"filter-button"}
           />
         </div>
         <div className="__right">
           <div className="__container">
-            <h2>{orderData.dataCart.numberItems} prodotti</h2>
+            <h2>
+              {orderData.dataCart.numberItems} {t("checkout.products")}
+            </h2>
             {/* <CheckoutProduct
               productSrc={
                 "https://images.asos-media.com/products/asos-design-occhiali-da-sole-neri-retro-con-lenti-fume/8064078-1-black?$s$"
