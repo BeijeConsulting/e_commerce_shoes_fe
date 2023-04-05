@@ -95,6 +95,7 @@ function Routing() {
           <Route index element={<PersonalData />} />
           <Route path="indirizzi" element={<AddressList />} />
           <Route path="ordini" element={<OrderList />} />
+          <Route path="lista-desideri" element={<WishList />} />
         </Route>
 
 
@@ -122,7 +123,6 @@ function Routing() {
         <Route path="carrello" element={<Cart />} />
 
         {/* WishList */}
-        <Route path="lista-desideri" element={<WishList />} />
 
         {/* Customer care */}
         <Route path="assistenza" element={<CustomerCare />}>

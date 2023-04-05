@@ -96,7 +96,7 @@ function UserMenuNav(props) {
     props.hideMenuFunc();
     handleClose()
     if (userIsLogged) {
-      navigate("lista-desideri");
+      navigate("area-personale/lista-desideri");
     } else {
       navigate("accedi");
     }

@@ -24,10 +24,10 @@ function WishListProductCard(props) {
     return (
 
         <article className='card'>
-            <Link to={ `/${lang}/product/${props.productId}` }>
+            <Link to={`/${lang}/scarpa/${props.productId}`}>
                 <div className='card__container'>
 
-                    <img src={ require("../../../assets/images/wishListCard/nike-white.webp") } alt={ props.name } />
+                    <img src={require("../../../assets/images/wishListCard/nike-white.webp")} alt={props.name} />
 
                     <div className='card__absolute'>
 
@@ -35,19 +35,19 @@ function WishListProductCard(props) {
                             <div className='card__wrapper'>
 
                                 <div className='card__price'>
-                                    <p className='card__sellingPrice'>{ props.listedPrice }$</p>
+                                    <p className='card__sellingPrice'>{props.listedPrice}$</p>
                                 </div>
                             </div>
 
                         </div>
 
                         <div className='card__info'>
-                            <h2>{ props.name }</h2>
-                            <p className='card__brand'>{ props.brand }</p>
+                            <h2>{props.name}</h2>
+                            <p className='card__brand'>{props.brand}</p>
 
                             <div className='card__info--detail'>
-                                <p>{ props.color }</p>
-                                <p>{ props.size }</p>
+                                <p>{props.color}</p>
+                                <p>{props.size}</p>
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,7 @@ function WishListProductCard(props) {
 
 
             <div className='card__icon'>
-                <span onClick={ deleteItem }>
+                <span onClick={deleteItem}>
                     <ImCancelCircle />
                 </span>
             </div>
