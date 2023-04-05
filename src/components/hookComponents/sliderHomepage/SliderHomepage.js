@@ -8,14 +8,6 @@ import 'swiper/css';
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
-
-// Images
-import adidasMobile from "../../../assets/images/mobile/adidas-mobile.jpeg";
-import adidasDesktop from "../../../assets/images/desktop/adidas-desktop.jpeg";
-import sneakersDesktop from "../../../assets/images/desktop/sneakers-desktop.jpeg"
-import sneakersMobile from "../../../assets/images/mobile/sneakers-mobile.jpeg"
-import nuoviArriviMobile from "../../../assets/images/mobile/nuoviArrivi-mobile.jpeg";
-import nuoviArriviDesktop from "../../../assets/images/desktop/nuoviArrivi-desktop.jpeg"
 // Router
 import { useNavigate } from 'react-router-dom';
 // i18n
@@ -34,8 +26,8 @@ function SliderHomepage(props) {
         navigate("scarpe/novita")
     }
 
-    function goToAdidas() {
-        navigate("brand/adidas")
+    function goToConverse() {
+        navigate("brand/converse")
     }
 
     function goToUnisexSneakers() {
@@ -70,9 +62,19 @@ function SliderHomepage(props) {
                 <SwiperSlide className='swiperSlide'>
                     <picture>
                         <source media="(max-width:650px)"
-                            srcSet={require("../../../assets/images/mobile/adidas-mobile.jpeg")} />
-                        <img src={require("../../../assets/images/desktop/adidas-desktop.jpeg")} alt="adidas" />
+                            srcSet={require("../../../assets/images/mobile/converse-promo-mobile.jpg")} />
+                        <img src={require("../../../assets/images/desktop/converse-promo-desktop.jpg")} alt="nuovi arrivi" />
                     </picture>
+                    <div className='swiperSlide__info'>
+                        <div className='swiperSlide__info--link'>
+                            <h2 onClick={goToConverse}>{t("sliderHomepage.conversePromo")}</h2>
+                        </div>
+                        <Button
+                            label={t("sliderHomepage.lookNow")}
+                            buttonStyle={"default-button"}
+                            handleClick={goToConverse}
+                        />
+                    </div>
                 </SwiperSlide>
                 <SwiperSlide className='swiperSlide'>
                     <picture>

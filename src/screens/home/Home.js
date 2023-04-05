@@ -7,7 +7,6 @@ import BoxImage from "../../components/hookComponents/boxImage/BoxImage";
 import ProductSlider from "../../components/hookComponents/productSlider/ProductSlider";
 
 // Images
-import boxNuoviArrivi from "../../assets/images/box/boxNuoviArrivi.jpeg";
 import CategoryCard from "../../components/hookComponents/categoryCard/CategoryCard";
 import Seo from "../../components/functionalComponents/Seo";
 import { getProductsList } from "../../services/productServices";
@@ -51,13 +50,13 @@ function Home() {
       />
       <SliderHomepage pagination={true} navigation={true} autoplay={true} />
       <div className="homepage__category-cards">
-        <CategoryCard typology={t("header.man")} goTo={"scarpe/uomo"} image={"https://www.cisalfasport.it/on/demandware.static/-/Library-Sites-CisalfaSharedLibrary/default/dw293de7bc/1-HP/febbraio-marzo-aprile-23/3boxes/3boxes-2023-btm-mobile-uomo-640x360px.jpg"} />
-        <CategoryCard typology={t("header.woman")} goTo={"scarpe/donna"} image={"https://www.cisalfasport.it/on/demandware.static/-/Library-Sites-CisalfaSharedLibrary/default/dw429bc565/1-HP/febbraio-marzo-aprile-23/3boxes/3boxes-2023-btm-mobile-donna-640x360px.jpg"} />
-        <CategoryCard typology={"unisex"} goTo={"scarpe/unisex"} image={"https://www.cisalfasport.it/on/demandware.static/-/Library-Sites-CisalfaSharedLibrary/default/dw51336d7f/1-HP/febbraio-marzo-aprile-23/3boxes/3boxes-2023-btm-mobile-bimbo-640x360px.jpg"} />
+        <CategoryCard typology={t("header.man")} goTo={"scarpe/uomo"} imageAlt={t("header.man")} image={"https://www.cisalfasport.it/on/demandware.static/-/Library-Sites-CisalfaSharedLibrary/default/dw293de7bc/1-HP/febbraio-marzo-aprile-23/3boxes/3boxes-2023-btm-mobile-uomo-640x360px.jpg"} />
+        <CategoryCard typology={t("header.woman")} goTo={"scarpe/donna"} imageAlt={t("header.woman")} image={"https://www.cisalfasport.it/on/demandware.static/-/Library-Sites-CisalfaSharedLibrary/default/dw429bc565/1-HP/febbraio-marzo-aprile-23/3boxes/3boxes-2023-btm-mobile-donna-640x360px.jpg"} />
+        <CategoryCard typology={"unisex"} goTo={"scarpe/unisex"} imageAlt={"unisex"} image={"https://www.cisalfasport.it/on/demandware.static/-/Library-Sites-CisalfaSharedLibrary/default/dw51336d7f/1-HP/febbraio-marzo-aprile-23/3boxes/3boxes-2023-btm-mobile-bimbo-640x360px.jpg"} />
       </div>
       <div className="homepage__category-sliders">
         <div className="homepage__category-sliders__slider">
-          <BoxImage goTo={"scarpe/uomo"} boxTitle={t("header.man")} image={boxNuoviArrivi} />
+          <BoxImage goTo={"scarpe/uomo"} boxTitle={t("header.man")} image={require("../../assets/images/box/boxNuoviArrivi.jpeg")} />
           <ProductSlider products={state.men} sliderTitle={t("sliderHomepage.newArrivals")} />
         </div>
         <div className="homepage__category-sliders__slider">
@@ -65,7 +64,7 @@ function Home() {
           <ProductSlider products={state.woman} sliderTitle={t("sliderHomepage.newArrivals")} />
         </div>
         <div className="homepage__category-sliders__slider">
-          <BoxImage goTo={"scarpe/unisex"} boxTitle={"unisex"} image={require("../../assets/images/box/boxNuoviArriviLifestyle.jpeg")} />
+          <BoxImage goTo={"scarpe/unisex"} boxTitle={"unisex"} image={require("../../assets/images/box/unisex.jpg")} />
           <ProductSlider products={state.unisex} sliderTitle={t("sliderHomepage.newArrivals")} />
         </div>
       </div>
