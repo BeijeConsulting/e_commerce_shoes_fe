@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 // import PropTypes from "prop-types";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 // Router
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 // Utils
 
 // SCSS
@@ -115,7 +115,7 @@ function AdressList(props) {
     if (response.status === 200) {
       // console.log("SUCCESS DELETE");
 
-      const response = await getUserAuth(token);
+      const response = await getUserAuth();
       // console.log("USER IN IF", response);
 
       dispatch(

@@ -42,7 +42,7 @@ function UserMenuNav(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const lang = i18n.language.slice(0, 2);
+  // const lang = i18n.language.slice(0, 2);
   const { t } = useTranslation();
 
   function notifyLogOutSuccess() {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 // Redux
 import { useSelector } from "react-redux";
@@ -27,43 +27,39 @@ function PersonalData() {
 
   return (
     <div className="personalData">
-      <h1>{ t("personalData.personalData") }</h1>
-      <h2>{ t("personalData.personalDetails") }</h2>
+      <h1>{t("personalData.personalData")}</h1>
+      <h2>{t("personalData.personalDetails")}</h2>
 
       <ul>
         <li>
-          { t("personalData.name") }:<span>{ userData?.name }</span>
+          {t("personalData.name")}:<span>{userData?.name}</span>
         </li>
         <li>
-          { t("personalData.lastName") }:<span>{ userData?.surname }</span>
+          {t("personalData.lastName")}:<span>{userData?.surname}</span>
         </li>
         <li>
-          { t("personalData.birdthDate") }:<span>{ userData?.birthDate }</span>
+          {t("personalData.birdthDate")}:<span>{userData?.birthDate}</span>
         </li>
       </ul>
 
-      <h2>{ t("personalData.accountData") }</h2>
+      <h2>{t("personalData.accountData")}</h2>
       <ul>
         <li>
-          { t("personalData.email") }:
-          <span className="personalData__email">{ userData?.email }</span>
+          {t("personalData.email")}:
+          <span className="personalData__email">{userData?.email}</span>
         </li>
       </ul>
 
-      { state.showForm && <ChangeUserDataForm toggleForm={ toggleForm } /> }
+      {state.showForm && <ChangeUserDataForm toggleForm={toggleForm} />}
       <div className="container__button">
         <Button
-          label={ state.showForm ? t("button.cancel") : t("button.editData") }
-          handleClick={ toggleForm }
+          label={state.showForm ? t("button.cancel") : t("button.editData")}
+          handleClick={toggleForm}
           buttonStyle="default-button"
         />
       </div>
     </div>
   );
 }
-
-PersonalData.defaultProps = {};
-
-PersonalData.propTypes = {};
 
 export default PersonalData;

@@ -10,8 +10,8 @@ export async function getWishList() {
   return { status: response.status, data: response.data };
 }
 
-export async function addWishList(obj, SECRET) {
-  const response = await postDataAuth("/wishlist/add", obj, SECRET);
+export async function addWishList(obj) {
+  const response = await postDataAuth("/wishlist/add", obj);
 
   return { status: response.status, data: response.data };
 }

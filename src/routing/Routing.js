@@ -33,20 +33,20 @@ import { useDispatch } from "react-redux";
 import { setToken } from "../redux/ducks/tokenDuck";
 import i18n from "../assets/translations/i18n";
 import { useTranslation } from "react-i18next";
-import WishList from '../screens/wishList/WishList';
-import ErrorPage from '../screens/errorPage/ErrorPage';
+import WishList from "../screens/wishList/WishList";
+import ErrorPage from "../screens/errorPage/ErrorPage";
 
 function Routing() {
   const dispatch = useDispatch();
   const token = getLocalStorage("token");
   const refreshToken = getLocalStorage("refreshToken");
   const lang = i18n.language.slice(0, 2);
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
 
   // check if there is token
   useEffect(() => {
     async function getUserInfo() {
-      const response = await getUserAuth(token);
+      const response = await getUserAuth();
 
       console.log("ROUTING", response);
 
@@ -77,9 +77,8 @@ function Routing() {
     }
   }, []);
 
-
   function RedirectToLanguage() {
-    return <Navigate replace to={lang} />
+    return <Navigate replace to={lang} />;
   }
 
   return (
@@ -98,10 +97,7 @@ function Routing() {
           <Route path="lista-desideri" element={<WishList />} />
         </Route>
 
-
-        <Route path='*' element={<ErrorPage />} />
-
-
+        <Route path="*" element={<ErrorPage />} />
 
         {/* Products list */}
         <Route path={"scarpe"} element={<ProductsList />}>
@@ -136,8 +132,6 @@ function Routing() {
           <Route path="privacy-policy" element={<Privacy />} />
         </Route>
       </Route>
-
-
 
       <Route path=":lang/checkout" element={<Checkout />} />
 

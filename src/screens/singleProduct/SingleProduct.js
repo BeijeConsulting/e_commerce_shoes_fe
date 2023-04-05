@@ -72,7 +72,7 @@ function SingleProduct() {
 
   async function fetchWishList() {
     let toggle = undefined;
-    const response = await getWishList(token);
+    const response = await getWishList();
 
     // check per controllare se è già presente nella wishlist
     const alreadyAdd = response.data.items.find(

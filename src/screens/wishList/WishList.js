@@ -22,14 +22,14 @@ function WishList(props) {
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.userDuck.token);
+  // const token = useSelector((state) => state.userDuck.token);
 
   useEffect(() => {
     fetchWishList();
   }, []);
 
   async function fetchWishList() {
-    const response = await getWishList(token);
+    const response = await getWishList();
 
     if (response.status === 200) {
       //la lista di prodotti nella wish è un array

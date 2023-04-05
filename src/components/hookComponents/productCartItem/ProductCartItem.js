@@ -2,11 +2,11 @@ import React, { useState, useRef, useEffect } from "react";
 import "./productCartItem.scss";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 
 function ProductCartItem(props) {
-  const isLogged = useSelector((state) => state.userDuck.isLogged);
+  // const isLogged = useSelector((state) => state.userDuck.isLogged);
   const [state, setState] = useState({
     quantity: props.quantity,
     showConfirmQuantity: false,

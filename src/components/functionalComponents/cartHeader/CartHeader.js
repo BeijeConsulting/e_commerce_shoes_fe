@@ -2,7 +2,7 @@ import React from "react";
 import "./cartHeader.scss";
 
 import Button from "../button/Button";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { useTranslation } from "react-i18next";
 
 function CartHeader(props) {

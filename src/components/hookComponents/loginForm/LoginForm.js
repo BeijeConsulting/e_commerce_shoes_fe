@@ -21,7 +21,6 @@ import {
 import i18n from "../../../assets/translations/i18n";
 import Seo from "../../functionalComponents/Seo";
 import {
-  addItemToCartList,
   addListItemToCartList,
   getCartList,
 } from "../../../services/cartServices";
@@ -122,7 +121,7 @@ function LoginForm() {
 
         // console.log(items);
         const listResp = await addListItemToCartList(items);
-        // console.log(listResp);
+        console.log(listResp);
       }
 
       const userCart = await getCartList();

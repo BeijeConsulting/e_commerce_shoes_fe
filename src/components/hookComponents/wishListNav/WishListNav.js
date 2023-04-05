@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 // import PropTypes from 'prop-types';
 
 // MUI
@@ -6,11 +6,11 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Badge, IconButton } from "@mui/material";
 // Redux
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 // SCSS
 import "./wishListNav.scss";
 import { useNavigate } from "react-router-dom";
-import { red } from "@mui/material/colors";
+// import { red } from "@mui/material/colors";
 
 function WishListNav() {
   const wishListitemQuantity = useSelector(

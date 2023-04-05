@@ -33,9 +33,9 @@ function Home() {
     // console.log(men.data)
     setState({
       ...state,
-      men: men?.data?.products,
-      woman: woman?.data?.products,
-      unisex: unisex?.data?.products,
+      men: men.data?.products,
+      woman: woman.data?.products,
+      unisex: unisex.data?.products,
     });
   }
 

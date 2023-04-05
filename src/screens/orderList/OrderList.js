@@ -15,7 +15,7 @@ function OrderList() {
   const { t } = useTranslation();
   const userFirstName = useSelector((state) => state.userDuck.name);
   const userLastName = useSelector((state) => state.userDuck.surname);
-  const token = useSelector((state) => state.tokenDuck.token);
+  // const token = useSelector((state) => state.tokenDuck.token);
 
   const [state, setState] = useState({
     orderList: [],

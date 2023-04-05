@@ -87,8 +87,8 @@ function ProductsList() {
 
     setState({
       ...state,
-      products: response?.data?.products,
-      pages: response?.data?.pages,
+      products: response.data?.products,
+      pages: response.data?.pages,
       query,
       title,
     });

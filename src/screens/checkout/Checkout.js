@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router";
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router";
 import "./checkout.scss";
 
 import RecapCart from "../../components/functionalComponents/recapCart/RecapCart";

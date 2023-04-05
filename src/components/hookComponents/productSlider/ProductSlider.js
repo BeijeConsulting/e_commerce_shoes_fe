@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 // import PropTypes from "prop-types";
 
 // imgaes
-import productCardImg from "../../../assets/images/productCardImg.jpg";
+// import productCardImg from "../../../assets/images/productCardImg.jpg";
 // Icons
 import {
   BsFillArrowLeftCircleFill,
