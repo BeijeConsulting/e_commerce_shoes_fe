@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 // SCSS
 import "./wishListNav.scss"
 import { useNavigate } from 'react-router-dom';
+import { red } from '@mui/material/colors';
 
 function WishListNav() {
     const wishListitemQuantity = useSelector((state) => state.userDuck.wishlistItems)
@@ -25,14 +26,14 @@ function WishListNav() {
             aria-label="account of current user"
             aria-controls="menu-appbar"
             aria-haspopup="true"
-            onClick={goToWishlist}
+            onClick={ goToWishlist }
             color="inherit"
         >
             <Badge
-                badgeContent={wishListitemQuantity}
+                badgeContent={ wishListitemQuantity }
                 color="primary"
             >
-                <FavoriteIcon fontSize="large" />
+                <FavoriteIcon sx={ { color: "red" } } fontSize="large" />
             </Badge>
         </IconButton>
     )
