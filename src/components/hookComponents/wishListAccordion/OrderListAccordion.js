@@ -1,7 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import "./orderListAccordion.scss";
-import shoe1 from "../../../assets/images/productCardImg.jpg";
 
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -94,9 +93,5 @@ function OrderListAccordion(props) {
     </div>
   );
 }
-
-OrderListAccordion.defaultProps = {};
-
-OrderListAccordion.propTypes = {};
 
 export default OrderListAccordion;

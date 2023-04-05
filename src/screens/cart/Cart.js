@@ -299,7 +299,7 @@ function Cart() {
   function handleCheckout() {
     const dataCart = getLocalStorage("cart-list");
 
-    if (!dataCart || dataCart?.items?.length === 0) {
+    if (!dataCart || dataCart.items?.length === 0) {
       // console.log("No products");
       notifyNoProductError();
       return;

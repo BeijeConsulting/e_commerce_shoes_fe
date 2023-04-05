@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 // Component
 import InputTextField from "../../functionalComponents/inputTextField/InputTextField";
@@ -292,9 +292,5 @@ function ChangeUserDataForm(props) {
     </div>
   );
 }
-
-ChangeUserDataForm.defaultProps = {};
-
-ChangeUserDataForm.propTypes = {};
 
 export default ChangeUserDataForm;

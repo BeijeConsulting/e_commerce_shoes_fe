@@ -165,7 +165,7 @@ function AdressList(props) {
             <p className="address__p">{t("addresses.deliveryInstructions")}:</p>
             <span>{data?.instructions ?? "n/d"}</span>
           </li>
-          <p className="delete" onClick={deleteAddressId(data.id)}>
+          <p className="delete" onClick={deleteAddressId(data?.id)}>
             Delete
           </p>
         </ul>

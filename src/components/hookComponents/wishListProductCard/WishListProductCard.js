@@ -1,12 +1,12 @@
 import React from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 //Router
 import { Link } from "react-router-dom";
 // i18n
 import i18n from "../../../assets/translations/i18n";
 // imgaes
-import nikeWhite from "../../../assets/images/wishListCard/nike-white.webp";
+// import nikeWhite from "../../../assets/images/wishListCard/nike-white.webp";
 // MUI
 import { ImCancelCircle } from "react-icons/im";
 // SCSS
@@ -60,9 +60,5 @@ function WishListProductCard(props) {
     </article>
   );
 }
-
-WishListProductCard.defaultProps = {};
-
-WishListProductCard.propTypes = {};
 
 export default WishListProductCard;

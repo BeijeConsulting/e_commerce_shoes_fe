@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -192,9 +192,5 @@ function UserMenuNav(props) {
     </div>
   );
 }
-
-UserMenuNav.defaultProps = {};
-
-UserMenuNav.propTypes = {};
 
 export default UserMenuNav;

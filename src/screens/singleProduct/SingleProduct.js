@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 // REDUX
 import { useDispatch, useSelector } from "react-redux";
@@ -324,10 +324,10 @@ function SingleProduct() {
           {state.product ? (
             <>
               <div className="header__container">
-                <p className="header__category">{state.product?.category}</p>
+                <p className="header__category">{state.product.category}</p>
                 <p className="header__price">
                   {state.selectedSize
-                    ? `${state.product?.listed_price}€`
+                    ? `${state.product.listed_price}€`
                     : `${t("singleProduct.listedPrice")} ${
                         state.product?.listed_price
                       }€`}
@@ -411,9 +411,5 @@ function SingleProduct() {
     </>
   );
 }
-
-SingleProduct.defaultProps = {};
-
-SingleProduct.propTypes = {};
 
 export default SingleProduct;

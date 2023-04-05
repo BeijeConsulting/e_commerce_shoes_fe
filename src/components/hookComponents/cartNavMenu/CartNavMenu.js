@@ -177,8 +177,4 @@ function CartNavMenu(props) {
   );
 }
 
-CartNavMenu.defaultProps = {};
-
-CartNavMenu.propTypes = {};
-
 export default CartNavMenu;

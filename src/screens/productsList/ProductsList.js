@@ -205,7 +205,7 @@ function ProductsList() {
         )}
         {state.products && state.products.length > 0 && (
           <ProductGridLayout>
-            {state.products?.map(mapProducts)}
+            {state.products.map(mapProducts)}
           </ProductGridLayout>
         )}
         {state.products !== null && state.products.length === 0 && (
