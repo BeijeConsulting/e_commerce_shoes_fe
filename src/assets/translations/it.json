@@ -105,6 +105,11 @@
     "boxImage": {
       "cta": "Scopri tutte le scarpe"
     },
+    "mobileMenu": {
+      "signin": "vai al profilo",
+      "login": "accedi",
+      "signup": "Non hai un account? REGISTRATI QUI"
+    },
     "singleProduct": {
       "listedPrice": "Prezzo di Listino",
       "sizeSelect": "seleziona taglia",

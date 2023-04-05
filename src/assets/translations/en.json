@@ -127,6 +127,11 @@
       "lookNow": "look now",
       "theBest": "best unisex sneakers"
     },
+    "mobileMenu": {
+      "profile": "go to profile",
+      "signin": "login",
+      "signup": "Don't have an account? REGISTER HERE"
+    },
     "userMenuNav": {
       "profile": "Profile",
       "logIn": "Log In",

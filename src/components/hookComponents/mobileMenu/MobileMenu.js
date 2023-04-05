@@ -15,8 +15,10 @@ import { removeUserCredentials } from "../../../redux/ducks/userDuck";
 import { removeToken } from "../../../redux/ducks/tokenDuck";
 import { clearLocalStorage } from "../../../utils/localStorageUtils";
 import { ToastContainer, toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 function MobileMenu(props) {
+    const { t } = useTranslation();
     const lang = i18n.language.slice(0, 2);
     const navigate = useNavigate();
     const user = useSelector((state) => state.userDuck);
@@ -181,7 +183,7 @@ function MobileMenu(props) {
                                         <Avatar sx={{ bgcolor: "#4f4f4f" }} onClick={goToAccount}>{initials}</Avatar>
                                         <div className="main-header__mobile-menu__bottom__user-info__info" onClick={goToAccount}>
                                             <div>{user.name + " " + user.surname}</div>
-                                            <div>vai al profilo</div>
+                                            <div>{t("mobileMenu.profile")}</div>
                                         </div>
                                     </div>
                                     <div className="main-header__mobile-menu__bottom__text logged">
@@ -191,9 +193,9 @@ function MobileMenu(props) {
                                 </>
                                 :
                                 <>
-                                    <Button label={"accedi"} buttonStyle={"default-button full-width"} handleClick={goToSignin} />
+                                    <Button label={t("mobileMenu.signin")} buttonStyle={"default-button full-width"} handleClick={goToSignin} />
                                     <p className="main-header__mobile-menu__bottom__text" onClick={goToSignup}>
-                                        Non hai un account? REGISTRATI QUI
+                                        {t("mobileMenu.signup")}
                                     </p>
                                 </>
                             }
