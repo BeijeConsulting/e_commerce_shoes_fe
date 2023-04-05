@@ -25,7 +25,9 @@ function Identity() {
 
   return (
     <div className="identity-wrapper">
-      <h1>LOGO</h1>
+      <h1>
+        <img src={require("../../assets/images/logo/belle-scarpe-logo-grigio.png")} alt="belle scarpe" style={{ maxWidth: "15rem" }} />
+      </h1>
       <div className="identity-container">
         <div className="identity-container__options">
           <div

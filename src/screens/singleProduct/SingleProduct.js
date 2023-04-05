@@ -17,6 +17,8 @@ import SingleProductSlider from "../../components/hookComponents/singleProductSl
 import InfoProductBox from "../../components/functionalComponents/infoProductBox/InfoProductBox";
 import AccordionItem from "../../components/hookComponents/accordionItem/AccordionItem";
 import Seo from "../../components/functionalComponents/Seo";
+import Skeleton from "@mui/material/Skeleton";
+import Box from "@mui/material/Box";
 // Utils
 import {
   setLocalStorage,
@@ -319,24 +321,44 @@ function SingleProduct() {
       />
       <div className="single-product">
         <header>
-          <div className="header__container">
-            <p className="header__category">{state.product?.category}</p>
-            <p className="header__price">
-              {state.selectedSize
-                ? `${state.product?.listed_price}€`
-                : `${t("singleProduct.listedPrice")} ${
-                    state.product?.listed_price
-                  }€`}
-            </p>
-          </div>
-          <h2 className="header__brand">
-            <a onClick={goToBrandPage}>{state.product?.brand}</a>
-          </h2>
-          <p className="header__name">{state.product?.name}</p>
+          {state.product ? (
+            <>
+              <div className="header__container">
+                <p className="header__category">{state.product?.category}</p>
+                <p className="header__price">
+                  {state.selectedSize
+                    ? `${state.product?.listed_price}€`
+                    : `${t("singleProduct.listedPrice")} ${
+                        state.product?.listed_price
+                      }€`}
+                </p>
+              </div>
+              <h2 className="header__brand">
+                <a onClick={goToBrandPage}>{state.product?.brand}</a>
+              </h2>
+              <p className="header__name">{state.product?.name}</p>
+            </>
+          ) : (
+            <Box sx={{ width: "100%" }}>
+              <Skeleton
+                variant="rectangular"
+                height={100}
+                style={{ marginBottom: "20" }}
+              />
+            </Box>
+          )}
         </header>
 
         <div className="info__container">
-          <SingleProductSlider />
+          {state.product ? (
+            <SingleProductSlider />
+          ) : (
+            <div className="slider">
+              <Box sx={{ width: "100%" }}>
+                <Skeleton variant="rectangular" height={700} />
+              </Box>
+            </div>
+          )}
 
           <div className="info">
             <select

@@ -183,7 +183,7 @@ function Checkout() {
       <Seo title="Checkout" description="Checkout" content="e-commerce" />
       <header>
         <img
-          src={require("../../assets/images/logo/logo-312.png")}
+          src={require("../../assets/images/logo/belle-scarpe-logo-grigio.png")}
           alt="logo"
         />
         <h1>CHECKOUT</h1>

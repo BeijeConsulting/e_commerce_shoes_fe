@@ -13,6 +13,8 @@ import i18n from "../../assets/translations/i18n";
 import Pagination from "@mui/material/Pagination";
 import Seo from "../../components/functionalComponents/Seo";
 import { useTranslation } from "react-i18next";
+import Skeleton from "@mui/material/Skeleton";
+import Box from "@mui/material/Box";
 
 function ProductsList() {
   const { t } = useTranslation();
@@ -59,7 +61,10 @@ function ProductsList() {
     } else if (pathToArray.length === 4) {
       category = pathToArray[3].split("-").join("%20");
       for (let i = 0; i < categories.data.length; i++) {
-        // console.log(categories.data[i].category.toLowerCase(), category.toLowerCase())
+        console.log(
+          categories.data[i].category.toLowerCase(),
+          category.toLowerCase()
+        );
         if (categories.data[i].code.toLowerCase() === category.toLowerCase()) {
           title = getTitle(categories.data[i].category);
         }
@@ -158,6 +163,19 @@ function ProductsList() {
     return title;
   }
 
+  function renderSkeleton() {
+    const skeletonArray = [];
+    for (let i = 0; i < 8; i++) {
+      skeletonArray.push(
+        <Box sx={{ width: "100%" }}>
+          <Skeleton variant="rectangular" height={280} />
+          <Skeleton height={70} />
+        </Box>
+      );
+    }
+    return skeletonArray;
+  }
+
   return (
     <>
       <Seo
@@ -167,8 +185,24 @@ function ProductsList() {
       />
 
       <div className="products-list">
-        <h1>{state.title}</h1>
-        <FilterMenu types={types} filterFunc={fetchProducts} />
+        {state.products === null ? (
+          <>
+            <Box sx={{ width: "50%", margin: "0 auto" }}>
+              <Skeleton height={60} />
+            </Box>
+            <Box sx={{ width: "100%" }}>
+              <Skeleton variant="rectangular" height={120} />
+            </Box>
+          </>
+        ) : (
+          <>
+            <h1>{state.title}</h1>
+            <FilterMenu types={types} filterFunc={fetchProducts} />
+          </>
+        )}
+        {state.products === null && (
+          <ProductGridLayout>{renderSkeleton()}</ProductGridLayout>
+        )}
         {state.products && state.products.length > 0 && (
           <ProductGridLayout>
             {state.products?.map(mapProducts)}
