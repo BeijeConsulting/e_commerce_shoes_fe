@@ -32,7 +32,6 @@ import { getUserAuth } from "../services/authServices";
 import { useDispatch } from "react-redux";
 import { setToken } from "../redux/ducks/tokenDuck";
 import i18n from "../assets/translations/i18n";
-import { useTranslation } from "react-i18next";
 import WishList from "../screens/wishList/WishList";
 import ErrorPage from "../screens/errorPage/ErrorPage";
 

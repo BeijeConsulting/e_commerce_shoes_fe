@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { deleteWishList, getWishList } from "../../services/wishListServices";
 import { getUserAuth } from "../../services/authServices";
 // REDUX
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setUserCredentials } from "../../redux/ducks/userDuck";
 // Component
 import Seo from "../../components/functionalComponents/Seo";

@@ -53,7 +53,7 @@ function SingleProduct() {
   const cartQuantity = useSelector((state) => state.userDuck.cartItems); //modificato lo state
 
   const isLogged = useSelector((state) => state.userDuck.isLogged);
-  const token = useSelector((state) => state.userDuck.token);
+  // const token = useSelector((state) => state.userDuck.token);
   let sizeValue = useRef(null);
   let productDetailsId = useRef(null);
 

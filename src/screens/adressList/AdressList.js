@@ -29,7 +29,7 @@ function AdressList(props) {
   });
 
   const { register, handleSubmit } = useForm();
-  const token = useSelector((state) => state.tokenDuck.token);
+  // const token = useSelector((state) => state.tokenDuck.token);
   const userData = useSelector((state) => state.userDuck);
 
   // console.log("USERDATA", userData);
