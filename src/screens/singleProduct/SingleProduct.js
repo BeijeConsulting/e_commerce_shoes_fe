@@ -387,7 +387,7 @@ function SingleProduct() {
             }
 
 
-            <p className="info__p">{ t("singleProduct.sizeTable") }</p>
+            {/* <p className="info__p">{ t("singleProduct.sizeTable") }</p> */ }
 
             {/* <p className="info__p">Tabella taglie</p> */ }
             <AccordionItem
