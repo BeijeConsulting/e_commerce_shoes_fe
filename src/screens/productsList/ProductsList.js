@@ -178,7 +178,7 @@ function ProductsList() {
                 {
                     state.products === null ?
                         <>
-                            <Box sx={{ width: "20%", margin: "0 auto" }}>
+                            <Box sx={{ width: "50%", margin: "0 auto" }}>
                                 <Skeleton height={60} />
                             </Box>
                             <Box sx={{ width: "100%" }}>

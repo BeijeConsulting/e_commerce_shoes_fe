@@ -26,41 +26,41 @@ function SingleProductSlider(props) {
                 //     "--swiper-navigation-color": "#fff",
                 //     "--swiper-pagination-color": "#fff",
                 // } }
-                spaceBetween={ 10 }
-                navigation={ true }
-                thumbs={ { swiper: thumbsSwiper } }
-                modules={ [FreeMode, Navigation, Thumbs] }
+                spaceBetween={10}
+                navigation={true}
+                thumbs={{ swiper: thumbsSwiper }}
+                modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper"
             >
 
                 <SwiperSlide>
-                    <img src={ require("../../../assets/images/singleProduct/shoe1.jpeg") } alt="" />
+                    <img src={require("../../../assets/images/singleProduct/shoe1.jpeg")} alt="" />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={ require("../../../assets/images/singleProduct/shoe2.jpeg") } alt="" />
+                    <img src={require("../../../assets/images/singleProduct/shoe2.jpeg")} alt="" />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={ require("../../../assets/images/singleProduct/shoe3.jpeg") } alt="" />
+                    <img src={require("../../../assets/images/singleProduct/shoe3.jpeg")} alt="" />
                 </SwiperSlide>
             </Swiper>
 
             <Swiper
-                onSwiper={ setThumbsSwiper }
-                spaceBetween={ 5 }
-                slidesPerView={ 3 }
-                freeMode={ true }
-                watchSlidesProgress={ true }
-                modules={ [FreeMode, Navigation, Thumbs] }
+                onSwiper={setThumbsSwiper}
+                spaceBetween={5}
+                slidesPerView={3}
+                freeMode={true}
+                watchSlidesProgress={true}
+                modules={[FreeMode, Navigation, Thumbs]}
                 className="mySwiper2"
             >
                 <SwiperSlide>
-                    <img src={ require("../../../assets/images/singleProduct/shoe1.jpeg") } alt="" />
+                    <img src={require("../../../assets/images/singleProduct/shoe1.jpeg")} alt="" />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={ require("../../../assets/images/singleProduct/shoe2.jpeg") } alt="" />
+                    <img src={require("../../../assets/images/singleProduct/shoe2.jpeg")} alt="" />
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={ require("../../../assets/images/singleProduct/shoe3.jpeg") } alt="" />
+                    <img src={require("../../../assets/images/singleProduct/shoe3.jpeg")} alt="" />
                 </SwiperSlide>
             </Swiper>
         </div>
