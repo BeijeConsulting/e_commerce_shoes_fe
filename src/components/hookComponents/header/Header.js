@@ -148,7 +148,7 @@ function Header() {
             <a onClick={goToHome} href="">
               <img
                 className="main-header__logo"
-                src={require("../../../assets/images/logo/logo-312.png")}
+                src={require("../../../assets/images/logo/belle-scarpe-logo.png")}
                 alt="logo"
               />
             </a>
