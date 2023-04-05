@@ -90,20 +90,21 @@ function SingleProduct() {
 
   async function addToWishlist() {
     if (!isLogged) {
-      navigate(`/${lang}/identity`);
+      navigate(`/${lang}/accedi`);
+      return;
     }
 
-    try {
-      await addWishList({
-        productId: params.id,
-      });
+    const wishlistResp = await addWishList({
+      productId: params.id,
+    });
 
+    if (wishlistResp.status < 300) {
       notifyAddToWishlistSuccess();
 
       // una volta aggiunto setto lo stato a true
       setStateAdded(true);
       // aggiorno la quantità in redux
-      const responseUser = await getUserAuth(token);
+      const responseUser = await getUserAuth();
 
       dispatch(
         setUserCredentials({
@@ -117,9 +118,7 @@ function SingleProduct() {
           wishlistItems: responseUser.data.wish_list_item,
         })
       );
-      console.log("responseUser", responseUser);
-    } catch (error) {
-      console.error(error);
+    } else {
       notifyAddToWishlistError();
     }
   }
@@ -151,7 +150,7 @@ function SingleProduct() {
     });
   }
   function notifyAddToWishlistError() {
-    toast.success("Si è verificato un errore", {
+    toast.error("Si è verificato un errore", {
       position: toast.POSITION.TOP_RIGHT,
       autoClose: 1000,
     });
