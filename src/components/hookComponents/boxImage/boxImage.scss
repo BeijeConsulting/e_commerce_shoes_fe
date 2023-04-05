@@ -2,16 +2,11 @@
 
 .box__container {
   width: 100%;
+  height: 60rem;
   position: relative;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+  background-position: center;
 
   &__info {
-    // border: 2px solid red;
     position: absolute;
     display: flex;
     align-items: flex-start;

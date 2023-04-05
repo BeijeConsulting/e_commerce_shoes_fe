@@ -24,11 +24,11 @@ function OrderListAccordion(props) {
         </div> */}
 
         <div className="accordion__details">
-          <p>Misura: {product.size}</p>
+          <p>Misura: EU {product.size.slice(1, product.size.length)}</p>
         </div>
 
         <div className="accordion__details--price">
-          <p>$ {Number(product.paidItemTotalPrice).toFixed(2)}</p>
+          <p>€ {Number(product.paidItemTotalPrice).toFixed(2)}</p>
         </div>
       </li>
     );
@@ -60,7 +60,7 @@ function OrderListAccordion(props) {
             </div>
             <div className="accordion__info">
               <h3>Totale: </h3>
-              <p>$ {props.totalPrice} </p>
+              <p>€ {props.totalPrice} </p>
             </div>
 
             {/* <div className="accordion__info">

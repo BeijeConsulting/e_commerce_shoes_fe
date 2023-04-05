@@ -81,22 +81,20 @@ function Checkout() {
         productPrice={item.sellingItemTotalPrice}
         productName={item.name}
         productColor={item.brand} //FIX PROP
-        productSize={item.size}
+        productSize={"EU " + item.size.slice(1, item.size.length)}
         productQuantity={item.quantity}
       />
     );
   }
 
   function renderAddressList(address, key) {
+    console.log(address)
     return (
       <li key={address.id} className="__delivery-address">
         <label htmlFor={`delivery-address-${key}`}>
           <address>
-            <p>
-              <strong className="__name">{t("checkout.home")}</strong>
-              <br />
-            </p>
             <p>{address.name_surname}</p>
+            <p>{address.telephone}</p>
             <p>{address.country}</p>
             <p>{address.zipcode}</p>
             <p>{address.street_address}</p>
@@ -172,7 +170,7 @@ function Checkout() {
 
       setTimeout(() => {
         navigate(`/${lang}`);
-      }, 1500);
+      }, 3000);
     } else {
       notifyOrderError();
     }

@@ -19,8 +19,7 @@ function BoxImage(props) {
   }
 
   return (
-    <div className="box__container">
-      <img src={props.image} alt="nuovi arrivi" />
+    <div className="box__container" style={{ backgroundImage: `url(${props.image})` }}>
       <div className="box__container__info">
         <h2>{props.boxTitle}</h2>
         <p>{t("boxImage.cta")}</p>

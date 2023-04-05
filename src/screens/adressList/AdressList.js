@@ -19,8 +19,9 @@ import { setUserCredentials } from "../../redux/ducks/userDuck";
 import { addAddress, deleteAddress } from "../../services/addressServices";
 import { getUserAuth } from "../../services/authServices";
 
-function AdressList(props) {
+function AdressList() {
   const [state, setState] = useState({
+    showForm: false,
     invalidAddress: false,
     invalidCountry: false,
     invalidZipCode: false,
@@ -84,6 +85,8 @@ function AdressList(props) {
       // console.log("RESPONSE ADDRESS", response);
 
       setState({
+        ...state,
+        showForm: false,
         invalidAddress: false,
         invalidCountry: false,
         invalidZipCode: false,
@@ -128,6 +131,10 @@ function AdressList(props) {
     // console.log(id);
     // console.log("RESPONSE", response);
   };
+
+  function toggleForm() {
+    setState({ ...state, showForm: !state.showForm });
+  }
 
   function mapList(data, i) {
     return (
@@ -175,7 +182,7 @@ function AdressList(props) {
 
   return (
     <div className="address">
-      <div className="address__container">
+      {!!state.showForm &&
         <form className="login-form" onSubmit={handleSubmit(onSubmit, onError)}>
           <InputTextField
             inputName="address"
@@ -185,21 +192,19 @@ function AdressList(props) {
             register={register}
             isRequired={true}
             labelStyle="default-label"
-            inputStyle={`default-input margin-top-small ${
-              state.invalidAddress ? "default-input--error" : ""
-            }`}
+            inputStyle={`default-input margin-top-small ${state.invalidAddress ? "default-input--error" : ""
+              }`}
           />
           <InputTextField
             inputName="country"
-            inputLabel={t("addresses.address") + "*"}
+            inputLabel={t("addresses.country") + "*"}
             inputType="text"
             inputPlaceholder="Es: Italia"
             register={register}
             isRequired={true}
             labelStyle="default-label  "
-            inputStyle={`default-input margin-top-small ${
-              state.invalidCountry ? "default-input--error" : ""
-            }`}
+            inputStyle={`default-input margin-top-small ${state.invalidCountry ? "default-input--error" : ""
+              }`}
           />
           <InputTextField
             inputName="zipCode"
@@ -209,9 +214,8 @@ function AdressList(props) {
             register={register}
             isRequired={true}
             labelStyle="default-label  "
-            inputStyle={`default-input margin-top-small ${
-              state.invalidZipCode ? "default-input--error" : ""
-            }`}
+            inputStyle={`default-input margin-top-small ${state.invalidZipCode ? "default-input--error" : ""
+              }`}
           />
           <InputTextField
             inputName="name_surname"
@@ -221,9 +225,8 @@ function AdressList(props) {
             register={register}
             isRequired={true}
             labelStyle="default-label  "
-            inputStyle={`default-input margin-top-small ${
-              state.invalidName_Surname ? "default-input--error" : ""
-            }`}
+            inputStyle={`default-input margin-top-small ${state.invalidName_Surname ? "default-input--error" : ""
+              }`}
           />
           <InputTextField
             inputName="instructions"
@@ -242,16 +245,15 @@ function AdressList(props) {
             register={register}
             isRequired={true}
             labelStyle="default-label  "
-            inputStyle={`default-input margin-top-small ${
-              state.invalidTelephone ? "default-input--error" : ""
-            }`}
+            inputStyle={`default-input margin-top-small ${state.invalidTelephone ? "default-input--error" : ""
+              }`}
           />
           <Button
             label={t("button.saveAddress")}
             buttonStyle="submit-button button-margin-top"
           />
         </form>
-      </div>
+      }
       <h2>{t("addresses.yourAddresses")}</h2>
       {userData.adresses?.map(mapList)}
       {userData.adresses?.length === 0 && (
@@ -259,6 +261,13 @@ function AdressList(props) {
           <p>{t("addresses.emptyAddress")}.</p>
         </div>
       )}
+      <div className="address__container">
+        <Button
+          label={state.showForm ? t("button.cancel") : t("button.addAddress")}
+          handleClick={toggleForm}
+          buttonStyle="default-button"
+        />
+      </div>
     </div>
   );
 }

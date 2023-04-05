@@ -55,7 +55,7 @@ function Search() {
     function mapProducts(item, key) {
         return <ProductCard
             key={`${key}-${Math.random()}`}
-            image={"https://www.cisalfasport.it/dw/image/v2/BBVV_PRD/on/demandware.static/-/Sites-cisalfa-master/default/dwdc711253/cisalfa/files/S5544515-18/image/S5544515_18.jpg?sw=444&sh=555"}
+            image={item.image_preview}
             imageAlt={item.title}
             category={item.category}
             brand={item.brand}

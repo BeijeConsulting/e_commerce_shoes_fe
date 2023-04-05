@@ -289,7 +289,7 @@ function Cart() {
           price={Number(item.sellingItemTotalPrice).toFixed(2)}
           quantity={item.quantity}
           color={item.color}
-          size={item.size}
+          size={"EU " + item.size.slice(1, item.size.length)}
           img={item.image}
         />
       </li>

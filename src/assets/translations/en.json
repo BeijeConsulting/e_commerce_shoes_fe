@@ -75,7 +75,7 @@
       "homeDelivery": "home delivery",
       "payMethod": "pay method"
     },
-    "coupon": "coupon and discount codex",
+    "coupon": "coupon and discount code",
     "boxImages": {
       "newArrives": "new lifestyle arrives",
       "discover": "discover new collections"
@@ -272,6 +272,7 @@
       "cancel": "cancel",
       "cancelFilters": "delete filters",
       "editData": "edit data",
+      "addAddress": "add address",
       "saveAddress": "save address",
       "goToCheckout": "go to checkout",
       "seeItems": "see items"

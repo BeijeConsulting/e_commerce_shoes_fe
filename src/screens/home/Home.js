@@ -78,7 +78,7 @@ function Home() {
           <BoxImage
             goTo={"scarpe/uomo"}
             boxTitle={t("header.man")}
-            image={require("../../assets/images/box/boxNuoviArrivi.jpeg")}
+            image={"https://www.cisalfasport.it/on/demandware.static/-/Library-Sites-CisalfaSharedLibrary/default/dwaef9454f/3-UOMO/febbraio-marzo-aprile-23/hero/hero-sh-desktop-960x815-napa-23.jpg"}
           />
           <ProductSlider
             products={state.men}
@@ -89,7 +89,7 @@ function Home() {
           <BoxImage
             goTo={"scarpe/donna"}
             boxTitle={t("header.woman")}
-            image={require("../../assets/images/box/boxNuoviArriviLifestyle.jpeg")}
+            image={"https://www.cisalfasport.it/on/demandware.static/-/Library-Sites-CisalfaSharedLibrary/default/dwc6fd68ca/4-DONNA/ottobre-novembre-dicembre21/widget/widget-blazer-DONNA.jpg"}
           />
           <ProductSlider
             products={state.woman}
@@ -100,7 +100,7 @@ function Home() {
           <BoxImage
             goTo={"scarpe/unisex"}
             boxTitle={"unisex"}
-            image={require("../../assets/images/box/unisex.jpg")}
+            image={"https://www.cisalfasport.it/on/demandware.static/-/Library-Sites-CisalfaSharedLibrary/default/dw33f510bc/1-HP/febbraio-marzo-aprile-23/widget/PROMORUNNING_PE23_widget3-desktop-720x720px.jpg"}
           />
           <ProductSlider
             products={state.unisex}

@@ -30,7 +30,7 @@ function ProductSlider(props) {
         className="productSlider__slide"
       >
         <ProductCard
-          image={require("../../../assets/images/productCardImg.jpg")}
+          image={item.image_preview}
           brand={item.brand}
           name={item.name}
           category={item.category}

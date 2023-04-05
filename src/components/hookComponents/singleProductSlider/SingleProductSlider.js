@@ -18,66 +18,37 @@ import "./singleProductSlider.scss";
 function SingleProductSlider(props) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
+  function mapImages(item, key) {
+    return <SwiperSlide key={`${key}-${Math.random()}`}>
+      <img
+        src={item.image_path}
+        alt={item.alt}
+      />
+    </SwiperSlide>
+  }
+
   return (
     <div className="swiper__container">
       <Swiper
-        // style={ {
-        //     "--swiper-navigation-color": "#fff",
-        //     "--swiper-pagination-color": "#fff",
-        // } }
         spaceBetween={10}
         navigation={true}
         thumbs={{ swiper: thumbsSwiper }}
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper"
       >
-        <SwiperSlide>
-          <img
-            src={require("../../../assets/images/singleProduct/shoe1.jpeg")}
-            alt=""
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            src={require("../../../assets/images/singleProduct/shoe2.jpeg")}
-            alt=""
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            src={require("../../../assets/images/singleProduct/shoe3.jpeg")}
-            alt=""
-          />
-        </SwiperSlide>
+        {props.images.map(mapImages)}
       </Swiper>
 
       <Swiper
         onSwiper={setThumbsSwiper}
         spaceBetween={5}
-        slidesPerView={3}
+        slidesPerView={props.images.length}
         freeMode={true}
         watchSlidesProgress={true}
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper2"
       >
-        <SwiperSlide>
-          <img
-            src={require("../../../assets/images/singleProduct/shoe1.jpeg")}
-            alt=""
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            src={require("../../../assets/images/singleProduct/shoe2.jpeg")}
-            alt=""
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            src={require("../../../assets/images/singleProduct/shoe3.jpeg")}
-            alt=""
-          />
-        </SwiperSlide>
+        {props.images.map(mapImages)}
       </Swiper>
     </div>
   );

@@ -2,30 +2,43 @@
 @import "../../style/common/mixin.scss";
 
 .userInfo {
-    padding: 2% 4%;
+  padding: 2% 4%;
 
-    h1 {
-        margin: 5rem 0;
-    }
+  h1 {
+    margin: 5rem 0;
+  }
+
+  a {
+    color: $grey-normal;
+    text-decoration: underline;
+  }
+
+  a:hover {
+    color: $orange;
+  }
+
+  &__navlink {
+    display: flex;
+    flex-direction: column;
 
     a {
-        color: $grey-normal;
-        text-decoration: underline;
+      margin: 2rem 0;
+      text-transform: capitalize;
+      font-size: $medium;
     }
+  }
+}
 
-    a:hover {
-        color: $orange;
+@media screen and (min-width: 769px) {
+  .userInfo {
+    h1 {
+      margin-top: 0;
     }
-
     &__navlink {
-        display: flex;
-        flex-direction: column;
-
-        a {
-            margin: 2rem 0;
-            text-transform: capitalize;
-            font-size: $medium;
-        }
+      flex-basis: 30%;
     }
-
+    .outlet {
+      @include flex(space-between, stretch);
+    }
+  }
 }

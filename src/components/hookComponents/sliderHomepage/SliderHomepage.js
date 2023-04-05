@@ -46,10 +46,10 @@ function SliderHomepage(props) {
           <picture>
             <source
               media="(max-width:650px)"
-              srcSet={require("../../../assets/images/mobile/sneakers-mobile.jpeg")}
+              srcSet={"https://www.cisalfasport.it/on/demandware.static/-/Library-Sites-CisalfaSharedLibrary/default/dw1f869748/1-HP/febbraio-marzo-aprile-23/NUOVIARRIVI-PE23-LIFESTYLE-1000x1775px.jpg"}
             />
             <img
-              src={require("../../../assets/images/desktop/sneakers-desktop.jpeg")}
+              src={"https://www.cisalfasport.it/on/demandware.static/-/Library-Sites-CisalfaSharedLibrary/default/dwb0c53486/1-HP/febbraio-marzo-aprile-23/NUOVIARRIVI-PE23-LIFESTYLE-hero-hp-desktop-1440x1113px.jpg"}
               alt="sneakers"
             />
           </picture>
@@ -70,10 +70,10 @@ function SliderHomepage(props) {
           <picture>
             <source
               media="(max-width:650px)"
-              srcSet={require("../../../assets/images/mobile/converse-promo-mobile.jpg")}
+              srcSet={"https://www.cisalfasport.it/on/demandware.static/-/Library-Sites-CisalfaSharedLibrary/default/dw78769d90/1-HP/febbraio-marzo-aprile-23/SS23_HIKE_CONVERSE_PE23_hero-hp-tablet-mobile-1000x1775px.jpg"}
             />
             <img
-              src={require("../../../assets/images/desktop/converse-promo-desktop.jpg")}
+              src={"https://www.cisalfasport.it/on/demandware.static/-/Library-Sites-CisalfaSharedLibrary/default/dw47222ebc/1-HP/febbraio-marzo-aprile-23/SS23_HIKE_CONVERSE_PE23_hero-hp-desktop-1440x1113px.jpg"}
               alt="nuovi arrivi"
             />
           </picture>
@@ -94,10 +94,10 @@ function SliderHomepage(props) {
           <picture>
             <source
               media="(max-width:650px)"
-              srcSet={require("../../../assets/images/mobile/nuoviArrivi-mobile.jpeg")}
+              srcSet={"https://www.cisalfasport.it/on/demandware.static/-/Library-Sites-CisalfaSharedLibrary/default/dw3ea46911/1-HP/febbraio-marzo-aprile-23/PROMORUNNING_PE23_hero-hp-tablet-mobile-1000x1775px.jpg"}
             />
             <img
-              src={require("../../../assets/images/desktop/nuoviArrivi-desktop.jpeg")}
+              src={"https://www.cisalfasport.it/on/demandware.static/-/Library-Sites-CisalfaSharedLibrary/default/dwfee471aa/1-HP/febbraio-marzo-aprile-23/PROMORUNNING_PE23-hero-hp-desktop-1440x1113px.jpg"}
               alt="nuovi arrivi"
             />
           </picture>

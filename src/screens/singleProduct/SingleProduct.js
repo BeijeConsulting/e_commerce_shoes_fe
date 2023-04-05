@@ -36,42 +36,39 @@ import "./singleProduct.scss";
 import { addItemToCartList, getCartList } from "../../services/cartServices";
 
 function SingleProduct() {
-  const [state, setState] = useState({
-    product: [],
-    selectedSize: false,
-  });
-
-  const { t } = useTranslation();
-
-  const [stateAdded, setStateAdded] = useState(false); // serve per mostrare bottone aggiungi alla wishList o già aggiunto alla wishList
-
   const lang = i18n.language.slice(0, 2);
-
   const params = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cartQuantity = useSelector((state) => state.userDuck.cartItems); //modificato lo state
-
   const isLogged = useSelector((state) => state.userDuck.isLogged);
-  // const token = useSelector((state) => state.userDuck.token);
   let sizeValue = useRef(null);
   let productDetailsId = useRef(null);
+  const { t } = useTranslation();
+
+  const [state, setState] = useState({
+    product: null,
+    selectedSize: false,
+    wishlist: false,
+  });
 
   useEffect(() => {
     fetchProduct();
-    fetchWishList();
-  }, [stateAdded, lang]);
+  }, [lang]);
 
   async function fetchProduct() {
     const result = await getProduct(params.id, lang);
+    const wishlist = await fetchWishList();
+    console.log(result.data)
     setState({
       ...state,
       product: result.data,
+      wishlist,
     });
   }
 
   async function fetchWishList() {
-    let toggle = undefined;
+    let wishlist = false;
     const response = await getWishList();
 
     // check per controllare se è già presente nella wishlist
@@ -80,17 +77,17 @@ function SingleProduct() {
     );
 
     if (alreadyAdd) {
-      toggle = true;
-    } else {
-      toggle = false;
+      wishlist = true;
     }
-    setStateAdded(toggle);
+
+    return wishlist;
   }
 
   ////////////////////////////////
   // funzone per aggiungere prodotto alla wishlist
 
   async function addToWishlist() {
+    let wishlist = false;
     if (!isLogged) {
       navigate(`/${lang}/accedi`);
       return;
@@ -104,7 +101,8 @@ function SingleProduct() {
       notifyAddToWishlistSuccess();
 
       // una volta aggiunto setto lo stato a true
-      setStateAdded(true);
+      wishlist = true;;
+
       // aggiorno la quantità in redux
       const responseUser = await getUserAuth();
 
@@ -123,6 +121,13 @@ function SingleProduct() {
     } else {
       notifyAddToWishlistError();
     }
+
+    setState(
+      {
+        ...state,
+        wishlist,
+      }
+    )
   }
 
   ////////////////////////////////
@@ -282,7 +287,7 @@ function SingleProduct() {
   function renderSizesOption(size, key) {
     return (
       <option key={key} value={size.eu}>
-        {size.eu}
+        {`EU ${size.eu.slice(1, size.eu.length)} / UK ${size.uk.slice(1, size.uk.length)} / USA ${size.usa.slice(1, size.usa.length)}`}
       </option>
     );
   }
@@ -328,9 +333,8 @@ function SingleProduct() {
                 <p className="header__price">
                   {state.selectedSize
                     ? `${state.product.listed_price}€`
-                    : `${t("singleProduct.listedPrice")} ${
-                        state.product?.listed_price
-                      }€`}
+                    : `${t("singleProduct.listedPrice")} ${state.product?.listed_price
+                    }€`}
                 </p>
               </div>
               <h2 className="header__brand">
@@ -351,7 +355,7 @@ function SingleProduct() {
 
         <div className="info__container">
           {state.product ? (
-            <SingleProductSlider />
+            <SingleProductSlider images={state.product.images} />
           ) : (
             <div className="slider">
               <Box sx={{ width: "100%" }}>
@@ -379,7 +383,7 @@ function SingleProduct() {
               buttonStyle={"default-button"}
             />
 
-            {!stateAdded && (
+            {!state.wishlist && (
               <div className="info__container">
                 <p onClick={addToWishlist} className="info__wishlist">
                   {t("singleProduct.addWishList")}
@@ -389,7 +393,7 @@ function SingleProduct() {
                 </p>
               </div>
             )}
-            {stateAdded && (
+            {state.wishlist && (
               <div className="info__container">
                 <p onClick={addToWishlist} className="info__wishlist">
                   {t("singleProduct.added")}

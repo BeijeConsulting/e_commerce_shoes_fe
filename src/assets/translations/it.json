@@ -75,7 +75,7 @@
       "homeDelivery": "consegna a domicilio",
       "payMethod": "metodo di pagamento"
     },
-    "coupon": "coupon and codice sconto",
+    "coupon": "coupon e codice sconto",
     "boxImages": {
       "newArrives": "nuovi arrivi lifestyle",
       "discover": "scopri le nuove collezioni"
@@ -118,7 +118,7 @@
       "sizeTable": "tabella delle taglie"
     },
     "infoProductBox": {
-      "delivery": "consegna gratutia",
+      "delivery": "consegna gratuita",
       "refund": "reso gratuito"
     },
     "accordion": {
@@ -272,6 +272,7 @@
       "cancel": "annulla",
       "cancelFilters": "cancella filtri",
       "editData": "modifica dati",
+      "addAddress": "aggiungi indirizzo",
       "saveAddress": "salva indirizzo",
       "goToCheckout": "procedi al checkout",
       "seeItems": "visualizza articoli"
