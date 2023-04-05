@@ -212,7 +212,8 @@
       "deliveryInstructions": "instruzioni per il corriere",
       "yourAddresses": "I tuoi indirizzi",
       "emptyAddress": "Non hai inserito nessun indirizzo",
-      "email": "email"
+      "email": "email",
+      "birthDate": "data di nascita"
     },
     "terms": "Accetta i termini",
     "emailRule": {
