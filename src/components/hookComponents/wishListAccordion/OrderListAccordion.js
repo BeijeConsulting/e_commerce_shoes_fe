@@ -12,8 +12,10 @@ function OrderListAccordion(props) {
     return (
       <li className="accordion__list" key={key}>
         <div className="accordion__details">
-          <img src={product.image} alt="product" />
-          <h3>{product.name}</h3>
+          <div>
+            <img src={product.image} alt="product" />
+            <h3>{product.name}</h3>
+          </div>
         </div>
         <div className="accordion__details">
           <p>{product.brand}</p>
