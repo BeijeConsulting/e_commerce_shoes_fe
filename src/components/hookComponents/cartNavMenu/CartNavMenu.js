@@ -91,7 +91,7 @@ function CartNavMenu(props) {
         <MenuItem>
           <div className="cartNavMenu__menu">
             <div className="cartNavMenu__image">
-              <img src={item.image} alt="product" />
+              <img src={item.image.image_path || item.image} alt="product" />
             </div>
             <div className="cartNavMenu__info">
               <div className="cartNavMenu__info-name-price">

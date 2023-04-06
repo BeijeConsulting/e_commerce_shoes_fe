@@ -277,6 +277,7 @@ function Cart() {
   }
 
   function renderCartList(item) {
+    console.log(item)
     return (
       <li key={item.productId + item.size}>
         <ProductCartItem
@@ -290,7 +291,7 @@ function Cart() {
           quantity={item.quantity}
           color={item.color}
           size={"EU " + item.size.slice(1, item.size.length)}
-          img={item.image}
+          img={item.image.image_path || item.image}
         />
       </li>
     );
