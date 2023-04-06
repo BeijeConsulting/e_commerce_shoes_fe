@@ -146,11 +146,18 @@ function Header() {
               />
             )}
             <a onClick={goToHome} href="">
-              <img
-                className="main-header__logo"
-                src={require("../../../assets/images/logo/belle-scarpe-logo.png")}
-                alt="logo"
-              />
+              <picture>
+                <source
+                  className="main-header__logo"
+                  media="(max-width:768px)"
+                  srcSet={require("../../../assets/images/logo/download.png")}
+                />
+                <img
+                  className="main-header__logo"
+                  src={require("../../../assets/images/logo/belle-scarpe-logo.png")}
+                  alt="sneakers"
+                />
+              </picture>
             </a>
           </div>
           <DesktopMenu
