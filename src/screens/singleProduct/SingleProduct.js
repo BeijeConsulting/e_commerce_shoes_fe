@@ -58,8 +58,10 @@ function SingleProduct() {
 
   async function fetchProduct() {
     const result = await getProduct(params.id, lang);
-    const wishlist = await fetchWishList();
-    console.log(result.data)
+    let wishlist = null;
+    if (isLogged) {
+      wishlist = await fetchWishList();
+    }
     setState({
       ...state,
       product: result.data,
