@@ -74,12 +74,21 @@ function AdressList() {
         //instructions: "nothing",
         //label: "string",
       };
-      dispatch(
-        setUserCredentials({
-          ...userData,
-          adresses: [...userData.adresses, newObj],
-        })
-      );
+      if (userData.adresses) {
+        dispatch(
+          setUserCredentials({
+            ...userData,
+            adresses: [...userData.adresses, newObj],
+          })
+        );
+      } else {
+        dispatch(
+          setUserCredentials({
+            ...userData,
+            adresses: [newObj],
+          })
+        );
+      }
 
       // console.log("NEWOBJ", newObj);
       // console.log("RESPONSE ADDRESS", response);
