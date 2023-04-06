@@ -106,7 +106,8 @@ function CartNavMenu(props) {
               <p className="brand">{item.brand}</p>
               <div className="container__size-cartQuantity">
                 <p className="infoSize">
-                  {t("cartNavMenu.size")}: EU {item.size.slice(1, item.size.length)}
+                  {t("cartNavMenu.size")}: EU{" "}
+                  {item.size.slice(1, item.size.length)}
                 </p>
                 <p className="quantity">
                   {t("cartNavMenu.quantity")}: {item.quantity}

@@ -19,7 +19,9 @@ function ProductCartItem(props) {
   });
   const inputField = useRef();
 
-  const singleProductPrice = Number(props.price) / Number(props.quantity);
+  const singleProductPrice = Number(
+    Number(props.price) / Number(props.quantity)
+  ).toFixed(2);
 
   function deleteItem() {
     props.handleDelete(
@@ -40,7 +42,9 @@ function ProductCartItem(props) {
 
     if (!isInvalidInput) {
       const deltaQuantity = Number(quantity) - Number(props.quantity);
-      const deltaPrice = Number(singleProductPrice) * Number(deltaQuantity);
+      const deltaPrice = Number(
+        Number(singleProductPrice) * Number(deltaQuantity)
+      ).toFixed(2);
       // console.log("deltaQuantity ", deltaQuantity);
       // console.log("deltaPrice", deltaPrice);
       props.handleList(

@@ -196,7 +196,9 @@ function Cart() {
       // console.log(localData);
 
       localData.numberItems = Number(localData.numberItems) - quantity;
-      localData.totalPrice = Number(localData.totalPrice) - price;
+      localData.totalPrice = Number(
+        Number(localData.totalPrice) - Number(price).toFixed(2)
+      ).toFixed(2);
 
       notifydeleteCartItemSuccess();
     }
@@ -243,7 +245,9 @@ function Cart() {
       Number(itemChanged.sellingItemTotalPrice) + Number(deltaPrice);
     localData.numberItems =
       Number(localData.numberItems) + Number(deltaQuantity);
-    localData.totalPrice = Number(localData.totalPrice) + Number(deltaPrice);
+    localData.totalPrice = Number(
+      Number(localData.totalPrice) + Number(deltaPrice)
+    ).toFixed(2);
     // console.log(localData);
 
     // console.log("localData.info.numberItems: " + localData.info.numberItems);
@@ -277,7 +281,7 @@ function Cart() {
   }
 
   function renderCartList(item) {
-    console.log(item)
+    console.log(item);
     return (
       <li key={item.productId + item.size}>
         <ProductCartItem
@@ -290,7 +294,7 @@ function Cart() {
           price={Number(item.sellingItemTotalPrice).toFixed(2)}
           quantity={item.quantity}
           color={item.color}
-          size={"EU " + item.size.slice(1, item.size.length)}
+          size={item.size}
           img={item.image.image_path || item.image}
         />
       </li>
