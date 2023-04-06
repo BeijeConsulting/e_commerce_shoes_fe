@@ -103,7 +103,7 @@ function SingleProduct() {
       notifyAddToWishlistSuccess();
 
       // una volta aggiunto setto lo stato a true
-      wishlist = true;;
+      wishlist = true;
 
       // aggiorno la quantità in redux
       const responseUser = await getUserAuth();
@@ -124,12 +124,10 @@ function SingleProduct() {
       notifyAddToWishlistError();
     }
 
-    setState(
-      {
-        ...state,
-        wishlist,
-      }
-    )
+    setState({
+      ...state,
+      wishlist,
+    });
   }
 
   ////////////////////////////////
@@ -289,7 +287,10 @@ function SingleProduct() {
   function renderSizesOption(size, key) {
     return (
       <option key={key} value={size.eu}>
-        {`EU ${size.eu.slice(1, size.eu.length)} / UK ${size.uk.slice(1, size.uk.length)} / USA ${size.usa.slice(1, size.usa.length)}`}
+        {`EU ${size.eu.slice(1, size.eu.length)} / UK ${size.uk.slice(
+          1,
+          size.uk.length
+        )} / USA ${size.usa.slice(1, size.usa.length)}`}
       </option>
     );
   }
@@ -335,8 +336,9 @@ function SingleProduct() {
                 <p className="header__price">
                   {state.selectedSize
                     ? `${state.product.listed_price}€`
-                    : `${t("singleProduct.listedPrice")} ${state.product?.listed_price
-                    }€`}
+                    : `${t("singleProduct.listedPrice")} ${
+                        state.product?.listed_price
+                      }€`}
                 </p>
               </div>
               <h2 className="header__brand">
@@ -372,7 +374,7 @@ function SingleProduct() {
               onChange={handleSelect}
               name="sizes"
             >
-              <option value={"none"} disabled={state.sizeSelected}>
+              <option value={"none"} disabled={state.selectedSize}>
                 {t("singleProduct.sizeSelect")}
               </option>
               {state.product?.productSizes?.map(renderSizesOption)}
