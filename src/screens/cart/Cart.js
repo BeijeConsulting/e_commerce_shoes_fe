@@ -197,8 +197,10 @@ function Cart() {
 
       localData.numberItems = Number(localData.numberItems) - quantity;
       localData.totalPrice = Number(
-        Number(localData.totalPrice) - Number(price).toFixed(2)
-      ).toFixed(2);
+        Number(Number(localData.totalPrice) - Number(price).toFixed(2)).toFixed(
+          2
+        )
+      );
 
       notifydeleteCartItemSuccess();
     }
@@ -246,8 +248,8 @@ function Cart() {
     localData.numberItems =
       Number(localData.numberItems) + Number(deltaQuantity);
     localData.totalPrice = Number(
-      Number(localData.totalPrice) + Number(deltaPrice)
-    ).toFixed(2);
+      Number(Number(localData.totalPrice) + Number(deltaPrice)).toFixed(2)
+    );
     // console.log(localData);
 
     // console.log("localData.info.numberItems: " + localData.info.numberItems);
